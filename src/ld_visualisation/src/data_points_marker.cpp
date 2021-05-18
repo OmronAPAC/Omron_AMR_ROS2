@@ -98,7 +98,7 @@ int main(int argc, char** argv)
 
     // Get all parameters.
     nh.param<std::string>(PACK_NAME_PARAM, PACK_NAME, "pkg");
-    nh.param<std::string>(MAP_NAME_PARAM, MAP_NAME, "data.map");
+    nh.param<std::string>(MAP_NAME_PARAM, MAP_NAME, "gy_outside.map");
     nh.param<std::string>(HEAD_FRAME_PARAM, HEAD_FRAME, "/pose");
     nh.param<std::string>(VIS_TOPIC_PARAM, VIS_TOPIC, "visualization_marker");
     nh.param<std::string>(RNG_DEVICE_PARAM, rng_device, "Laser_1");

@@ -1,5 +1,5 @@
 pkg_name: "ld_visualisation"
-map_name: "data.map"
+map_name: "gy_outside.map"
 head_frame: "/pose"
 vis_topic: "visualization_marker"
 goals_vis_topic: "visualization_marker_array"

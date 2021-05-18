@@ -1,8 +1,8 @@
 # LD robot related params
-ip_address: "192.168.1.10"
+ip_address: "192.168.48.225"
 port: 7171
-def_arcl_passwd: "adept"
+def_arcl_passwd: "omron"
 
 # Local machine related params
-local_ip: "192.168.1.50"
+local_ip: "192.168.48.2"
 local_port: 7179
