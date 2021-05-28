@@ -38,11 +38,9 @@ def main():
     port = node.declare_parameter("port").value
     passwd = node.declare_parameter("def_arcl_passwd").value
     socket_driver = SocketDriver()
-    # TODO: Add retrying of connection
     socket_driver.connect(str(ip_address), port)
-    print(passwd)
-    print(type(passwd))
     req_id = socket_driver.login(str(passwd))
+    node.get_logger().info(passwd)
 
     service = node.create_service(ArclApi, 'arcl_api_service', req_handler)
     custom_spin()
