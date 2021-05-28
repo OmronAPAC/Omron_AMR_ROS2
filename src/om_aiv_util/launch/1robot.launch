@@ -1,9 +1,0 @@
-<launch>
-
-  <!-- BEGIN ROBOT 1-->
-    <node name="arcl_api_server" pkg="om_aiv_util" type="arcl_api_server.py" output="screen" />
-    <node name="ld_states_publisher" pkg="om_aiv_util" type="ld_states_publisher.py" output="screen" />
-    <node name="action_servers" pkg="om_aiv_navigation" type="action_servers.py" output="screen" />
-
-    <rosparam command="load" file="$(find om_aiv_util)/param/main_param.yaml" />
-</launch>
