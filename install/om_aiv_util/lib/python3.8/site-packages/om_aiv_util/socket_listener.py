@@ -9,11 +9,12 @@ from collections import deque, defaultdict
 
 RECV_BUFFER = 4096
 
-"""A driver class to handle all input and output communication with ARCL server.
+"""
+A driver class to handle all input and output communication with ARCL server.
 
 """
 class SocketListener(object):
-    def __init__(self, addr, port):
+    def __init__(self, node, addr, port):
         self.selector = None
         self.sock = None
         self.addr = str(addr)
@@ -26,6 +27,8 @@ class SocketListener(object):
         self.app_fault_f = False
         self.faults_get_f = False
         self.query_faults_f = False
+
+        self.node = node
 
     
     """Given the event mask from selectors, do read or write accordingly.
@@ -76,9 +79,9 @@ class SocketListener(object):
             # Extract interested line from receive buffer.
             line = self._recv_buffer[:newline_char]
             self._recv_buffer = self._recv_buffer[newline_char+2:]
-
+            #self.node.get_logger().info(str(line))
             try:
-                colon = line.index(b":")
+                colon = line.index(b':')
             except ValueError:
                 key = line
                 value = None
@@ -87,8 +90,8 @@ class SocketListener(object):
                 key = line[:colon]
                 value = line[colon+1:].strip()
                 self.store(key, value)
+
     def store(self, key, value):
-            
         if key == "Goal":
             if self.goal_f:
                 self.responses[key].append(value)
@@ -139,6 +142,7 @@ class SocketListener(object):
     def get_response(self, key):
         try:
             val = self.responses[key]
+            #self.node.get_logger().info(str(key) + "    " + str(val))
         except KeyError:
             raise
         else:
@@ -159,7 +163,7 @@ class SocketListener(object):
 
     """
     def begin(self):
-        print("Attempt to listen for incoming on", self.addr, "at port", self.port)
+        self.node.get_logger().info("Attempt to listen for incoming on " + str(self.addr) + " at port " + str(self.port))
 
         while True:
             try:
@@ -168,8 +172,8 @@ class SocketListener(object):
                 incoming = (self.addr, self.port)
                 sock.bind(incoming)
             except socket.error as e:
-                print("Socket listener connection failed", e)
-                print("Retrying")
+                self.node.get_logger().info("Socket listener connection failed" + str(e))
+                self.node.get_logger().info("Retrying")
             else:
                 break
             finally:
@@ -179,7 +183,7 @@ class SocketListener(object):
         (connection, address) = sock.accept()
         sock.shutdown(socket.SHUT_RDWR)
         sock.close() # Close the initial socket.
-        print("Listening to new socket on", address[0], "at port", address[1])
+        self.node.get_logger().info("Listening to new socket on " + str(address[0]) + " at port " + str(address[1]))
         self.sock = connection
         self.sock.setblocking(False)
         events = selectors.EVENT_READ

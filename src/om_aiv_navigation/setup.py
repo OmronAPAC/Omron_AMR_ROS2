@@ -13,14 +13,14 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='gy',
-    maintainer_email='e0310259@u.nus.edu',
+    maintainer='omron',
+    maintainer_email='guanyewtan@gmail.com',
     description='TODO: Package description',
     license='TODO: License declaration',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            #'action_server = om_aiv_navigation.action_server:main'
+            'action_server = om_aiv_navigation.action_server:main'
         ],
     },
 )

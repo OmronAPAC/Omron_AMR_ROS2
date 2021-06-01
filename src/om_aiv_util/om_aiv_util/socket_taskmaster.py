@@ -12,15 +12,17 @@ RECV_BUFFER = 4096
 
 """
 class SocketTaskmaster(object):
-    def __init__(self):
+    def __init__(self, node):
         self.selector = None
         self.sock = None
         self.addr = None
         self._recv_buffer = b""
         self._send_buffer = b""
         self._check_end = list()
-        self._result = ""
-        self._feedback = ""
+        self._result = b""
+        self._feedback = b""
+
+        self.node = node
 
     
     """Given the event mask from selectors, do read or write accordingly.
@@ -61,6 +63,7 @@ class SocketTaskmaster(object):
     def _read(self):
         try:
             recv_data = self.sock.recv(RECV_BUFFER)
+            #self.node.get_logger().info(str(recv_data))
         except io.BlockingIOError:
             pass
         else:
@@ -76,6 +79,8 @@ class SocketTaskmaster(object):
         if self._send_buffer:
             try:
                 num_bytes_sent = self.sock.send(self._send_buffer)
+                #
+                # self.node.get_logger().info(str(self._send_buffer))
             except io.BlockingIOError:
                 pass
             else:
@@ -87,7 +92,7 @@ class SocketTaskmaster(object):
     """
     def read(self):
         self._read()
-
+        
         if len(self._check_end) > 0:
             self.extract_resp()
 
@@ -108,7 +113,7 @@ class SocketTaskmaster(object):
     def extract_resp(self):
         while True:
             try:
-                line_e = self._recv_buffer.index("\r\n")
+                line_e = self._recv_buffer.index(b"\r\n")
             except ValueError:
                 break
             else:
@@ -148,11 +153,11 @@ class SocketTaskmaster(object):
         cmd_str = command
         if newline:
             cmd_str += b"\r\n"
-        self._recv_buffer = ""
-        self._send_buffer = "\r\n" + cmd_str
+        self._recv_buffer = b""
+        self._send_buffer = b"\r\n" + cmd_str
         self._check_end = end_lines
-        self._result = ""
-        self._feedback = ""
+        self._result = b""
+        self._feedback = b""
         self.clear_recv_buf()
 
     """
@@ -175,8 +180,8 @@ class SocketTaskmaster(object):
         if len(self._result) == 0:
             return (False, "", feed)
         else:
-            self._feedback = ""
-            self._result = ""
+            self._feedback = b""
+            self._result = b""
             return (True, res, feed)
 
     """
@@ -193,7 +198,7 @@ class SocketTaskmaster(object):
     def connect(self, addr, port):
         server_addr = (str(addr), int(port))
         self.addr = server_addr
-        print("starting connection to", server_addr)
+        self.node.get_logger().info("Starting connection to" + str(server_addr))
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setblocking(False)
         sock.connect_ex(server_addr)
@@ -214,7 +219,7 @@ class SocketTaskmaster(object):
         int -- The identifier integer associated with the response after login.
     """
     def login(self, passwd):
-        self.push_command(passwd, newline=True, end_lines=["End of commands"])
+        self.push_command(passwd, newline=True, end_lines=[b"End of commands"])
         self.wait_until_login()
 
     # TODO: find a better way to do this!!!
@@ -228,9 +233,12 @@ class SocketTaskmaster(object):
             except Exception as exc:
                 print("Login error: Exception for", traceback.format_exc())
                 pass
-        
-            if any(chk in self._result for chk in self._check_end):
-                self._result = ""
-                self._feedback = ""
+            #self.node.get_logger().info(str(self._check_end))
+            #if any(chk in self._result for chk in self._check_end):
+            #self.node.get_logger().info(str(self._result))
+            if b"End of commands" in self._result:
+                self._result = b""
+                self._feedback = b""
                 self._check_end = list()
                 break 
+        self.node.get_logger().info(str("AIGHT HAVE A GOOD DAY"))

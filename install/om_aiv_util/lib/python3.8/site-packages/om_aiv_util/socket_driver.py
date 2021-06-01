@@ -8,8 +8,8 @@ from collections import deque
 
 RECV_BUFFER = 4096
 
-"""A driver class to handle all input and output communication with ARCL server.
-
+"""
+A driver class to handle all input and output communication with ARCL server.
 """
 class SocketDriver(object):
     def __init__(self):
@@ -62,6 +62,8 @@ class SocketDriver(object):
         if self._send_buffer:
             try:
                 num_bytes_sent = self.sock.send(self._send_buffer)
+                
+
             except io.BlockingIOError:
                 pass
             else:
@@ -73,7 +75,6 @@ class SocketDriver(object):
     """
     def read(self):
         self._read()
-
         if self._find_str is not None:
             try:
                 resp = self.extract_resp()
@@ -111,8 +112,8 @@ class SocketDriver(object):
         str -- The extracted string.
     """
     def extract_resp(self):
-        line_s = self._recv_buffer.index(self._find_str)
-        resp_e = self._recv_buffer.index("\r\n", line_s) + 1 # Add one to get the index of \n.
+        line_s = self._recv_buffer.index(bytes(self._find_str, 'utf-8'))
+        resp_e = self._recv_buffer.index(b"\r\n", line_s) + 1 # Add one to get the index of \n.
         ret = self._recv_buffer[:resp_e+1] # We want the \n char.
         self._recv_buffer = self._recv_buffer[resp_e+1:]
         return ret
@@ -189,7 +190,7 @@ class SocketDriver(object):
         _id = self.gen_id()
         cmd_str = command
         if newline:
-            cmd_str += "\r\n"
+            cmd_str += b"\r\n"
         to_queue = (_id, cmd_str, last_line)
         self.commands.append(to_queue)
         return _id
@@ -245,6 +246,7 @@ class SocketDriver(object):
     def login(self, passwd):
         _id = self.queue_command(passwd, newline=True, last_line="End of commands")
         self.wait_until_login(_id)
+        
 
     # TODO: find a better way to do this!!!
     def wait_until_login(self, _id):
@@ -259,13 +261,14 @@ class SocketDriver(object):
                 pass
         
             try:
-                if "End of commands" in self.responses[_id]:
+                if b"End of commands" in self.responses[_id]:
                     self.get_response(_id)
                     break
             except:
                 # Continue looking for the welcome message.
                 pass
 
+            time.sleep(0.2)
 
                 
         

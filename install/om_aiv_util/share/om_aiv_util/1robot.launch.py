@@ -34,13 +34,18 @@ def generate_launch_description():
         package='om_aiv_navigation',
         executable='action_server',
         #name = 'action_server',
-        output='screen'
+        output='screen',
+        parameters=[{
+            'ip_address': "192.168.1.1",
+            'port': 7171,
+            'def_arcl_passwd': "omron"
+        }]
     )
     
 
     return LaunchDescription([
-        arcl_api, 
-        #ld_states,
+        #arcl_api, 
+        ld_states,
         #action_serve
         ])
 

@@ -1,0 +1,21 @@
+running egg_info
+writing ../../build/om_aiv_util/om_aiv_util.egg-info/PKG-INFO
+writing dependency_links to ../../build/om_aiv_util/om_aiv_util.egg-info/dependency_links.txt
+writing entry points to ../../build/om_aiv_util/om_aiv_util.egg-info/entry_points.txt
+writing requirements to ../../build/om_aiv_util/om_aiv_util.egg-info/requires.txt
+writing top-level names to ../../build/om_aiv_util/om_aiv_util.egg-info/top_level.txt
+reading manifest file '../../build/om_aiv_util/om_aiv_util.egg-info/SOURCES.txt'
+writing manifest file '../../build/om_aiv_util/om_aiv_util.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+copying package.xml -> /home/omron/Omron_LD/install/om_aiv_util/share/om_aiv_util
+running install_egg_info
+removing '/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../../build/om_aiv_util/om_aiv_util.egg-info to /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util-0.0.0-py3.8.egg-info
+running install_scripts
+Installing arcl_api_server script to /home/omron/Omron_LD/install/om_aiv_util/lib/om_aiv_util
+Installing ld_states_publisher script to /home/omron/Omron_LD/install/om_aiv_util/lib/om_aiv_util
+writing list of installed files to '/home/omron/Omron_LD/build/om_aiv_util/install.log'
