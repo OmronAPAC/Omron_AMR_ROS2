@@ -44,8 +44,8 @@ def generate_launch_description():
     
 
     return LaunchDescription([
-        #arcl_api, 
+        arcl_api, 
         ld_states,
-        #action_serve
+        action_serve
         ])
 

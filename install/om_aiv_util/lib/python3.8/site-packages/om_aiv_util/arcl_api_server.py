@@ -33,7 +33,7 @@ class ArclApiService(Node):
         self.socket_driver = SocketDriver()
         self.socket_driver.connect(str(ip_address), int(port))
         self.socket_driver.login(bytes(passwd, "utf-8"))
-        self.get_logger().info("ARCL API Service initialised?")
+        self.get_logger().info("ARCL API Service initialised!")
 
     def req_handler(self, req):
         req_id = self.socket_driver.queue_command(req.command, True, req.line_identifier)

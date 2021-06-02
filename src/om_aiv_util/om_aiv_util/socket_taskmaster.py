@@ -9,10 +9,9 @@ from collections import deque
 RECV_BUFFER = 4096
 
 """A driver class to handle all input and output communication with ARCL server.
-
 """
 class SocketTaskmaster(object):
-    def __init__(self, node):
+    def __init__(self):
         self.selector = None
         self.sock = None
         self.addr = None
@@ -22,11 +21,8 @@ class SocketTaskmaster(object):
         self._result = b""
         self._feedback = b""
 
-        self.node = node
-
     
     """Given the event mask from selectors, do read or write accordingly.
-
     param mask:
     The mask to use to decide which event can be executed.
     
@@ -63,7 +59,6 @@ class SocketTaskmaster(object):
     def _read(self):
         try:
             recv_data = self.sock.recv(RECV_BUFFER)
-            #self.node.get_logger().info(str(recv_data))
         except io.BlockingIOError:
             pass
         else:
@@ -79,8 +74,6 @@ class SocketTaskmaster(object):
         if self._send_buffer:
             try:
                 num_bytes_sent = self.sock.send(self._send_buffer)
-                #
-                # self.node.get_logger().info(str(self._send_buffer))
             except io.BlockingIOError:
                 pass
             else:
@@ -92,14 +85,13 @@ class SocketTaskmaster(object):
     """
     def read(self):
         self._read()
-        
+
         if len(self._check_end) > 0:
             self.extract_resp()
 
     """
     Check if there are commands to be transmitted.
     If there exists at least 1 command, push the command to the send buffer.
-
     """
     def write(self):
         self._write() # We want to process the send buffer.
@@ -120,6 +112,7 @@ class SocketTaskmaster(object):
                 # If there is no ValueError here, there is at least one complete line.
                 line = self._recv_buffer[:line_e+2]
                 self._recv_buffer = self._recv_buffer[line_e+2:]
+                #print ("line = " + str(line))
 
                 # Check if this line is contained in any of the identifier lines, substring included.
                 if any(chk in line for chk in self._check_end):
@@ -135,10 +128,8 @@ class SocketTaskmaster(object):
     
     param command:
     The command string to queue.
-
     param newline:
     Boolean to indicate if newline characters ('\r\n') should be appended to the command string.
-
     param last_line:
     String that should be used to identify the last line of the supposed ARCL response to the given
     command.
@@ -162,7 +153,6 @@ class SocketTaskmaster(object):
 
     """
     Retrieve the response associated with the given identifier integer.
-
     param identifier:
     The identifier integer associated with returned response.
     
@@ -178,7 +168,7 @@ class SocketTaskmaster(object):
         feed = self._feedback
 
         if len(self._result) == 0:
-            return (False, "", feed)
+            return (False, b"", feed)
         else:
             self._feedback = b""
             self._result = b""
@@ -187,18 +177,15 @@ class SocketTaskmaster(object):
     """
     # TODO: Add check for failed connection
     Connects the driver to the given address and port.
-
     param addr:
     Address to connect to.
-
     param port:
     Port number to connect to.
-
     """
     def connect(self, addr, port):
         server_addr = (str(addr), int(port))
         self.addr = server_addr
-        self.node.get_logger().info("Starting connection to" + str(server_addr))
+        print("Starting connection to", server_addr)
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.setblocking(False)
         sock.connect_ex(server_addr)
@@ -211,10 +198,8 @@ class SocketTaskmaster(object):
     Log in to the server with the given password.
     Useful for servers that requires password.
     NOTE: This function is not secure as the password is exposed in plaintext.
-
     param passwd:
     The password string to log in with.
-
     Returns:
         int -- The identifier integer associated with the response after login.
     """
@@ -233,12 +218,9 @@ class SocketTaskmaster(object):
             except Exception as exc:
                 print("Login error: Exception for", traceback.format_exc())
                 pass
-            #self.node.get_logger().info(str(self._check_end))
-            #if any(chk in self._result for chk in self._check_end):
-            #self.node.get_logger().info(str(self._result))
-            if b"End of commands" in self._result:
+        
+            if any(chk in self._result for chk in self._check_end):
                 self._result = b""
                 self._feedback = b""
                 self._check_end = list()
                 break 
-        self.node.get_logger().info(str("AIGHT HAVE A GOOD DAY"))

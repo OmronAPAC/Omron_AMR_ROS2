@@ -1,0 +1,26 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from om_aiv_msg/action/Action.action
+// generated code does not contain a copyright notice
+
+
+module om_aiv_msg {
+  module action {
+    @verbatim (language="comment", text=
+      " Goal")
+    struct Action_Goal {
+      string command;
+
+      sequence<string> identifier;
+    };
+    struct Action_Result {
+      @verbatim (language="comment", text=
+        " Result")
+      string res_msg;
+    };
+    struct Action_Feedback {
+      @verbatim (language="comment", text=
+        " Feedback")
+      string feed_msg;
+    };
+  };
+};

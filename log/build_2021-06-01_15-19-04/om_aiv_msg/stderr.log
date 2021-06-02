@@ -1,0 +1,9 @@
+CMake Error at /opt/ros/foxy/share/rosidl_cmake/cmake/rosidl_generate_interfaces.cmake:93 (message):
+  rosidl_generate_interfaces() the passed file
+  'actionlib_msgs/actionlib_msgs.msg' doesn't exist relative to the
+  CMAKE_CURRENT_SOURCE_DIR '/home/omron/Omron_LD/src/om_aiv_msg'
+Call Stack (most recent call first):
+  CMakeLists.txt:23 (rosidl_generate_interfaces)
+
+
+make: *** [Makefile:1708: cmake_check_build_system] Error 1

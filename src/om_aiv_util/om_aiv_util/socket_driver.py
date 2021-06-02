@@ -62,8 +62,6 @@ class SocketDriver(object):
         if self._send_buffer:
             try:
                 num_bytes_sent = self.sock.send(self._send_buffer)
-                
-
             except io.BlockingIOError:
                 pass
             else:
@@ -267,8 +265,6 @@ class SocketDriver(object):
             except:
                 # Continue looking for the welcome message.
                 pass
-
-            time.sleep(0.2)
 
                 
         

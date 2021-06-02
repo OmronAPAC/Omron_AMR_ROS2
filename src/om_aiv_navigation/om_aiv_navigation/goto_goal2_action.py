@@ -5,38 +5,29 @@ import rclpy
 import sys
 from rclpy.action import ActionClient
 from rclpy.node import Node
-from om_aiv_navigation.msg import ActionAction, ActionGoal
+from om_aiv_msg.action import Action
 
-def goto_client(node):
-    # Creates the SimpleActionClient, passing the type of the action
-    # (FibonacciAction) to the constructor.
-    client = ActionClient(node, ActionAction, 'action_server')
+class LdActionClient(Node):
 
-    # Waits until the action server has started up and started
-    # listening for goals.
-    client.wait_for_server()
+    def __init__(self):
+        super().__init__('action_client')
+        self._action_client = ActionClient(self, Action, 'action_server')
 
-    # Creates a goal to send to the action server.
-    goal = ActionGoal("goto Goal2", ["Arrived at Goal2"])
+    def send_goal(self, name):
+        goal = Action.Goal()
+        goal.command = "goto " + name
+        goal.identifier = ["Arrived at " + name]
+        self._action_client.wait_for_server()
+        self.get_logger().info(goal.command + "   " + goal.identifier[0])
+        return self._action_client.send_goal_async(goal)
 
 
-    # Sends the goal to the action server.
-    client.send_goal(goal)
+def main(args=None):
+    rclpy.init(args=args)
+    action_client = LdActionClient()
+    future = action_client.send_goal('Goal2')
+    rclpy.spin_until_future_complete(action_client, future)
 
-    # Waits for the server to finish performing the action.
-    client.wait_for_result()
-
-    # Prints out the result of executing the action
-    return client.get_result()  
 
 if __name__ == '__main__':
-    try:
-        # Initializes a rospy node so that the SimpleActionClient can
-        # publish and subscribe over ROS.
-        rclpy.init()
-        node = rclpy.create_node('goto_goal2_action_py')
-        result = goto_client()
-        # rospy.INFO("Result:")
-        print("Result:", result)
-    except KeyboardInterrupt:
-        print("program interrupted before completion", file=sys.stderr)
+    main()

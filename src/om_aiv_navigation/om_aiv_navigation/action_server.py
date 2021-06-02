@@ -2,58 +2,52 @@ import rclpy
 import time
 from rclpy.action import ActionServer
 from om_aiv_util.socket_taskmaster import *
-from om_aiv_navigation.msg import ActionAction, ActionFeedback, ActionResult
+from om_aiv_msg.action import Action
+from rclpy.node import Node
 
-class ActionServer():
-    def __init__(self, node, socket_taskmaster):
+class LDActionServer(Node):
+    def __init__(self):
+        super().__init__('action_server')
         self._action_server = ActionServer(
-            node,
-            ActionAction,
-            'action_server',
-            self.execute_callback)
+                    self,
+                    Action,
+                    'action_server',
+                    self.execute_callback)
+        self.ip_address = self.declare_parameter("ip_address").value
+        self.port = self.declare_parameter("port").value
+        self.passwd = self.declare_parameter("def_arcl_passwd").value
 
-        self.socket_taskmaster = socket_taskmaster
-        self._feedback = ActionFeedback()
-        self._result = ActionResult()
+        self.socket_taskmaster = SocketTaskmaster()
+        self.socket_taskmaster.connect(str(self.ip_address), int(self.port))
+        self.socket_taskmaster.login(bytes(self.passwd, 'utf-8'))        
+        self.get_logger().info("Action server is up!")
+        
+        self._feedback = Action.Feedback()
+        self._result = Action.Result()
 
     def execute_callback(self, goal):
         self.socket_taskmaster.push_command(
-            goal.command,
+            bytes(goal.request.command, "utf-8"),
             True,
-            goal.identifier)
-
+            [bytes(goal.request.identifier[0], "utf-8")])
         while True:
-            if self._as.is_preempt_requested():
-                self._as.set_preempted()
-                break
-
             (is_done, result, feedback) = self.socket_taskmaster.wait_command()
             if is_done:
-                self._feedback.feed_msg = feedback
-                self._as.publish_feedback(self._feedback)
+                self._feedback.feed_msg = str(feedback)
                 self._result.res_msg = result
-                self._as.set_succeeded(self._result)
                 break
             else:
-                self._feedback.feed_msg = feedback
-                self._as.publish_feedback(self._feedback)
+                self._feedback.feed_msg = str(feedback)
 
             time.sleep(0.1)
 
+        return self._result
 
 def main():
     rclpy.init()
-    node = rclpy.create_node('action_server')
-    ip_address = node.declare_parameter("ip_address").value
-    port = node.declare_parameter("port").value
-    passwd = node.declare_parameter("def_arcl_passwd").value
-
-    socket_taskmaster = SocketTaskmaster(node)
-    socket_taskmaster.connect(str(ip_address), int(port))
-    req_id = socket_taskmaster.login(bytes(passwd, 'utf-8'))
-
-    action_server = ActionServer(node, socket_taskmaster)
-    node.get_logger().info("DONE!!!")
+    
+    action_server = LDActionServer()
+    
     rclpy.spin(action_server)
 
 
