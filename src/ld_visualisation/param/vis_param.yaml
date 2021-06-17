@@ -1,0 +1,32 @@
+/**:
+  ros__parameters:
+    pkg_name: "ld_visualisation"
+    map_name: "data.map"
+    head_frame: "/pose"
+    vis_topic: "visualization_marker"
+    goals_vis_topic: "visualization_marker_array"
+    range_device: "Laser_1"
+    points_a_colour: 1.0
+    points_r_colour: 1.0
+    points_g_colour: 0.0
+    points_b_colour: 0.0
+    lines_a_colour: 1.0
+    lines_r_colour: 1.0
+    lines_g_colour: 0.0
+    lines_b_colour: 0.0
+    ls_points_a_colour: 1.0
+    ls_points_r_colour: 0.0
+    ls_points_g_colour: 1.0
+    ls_points_b_colour: 1.0
+    goals_a_colour: 1.0
+    goals_r_colour: 0.0
+    goals_g_colour: 1.0
+    goals_b_colour: 0.0
+    goal_texts_a_colour: 1.0
+    goal_texts_r_colour: 0.0
+    goal_texts_g_colour: 1.0
+    goal_texts_b_colour: 1.0
+    fa_a_colour: 0.5
+    fa_r_colour: 1.0
+    fa_g_colour: 0.0
+    fa_b_colour: 0.0

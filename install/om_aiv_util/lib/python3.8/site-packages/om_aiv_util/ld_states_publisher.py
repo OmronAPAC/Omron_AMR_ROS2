@@ -97,7 +97,9 @@ class LdStatePublisher(Node):
             pass
         else:
             goalstring = String()
-            goalstring.data = goals[0].decode()
+            goalstring.data = str([bytevalue.decode() for bytevalue in goals])
+            #goalstring.data = str(goals)
+            self.get_logger().info(goalstring.data)
             self.goals_pub.publish(goalstring)
 
     def pub_odometer(self):

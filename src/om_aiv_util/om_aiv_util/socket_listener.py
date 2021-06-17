@@ -92,22 +92,26 @@ class SocketListener(object):
                 self.store(key, value)
 
     def store(self, key, value):
-        if key == "Goal":
+        #node = rclpy.create_node("testing")
+        if key == b"Goal":
             if self.goal_f:
                 self.responses[key].append(value)
+                #node.get_logger().info(str(self.goal_f))
             else:
                 self.responses[key] = [value]
                 self.goal_f = True
-        elif key == "End of goals":
+                #node.get_logger().info(str(self.goal_f))
+
+        elif key == b"End of goals":
             self.goal_f = False
-        elif key == "ApplicationFaultQuery":
+        elif key == b"ApplicationFaultQuery":
             # TODO: Account for values which contains spaces
             if self.app_fault_f:
                 self.responses[key].append(value)
             else:
                 self.responses[key] = [value]
                 self.app_fault_f = True
-        elif key == "End of ApplicationFaultQuery":
+        elif key == b"End of ApplicationFaultQuery":
             self.app_fault_f = False
         elif key == "FaultList":
             # TODO: Account for values which contains spaces
@@ -116,7 +120,7 @@ class SocketListener(object):
             else:
                 self.responses[key] = [value]
                 self.faults_get_f = True
-        elif key == "End of FaultList":
+        elif key == b"End of FaultList":
             self.faults_get_f = False
         elif key == "RobotFaultQuery":
             # TODO: Account for values which contains spaces
@@ -125,7 +129,7 @@ class SocketListener(object):
             else:
                 self.responses[key] = [value]
                 self.query_faults_f = True
-        elif key == "EndQueryFaults":
+        elif key == b"EndQueryFaults":
             self.query_faults_f = False
         else:
             self.responses[key] = [value]
@@ -142,7 +146,6 @@ class SocketListener(object):
     def get_response(self, key):
         try:
             val = self.responses[key]
-            #self.node.get_logger().info(str(key) + "    " + str(val))
         except KeyError:
             raise
         else:
