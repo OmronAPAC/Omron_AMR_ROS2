@@ -188,8 +188,8 @@ class SocketDriver(object):
         _id = self.gen_id()
         cmd_str = command
         if newline:
-            cmd_str += b"\r\n"
-        to_queue = (_id, cmd_str, last_line)
+            cmd_str += "\r\n"
+        to_queue = (_id, bytes(cmd_str, "utf-8"), last_line)
         self.commands.append(to_queue)
         return _id
 

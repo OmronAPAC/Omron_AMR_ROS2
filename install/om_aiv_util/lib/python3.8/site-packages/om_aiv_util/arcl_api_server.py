@@ -16,6 +16,7 @@ def custom_spin(arcl_service):
             events = arcl_service.socket_driver.selector.select()
             for key, mask in events:
                 arcl_service.socket_driver.process_events(mask)
+            rclpy.spin_once(arcl_service)
             time.sleep(rate)
     except KeyboardInterrupt:
         rclpy.shutdown()
@@ -32,14 +33,18 @@ class ArclApiService(Node):
 
         self.socket_driver = SocketDriver()
         self.socket_driver.connect(str(ip_address), int(port))
-        self.socket_driver.login(bytes(passwd, "utf-8"))
+        self.socket_driver.login(passwd)
         self.get_logger().info("ARCL API Service initialised!")
 
-    def req_handler(self, req):
+    def req_handler(self, req, resp):
         req_id = self.socket_driver.queue_command(req.command, True, req.line_identifier)
         while True:
             try:
-                resp = self.socket_driver.get_response(req_id)
+                events = self.socket_driver.selector.select()
+                for key, mask in events:
+                    self.socket_driver.process_events(mask)
+                resp.response = self.socket_driver.get_response(req_id).decode()
+                #self.get_logger().info(resp.response)
             except KeyError:
                 pass
             else:
@@ -50,7 +55,7 @@ def main(args=None):
     # Connect and log in.
     rclpy.init()
     arcl_service = ArclApiService()
-    custom_spin(arcl_service)
+    rclpy.spin(arcl_service)
     rclpy.shutdown()
 
 

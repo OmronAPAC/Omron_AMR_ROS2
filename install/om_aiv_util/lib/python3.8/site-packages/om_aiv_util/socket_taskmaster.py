@@ -143,9 +143,9 @@ class SocketTaskmaster(object):
     def push_command(self, command, newline=False, end_lines=list()):
         cmd_str = command
         if newline:
-            cmd_str += b"\r\n"
+            cmd_str += "\r\n"
         self._recv_buffer = b""
-        self._send_buffer = b"\r\n" + cmd_str
+        self._send_buffer = bytes("\r\n" + cmd_str, "utf-8")
         self._check_end = end_lines
         self._result = b""
         self._feedback = b""

@@ -196,43 +196,44 @@ void req_goals_coord(
     goals_id = 0;
     goal_texts_id = 0;
     std::string cmd = GOAL_CMD;
+
     for (int i = 0; i < (int) goals_list.size(); i++)
     {
         goals_info_req->command = cmd + goals_list[i];
 
         // Send request to rclcpp service.
         auto result = arcl_api_client->async_send_request(goals_info_req);
-        if (rclcpp::spin_until_future_complete(node, result) ==
-        rclcpp::FutureReturnCode::SUCCESS)
+        rclcpp::spin_until_future_complete(node, result);
+        std::string info_resp = result.get()->response;
+        std::string::size_type pos = info_resp.find(COORD_H);
+        // std::cout << "info_resp is:   " << info_resp << std::endl;
+        if (pos != std::string::npos)
         {
-            std::string info_resp = result.get()->response;
-            std::string::size_type pos = info_resp.find(COORD_H);
-            if (pos != std::string::npos)
-            {
-                // We have found the line containing the coordinates, collect them.
-                std::string::size_type end = info_resp.find("\r\n", pos);
-                std::string val_str = info_resp.substr(pos+COORD_H.size(), end);
-                std::istringstream val_iss(val_str);
-                std::string dummy;
-                double x, y, theta;
-                if (!(val_iss >> dummy >> x >> y >> theta)) RCLCPP_ERROR(node->get_logger(), "Error reading goal coordinates");
-                x /= 1000.0;
-                y /= 1000.0;
-                one_goal.pose.position.x = x; // Convert from mm to metre.
-                one_goal.pose.position.y = y;
-                one_goal.pose.position.z = 0;
-                if (theta < 0) theta += 360.0;
-                theta = theta * 0.01745329252; // Convert line to radian
-                one_goal.pose.orientation = createQuaternionMsgFromYaw(theta);
-                one_goal.id = goals_id++;
-                goals.markers.push_back(one_goal);
-                one_goal_text.pose.position.x = x;
-                one_goal_text.pose.position.y = y;
-                one_goal_text.text = goals_list[i];
-                one_goal_text.id = goal_texts_id++;
-                goals_text.markers.push_back(one_goal_text);
-            }
+            // We have found the line containing the coordinates, collect them.
+            std::string::size_type end = info_resp.find("\r\n", pos);
+            std::string val_str = info_resp.substr(pos+COORD_H.size(), end);
+            //std::cout << "VAL_STR is: " << val_str << std::endl;
+            std::istringstream val_iss(val_str);
+            std::string dummy;
+            double x, y, theta;
+            if (!(val_iss >> dummy >> x >> y >> theta)) RCLCPP_ERROR(node->get_logger(), "Error reading goal coordinates");
+            x /= 1000.0;
+            y /= 1000.0;
+            one_goal.pose.position.x = x; // Convert from mm to metre.
+            one_goal.pose.position.y = y;
+            one_goal.pose.position.z = 0;
+            if (theta < 0) theta += 360.0;
+            theta = theta * 0.01745329252; // Convert line to radian
+            one_goal.pose.orientation = createQuaternionMsgFromYaw(theta);
+            one_goal.id = goals_id++;
+            goals.markers.push_back(one_goal);
+            one_goal_text.pose.position.x = x;
+            one_goal_text.pose.position.y = y;
+            one_goal_text.text = goals_list[i];
+            one_goal_text.id = goal_texts_id++;
+            goals_text.markers.push_back(one_goal_text);
         }
+        // }
         else
         {
             RCLCPP_ERROR(node->get_logger(), "Failed to call %s service for goal info.", API_SRV_NAME.c_str());

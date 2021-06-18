@@ -97,10 +97,10 @@ class LdStatePublisher(Node):
             pass
         else:
             goalstring = String()
-            goalstring.data = str([bytevalue.decode() for bytevalue in goals])
+            goalstring.data = (' '.join([bytevalue.decode() for bytevalue in goals]))
             #goalstring.data = str(goals)
-            self.get_logger().info(goalstring.data)
             self.goals_pub.publish(goalstring)
+            #self.get_logger().info(goalstring.data)
 
     def pub_odometer(self):
         try:
@@ -109,7 +109,7 @@ class LdStatePublisher(Node):
             pass
         else:
             odomstring = String()
-            odomstring.data = odom[0].decode()
+            odomstring.data = (' '.join([bytevalue.decode() for bytevalue in odom]))
             self.odom_pub.publish(odomstring)
 
     def pub_app_fault_query(self):
@@ -119,7 +119,7 @@ class LdStatePublisher(Node):
             pass
         else:
             querystring = String()
-            querystring.data = query[0].decode()
+            querystring.data = (' '.join([bytevalue.decode() for bytevalue in query]))
             self.app_fault_query_pub.publish(querystring)
 
     def pub_faults_get(self):
@@ -129,7 +129,7 @@ class LdStatePublisher(Node):
             pass
         else:
             faultstring = String()
-            faultstring.data = faults[0].decode()
+            faultstring.data = (' '.join([bytevalue.decode() for bytevalue in faults]))
             self.faults_get_pub.publish(faultstring)
 
     def pub_query_faults(self):
@@ -139,7 +139,7 @@ class LdStatePublisher(Node):
             pass
         else:
             faultstring = String()
-            faultstring.data = faults[0].decode()
+            faultstring.data = (' '.join([bytevalue.decode() for bytevalue in faults]))
             self.query_faults_pub.publish(faultstring)
         
 """
