@@ -37,7 +37,7 @@ class LDActionServer(Node):
                 self._result.res_msg = "No such goal"
                 return self._result
 
-            self.get_logger().info(feedback.decode())
+            #self.get_logger().info(feedback.decode())
             if is_done:
                 self._feedback.feed_msg = feedback.decode()
                 goal.publish_feedback(self._feedback)

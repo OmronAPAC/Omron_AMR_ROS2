@@ -9,7 +9,7 @@ def main():
     try:
         rclpy.init()
         action_client = AmrActionClient()
-
+    
         goal2result = action_client.send_goal('Goal2')
         if not ("Arrived at" in goal2result):
             exit()

@@ -21,8 +21,8 @@ setup(
     entry_points={
         'console_scripts': [
             'action_server = om_aiv_navigation.action_server:main',
-            'goto_goal2_action = om_aiv_navigation.goto_goal2_action:main',
-            'goto_goal3_action = om_aiv_navigation.goto_goal3_action:main'
+            'goto_goal = om_aiv_navigation.goto_goal:main',
+            'goto_goal_demo = om_aiv_navigation.goto_goal_demo:main'
         ],
     },
 )
