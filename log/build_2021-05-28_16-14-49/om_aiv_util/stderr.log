@@ -1,0 +1,5 @@
+  File "/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/socket_driver.py", line 225
+    print "starting connection to", server_addr
+          ^
+SyntaxError: Missing parentheses in call to 'print'. Did you mean print("starting connection to", server_addr)?
+

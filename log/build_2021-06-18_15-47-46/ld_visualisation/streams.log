@@ -1,0 +1,16 @@
+[0.036s] Invoking command in '/home/omron/Omron_LD/build/ld_visualisation': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/omron/Omron_LD/build/ld_visualisation -- -j8 -l8
+[0.096s] [35m[1mScanning dependencies of target goals_marker[0m
+[0.109s] [ 33%] Built target joints_publisher
+[0.110s] [ 66%] Built target data_points_marker
+[0.150s] [ 83%] [32mBuilding CXX object CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o[0m
+[1.824s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K In function ‘[01m[Kvoid req_goals_coord(rclcpp::Client<om_aiv_msg::srv::ArclApi>::SharedPtr&, std::shared_ptr<om_aiv_msg::srv::ArclApi_Request_<std::allocator<void> > >&, visualization_msgs::msg::MarkerArray&, visualization_msgs::msg::MarkerArray&, visualization_msgs::msg::Marker, visualization_msgs::msg::Marker)[m[K’:
+[1.824s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:211:57:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[Kstd[m[K’
+[1.824s]   211 |         rclcpp::spin_until_future_complete(node, result)
+[1.824s]       |                                                         [01;31m[K^[m[K
+[1.824s]       |                                                         [32m[K;[m[K
+[1.824s]   212 |         [32m[Kstd[m[K::cout << "HELLO WORK HUHUHUHUHUHU" << std::endl;
+[1.824s]       |         [32m[K~~~[m[K                                              
+[3.535s] make[2]: *** [CMakeFiles/goals_marker.dir/build.make:63: CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o] Error 1
+[3.535s] make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/goals_marker.dir/all] Error 2
+[3.535s] make: *** [Makefile:141: all] Error 2
+[3.538s] Invoked command in '/home/omron/Omron_LD/build/ld_visualisation' returned '2': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/omron/Omron_LD/build/ld_visualisation -- -j8 -l8

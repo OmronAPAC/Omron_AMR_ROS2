@@ -1,0 +1,125 @@
+[0.000000] (-) TimerEvent: {}
+[0.000604] (-) JobUnselected: {'identifier': 'ld_viz'}
+[0.000877] (-) JobUnselected: {'identifier': 'om_aiv_msg'}
+[0.001239] (-) JobUnselected: {'identifier': 'om_aiv_navigation'}
+[0.001302] (-) JobUnselected: {'identifier': 'om_aiv_util'}
+[0.001338] (ld_visualisation) JobQueued: {'identifier': 'ld_visualisation', 'dependencies': OrderedDict([('om_aiv_msg', '/home/omron/Omron_LD/install/om_aiv_msg')])}
+[0.001387] (ld_visualisation) JobStarted: {'identifier': 'ld_visualisation'}
+[0.021317] (ld_visualisation) JobProgress: {'identifier': 'ld_visualisation', 'progress': 'cmake'}
+[0.022487] (ld_visualisation) JobProgress: {'identifier': 'ld_visualisation', 'progress': 'build'}
+[0.023216] (ld_visualisation) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/omron/Omron_LD/build/ld_visualisation', '--', '-j8', '-l8'], 'cwd': '/home/omron/Omron_LD/build/ld_visualisation', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_SG:en'), ('USER', 'omron'), ('SSH_AGENT_PID', '1084'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/snap/code/66/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/omron'), ('CHROME_DESKTOP', 'code-url-handler.desktop'), ('TERM_PROGRAM_VERSION', '1.57.0'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL', 'true'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/snap/code/66/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/snap/code/66/usr/share/code/code'), ('MANAGERPID', '834'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '2205'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/omron/Omron_LD/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'omron'), ('JOURNAL_STREAM', '8:35424'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'omron'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/omron/.local/bin:/opt/ros/foxy/bin:/home/omron/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/omron-NUC8i5BEH:@/tmp/.ICE-unix/1127,unix/omron-NUC8i5BEH:/tmp/.ICE-unix/1127'), ('INVOCATION_ID', '5eb07be3a034478a80f39f39b2eea782'), ('XDG_MENU_PREFIX', 'gnome-'), ('BAMF_DESKTOP_FILE_HINT', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('LANG', 'en_SG.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b10b3d5190.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('GSETTINGS_SCHEMA_DIR', '/snap/code/66/usr/share/glib-2.0/schemas'), ('AMENT_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('DISABLE_WAYLAND', '1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/omron/Omron_LD/build/ld_visualisation'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('BREAKPAD_DUMP_LOCATION', '/home/omron/.config/Code/exthost Crash Reports'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy')]), 'shell': False}
+[0.068889] (ld_visualisation) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target goals_marker\x1b[0m\n'}
+[0.088546] (ld_visualisation) StdoutLine: {'line': b'[ 33%] Built target joints_publisher\n'}
+[0.088823] (ld_visualisation) StdoutLine: {'line': b'[ 66%] Built target data_points_marker\n'}
+[0.099621] (ld_visualisation) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o\x1b[0m\n'}
+[0.099878] (-) TimerEvent: {}
+[0.200218] (-) TimerEvent: {}
+[0.300720] (-) TimerEvent: {}
+[0.401112] (-) TimerEvent: {}
+[0.501512] (-) TimerEvent: {}
+[0.601888] (-) TimerEvent: {}
+[0.702235] (-) TimerEvent: {}
+[0.802590] (-) TimerEvent: {}
+[0.902950] (-) TimerEvent: {}
+[1.003356] (-) TimerEvent: {}
+[1.103798] (-) TimerEvent: {}
+[1.204285] (-) TimerEvent: {}
+[1.304853] (-) TimerEvent: {}
+[1.405251] (-) TimerEvent: {}
+[1.505650] (-) TimerEvent: {}
+[1.606149] (-) TimerEvent: {}
+[1.706518] (-) TimerEvent: {}
+[1.806898] (-) TimerEvent: {}
+[1.907358] (-) TimerEvent: {}
+[2.007681] (-) TimerEvent: {}
+[2.107991] (-) TimerEvent: {}
+[2.208377] (-) TimerEvent: {}
+[2.308730] (-) TimerEvent: {}
+[2.409239] (-) TimerEvent: {}
+[2.509687] (-) TimerEvent: {}
+[2.610119] (-) TimerEvent: {}
+[2.710611] (-) TimerEvent: {}
+[2.811001] (-) TimerEvent: {}
+[2.911455] (-) TimerEvent: {}
+[3.011856] (-) TimerEvent: {}
+[3.112303] (-) TimerEvent: {}
+[3.212607] (-) TimerEvent: {}
+[3.312933] (-) TimerEvent: {}
+[3.413420] (-) TimerEvent: {}
+[3.513714] (-) TimerEvent: {}
+[3.613988] (-) TimerEvent: {}
+[3.714245] (-) TimerEvent: {}
+[3.814590] (-) TimerEvent: {}
+[3.914924] (-) TimerEvent: {}
+[4.015274] (-) TimerEvent: {}
+[4.115536] (-) TimerEvent: {}
+[4.215857] (-) TimerEvent: {}
+[4.316179] (-) TimerEvent: {}
+[4.416613] (-) TimerEvent: {}
+[4.517006] (-) TimerEvent: {}
+[4.617402] (-) TimerEvent: {}
+[4.717776] (-) TimerEvent: {}
+[4.818144] (-) TimerEvent: {}
+[4.918458] (-) TimerEvent: {}
+[5.018771] (-) TimerEvent: {}
+[5.119151] (-) TimerEvent: {}
+[5.219520] (-) TimerEvent: {}
+[5.319840] (-) TimerEvent: {}
+[5.420197] (-) TimerEvent: {}
+[5.520611] (-) TimerEvent: {}
+[5.620961] (-) TimerEvent: {}
+[5.721379] (-) TimerEvent: {}
+[5.821784] (-) TimerEvent: {}
+[5.922110] (-) TimerEvent: {}
+[5.938070] (ld_visualisation) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable goals_marker\x1b[0m\n'}
+[6.022248] (-) TimerEvent: {}
+[6.122632] (-) TimerEvent: {}
+[6.222981] (-) TimerEvent: {}
+[6.266298] (ld_visualisation) StdoutLine: {'line': b'[100%] Built target goals_marker\n'}
+[6.278047] (ld_visualisation) CommandEnded: {'returncode': 0}
+[6.302428] (ld_visualisation) JobProgress: {'identifier': 'ld_visualisation', 'progress': 'install'}
+[6.313249] (ld_visualisation) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/omron/Omron_LD/build/ld_visualisation'], 'cwd': '/home/omron/Omron_LD/build/ld_visualisation', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_SG:en'), ('USER', 'omron'), ('SSH_AGENT_PID', '1084'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/snap/code/66/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/omron'), ('CHROME_DESKTOP', 'code-url-handler.desktop'), ('TERM_PROGRAM_VERSION', '1.57.0'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL', 'true'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/snap/code/66/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/snap/code/66/usr/share/code/code'), ('MANAGERPID', '834'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '2205'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/omron/Omron_LD/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'omron'), ('JOURNAL_STREAM', '8:35424'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'omron'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/omron/.local/bin:/opt/ros/foxy/bin:/home/omron/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/omron-NUC8i5BEH:@/tmp/.ICE-unix/1127,unix/omron-NUC8i5BEH:/tmp/.ICE-unix/1127'), ('INVOCATION_ID', '5eb07be3a034478a80f39f39b2eea782'), ('XDG_MENU_PREFIX', 'gnome-'), ('BAMF_DESKTOP_FILE_HINT', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('LANG', 'en_SG.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b10b3d5190.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('GSETTINGS_SCHEMA_DIR', '/snap/code/66/usr/share/glib-2.0/schemas'), ('AMENT_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('DISABLE_WAYLAND', '1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/omron/Omron_LD/build/ld_visualisation'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('BREAKPAD_DUMP_LOCATION', '/home/omron/.config/Code/exthost Crash Reports'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy')]), 'shell': False}
+[6.321793] (ld_visualisation) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[6.322117] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/joints_publisher\n'}
+[6.322668] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/data_points_marker\n'}
+[6.323108] (-) TimerEvent: {}
+[6.326068] (ld_visualisation) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/data_points_marker" to ""\n'}
+[6.326388] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/goals_marker\n'}
+[6.328969] (ld_visualisation) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/goals_marker" to ""\n'}
+[6.329298] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/launch\n'}
+[6.329482] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/launch/display.launch\n'}
+[6.329631] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/launch/display.launch.py\n'}
+[6.329766] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/config\n'}
+[6.329901] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/config/ld_rviz_config.rviz\n'}
+[6.330018] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/config/ld_rviz2.rviz\n'}
+[6.330133] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/map\n'}
+[6.330265] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/map/data.map\n'}
+[6.330384] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/meshes\n'}
+[6.330515] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/meshes/LD_Platform.STL\n'}
+[6.330654] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/param\n'}
+[6.330779] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/param/vis_param.yaml\n'}
+[6.330974] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/param/ros1vis_param.yaml\n'}
+[6.331078] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/rviz\n'}
+[6.331185] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/rviz/urdf.rviz\n'}
+[6.331311] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/rviz/urdf.vcg\n'}
+[6.331481] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/urdf\n'}
+[6.331620] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/urdf/LD_Platform.urdf.xacro\n'}
+[6.331777] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/urdf/LD_Platform.urdf\n'}
+[6.331893] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ament_index/resource_index/package_run_dependencies/ld_visualisation\n'}
+[6.332008] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ament_index/resource_index/parent_prefix_path/ld_visualisation\n'}
+[6.332120] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/ament_prefix_path.sh\n'}
+[6.332278] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/ament_prefix_path.dsv\n'}
+[6.332877] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/path.sh\n'}
+[6.333581] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/path.dsv\n'}
+[6.334415] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.bash\n'}
+[6.334653] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.sh\n'}
+[6.334953] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.zsh\n'}
+[6.335155] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.dsv\n'}
+[6.335363] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/package.dsv\n'}
+[6.335627] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ament_index/resource_index/packages/ld_visualisation\n'}
+[6.335769] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/cmake/ld_visualisationConfig.cmake\n'}
+[6.336206] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/cmake/ld_visualisationConfig-version.cmake\n'}
+[6.336470] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/package.xml\n'}
+[6.336678] (ld_visualisation) CommandEnded: {'returncode': 0}
+[6.379892] (ld_visualisation) JobEnded: {'identifier': 'ld_visualisation', 'rc': 0}
+[6.380810] (-) EventReactorShutdown: {}

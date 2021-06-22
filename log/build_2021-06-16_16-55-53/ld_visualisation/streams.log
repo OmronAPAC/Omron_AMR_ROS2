@@ -1,0 +1,84 @@
+[0.016s] Invoking command in '/home/omron/Omron_LD/build/ld_visualisation': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/omron/Omron_LD/build/ld_visualisation -- -j8 -l8
+[0.061s] [35m[1mScanning dependencies of target goals_marker[0m
+[0.080s] [ 66%] Built target joints_publisher
+[0.081s] [ 66%] Built target data_points_marker
+[0.092s] [ 83%] [32mBuilding CXX object CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o[0m
+[1.391s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[1.391s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:163:20:[m[K [01;31m[Kerror: [m[Kinvalid use of ‘[01m[Kusing Request = using ArclListen_Request = struct om_aiv_msg::srv::ArclListen_Request_<std::allocator<void> >[m[K’
+[1.391s]   163 |     goals_list_req.[01;31m[KRequest[m[K.resp_header = GOAL_RESP_H;
+[1.391s]       |                    [01;31m[K^~~~~~~[m[K
+[1.392s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:164:20:[m[K [01;31m[Kerror: [m[Kinvalid use of ‘[01m[Kusing Request = using ArclApi_Request = struct om_aiv_msg::srv::ArclApi_Request_<std::allocator<void> >[m[K’
+[1.392s]   164 |     goals_info_req.[01;31m[KRequest[m[K.line_identifier = GOALS_LIST_END;
+[1.392s]       |                    [01;31m[K^~~~~~~[m[K
+[1.402s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K In function ‘[01m[Kvoid req_goals_coord(rclcpp::Client<om_aiv_msg::srv::ArclApi>::SharedPtr&, om_aiv_msg::srv::ArclApi&, visualization_msgs::msg::MarkerArray&, visualization_msgs::msg::MarkerArray&, visualization_msgs::msg::Marker, visualization_msgs::msg::Marker)[m[K’:
+[1.402s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:198:23:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<std::__cxx11::basic_string<char> >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+[1.402s]   198 |     for (int i = 0; [01;35m[Ki < goals_list.size()[m[K; i++)
+[1.402s]       |                     [01;35m[K~~^~~~~~~~~~~~~~~~~~~[m[K
+[1.402s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:200:24:[m[K [01;31m[Kerror: [m[K‘[01m[Kstruct om_aiv_msg::srv::ArclApi[m[K’ has no member named ‘[01m[Krequest[m[K’; did you mean ‘[01m[KRequest[m[K’?
+[1.402s]   200 |         goals_info_req.[01;31m[Krequest[m[K.command = cmd + goals_list[i];
+[1.402s]       |                        [01;31m[K^~~~~~~[m[K
+[1.402s]       |                        [32m[KRequest[m[K
+[1.402s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:203:29:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing SharedPtr = class std::shared_ptr<rclcpp::Client<om_aiv_msg::srv::ArclApi> >[m[K’ {aka ‘[01m[Kclass std::shared_ptr<rclcpp::Client<om_aiv_msg::srv::ArclApi> >[m[K’} has no member named ‘[01m[Kcall_async[m[K’
+[1.402s]   203 |         if (arcl_api_client.[01;31m[Kcall_async[m[K(goals_info_req))
+[1.403s]       |                             [01;31m[K^~~~~~~~~~[m[K
+[1.403s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:205:52:[m[K [01;31m[Kerror: [m[K‘[01m[Kstruct om_aiv_msg::srv::ArclApi[m[K’ has no member named ‘[01m[Kresponse[m[K’; did you mean ‘[01m[KResponse[m[K’?
+[1.403s]   205 |             std::string info_resp = goals_info_req.[01;31m[Kresponse[m[K.response;
+[1.403s]       |                                                    [01;31m[K^~~~~~~~[m[K
+[1.403s]       |                                                    [32m[KResponse[m[K
+[1.403s] In file included from [01m[K/opt/ros/foxy/include/rclcpp/service.hpp:34[m[K,
+[1.404s]                  from [01m[K/opt/ros/foxy/include/rclcpp/callback_group.hpp:25[m[K,
+[1.404s]                  from [01m[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:20[m[K,
+[1.404s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24[m[K,
+[1.404s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18[m[K,
+[1.405s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20[m[K,
+[1.405s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor.hpp:33[m[K,
+[1.405s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[1.405s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:21[m[K,
+[1.405s]                  from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+[1.405s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[1.405s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:215:61:[m[K [01;31m[Kerror: [m[Kstatic assertion failed: First argument to logging macros must be an rclcpp::Logger
+[1.406s]   215 |                 if (!(val_iss >> dummy >> x >> y >> theta)) [01;31m[KRCLCPP_ERROR[m[K("Error reading goal coordinates");
+[1.406s]       |                                                             [01;31m[K^~~~~~~~~~~~[m[K
+[1.406s] In file included from [01m[K/opt/ros/foxy/include/rclcpp/client.hpp:40[m[K,
+[1.406s]                  from [01m[K/opt/ros/foxy/include/rclcpp/callback_group.hpp:23[m[K,
+[1.406s]                  from [01m[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:20[m[K,
+[1.406s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24[m[K,
+[1.406s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18[m[K,
+[1.406s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20[m[K,
+[1.407s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor.hpp:33[m[K,
+[1.407s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[1.407s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:21[m[K,
+[1.407s]                  from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+[1.407s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[1.407s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:215:61:[m[K [01;31m[Kerror: [m[Krequest for member ‘[01m[Kget_name[m[K’ in ‘[01m[K"Error reading goal coordinates"[m[K’, which is of non-class type ‘[01m[Kconst char [31][m[K’
+[1.407s]   215 |                 if (!(val_iss >> dummy >> x >> y >> theta)) [01;31m[KRCLCPP_ERROR[m[K("Error reading goal coordinates");
+[1.407s]       |                                                             [01;31m[K^~~~~~~~~~~~[m[K
+[1.407s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:215:61:[m[K [01;31m[Kerror: [m[Krequest for member ‘[01m[Kget_name[m[K’ in ‘[01m[K"Error reading goal coordinates"[m[K’, which is of non-class type ‘[01m[Kconst char [31][m[K’
+[1.407s]   215 |                 if (!(val_iss >> dummy >> x >> y >> theta)) [01;31m[KRCLCPP_ERROR[m[K("Error reading goal coordinates");
+[1.408s]       |                                                             [01;31m[K^~~~~~~~~~~~[m[K
+[1.408s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:215:61:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kget_c_string()[m[K’
+[1.408s]   215 |                 if (!(val_iss >> dummy >> x >> y >> theta)) [01;31m[KRCLCPP_ERROR[m[K("Error reading goal coordinates");
+[1.408s]       |                                                             [01;31m[K^~~~~~~~~~~~[m[K
+[1.408s] In file included from [01m[K/opt/ros/foxy/include/rclcpp/client.hpp:36[m[K,
+[1.408s]                  from [01m[K/opt/ros/foxy/include/rclcpp/callback_group.hpp:23[m[K,
+[1.408s]                  from [01m[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:20[m[K,
+[1.408s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24[m[K,
+[1.409s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18[m[K,
+[1.409s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20[m[K,
+[1.409s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor.hpp:33[m[K,
+[1.409s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[1.409s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:21[m[K,
+[1.409s]                  from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+[1.409s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[1.409s] [01m[K/opt/ros/foxy/include/rclcpp/utilities.hpp:296:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconst char* rclcpp::get_c_string(const char*)[m[K’
+[1.410s]   296 | [01;36m[Kget_c_string[m[K(const char * string_in);
+[1.410s]       | [01;36m[K^~~~~~~~~~~~[m[K
+[1.410s] [01m[K/opt/ros/foxy/include/rclcpp/utilities.hpp:296:1:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[1.410s] [01m[K/opt/ros/foxy/include/rclcpp/utilities.hpp:305:1:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconst char* rclcpp::get_c_string(const string&)[m[K’
+[1.410s]   305 | [01;36m[Kget_c_string[m[K(const std::string & string_in);
+[1.410s]       | [01;36m[K^~~~~~~~~~~~[m[K
+[1.410s] [01m[K/opt/ros/foxy/include/rclcpp/utilities.hpp:305:1:[m[K [01;36m[Knote: [m[K  candidate expects 1 argument, 0 provided
+[2.947s] make[2]: *** [CMakeFiles/goals_marker.dir/build.make:63: CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o] Error 1
+[2.948s] make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/goals_marker.dir/all] Error 2
+[2.948s] make: *** [Makefile:141: all] Error 2
+[2.950s] Invoked command in '/home/omron/Omron_LD/build/ld_visualisation' returned '2': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/omron/Omron_LD/build/ld_visualisation -- -j8 -l8

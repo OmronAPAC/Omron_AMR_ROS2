@@ -1,0 +1,297 @@
+[0.016s] Invoking command in '/home/omron/Omron_LD/build/ld_visualisation': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/omron/Omron_LD/build/ld_visualisation -- -j8 -l8
+[0.060s] [35m[1mScanning dependencies of target goals_marker[0m
+[0.080s] [ 66%] Built target data_points_marker
+[0.080s] [ 66%] Built target joints_publisher
+[0.096s] [ 83%] [32mBuilding CXX object CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o[0m
+[1.287s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:58:13:[m[K [01;31m[Kerror: [m[Kvariable or field ‘[01m[Kreq_goals_coord[m[K’ declared void
+[1.287s]    58 |     rclcpp::[01;31m[KServiceClient[m[K& arcl_api_client,
+[1.287s]       |             [01;31m[K^~~~~~~~~~~~~[m[K
+[1.287s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:58:13:[m[K [01;31m[Kerror: [m[K‘[01m[KServiceClient[m[K’ is not a member of ‘[01m[Krclcpp[m[K’; did you mean ‘[01m[KServiceBase[m[K’?
+[1.288s]    58 |     rclcpp::[01;31m[KServiceClient[m[K& arcl_api_client,
+[1.288s]       |             [01;31m[K^~~~~~~~~~~~~[m[K
+[1.288s]       |             [32m[KServiceBase[m[K
+[1.290s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:58:28:[m[K [01;31m[Kerror: [m[K‘[01m[Karcl_api_client[m[K’ was not declared in this scope
+[1.290s]    58 | lcpp::ServiceClient& [01;31m[Karcl_api_client[m[K,
+[1.290s]       |                      [01;31m[K^~~~~~~~~~~~~~~[m[K
+[1.290s] 
+[1.291s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:59:29:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K&[m[K’ token
+[1.291s]    59 | iv_msg::srv::ArclApi[01;31m[K&[m[K goals_info_req,
+[1.291s]       |                     [01;31m[K^[m[K
+[1.291s] 
+[1.292s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:59:31:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_info_req[m[K’ was not declared in this scope
+[1.293s]    59 | iv_msg::srv::ArclApi& [01;31m[Kgoals_info_req[m[K,
+[1.293s]       |                       [01;31m[K^~~~~~~~~~~~~~[m[K
+[1.293s] 
+[1.293s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:60:41:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K&[m[K’ token
+[1.293s]    60 | ization_msgs::msg::MarkerArray[01;31m[K&[m[K goals,
+[1.293s]       |                               [01;31m[K^[m[K
+[1.294s] 
+[1.294s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:60:43:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_id[m[K’?
+[1.294s]    60 | ::msg::MarkerArray& [01;31m[Kgoals[m[K,
+[1.295s]       |                     [01;31m[K^~~~~[m[K
+[1.295s]       |                     [32m[Kgoals_id[m[K
+[1.295s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:61:41:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K&[m[K’ token
+[1.295s]    61 | on_msgs::msg::MarkerArray[01;31m[K&[m[K goals_text,
+[1.295s]       |                          [01;31m[K^[m[K
+[1.295s] 
+[1.296s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:61:43:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_text[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_list[m[K’?
+[1.296s]    61 | on_msgs::msg::MarkerArray& [01;31m[Kgoals_text[m[K,
+[1.297s]       |                            [01;31m[K^~~~~~~~~~[m[K
+[1.297s]       |                            [32m[Kgoals_list[m[K
+[1.297s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:62:37:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kone_goal[m[K’
+[1.297s]    62 | ualization_msgs::msg::Marker [01;31m[Kone_goal[m[K,
+[1.297s]       |                              [01;31m[K^~~~~~~~[m[K
+[1.297s] 
+[1.297s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:63:37:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kone_goal_text[m[K’
+[1.297s]    63 | tion_msgs::msg::Marker [01;31m[Kone_goal_text[m[K);
+[1.297s]       |                        [01;31m[K^~~~~~~~~~~~~[m[K
+[1.297s] 
+[1.297s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:64:46:[m[K [01;31m[Kerror: [m[Kfound ‘[01m[K:[m[K’ in nested-name-specifier, expected ‘[01m[K::[m[K’
+[1.297s]    64 |  std_msgs::msg::String[01;31m[K:[m[KSharedPtr msg);
+[1.297s]       |                       [01;31m[K^[m[K
+[1.297s]       |                       [32m[K::[m[K
+[1.298s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K In function ‘[01m[Kgeometry_msgs::msg::Quaternion createQuaternionMsgFromYaw(double)[m[K’:
+[1.298s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:69:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ktf2[m[K’ has not been declared
+[1.298s]    69 |     [01;31m[Ktf2[m[K::Quaternion tfq;
+[1.298s]       |     [01;31m[K^~~[m[K
+[1.298s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:70:5:[m[K [01;31m[Kerror: [m[K‘[01m[Ktfq[m[K’ was not declared in this scope
+[1.298s]    70 |     [01;31m[Ktfq[m[K.setRPY(0, 0, yaw);
+[1.298s]       |     [01;31m[K^~~[m[K
+[1.317s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[1.318s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:123:70:[m[K [01;31m[Kerror: [m[K‘[01m[Kmsg[m[K’ is not a member of ‘[01m[Kvisualization_msgs::msg[m[K’
+[1.318s]   123 | lization_msgs::msg::[01;31m[Kmsg[m[K::MarkerArray>(goals_vis_topic, 10);
+[1.318s]       |                     [01;31m[K^~~[m[K
+[1.318s] 
+[1.318s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:123:70:[m[K [01;36m[Knote: [m[Ksuggested alternatives:
+[1.319s] In file included from [01m[K/opt/ros/foxy/include/builtin_interfaces/msg/duration.hpp:7[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/duration.hpp:20[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/qos.hpp:20[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/node_interfaces/node_graph_interface.hpp:31[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/client.hpp:34[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/callback_group.hpp:23[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:20[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor.hpp:33[m[K,
+[1.319s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[1.320s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:21[m[K,
+[1.320s]                  from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+[1.320s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[1.320s] [01m[K/opt/ros/foxy/include/builtin_interfaces/msg/detail/duration__struct.hpp:26:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Kbuiltin_interfaces::msg[m[K’
+[1.320s]    26 | namespace [01;36m[Kmsg[m[K
+[1.320s]       |           [01;36m[K^~~[m[K
+[1.320s] In file included from [01m[K/opt/ros/foxy/include/statistics_msgs/msg/detail/metrics_message__struct.hpp:22[m[K,
+[1.320s]                  from [01m[K/opt/ros/foxy/include/statistics_msgs/msg/metrics_message.hpp:7[m[K,
+[1.320s]                  from [01m[K/opt/ros/foxy/include/libstatistics_collector/collector/generate_statistics_message.hpp:21[m[K,
+[1.320s]                  from [01m[K/opt/ros/foxy/include/rclcpp/topic_statistics/subscription_topic_statistics.hpp:23[m[K,
+[1.320s]                  from [01m[K/opt/ros/foxy/include/rclcpp/subscription.hpp:50[m[K,
+[1.320s]                  from [01m[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:25[m[K,
+[1.320s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24[m[K,
+[1.320s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18[m[K,
+[1.320s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20[m[K,
+[1.321s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor.hpp:33[m[K,
+[1.321s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[1.321s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:21[m[K,
+[1.321s]                  from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+[1.321s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[1.321s] [01m[K/opt/ros/foxy/include/statistics_msgs/msg/detail/statistic_data_point__struct.hpp:26:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstatistics_msgs::msg[m[K’
+[1.321s]    26 | namespace [01;36m[Kmsg[m[K
+[1.321s]       |           [01;36m[K^~~[m[K
+[1.321s] In file included from [01m[K/opt/ros/foxy/include/rcl_interfaces/msg/list_parameters_result.hpp:7[m[K,
+[1.321s]                  from [01m[K/opt/ros/foxy/include/rclcpp/node.hpp:34[m[K,
+[1.321s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors/single_threaded_executor.hpp:28[m[K,
+[1.321s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:22[m[K,
+[1.321s]                  from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+[1.322s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[1.322s] [01m[K/opt/ros/foxy/include/rcl_interfaces/msg/detail/list_parameters_result__struct.hpp:26:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Krcl_interfaces::msg[m[K’
+[1.322s]    26 | namespace [01;36m[Kmsg[m[K
+[1.322s]       |           [01;36m[K^~~[m[K
+[1.322s] In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker__struct.hpp:19[m[K,
+[1.322s]                  from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker.hpp:7[m[K,
+[1.322s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:2[m[K:
+[1.322s] [01m[K/opt/ros/foxy/include/std_msgs/msg/detail/header__struct.hpp:30:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd_msgs::msg[m[K’
+[1.322s]    30 | namespace [01;36m[Kmsg[m[K
+[1.322s]       |           [01;36m[K^~~[m[K
+[1.322s] In file included from [01m[K/opt/ros/foxy/include/geometry_msgs/msg/detail/pose__struct.hpp:19[m[K,
+[1.322s]                  from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker__struct.hpp:21[m[K,
+[1.322s]                  from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker.hpp:7[m[K,
+[1.323s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:2[m[K:
+[1.323s] [01m[K/opt/ros/foxy/include/geometry_msgs/msg/detail/point__struct.hpp:26:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Kgeometry_msgs::msg[m[K’
+[1.323s]    26 | namespace [01;36m[Kmsg[m[K
+[1.323s]       |           [01;36m[K^~~[m[K
+[1.323s] In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker.hpp:7[m[K,
+[1.323s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:2[m[K:
+[1.323s] [01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker__struct.hpp:41:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Kvisualization_msgs::msg[m[K’
+[1.323s]    41 | namespace [01;36m[Kmsg[m[K
+[1.323s]       |           [01;36m[K^~~[m[K
+[1.323s] In file included from [01m[K/opt/ros/foxy/include/tf2_msgs/msg/tf_message.hpp:7[m[K,
+[1.323s]                  from [01m[K/opt/ros/foxy/include/tf2_ros/transform_broadcaster.h:38[m[K,
+[1.323s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:6[m[K:
+[1.323s] [01m[K/opt/ros/foxy/include/tf2_msgs/msg/detail/tf_message__struct.hpp:30:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Ktf2_msgs::msg[m[K’
+[1.323s]    30 | namespace [01;36m[Kmsg[m[K
+[1.323s]       |           [01;36m[K^~~[m[K
+[1.323s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:123:70:[m[K [01;31m[Kerror: [m[K‘[01m[Kmsg[m[K’ is not a member of ‘[01m[Kvisualization_msgs::msg[m[K’
+[1.324s]   123 | lization_msgs::msg::[01;31m[Kmsg[m[K::MarkerArray>(goals_vis_topic, 10);
+[1.324s]       |                     [01;31m[K^~~[m[K
+[1.324s] 
+[1.324s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:123:70:[m[K [01;36m[Knote: [m[Ksuggested alternatives:
+[1.324s] In file included from [01m[K/opt/ros/foxy/include/builtin_interfaces/msg/duration.hpp:7[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/duration.hpp:20[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/qos.hpp:20[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/node_interfaces/node_graph_interface.hpp:31[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/client.hpp:34[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/callback_group.hpp:23[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:20[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor.hpp:33[m[K,
+[1.324s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[1.325s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:21[m[K,
+[1.325s]                  from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+[1.325s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[1.325s] [01m[K/opt/ros/foxy/include/builtin_interfaces/msg/detail/duration__struct.hpp:26:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Kbuiltin_interfaces::msg[m[K’
+[1.325s]    26 | namespace [01;36m[Kmsg[m[K
+[1.325s]       |           [01;36m[K^~~[m[K
+[1.325s] In file included from [01m[K/opt/ros/foxy/include/statistics_msgs/msg/detail/metrics_message__struct.hpp:22[m[K,
+[1.325s]                  from [01m[K/opt/ros/foxy/include/statistics_msgs/msg/metrics_message.hpp:7[m[K,
+[1.325s]                  from [01m[K/opt/ros/foxy/include/libstatistics_collector/collector/generate_statistics_message.hpp:21[m[K,
+[1.325s]                  from [01m[K/opt/ros/foxy/include/rclcpp/topic_statistics/subscription_topic_statistics.hpp:23[m[K,
+[1.325s]                  from [01m[K/opt/ros/foxy/include/rclcpp/subscription.hpp:50[m[K,
+[1.325s]                  from [01m[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:25[m[K,
+[1.325s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24[m[K,
+[1.325s]                  from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18[m[K,
+[1.325s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20[m[K,
+[1.326s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executor.hpp:33[m[K,
+[1.326s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+[1.326s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:21[m[K,
+[1.326s]                  from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+[1.326s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[1.326s] [01m[K/opt/ros/foxy/include/statistics_msgs/msg/detail/statistic_data_point__struct.hpp:26:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstatistics_msgs::msg[m[K’
+[1.326s]    26 | namespace [01;36m[Kmsg[m[K
+[1.326s]       |           [01;36m[K^~~[m[K
+[1.326s] In file included from [01m[K/opt/ros/foxy/include/rcl_interfaces/msg/list_parameters_result.hpp:7[m[K,
+[1.326s]                  from [01m[K/opt/ros/foxy/include/rclcpp/node.hpp:34[m[K,
+[1.326s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors/single_threaded_executor.hpp:28[m[K,
+[1.326s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:22[m[K,
+[1.326s]                  from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+[1.326s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[1.326s] [01m[K/opt/ros/foxy/include/rcl_interfaces/msg/detail/list_parameters_result__struct.hpp:26:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Krcl_interfaces::msg[m[K’
+[1.327s]    26 | namespace [01;36m[Kmsg[m[K
+[1.327s]       |           [01;36m[K^~~[m[K
+[1.327s] In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker__struct.hpp:19[m[K,
+[1.327s]                  from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker.hpp:7[m[K,
+[1.327s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:2[m[K:
+[1.327s] [01m[K/opt/ros/foxy/include/std_msgs/msg/detail/header__struct.hpp:30:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Kstd_msgs::msg[m[K’
+[1.327s]    30 | namespace [01;36m[Kmsg[m[K
+[1.327s]       |           [01;36m[K^~~[m[K
+[1.327s] In file included from [01m[K/opt/ros/foxy/include/geometry_msgs/msg/detail/pose__struct.hpp:19[m[K,
+[1.327s]                  from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker__struct.hpp:21[m[K,
+[1.327s]                  from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker.hpp:7[m[K,
+[1.327s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:2[m[K:
+[1.327s] [01m[K/opt/ros/foxy/include/geometry_msgs/msg/detail/point__struct.hpp:26:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Kgeometry_msgs::msg[m[K’
+[1.327s]    26 | namespace [01;36m[Kmsg[m[K
+[1.327s]       |           [01;36m[K^~~[m[K
+[1.328s] In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker.hpp:7[m[K,
+[1.328s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:2[m[K:
+[1.328s] [01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker__struct.hpp:41:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Kvisualization_msgs::msg[m[K’
+[1.328s]    41 | namespace [01;36m[Kmsg[m[K
+[1.328s]       |           [01;36m[K^~~[m[K
+[1.328s] In file included from [01m[K/opt/ros/foxy/include/tf2_msgs/msg/tf_message.hpp:7[m[K,
+[1.328s]                  from [01m[K/opt/ros/foxy/include/tf2_ros/transform_broadcaster.h:38[m[K,
+[1.328s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:6[m[K:
+[1.328s] [01m[K/opt/ros/foxy/include/tf2_msgs/msg/detail/tf_message__struct.hpp:30:11:[m[K [01;36m[Knote: [m[K  ‘[01m[Ktf2_msgs::msg[m[K’
+[1.328s]    30 | namespace [01;36m[Kmsg[m[K
+[1.328s]       |           [01;36m[K^~~[m[K
+[1.328s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:123:28:[m[K [01;31m[Kerror: [m[Kparse error in template argument list
+[1.328s]   123 | o publisher = node->[01;31m[Kcreate_publisher<visualization_msgs::msg::msg::MarkerArray>[m[K(goals_vis_topic, 10);
+[1.328s]       |                     [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[1.328s] 
+[1.328s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:123:107:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Krclcpp::Node::create_publisher<<expression error> >(std::string&, int)[m[K’
+[1.329s]   123 | (goals_vis_topic, 10[01;31m[K)[m[K;
+[1.329s]       |                     [01;31m[K^[m[K
+[1.329s] 
+[1.329s] In file included from [01m[K/opt/ros/foxy/include/rclcpp/executors/single_threaded_executor.hpp:28[m[K,
+[1.329s]                  from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:22[m[K,
+[1.329s]                  from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+[1.329s]                  from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[1.329s] [01m[K/opt/ros/foxy/include/rclcpp/node.hpp:184:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT, class PublisherT> std::shared_ptr<PublisherT> rclcpp::Node::create_publisher(const string&, const rclcpp::QoS&, const rclcpp::PublisherOptionsWithAllocator<AllocatorT>&)[m[K’
+[1.329s]   184 |   [01;36m[Kcreate_publisher[m[K(
+[1.329s]       |   [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[1.329s] [01m[K/opt/ros/foxy/include/rclcpp/node.hpp:184:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[1.329s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:123:107:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[1.329s]   123 | (goals_vis_topic, 10[01;31m[K)[m[K;
+[1.329s]       |                     [01;31m[K^[m[K
+[1.329s] 
+[1.330s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:162:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstruct om_aiv_msg::srv::ArclListen[m[K’ has no member named ‘[01m[Krequest[m[K’; did you mean ‘[01m[KRequest[m[K’?
+[1.330s]   162 |     goals_list_req.[01;31m[Krequest[m[K.resp_header = GOAL_RESP_H;
+[1.331s]       |                    [01;31m[K^~~~~~~[m[K
+[1.331s]       |                    [32m[KRequest[m[K
+[1.331s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:163:20:[m[K [01;31m[Kerror: [m[K‘[01m[Kstruct om_aiv_msg::srv::ArclApi[m[K’ has no member named ‘[01m[Krequest[m[K’; did you mean ‘[01m[KRequest[m[K’?
+[1.331s]   163 |     goals_info_req.[01;31m[Krequest[m[K.line_identifier = GOALS_LIST_END;
+[1.331s]       |                    [01;31m[K^~~~~~~[m[K
+[1.331s]       |                    [32m[KRequest[m[K
+[1.333s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:168:25:[m[K [01;31m[Kerror: [m[K‘[01m[Karcl_api_client[m[K’ was not declared in this scope
+[1.333s]   168 |     req_goals_coord([01;31m[Karcl_api_client[m[K, goals_info_req, goals, goals_text, one_goal, one_goal_text);
+[1.333s]       |                     [01;31m[K^~~~~~~~~~~~~~~[m[K
+[1.333s] 
+[1.335s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:168:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kreq_goals_coord[m[K’ was not declared in this scope
+[1.335s]   168 |         [01;31m[Kreq_goals_coord[m[K(arcl_api_client, goals_info_req, goals, goals_text, one_goal, one_goal_text);
+[1.336s]       |         [01;31m[K^~~~~~~~~~~~~~~[m[K
+[1.336s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:169:27:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::vector<visualization_msgs::msg::Marker_<std::allocator<void> >, std::allocator<visualization_msgs::msg::Marker_<std::allocator<void> > > >::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K-Wsign-compare[m[K]
+[1.336s]   169 |   for (int i = 0; [01;35m[Ki < goals.markers.size()[m[K; i++)
+[1.336s]       |                   [01;35m[K~~^~~~~~~~~~~~~~~~~~~~~~[m[K
+[1.336s] 
+[1.337s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:174:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_pub[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_id[m[K’?
+[1.337s]   174 |         [01;31m[Kgoals_pub[m[K->publish(goals);
+[1.337s]       |         [01;31m[K^~~~~~~~~[m[K
+[1.337s]       |         [32m[Kgoals_id[m[K
+[1.339s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K At global scope:
+[1.339s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:185:13:[m[K [01;31m[Kerror: [m[Kvariable or field ‘[01m[Kreq_goals_coord[m[K’ declared void
+[1.339s]   185 |     rclcpp::[01;31m[KServiceClient[m[K& arcl_api_client,
+[1.339s]       |             [01;31m[K^~~~~~~~~~~~~[m[K
+[1.339s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:185:13:[m[K [01;31m[Kerror: [m[K‘[01m[KServiceClient[m[K’ is not a member of ‘[01m[Krclcpp[m[K’; did you mean ‘[01m[KServiceBase[m[K’?
+[1.339s]   185 |     rclcpp::[01;31m[KServiceClient[m[K& arcl_api_client,
+[1.339s]       |             [01;31m[K^~~~~~~~~~~~~[m[K
+[1.339s]       |             [32m[KServiceBase[m[K
+[1.341s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:185:28:[m[K [01;31m[Kerror: [m[K‘[01m[Karcl_api_client[m[K’ was not declared in this scope
+[1.341s]   185 | lcpp::ServiceClient& [01;31m[Karcl_api_client[m[K,
+[1.342s]       |                      [01;31m[K^~~~~~~~~~~~~~~[m[K
+[1.342s] 
+[1.342s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:186:29:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K&[m[K’ token
+[1.342s]   186 | iv_msg::srv::ArclApi[01;31m[K&[m[K goals_info_req,
+[1.342s]       |                     [01;31m[K^[m[K
+[1.342s] 
+[1.344s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:186:31:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_info_req[m[K’ was not declared in this scope
+[1.344s]   186 | iv_msg::srv::ArclApi& [01;31m[Kgoals_info_req[m[K,
+[1.344s]       |                       [01;31m[K^~~~~~~~~~~~~~[m[K
+[1.344s] 
+[1.344s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:187:41:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K&[m[K’ token
+[1.344s]   187 | ization_msgs::msg::MarkerArray[01;31m[K&[m[K goals,
+[1.344s]       |                               [01;31m[K^[m[K
+[1.344s] 
+[1.345s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:187:43:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_id[m[K’?
+[1.345s]   187 | ::msg::MarkerArray& [01;31m[Kgoals[m[K,
+[1.345s]       |                     [01;31m[K^~~~~[m[K
+[1.346s]       |                     [32m[Kgoals_id[m[K
+[1.346s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:188:41:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K&[m[K’ token
+[1.346s]   188 | on_msgs::msg::MarkerArray[01;31m[K&[m[K goals_text,
+[1.346s]       |                          [01;31m[K^[m[K
+[1.346s] 
+[1.347s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:188:43:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_text[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_list[m[K’?
+[1.347s]   188 | on_msgs::msg::MarkerArray& [01;31m[Kgoals_text[m[K,
+[1.347s]       |                            [01;31m[K^~~~~~~~~~[m[K
+[1.347s]       |                            [32m[Kgoals_list[m[K
+[1.347s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:189:37:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kone_goal[m[K’
+[1.347s]   189 | ualization_msgs::msg::Marker [01;31m[Kone_goal[m[K,
+[1.347s]       |                              [01;31m[K^~~~~~~~[m[K
+[1.347s] 
+[1.348s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:190:37:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kone_goal_text[m[K’
+[1.348s]   190 | ation_msgs::msg::Marker [01;31m[Kone_goal_text[m[K)
+[1.348s]       |                         [01;31m[K^~~~~~~~~~~~~[m[K
+[1.348s] 
+[2.720s] make[2]: *** [CMakeFiles/goals_marker.dir/build.make:63: CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o] Error 1
+[2.720s] make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/goals_marker.dir/all] Error 2
+[2.720s] make: *** [Makefile:141: all] Error 2
+[2.722s] Invoked command in '/home/omron/Omron_LD/build/ld_visualisation' returned '2': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/omron/Omron_LD/build/ld_visualisation -- -j8 -l8

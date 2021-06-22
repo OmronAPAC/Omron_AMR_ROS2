@@ -1,0 +1,22 @@
+[0.283s] Invoking command in '/home/omron/Omron_LD/src/om_aiv_util': PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py egg_info --egg-base ../../build/om_aiv_util build --build-base /home/omron/Omron_LD/build/om_aiv_util/build install --prefix /home/omron/Omron_LD/install/om_aiv_util --record /home/omron/Omron_LD/build/om_aiv_util/install.log --single-version-externally-managed
+[0.502s] running egg_info
+[0.503s] writing ../../build/om_aiv_util/om_aiv_util.egg-info/PKG-INFO
+[0.503s] writing dependency_links to ../../build/om_aiv_util/om_aiv_util.egg-info/dependency_links.txt
+[0.503s] writing entry points to ../../build/om_aiv_util/om_aiv_util.egg-info/entry_points.txt
+[0.503s] writing requirements to ../../build/om_aiv_util/om_aiv_util.egg-info/requires.txt
+[0.503s] writing top-level names to ../../build/om_aiv_util/om_aiv_util.egg-info/top_level.txt
+[0.535s] reading manifest file '../../build/om_aiv_util/om_aiv_util.egg-info/SOURCES.txt'
+[0.537s] writing manifest file '../../build/om_aiv_util/om_aiv_util.egg-info/SOURCES.txt'
+[0.537s] running build
+[0.537s] running build_py
+[0.538s] running install
+[0.539s] running install_lib
+[0.541s] running install_data
+[0.541s] running install_egg_info
+[0.544s] removing '/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util-0.0.0-py3.8.egg-info' (and everything under it)
+[0.544s] Copying ../../build/om_aiv_util/om_aiv_util.egg-info to /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util-0.0.0-py3.8.egg-info
+[0.545s] running install_scripts
+[0.564s] Installing arcl_api_server script to /home/omron/Omron_LD/install/om_aiv_util/lib/om_aiv_util
+[0.564s] Installing ld_states_publisher script to /home/omron/Omron_LD/install/om_aiv_util/lib/om_aiv_util
+[0.564s] writing list of installed files to '/home/omron/Omron_LD/build/om_aiv_util/install.log'
+[0.584s] Invoked command in '/home/omron/Omron_LD/src/om_aiv_util' returned '0': PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py egg_info --egg-base ../../build/om_aiv_util build --build-base /home/omron/Omron_LD/build/om_aiv_util/build install --prefix /home/omron/Omron_LD/install/om_aiv_util --record /home/omron/Omron_LD/build/om_aiv_util/install.log --single-version-externally-managed

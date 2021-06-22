@@ -1,0 +1,44 @@
+[0.027s] Invoking command in '/home/omron/Omron_LD/build/om_aiv_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/opt/ros/foxy /usr/bin/cmake /home/omron/Omron_LD/src/om_aiv_msg -DCMAKE_INSTALL_PREFIX=/home/omron/Omron_LD/install/om_aiv_msg
+[0.279s] -- The C compiler identification is GNU 9.3.0
+[0.279s] -- The CXX compiler identification is GNU 9.3.0
+[0.279s] -- Check for working C compiler: /usr/bin/cc
+[0.280s] -- Check for working C compiler: /usr/bin/cc -- works
+[0.280s] -- Detecting C compiler ABI info
+[0.294s] -- Detecting C compiler ABI info - done
+[0.313s] -- Detecting C compile features
+[0.313s] -- Detecting C compile features - done
+[0.316s] -- Check for working CXX compiler: /usr/bin/c++
+[0.388s] -- Check for working CXX compiler: /usr/bin/c++ -- works
+[0.389s] -- Detecting CXX compiler ABI info
+[0.471s] -- Detecting CXX compiler ABI info - done
+[0.486s] -- Detecting CXX compile features
+[0.487s] -- Detecting CXX compile features - done
+[0.490s] -- Found ament_cmake: 0.9.8 (/opt/ros/foxy/share/ament_cmake/cmake)
+[0.517s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.5", minimum required is "3") 
+[0.518s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.714s] -- Found actionlib_msgs: 2.0.4 (/opt/ros/foxy/share/actionlib_msgs/cmake)
+[0.739s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.745s] -- Found rosidl_adapter: 1.2.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[0.816s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.1f")  
+[0.843s] -- Found FastRTPS: /opt/ros/foxy/include  
+[0.916s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.003s] CMake Error at CMakeLists.txt:21 (find_package):
+[1.003s]   By not providing "Findmessage_generation.cmake" in CMAKE_MODULE_PATH this
+[1.003s]   project has asked CMake to find a package configuration file provided by
+[1.003s]   "message_generation", but CMake did not find one.
+[1.004s] 
+[1.004s]   Could not find a package configuration file provided by
+[1.004s]   "message_generation" with any of the following names:
+[1.004s] 
+[1.004s]     message_generationConfig.cmake
+[1.004s]     message_generation-config.cmake
+[1.005s] 
+[1.005s]   Add the installation prefix of "message_generation" to CMAKE_PREFIX_PATH or
+[1.005s]   set "message_generation_DIR" to a directory containing one of the above
+[1.005s]   files.  If "message_generation" provides a separate development package or
+[1.005s]   SDK, be sure it has been installed.
+[1.005s] 
+[1.005s] 
+[1.005s] -- Configuring incomplete, errors occurred!
+[1.005s] See also "/home/omron/Omron_LD/build/om_aiv_msg/CMakeFiles/CMakeOutput.log".
+[1.012s] Invoked command in '/home/omron/Omron_LD/build/om_aiv_msg' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/opt/ros/foxy /usr/bin/cmake /home/omron/Omron_LD/src/om_aiv_msg -DCMAKE_INSTALL_PREFIX=/home/omron/Omron_LD/install/om_aiv_msg

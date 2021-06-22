@@ -1,0 +1,687 @@
+[0.000000] (-) TimerEvent: {}
+[0.000277] (om_aiv_msg) JobQueued: {'identifier': 'om_aiv_msg', 'dependencies': OrderedDict()}
+[0.000565] (om_aiv_navigation) JobQueued: {'identifier': 'om_aiv_navigation', 'dependencies': OrderedDict()}
+[0.000727] (ld_visualisation) JobQueued: {'identifier': 'ld_visualisation', 'dependencies': OrderedDict([('om_aiv_msg', '/home/omron/Omron_LD/install/om_aiv_msg')])}
+[0.001245] (om_aiv_util) JobQueued: {'identifier': 'om_aiv_util', 'dependencies': OrderedDict([('om_aiv_msg', '/home/omron/Omron_LD/install/om_aiv_msg')])}
+[0.001307] (om_aiv_msg) JobStarted: {'identifier': 'om_aiv_msg'}
+[0.014341] (om_aiv_navigation) JobStarted: {'identifier': 'om_aiv_navigation'}
+[0.026298] (om_aiv_msg) JobProgress: {'identifier': 'om_aiv_msg', 'progress': 'cmake'}
+[0.027204] (om_aiv_msg) JobProgress: {'identifier': 'om_aiv_msg', 'progress': 'build'}
+[0.028130] (om_aiv_msg) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/omron/Omron_LD/build/om_aiv_msg', '--', '-j8', '-l8'], 'cwd': '/home/omron/Omron_LD/build/om_aiv_msg', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_SG:en'), ('USER', 'omron'), ('SSH_AGENT_PID', '1084'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/omron'), ('CHROME_DESKTOP', 'code-url-handler.desktop'), ('TERM_PROGRAM_VERSION', '1.57.1'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL', 'true'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/snap/code/67/usr/share/code/code'), ('MANAGERPID', '834'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '132106'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/omron/Omron_LD/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'omron'), ('JOURNAL_STREAM', '8:35424'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'omron'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/omron/.local/bin:/opt/ros/foxy/bin:/home/omron/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/omron-NUC8i5BEH:@/tmp/.ICE-unix/1127,unix/omron-NUC8i5BEH:/tmp/.ICE-unix/1127'), ('INVOCATION_ID', '5eb07be3a034478a80f39f39b2eea782'), ('XDG_MENU_PREFIX', 'gnome-'), ('BAMF_DESKTOP_FILE_HINT', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('LANG', 'en_SG.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b10b3d5190.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('GSETTINGS_SCHEMA_DIR', '/snap/code/67/usr/share/glib-2.0/schemas'), ('AMENT_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/opt/ros/foxy'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('DISABLE_WAYLAND', '1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/omron/Omron_LD/build/om_aiv_msg'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('BREAKPAD_DUMP_LOCATION', '/home/omron/.config/Code/exthost Crash Reports'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/opt/ros/foxy')]), 'shell': False}
+[0.071041] (om_aiv_msg) StdoutLine: {'line': b'-- Found ament_cmake: 0.9.8 (/opt/ros/foxy/share/ament_cmake/cmake)\n'}
+[0.099040] (om_aiv_msg) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.5", minimum required is "3") \n'}
+[0.099455] (-) TimerEvent: {}
+[0.099827] (om_aiv_msg) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[0.199555] (-) TimerEvent: {}
+[0.273729] (om_aiv_navigation) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/om_aiv_navigation', 'build', '--build-base', '/home/omron/Omron_LD/build/om_aiv_navigation/build', 'install', '--prefix', '/home/omron/Omron_LD/install/om_aiv_navigation', '--record', '/home/omron/Omron_LD/build/om_aiv_navigation/install.log', '--single-version-externally-managed'], 'cwd': '/home/omron/Omron_LD/src/om_aiv_navigation', 'env': {'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_SG:en', 'USER': 'omron', 'SSH_AGENT_PID': '1084', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/omron/Omron_LD/install/om_aiv_msg/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/home/omron', 'CHROME_DESKTOP': 'code-url-handler.desktop', 'TERM_PROGRAM_VERSION': '1.57.1', 'DESKTOP_SESSION': 'ubuntu', 'GIO_LAUNCHED_DESKTOP_FILE': '/var/lib/snapd/desktop/applications/code_code.desktop', 'APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL': 'true', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/snap/code/67/usr/share/code/code', 'MANAGERPID': '834', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '132106', 'IM_CONFIG_PHASE': '1', 'COLCON_PREFIX_PATH': '/home/omron/Omron_LD/install', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'omron', 'JOURNAL_STREAM': '8:35424', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'omron', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'WINDOWPATH': '2', 'PATH': '/home/omron/.local/bin:/opt/ros/foxy/bin:/home/omron/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/omron-NUC8i5BEH:@/tmp/.ICE-unix/1127,unix/omron-NUC8i5BEH:/tmp/.ICE-unix/1127', 'INVOCATION_ID': '5eb07be3a034478a80f39f39b2eea782', 'XDG_MENU_PREFIX': 'gnome-', 'BAMF_DESKTOP_FILE_HINT': '/var/lib/snapd/desktop/applications/code_code.desktop', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':0', 'LANG': 'en_SG.UTF-8', 'XDG_CURRENT_DESKTOP': 'Unity', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-b10b3d5190.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'GSETTINGS_SCHEMA_DIR': '/snap/code/67/usr/share/glib-2.0/schemas', 'AMENT_PREFIX_PATH': '/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/opt/ros/foxy', 'ORIGINAL_XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'SHELL': '/bin/bash', 'DISABLE_WAYLAND': '1', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'GJS_DEBUG_OUTPUT': 'stderr', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/omron/Omron_LD/build/om_aiv_navigation', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'BREAKPAD_DUMP_LOCATION': '/home/omron/.config/Code/exthost Crash Reports', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg'}, 'shell': False}
+[0.299671] (-) TimerEvent: {}
+[0.311740] (om_aiv_msg) StdoutLine: {'line': b'-- Found action_msgs: 1.0.0 (/opt/ros/foxy/share/action_msgs/cmake)\n'}
+[0.343066] (om_aiv_msg) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.349720] (om_aiv_msg) StdoutLine: {'line': b'-- Found rosidl_adapter: 1.2.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)\n'}
+[0.399781] (-) TimerEvent: {}
+[0.500148] (-) TimerEvent: {}
+[0.506823] (om_aiv_navigation) StdoutLine: {'line': b'running egg_info\n'}
+[0.507813] (om_aiv_navigation) StdoutLine: {'line': b'writing ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/PKG-INFO\n'}
+[0.508174] (om_aiv_navigation) StdoutLine: {'line': b'writing dependency_links to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/dependency_links.txt\n'}
+[0.508382] (om_aiv_navigation) StdoutLine: {'line': b'writing entry points to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/entry_points.txt\n'}
+[0.508572] (om_aiv_navigation) StdoutLine: {'line': b'writing requirements to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/requires.txt\n'}
+[0.508723] (om_aiv_navigation) StdoutLine: {'line': b'writing top-level names to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/top_level.txt\n'}
+[0.513534] (om_aiv_msg) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.543007] (om_aiv_navigation) StdoutLine: {'line': b"reading manifest file '../../build/om_aiv_navigation/om_aiv_navigation.egg-info/SOURCES.txt'\n"}
+[0.544345] (om_aiv_navigation) StdoutLine: {'line': b"writing manifest file '../../build/om_aiv_navigation/om_aiv_navigation.egg-info/SOURCES.txt'\n"}
+[0.544677] (om_aiv_navigation) StdoutLine: {'line': b'running build\n'}
+[0.544764] (om_aiv_navigation) StdoutLine: {'line': b'running build_py\n'}
+[0.545032] (om_aiv_navigation) StdoutLine: {'line': b'copying om_aiv_navigation/action_server.py -> /home/omron/Omron_LD/build/om_aiv_navigation/build/lib/om_aiv_navigation\n'}
+[0.545466] (om_aiv_navigation) StdoutLine: {'line': b'running install\n'}
+[0.546836] (om_aiv_navigation) StdoutLine: {'line': b'running install_lib\n'}
+[0.548618] (om_aiv_navigation) StdoutLine: {'line': b'copying /home/omron/Omron_LD/build/om_aiv_navigation/build/lib/om_aiv_navigation/action_server.py -> /home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation\n'}
+[0.549650] (om_aiv_navigation) StdoutLine: {'line': b'byte-compiling /home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation/action_server.py to action_server.cpython-38.pyc\n'}
+[0.552358] (om_aiv_navigation) StdoutLine: {'line': b'running install_data\n'}
+[0.553220] (om_aiv_navigation) StdoutLine: {'line': b'running install_egg_info\n'}
+[0.555732] (om_aiv_navigation) StdoutLine: {'line': b"removing '/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation-0.0.0-py3.8.egg-info' (and everything under it)\n"}
+[0.556191] (om_aiv_navigation) StdoutLine: {'line': b'Copying ../../build/om_aiv_navigation/om_aiv_navigation.egg-info to /home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation-0.0.0-py3.8.egg-info\n'}
+[0.557551] (om_aiv_navigation) StdoutLine: {'line': b'running install_scripts\n'}
+[0.576316] (om_aiv_navigation) StdoutLine: {'line': b'Installing action_server script to /home/omron/Omron_LD/install/om_aiv_navigation/lib/om_aiv_navigation\n'}
+[0.576648] (om_aiv_navigation) StdoutLine: {'line': b'Installing goto_goal2_action script to /home/omron/Omron_LD/install/om_aiv_navigation/lib/om_aiv_navigation\n'}
+[0.576847] (om_aiv_navigation) StdoutLine: {'line': b'Installing goto_goal3_action script to /home/omron/Omron_LD/install/om_aiv_navigation/lib/om_aiv_navigation\n'}
+[0.577189] (om_aiv_navigation) StdoutLine: {'line': b"writing list of installed files to '/home/omron/Omron_LD/build/om_aiv_navigation/install.log'\n"}
+[0.599124] (om_aiv_navigation) CommandEnded: {'returncode': 0}
+[0.600262] (-) TimerEvent: {}
+[0.601329] (om_aiv_msg) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.0.1 (/opt/ros/foxy/share/rosidl_default_generators/cmake)\n'}
+[0.614720] (om_aiv_navigation) JobEnded: {'identifier': 'om_aiv_navigation', 'rc': 0}
+[0.648654] (om_aiv_msg) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found version "3.8.5") \n'}
+[0.700391] (-) TimerEvent: {}
+[0.800637] (-) TimerEvent: {}
+[0.830215] (om_aiv_msg) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.9.1 (/opt/ros/foxy/share/ament_cmake_ros/cmake)\n'}
+[0.900751] (-) TimerEvent: {}
+[0.963883] (om_aiv_msg) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.991666] (om_aiv_msg) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.000908] (-) TimerEvent: {}
+[1.019567] (om_aiv_msg) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.8.5", minimum required is "3.5") \n'}
+[1.020433] (om_aiv_msg) StdoutLine: {'line': b'-- Found python_cmake_module: 0.8.1 (/opt/ros/foxy/share/python_cmake_module/cmake)\n'}
+[1.044486] (om_aiv_msg) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[1.044850] (om_aiv_msg) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.8\n'}
+[1.045044] (om_aiv_msg) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.8.so\n'}
+[1.072584] (om_aiv_msg) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.9.6 (/opt/ros/foxy/share/ament_lint_auto/cmake)\n'}
+[1.099739] (om_aiv_msg) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[1.100985] (-) TimerEvent: {}
+[1.102597] (om_aiv_msg) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[1.104513] (om_aiv_msg) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[1.112015] (om_aiv_msg) StdoutLine: {'line': b'-- Configuring done\n'}
+[1.197603] (om_aiv_msg) StdoutLine: {'line': b'-- Generating done\n'}
+[1.201097] (-) TimerEvent: {}
+[1.201708] (om_aiv_msg) StdoutLine: {'line': b'-- Build files have been written to: /home/omron/Omron_LD/build/om_aiv_msg\n'}
+[1.241731] (om_aiv_msg) StdoutLine: {'line': b'[  1%] \x1b[34m\x1b[1mGenerating C code for ROS interfaces\x1b[0m\n'}
+[1.264404] (om_aiv_msg) StdoutLine: {'line': b'[  3%] \x1b[34m\x1b[1mGenerating C++ code for ROS interfaces\x1b[0m\n'}
+[1.301210] (-) TimerEvent: {}
+[1.401670] (-) TimerEvent: {}
+[1.502096] (-) TimerEvent: {}
+[1.602369] (-) TimerEvent: {}
+[1.702705] (-) TimerEvent: {}
+[1.802999] (-) TimerEvent: {}
+[1.903305] (-) TimerEvent: {}
+[2.003716] (-) TimerEvent: {}
+[2.093312] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__rosidl_generator_c\x1b[0m\n'}
+[2.105106] (-) TimerEvent: {}
+[2.119786] (om_aiv_msg) StdoutLine: {'line': b'[  4%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_generator_c.dir/rosidl_generator_c/om_aiv_msg/srv/detail/arcl_listen__functions.c.o\x1b[0m\n'}
+[2.120019] (om_aiv_msg) StdoutLine: {'line': b'[  6%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_generator_c.dir/rosidl_generator_c/om_aiv_msg/srv/detail/arcl_api__functions.c.o\x1b[0m\n'}
+[2.122966] (om_aiv_msg) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_generator_c.dir/rosidl_generator_c/om_aiv_msg/action/detail/action__functions.c.o\x1b[0m\n'}
+[2.123230] (om_aiv_msg) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_generator_c.dir/rosidl_generator_c/om_aiv_msg/msg/detail/location__functions.c.o\x1b[0m\n'}
+[2.123378] (om_aiv_msg) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_generator_c.dir/rosidl_generator_c/om_aiv_msg/msg/detail/status__functions.c.o\x1b[0m\n'}
+[2.131258] (om_aiv_msg) StdoutLine: {'line': b'[ 11%] Built target om_aiv_msg__cpp\n'}
+[2.145993] (om_aiv_msg) StdoutLine: {'line': b'[ 12%] \x1b[34m\x1b[1mGenerating C++ introspection for ROS interfaces\x1b[0m\n'}
+[2.154392] (om_aiv_msg) StdoutLine: {'line': b'[ 14%] \x1b[34m\x1b[1mGenerating C++ type support dispatch for ROS interfaces\x1b[0m\n'}
+[2.163573] (om_aiv_msg) StdoutLine: {'line': b'[ 15%] \x1b[34m\x1b[1mGenerating C++ type support for eProsima Fast-RTPS\x1b[0m\n'}
+[2.205214] (-) TimerEvent: {}
+[2.305517] (-) TimerEvent: {}
+[2.397074] (om_aiv_msg) StdoutLine: {'line': b'[ 17%] \x1b[32m\x1b[1mLinking C shared library libom_aiv_msg__rosidl_generator_c.so\x1b[0m\n'}
+[2.405605] (-) TimerEvent: {}
+[2.505901] (-) TimerEvent: {}
+[2.524183] (om_aiv_msg) StdoutLine: {'line': b'[ 17%] Built target om_aiv_msg__rosidl_generator_c\n'}
+[2.544646] (om_aiv_msg) StdoutLine: {'line': b'[ 19%] \x1b[34m\x1b[1mGenerating C introspection for ROS interfaces\x1b[0m\n'}
+[2.548263] (om_aiv_msg) StdoutLine: {'line': b'[ 20%] \x1b[34m\x1b[1mGenerating C type support dispatch for ROS interfaces\x1b[0m\n'}
+[2.606637] (-) TimerEvent: {}
+[2.706921] (-) TimerEvent: {}
+[2.808254] (-) TimerEvent: {}
+[2.909192] (-) TimerEvent: {}
+[2.948962] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__rosidl_typesupport_cpp\x1b[0m\n'}
+[3.009604] (-) TimerEvent: {}
+[3.015903] (om_aiv_msg) StdoutLine: {'line': b'[ 22%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/om_aiv_msg/msg/status__type_support.cpp.o\x1b[0m\n'}
+[3.023297] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__rosidl_typesupport_introspection_cpp\x1b[0m\n'}
+[3.050680] (om_aiv_msg) StdoutLine: {'line': b'[ 23%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/om_aiv_msg/srv/arcl_api__type_support.cpp.o\x1b[0m\n'}
+[3.050960] (om_aiv_msg) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/om_aiv_msg/msg/location__type_support.cpp.o\x1b[0m\n'}
+[3.059106] (om_aiv_msg) StdoutLine: {'line': b'[ 26%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/om_aiv_msg/srv/arcl_listen__type_support.cpp.o\x1b[0m\n'}
+[3.080502] (om_aiv_msg) StdoutLine: {'line': b'[ 28%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/om_aiv_msg/msg/detail/location__type_support.cpp.o\x1b[0m\n'}
+[3.109691] (-) TimerEvent: {}
+[3.210576] (-) TimerEvent: {}
+[3.228271] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__rosidl_typesupport_fastrtps_cpp\x1b[0m\n'}
+[3.310707] (-) TimerEvent: {}
+[3.325044] (om_aiv_msg) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/om_aiv_msg/msg/detail/dds_fastrtps/location__type_support.cpp.o\x1b[0m\n'}
+[3.410799] (-) TimerEvent: {}
+[3.449388] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__rosidl_typesupport_c\x1b[0m\n'}
+[3.489348] (om_aiv_msg) StdoutLine: {'line': b'[ 31%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_c.dir/rosidl_typesupport_c/om_aiv_msg/msg/location__type_support.cpp.o\x1b[0m\n'}
+[3.510902] (-) TimerEvent: {}
+[3.616322] (-) TimerEvent: {}
+[3.622236] (om_aiv_msg) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_c.dir/rosidl_typesupport_c/om_aiv_msg/msg/status__type_support.cpp.o\x1b[0m\n'}
+[3.638787] (om_aiv_msg) StdoutLine: {'line': b'[ 34%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/om_aiv_msg/msg/detail/status__type_support.cpp.o\x1b[0m\n'}
+[3.663448] (om_aiv_msg) StdoutLine: {'line': b'[ 36%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/om_aiv_msg/action/action__type_support.cpp.o\x1b[0m\n'}
+[3.677896] (om_aiv_msg) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/om_aiv_msg/msg/detail/dds_fastrtps/status__type_support.cpp.o\x1b[0m\n'}
+[3.686825] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__rosidl_typesupport_introspection_c\x1b[0m\n'}
+[3.689505] (om_aiv_msg) StdoutLine: {'line': b'[ 39%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/om_aiv_msg/srv/detail/arcl_api__type_support.cpp.o\x1b[0m\n'}
+[3.700363] (om_aiv_msg) StdoutLine: {'line': b'[ 41%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_c.dir/rosidl_typesupport_c/om_aiv_msg/srv/arcl_api__type_support.cpp.o\x1b[0m\n'}
+[3.716425] (-) TimerEvent: {}
+[3.723039] (om_aiv_msg) StdoutLine: {'line': b'[ 42%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/om_aiv_msg/srv/detail/dds_fastrtps/arcl_api__type_support.cpp.o\x1b[0m\n'}
+[3.734355] (om_aiv_msg) StdoutLine: {'line': b'[ 44%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/om_aiv_msg/msg/detail/location__type_support.c.o\x1b[0m\n'}
+[3.753663] (om_aiv_msg) StdoutLine: {'line': b'[ 46%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_c.dir/rosidl_typesupport_c/om_aiv_msg/srv/arcl_listen__type_support.cpp.o\x1b[0m\n'}
+[3.816533] (-) TimerEvent: {}
+[3.846370] (om_aiv_msg) StdoutLine: {'line': b'[ 47%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/om_aiv_msg/msg/detail/status__type_support.c.o\x1b[0m\n'}
+[3.862514] (om_aiv_msg) StdoutLine: {'line': b'[ 49%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_c.dir/rosidl_typesupport_c/om_aiv_msg/action/action__type_support.cpp.o\x1b[0m\n'}
+[3.916638] (-) TimerEvent: {}
+[4.000998] (om_aiv_msg) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/om_aiv_msg/srv/detail/arcl_api__type_support.c.o\x1b[0m\n'}
+[4.016734] (-) TimerEvent: {}
+[4.053403] (om_aiv_msg) StdoutLine: {'line': b'[ 52%] \x1b[32m\x1b[1mLinking CXX shared library libom_aiv_msg__rosidl_typesupport_c.so\x1b[0m\n'}
+[4.093371] (om_aiv_msg) StdoutLine: {'line': b'[ 53%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/om_aiv_msg/srv/detail/dds_fastrtps/arcl_listen__type_support.cpp.o\x1b[0m\n'}
+[4.116845] (-) TimerEvent: {}
+[4.183773] (om_aiv_msg) StdoutLine: {'line': b'[ 55%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/om_aiv_msg/srv/detail/arcl_listen__type_support.cpp.o\x1b[0m\n'}
+[4.196154] (om_aiv_msg) StdoutLine: {'line': b'[ 57%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/om_aiv_msg/srv/detail/arcl_listen__type_support.c.o\x1b[0m\n'}
+[4.216944] (-) TimerEvent: {}
+[4.233396] (om_aiv_msg) StdoutLine: {'line': b'[ 57%] Built target om_aiv_msg__rosidl_typesupport_c\n'}
+[4.261796] (om_aiv_msg) StdoutLine: {'line': b'[ 58%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/om_aiv_msg/action/detail/action__type_support.c.o\x1b[0m\n'}
+[4.292805] (om_aiv_msg) StdoutLine: {'line': b'[ 60%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/om_aiv_msg/action/detail/action__type_support.cpp.o\x1b[0m\n'}
+[4.317035] (-) TimerEvent: {}
+[4.341954] (om_aiv_msg) StdoutLine: {'line': b'[ 61%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/om_aiv_msg/action/detail/dds_fastrtps/action__type_support.cpp.o\x1b[0m\n'}
+[4.386042] (om_aiv_msg) StdoutLine: {'line': b'[ 63%] \x1b[32m\x1b[1mLinking C shared library libom_aiv_msg__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[4.417141] (-) TimerEvent: {}
+[4.452456] (om_aiv_msg) StdoutLine: {'line': b'[ 65%] \x1b[32m\x1b[1mLinking CXX shared library libom_aiv_msg__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[4.501322] (om_aiv_msg) StdoutLine: {'line': b'[ 65%] Built target om_aiv_msg__rosidl_typesupport_introspection_c\n'}
+[4.517240] (-) TimerEvent: {}
+[4.608600] (om_aiv_msg) StdoutLine: {'line': b'[ 65%] Built target om_aiv_msg__rosidl_typesupport_cpp\n'}
+[4.617337] (-) TimerEvent: {}
+[4.717639] (-) TimerEvent: {}
+[4.817965] (-) TimerEvent: {}
+[4.918315] (-) TimerEvent: {}
+[5.007939] (om_aiv_msg) StdoutLine: {'line': b'[ 66%] \x1b[32m\x1b[1mLinking CXX shared library libom_aiv_msg__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[5.020592] (-) TimerEvent: {}
+[5.100964] (om_aiv_msg) StdoutLine: {'line': b'[ 66%] Built target om_aiv_msg__rosidl_typesupport_introspection_cpp\n'}
+[5.120695] (-) TimerEvent: {}
+[5.191605] (om_aiv_msg) StdoutLine: {'line': b'[ 68%] \x1b[32m\x1b[1mLinking CXX shared library libom_aiv_msg__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[5.220795] (-) TimerEvent: {}
+[5.303712] (om_aiv_msg) StdoutLine: {'line': b'[ 68%] Built target om_aiv_msg__rosidl_typesupport_fastrtps_cpp\n'}
+[5.314906] (om_aiv_msg) StdoutLine: {'line': b'[ 69%] \x1b[34m\x1b[1mGenerating C type support for eProsima Fast-RTPS\x1b[0m\n'}
+[5.320876] (-) TimerEvent: {}
+[5.421141] (-) TimerEvent: {}
+[5.521469] (-) TimerEvent: {}
+[5.621752] (-) TimerEvent: {}
+[5.722035] (-) TimerEvent: {}
+[5.822283] (-) TimerEvent: {}
+[5.866968] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__rosidl_typesupport_fastrtps_c\x1b[0m\n'}
+[5.893588] (om_aiv_msg) StdoutLine: {'line': b'[ 71%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/om_aiv_msg/msg/detail/location__type_support_c.cpp.o\x1b[0m\n'}
+[5.894667] (om_aiv_msg) StdoutLine: {'line': b'[ 73%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/om_aiv_msg/msg/detail/status__type_support_c.cpp.o\x1b[0m\n'}
+[5.895066] (om_aiv_msg) StdoutLine: {'line': b'[ 74%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/om_aiv_msg/action/detail/action__type_support_c.cpp.o\x1b[0m\n'}
+[5.901005] (om_aiv_msg) StdoutLine: {'line': b'[ 76%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/om_aiv_msg/srv/detail/arcl_listen__type_support_c.cpp.o\x1b[0m\n'}
+[5.908533] (om_aiv_msg) StdoutLine: {'line': b'[ 77%] \x1b[32mBuilding CXX object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/om_aiv_msg/srv/detail/arcl_api__type_support_c.cpp.o\x1b[0m\n'}
+[5.922388] (-) TimerEvent: {}
+[6.023671] (-) TimerEvent: {}
+[6.125663] (-) TimerEvent: {}
+[6.226142] (-) TimerEvent: {}
+[6.326673] (-) TimerEvent: {}
+[6.428100] (-) TimerEvent: {}
+[6.524388] (om_aiv_msg) StdoutLine: {'line': b'[ 79%] \x1b[32m\x1b[1mLinking CXX shared library libom_aiv_msg__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[6.528193] (-) TimerEvent: {}
+[6.616549] (om_aiv_msg) StdoutLine: {'line': b'[ 79%] Built target om_aiv_msg__rosidl_typesupport_fastrtps_c\n'}
+[6.628306] (-) TimerEvent: {}
+[6.637158] (om_aiv_msg) StdoutLine: {'line': b'[ 79%] Built target om_aiv_msg\n'}
+[6.657746] (om_aiv_msg) StdoutLine: {'line': b'[ 80%] \x1b[34m\x1b[1mGenerating Python code for ROS interfaces\x1b[0m\n'}
+[6.728387] (-) TimerEvent: {}
+[6.828675] (-) TimerEvent: {}
+[6.928988] (-) TimerEvent: {}
+[7.029276] (-) TimerEvent: {}
+[7.129555] (-) TimerEvent: {}
+[7.229867] (-) TimerEvent: {}
+[7.330194] (-) TimerEvent: {}
+[7.430479] (-) TimerEvent: {}
+[7.530765] (-) TimerEvent: {}
+[7.631044] (-) TimerEvent: {}
+[7.731305] (-) TimerEvent: {}
+[7.831564] (-) TimerEvent: {}
+[7.929215] (om_aiv_msg) StdoutLine: {'line': b'[ 80%] Built target om_aiv_msg__py\n'}
+[7.931662] (-) TimerEvent: {}
+[7.945310] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__python\x1b[0m\n'}
+[7.971990] (om_aiv_msg) StdoutLine: {'line': b'[ 82%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__python.dir/rosidl_generator_py/om_aiv_msg/msg/_location_s.c.o\x1b[0m\n'}
+[7.981002] (om_aiv_msg) StdoutLine: {'line': b'[ 84%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__python.dir/rosidl_generator_py/om_aiv_msg/srv/_arcl_api_s.c.o\x1b[0m\n'}
+[7.981265] (om_aiv_msg) StdoutLine: {'line': b'[ 85%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__python.dir/rosidl_generator_py/om_aiv_msg/action/_action_s.c.o\x1b[0m\n'}
+[7.981399] (om_aiv_msg) StdoutLine: {'line': b'[ 87%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__python.dir/rosidl_generator_py/om_aiv_msg/msg/_status_s.c.o\x1b[0m\n'}
+[7.981517] (om_aiv_msg) StdoutLine: {'line': b'[ 88%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__python.dir/rosidl_generator_py/om_aiv_msg/srv/_arcl_listen_s.c.o\x1b[0m\n'}
+[8.031777] (-) TimerEvent: {}
+[8.132110] (-) TimerEvent: {}
+[8.202300] (om_aiv_msg) StdoutLine: {'line': b'[ 90%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/om_aiv_msg/libom_aiv_msg__python.so\x1b[0m\n'}
+[8.232220] (-) TimerEvent: {}
+[8.249556] (om_aiv_msg) StdoutLine: {'line': b'[ 90%] Built target om_aiv_msg__python\n'}
+[8.261628] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__rosidl_typesupport_fastrtps_c__pyext\x1b[0m\n'}
+[8.263496] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__rosidl_typesupport_c__pyext\x1b[0m\n'}
+[8.263839] (om_aiv_msg) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target om_aiv_msg__rosidl_typesupport_introspection_c__pyext\x1b[0m\n'}
+[8.283968] (om_aiv_msg) StdoutLine: {'line': b'[ 92%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/om_aiv_msg/_om_aiv_msg_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[8.291922] (om_aiv_msg) StdoutLine: {'line': b'[ 93%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/om_aiv_msg/_om_aiv_msg_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[8.294326] (om_aiv_msg) StdoutLine: {'line': b'[ 95%] \x1b[32mBuilding C object CMakeFiles/om_aiv_msg__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/om_aiv_msg/_om_aiv_msg_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[8.332328] (-) TimerEvent: {}
+[8.427659] (om_aiv_msg) StdoutLine: {'line': b'[ 96%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/om_aiv_msg/om_aiv_msg_s__rosidl_typesupport_c.cpython-38-x86_64-linux-gnu.so\x1b[0m\n'}
+[8.432410] (-) TimerEvent: {}
+[8.469287] (om_aiv_msg) StdoutLine: {'line': b'[ 98%] \x1b[32m\x1b[1mLinking CXX shared library rosidl_generator_py/om_aiv_msg/om_aiv_msg_s__rosidl_typesupport_fastrtps_c.cpython-38-x86_64-linux-gnu.so\x1b[0m\n'}
+[8.477184] (om_aiv_msg) StdoutLine: {'line': b'[ 98%] Built target om_aiv_msg__rosidl_typesupport_c__pyext\n'}
+[8.478311] (om_aiv_msg) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/om_aiv_msg/om_aiv_msg_s__rosidl_typesupport_introspection_c.cpython-38-x86_64-linux-gnu.so\x1b[0m\n'}
+[8.520040] (om_aiv_msg) StdoutLine: {'line': b'[100%] Built target om_aiv_msg__rosidl_typesupport_introspection_c__pyext\n'}
+[8.532499] (-) TimerEvent: {}
+[8.548440] (om_aiv_msg) StdoutLine: {'line': b'[100%] Built target om_aiv_msg__rosidl_typesupport_fastrtps_c__pyext\n'}
+[8.560610] (om_aiv_msg) CommandEnded: {'returncode': 0}
+[8.632621] (-) TimerEvent: {}
+[8.657725] (om_aiv_msg) JobProgress: {'identifier': 'om_aiv_msg', 'progress': 'install'}
+[8.668968] (om_aiv_msg) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/omron/Omron_LD/build/om_aiv_msg'], 'cwd': '/home/omron/Omron_LD/build/om_aiv_msg', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_SG:en'), ('USER', 'omron'), ('SSH_AGENT_PID', '1084'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/omron'), ('CHROME_DESKTOP', 'code-url-handler.desktop'), ('TERM_PROGRAM_VERSION', '1.57.1'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL', 'true'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/snap/code/67/usr/share/code/code'), ('MANAGERPID', '834'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '132106'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/omron/Omron_LD/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'omron'), ('JOURNAL_STREAM', '8:35424'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'omron'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/omron/.local/bin:/opt/ros/foxy/bin:/home/omron/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/omron-NUC8i5BEH:@/tmp/.ICE-unix/1127,unix/omron-NUC8i5BEH:/tmp/.ICE-unix/1127'), ('INVOCATION_ID', '5eb07be3a034478a80f39f39b2eea782'), ('XDG_MENU_PREFIX', 'gnome-'), ('BAMF_DESKTOP_FILE_HINT', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('LANG', 'en_SG.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b10b3d5190.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('GSETTINGS_SCHEMA_DIR', '/snap/code/67/usr/share/glib-2.0/schemas'), ('AMENT_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/opt/ros/foxy'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('DISABLE_WAYLAND', '1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/omron/Omron_LD/build/om_aiv_msg'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('BREAKPAD_DUMP_LOCATION', '/home/omron/.config/Code/exthost Crash Reports'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/opt/ros/foxy')]), 'shell': False}
+[8.679844] (om_aiv_msg) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[8.680098] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/ament_index/resource_index/rosidl_interfaces/om_aiv_msg\n'}
+[8.680361] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg\n'}
+[8.680492] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action\n'}
+[8.680612] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/action.h\n'}
+[8.680808] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail\n'}
+[8.681015] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__functions.c\n'}
+[8.681156] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__struct.h\n'}
+[8.681334] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__type_support.h\n'}
+[8.681532] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__functions.h\n'}
+[8.681702] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg\n'}
+[8.681878] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/location.h\n'}
+[8.682042] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail\n'}
+[8.682212] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__functions.c\n'}
+[8.682342] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__struct.h\n'}
+[8.682462] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__functions.c\n'}
+[8.682586] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__functions.h\n'}
+[8.682711] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__type_support.h\n'}
+[8.682927] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__functions.h\n'}
+[8.683088] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__struct.h\n'}
+[8.683217] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__type_support.h\n'}
+[8.683342] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/rosidl_generator_c__visibility_control.h\n'}
+[8.683475] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/status.h\n'}
+[8.683602] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv\n'}
+[8.683728] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/arcl_listen.h\n'}
+[8.683928] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail\n'}
+[8.684115] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__type_support.h\n'}
+[8.684273] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__struct.h\n'}
+[8.684456] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__type_support.h\n'}
+[8.684624] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__functions.c\n'}
+[8.684763] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__functions.h\n'}
+[8.684934] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__functions.c\n'}
+[8.685145] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__functions.h\n'}
+[8.685280] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__struct.h\n'}
+[8.685413] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/arcl_api.h\n'}
+[8.685712] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/environment/library_path.sh\n'}
+[8.685856] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/environment/library_path.dsv\n'}
+[8.685980] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_generator_c.so\n'}
+[8.686608] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_generator_c.so" to ""\n'}
+[8.686772] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg\n'}
+[8.686906] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action\n'}
+[8.687034] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail\n'}
+[8.687172] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__rosidl_typesupport_fastrtps_c.h\n'}
+[8.687296] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg\n'}
+[8.687418] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[8.687554] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail\n'}
+[8.687678] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__rosidl_typesupport_fastrtps_c.h\n'}
+[8.689003] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__rosidl_typesupport_fastrtps_c.h\n'}
+[8.689215] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv\n'}
+[8.689427] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail\n'}
+[8.689579] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__rosidl_typesupport_fastrtps_c.h\n'}
+[8.689709] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__rosidl_typesupport_fastrtps_c.h\n'}
+[8.689833] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_fastrtps_c.so\n'}
+[8.689956] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[8.690112] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg\n'}
+[8.690235] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action\n'}
+[8.690359] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail\n'}
+[8.690480] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/dds_fastrtps\n'}
+[8.690600] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.690752] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg\n'}
+[8.690934] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[8.691083] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail\n'}
+[8.691240] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/dds_fastrtps\n'}
+[8.691365] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.691560] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.691687] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv\n'}
+[8.691833] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail\n'}
+[8.691973] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/dds_fastrtps\n'}
+[8.692123] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.692303] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[8.692430] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_fastrtps_cpp.so\n'}
+[8.692568] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_fastrtps_cpp.so" to ""\n'}
+[8.692701] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg\n'}
+[8.692871] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action\n'}
+[8.692991] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail\n'}
+[8.693105] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__rosidl_typesupport_introspection_c.h\n'}
+[8.693230] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__type_support.c\n'}
+[8.693373] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg\n'}
+[8.693491] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[8.693605] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail\n'}
+[8.693720] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__type_support.c\n'}
+[8.693877] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__rosidl_typesupport_introspection_c.h\n'}
+[8.693995] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__type_support.c\n'}
+[8.694114] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__rosidl_typesupport_introspection_c.h\n'}
+[8.694257] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv\n'}
+[8.694379] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail\n'}
+[8.694496] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__type_support.c\n'}
+[8.694614] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__rosidl_typesupport_introspection_c.h\n'}
+[8.694759] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__rosidl_typesupport_introspection_c.h\n'}
+[8.694954] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__type_support.c\n'}
+[8.695088] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_introspection_c.so\n'}
+[8.695246] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_introspection_c.so" to ""\n'}
+[8.695398] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_c.so\n'}
+[8.695560] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_c.so" to ""\n'}
+[8.695697] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg\n'}
+[8.695855] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action\n'}
+[8.696003] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/action.hpp\n'}
+[8.696170] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail\n'}
+[8.696318] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__builder.hpp\n'}
+[8.696448] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__traits.hpp\n'}
+[8.696620] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__struct.hpp\n'}
+[8.696766] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg\n'}
+[8.696948] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/status.hpp\n'}
+[8.697099] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/location.hpp\n'}
+[8.697242] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail\n'}
+[8.697404] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__traits.hpp\n'}
+[8.697553] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__struct.hpp\n'}
+[8.697694] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__builder.hpp\n'}
+[8.697839] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__traits.hpp\n'}
+[8.697963] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__builder.hpp\n'}
+[8.698107] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__struct.hpp\n'}
+[8.698249] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv\n'}
+[8.698397] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/arcl_listen.hpp\n'}
+[8.698518] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail\n'}
+[8.698720] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__builder.hpp\n'}
+[8.698841] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__builder.hpp\n'}
+[8.698983] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__struct.hpp\n'}
+[8.699123] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__traits.hpp\n'}
+[8.699284] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__traits.hpp\n'}
+[8.699426] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__struct.hpp\n'}
+[8.699565] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/arcl_api.hpp\n'}
+[8.699718] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg\n'}
+[8.699843] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action\n'}
+[8.700011] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail\n'}
+[8.700154] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.700286] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/action/detail/action__type_support.cpp\n'}
+[8.700423] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg\n'}
+[8.700553] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail\n'}
+[8.700655] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.700773] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__type_support.cpp\n'}
+[8.700914] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/status__type_support.cpp\n'}
+[8.701060] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/msg/detail/location__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.701174] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv\n'}
+[8.701291] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail\n'}
+[8.701414] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__type_support.cpp\n'}
+[8.701534] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__type_support.cpp\n'}
+[8.701654] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_api__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.701799] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/include/om_aiv_msg/srv/detail/arcl_listen__rosidl_typesupport_introspection_cpp.hpp\n'}
+[8.701922] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_introspection_cpp.so\n'}
+[8.702073] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_introspection_cpp.so" to ""\n'}
+[8.702195] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_cpp.so\n'}
+[8.702591] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__rosidl_typesupport_cpp.so" to ""\n'}
+[8.702767] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/environment/pythonpath.sh\n'}
+[8.702929] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/environment/pythonpath.dsv\n'}
+[8.703075] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/__init__.py\n'}
+[8.732697] (-) TimerEvent: {}
+[8.734303] (om_aiv_msg) StdoutLine: {'line': b"Compiling '/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/__init__.py'...\n"}
+[8.739551] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/msg\n'}
+[8.739963] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/msg/_location.py\n'}
+[8.740259] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/msg/_status_s.c\n'}
+[8.740444] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/msg/_status.py\n'}
+[8.740610] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/msg/__init__.py\n'}
+[8.740967] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/msg/_location_s.c\n'}
+[8.741206] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/srv\n'}
+[8.741382] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/srv/_arcl_api_s.c\n'}
+[8.741500] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/srv/_arcl_listen.py\n'}
+[8.753072] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/srv/__init__.py\n'}
+[8.753322] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/srv/_arcl_api.py\n'}
+[8.753490] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/srv/_arcl_listen_s.c\n'}
+[8.753653] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/action\n'}
+[8.753777] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/action/_action.py\n'}
+[8.754004] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/action/_action_s.c\n'}
+[8.754147] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/action/__init__.py\n'}
+[8.754276] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/om_aiv_msg_s__rosidl_typesupport_fastrtps_c.cpython-38-x86_64-linux-gnu.so\n'}
+[8.754404] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/om_aiv_msg_s__rosidl_typesupport_fastrtps_c.cpython-38-x86_64-linux-gnu.so" to ""\n'}
+[8.754530] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/om_aiv_msg_s__rosidl_typesupport_introspection_c.cpython-38-x86_64-linux-gnu.so\n'}
+[8.754664] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/om_aiv_msg_s__rosidl_typesupport_introspection_c.cpython-38-x86_64-linux-gnu.so" to ""\n'}
+[8.754789] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/om_aiv_msg_s__rosidl_typesupport_c.cpython-38-x86_64-linux-gnu.so\n'}
+[8.754912] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages/om_aiv_msg/om_aiv_msg_s__rosidl_typesupport_c.cpython-38-x86_64-linux-gnu.so" to ""\n'}
+[8.755034] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__python.so\n'}
+[8.755155] (om_aiv_msg) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/om_aiv_msg/lib/libom_aiv_msg__python.so" to ""\n'}
+[8.755274] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/msg/Location.idl\n'}
+[8.755394] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/msg/Status.idl\n'}
+[8.755514] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/srv/ArclApi.idl\n'}
+[8.755635] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/srv/ArclListen.idl\n'}
+[8.755816] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/action/Action.idl\n'}
+[8.756322] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/msg/Location.msg\n'}
+[8.758519] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/msg/Status.msg\n'}
+[8.759097] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/srv/ArclApi.srv\n'}
+[8.759294] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/srv/ArclApi_Request.msg\n'}
+[8.759539] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/srv/ArclApi_Response.msg\n'}
+[8.759751] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/srv/ArclListen.srv\n'}
+[8.759959] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/srv/ArclListen_Request.msg\n'}
+[8.760233] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/srv/ArclListen_Response.msg\n'}
+[8.760463] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/action/Action.action\n'}
+[8.760689] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/ament_index/resource_index/package_run_dependencies/om_aiv_msg\n'}
+[8.760898] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/ament_index/resource_index/parent_prefix_path/om_aiv_msg\n'}
+[8.761100] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/environment/ament_prefix_path.sh\n'}
+[8.761303] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/environment/ament_prefix_path.dsv\n'}
+[8.761618] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/environment/path.sh\n'}
+[8.761800] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/environment/path.dsv\n'}
+[8.761968] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/local_setup.bash\n'}
+[8.762123] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/local_setup.sh\n'}
+[8.762288] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/local_setup.zsh\n'}
+[8.762462] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/local_setup.dsv\n'}
+[8.762745] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/package.dsv\n'}
+[8.762909] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/ament_index/resource_index/packages/om_aiv_msg\n'}
+[8.763062] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_generator_cExport.cmake\n'}
+[8.763231] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_generator_cExport-noconfig.cmake\n'}
+[8.763407] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_typesupport_introspection_cExport.cmake\n'}
+[8.763573] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[8.763795] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_typesupport_cExport.cmake\n'}
+[8.764976] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[8.765404] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_generator_cppExport.cmake\n'}
+[8.765587] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[8.765891] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[8.766124] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_typesupport_cppExport.cmake\n'}
+[8.766468] (om_aiv_msg) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msg__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[8.766626] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/rosidl_cmake-extras.cmake\n'}
+[8.766984] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[8.767214] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[8.767576] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[8.767782] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[8.767966] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[8.768374] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[8.768695] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msgConfig.cmake\n'}
+[8.768867] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake/om_aiv_msgConfig-version.cmake\n'}
+[8.770180] (om_aiv_msg) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/package.xml\n'}
+[8.770566] (om_aiv_msg) CommandEnded: {'returncode': 0}
+[8.834309] (-) TimerEvent: {}
+[8.907629] (om_aiv_msg) JobEnded: {'identifier': 'om_aiv_msg', 'rc': 0}
+[8.910235] (ld_visualisation) JobStarted: {'identifier': 'ld_visualisation'}
+[8.914123] (om_aiv_util) JobStarted: {'identifier': 'om_aiv_util'}
+[8.926391] (ld_visualisation) JobProgress: {'identifier': 'ld_visualisation', 'progress': 'cmake'}
+[8.927335] (ld_visualisation) JobProgress: {'identifier': 'ld_visualisation', 'progress': 'build'}
+[8.928122] (ld_visualisation) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/omron/Omron_LD/build/ld_visualisation', '--', '-j8', '-l8'], 'cwd': '/home/omron/Omron_LD/build/ld_visualisation', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_SG:en'), ('USER', 'omron'), ('SSH_AGENT_PID', '1084'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/omron'), ('CHROME_DESKTOP', 'code-url-handler.desktop'), ('TERM_PROGRAM_VERSION', '1.57.1'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL', 'true'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/snap/code/67/usr/share/code/code'), ('MANAGERPID', '834'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '132106'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/omron/Omron_LD/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'omron'), ('JOURNAL_STREAM', '8:35424'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'omron'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/omron/.local/bin:/opt/ros/foxy/bin:/home/omron/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/omron-NUC8i5BEH:@/tmp/.ICE-unix/1127,unix/omron-NUC8i5BEH:/tmp/.ICE-unix/1127'), ('INVOCATION_ID', '5eb07be3a034478a80f39f39b2eea782'), ('XDG_MENU_PREFIX', 'gnome-'), ('BAMF_DESKTOP_FILE_HINT', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('LANG', 'en_SG.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b10b3d5190.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('GSETTINGS_SCHEMA_DIR', '/snap/code/67/usr/share/glib-2.0/schemas'), ('AMENT_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/opt/ros/foxy'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('DISABLE_WAYLAND', '1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/omron/Omron_LD/build/ld_visualisation'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('BREAKPAD_DUMP_LOCATION', '/home/omron/.config/Code/exthost Crash Reports'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/opt/ros/foxy')]), 'shell': False}
+[8.933737] (-) TimerEvent: {}
+[8.970381] (ld_visualisation) StdoutLine: {'line': b'-- Found ament_cmake: 0.9.8 (/opt/ros/foxy/share/ament_cmake/cmake)\n'}
+[8.991923] (ld_visualisation) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[9.033781] (-) TimerEvent: {}
+[9.134064] (-) TimerEvent: {}
+[9.173297] (ld_visualisation) StdoutLine: {'line': b'-- Found rclcpp: 2.3.1 (/opt/ros/foxy/share/rclcpp/cmake)\n'}
+[9.213711] (ld_visualisation) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[9.217529] (ld_visualisation) StdoutLine: {'line': b'-- Found rosidl_adapter: 1.2.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)\n'}
+[9.234158] (-) TimerEvent: {}
+[9.265707] (om_aiv_util) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/om_aiv_util', 'build', '--build-base', '/home/omron/Omron_LD/build/om_aiv_util/build', 'install', '--prefix', '/home/omron/Omron_LD/install/om_aiv_util', '--record', '/home/omron/Omron_LD/build/om_aiv_util/install.log', '--single-version-externally-managed'], 'cwd': '/home/omron/Omron_LD/src/om_aiv_util', 'env': {'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'LANGUAGE': 'en_SG:en', 'USER': 'omron', 'SSH_AGENT_PID': '1084', 'XDG_SESSION_TYPE': 'x11', 'GIT_ASKPASS': '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass.sh', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/omron/Omron_LD/install/om_aiv_msg/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib', 'HOME': '/home/omron', 'CHROME_DESKTOP': 'code-url-handler.desktop', 'TERM_PROGRAM_VERSION': '1.57.1', 'DESKTOP_SESSION': 'ubuntu', 'GIO_LAUNCHED_DESKTOP_FILE': '/var/lib/snapd/desktop/applications/code_code.desktop', 'APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL': 'true', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'VSCODE_GIT_ASKPASS_MAIN': '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass-main.js', 'VSCODE_GIT_ASKPASS_NODE': '/snap/code/67/usr/share/code/code', 'MANAGERPID': '834', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'GIO_LAUNCHED_DESKTOP_FILE_PID': '132106', 'IM_CONFIG_PHASE': '1', 'COLCON_PREFIX_PATH': '/home/omron/Omron_LD/install', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'omron', 'JOURNAL_STREAM': '8:35424', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'omron', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'WINDOWPATH': '2', 'PATH': '/home/omron/.local/bin:/opt/ros/foxy/bin:/home/omron/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/omron-NUC8i5BEH:@/tmp/.ICE-unix/1127,unix/omron-NUC8i5BEH:/tmp/.ICE-unix/1127', 'INVOCATION_ID': '5eb07be3a034478a80f39f39b2eea782', 'XDG_MENU_PREFIX': 'gnome-', 'BAMF_DESKTOP_FILE_HINT': '/var/lib/snapd/desktop/applications/code_code.desktop', 'XDG_RUNTIME_DIR': '/run/user/1000', 'GDK_BACKEND': 'x11', 'DISPLAY': ':0', 'LANG': 'en_SG.UTF-8', 'XDG_CURRENT_DESKTOP': 'Unity', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'VSCODE_GIT_IPC_HANDLE': '/run/user/1000/vscode-git-b10b3d5190.sock', 'TERM_PROGRAM': 'vscode', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'GSETTINGS_SCHEMA_DIR': '/snap/code/67/usr/share/glib-2.0/schemas', 'AMENT_PREFIX_PATH': '/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/opt/ros/foxy', 'ORIGINAL_XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'SHELL': '/bin/bash', 'DISABLE_WAYLAND': '1', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'GJS_DEBUG_OUTPUT': 'stderr', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/omron/Omron_LD/build/om_aiv_util', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'BREAKPAD_DUMP_LOCATION': '/home/omron/.config/Code/exthost Crash Reports', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation'}, 'shell': False}
+[9.334300] (-) TimerEvent: {}
+[9.340466] (ld_visualisation) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[9.399822] (ld_visualisation) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 1.0.3 (/opt/ros/foxy/share/rmw_implementation_cmake/cmake)\n'}
+[9.403710] (ld_visualisation) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[9.434355] (-) TimerEvent: {}
+[9.463650] (om_aiv_util) StdoutLine: {'line': b'running egg_info\n'}
+[9.464428] (om_aiv_util) StdoutLine: {'line': b'writing ../../build/om_aiv_util/om_aiv_util.egg-info/PKG-INFO\n'}
+[9.464665] (om_aiv_util) StdoutLine: {'line': b'writing dependency_links to ../../build/om_aiv_util/om_aiv_util.egg-info/dependency_links.txt\n'}
+[9.464860] (om_aiv_util) StdoutLine: {'line': b'writing entry points to ../../build/om_aiv_util/om_aiv_util.egg-info/entry_points.txt\n'}
+[9.465040] (om_aiv_util) StdoutLine: {'line': b'writing requirements to ../../build/om_aiv_util/om_aiv_util.egg-info/requires.txt\n'}
+[9.465239] (om_aiv_util) StdoutLine: {'line': b'writing top-level names to ../../build/om_aiv_util/om_aiv_util.egg-info/top_level.txt\n'}
+[9.495933] (om_aiv_util) StdoutLine: {'line': b"reading manifest file '../../build/om_aiv_util/om_aiv_util.egg-info/SOURCES.txt'\n"}
+[9.496886] (om_aiv_util) StdoutLine: {'line': b"writing manifest file '../../build/om_aiv_util/om_aiv_util.egg-info/SOURCES.txt'\n"}
+[9.497120] (om_aiv_util) StdoutLine: {'line': b'running build\n'}
+[9.497266] (om_aiv_util) StdoutLine: {'line': b'running build_py\n'}
+[9.497615] (om_aiv_util) StdoutLine: {'line': b'running install\n'}
+[9.498424] (om_aiv_util) StdoutLine: {'line': b'running install_lib\n'}
+[9.500132] (om_aiv_util) StdoutLine: {'line': b'running install_data\n'}
+[9.500661] (om_aiv_util) StdoutLine: {'line': b'running install_egg_info\n'}
+[9.502340] (om_aiv_util) StdoutLine: {'line': b"removing '/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util-0.0.0-py3.8.egg-info' (and everything under it)\n"}
+[9.502717] (om_aiv_util) StdoutLine: {'line': b'Copying ../../build/om_aiv_util/om_aiv_util.egg-info to /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util-0.0.0-py3.8.egg-info\n'}
+[9.503572] (om_aiv_util) StdoutLine: {'line': b'running install_scripts\n'}
+[9.519506] (om_aiv_util) StdoutLine: {'line': b'Installing arcl_api_server script to /home/omron/Omron_LD/install/om_aiv_util/lib/om_aiv_util\n'}
+[9.519734] (om_aiv_util) StdoutLine: {'line': b'Installing ld_states_publisher script to /home/omron/Omron_LD/install/om_aiv_util/lib/om_aiv_util\n'}
+[9.520108] (om_aiv_util) StdoutLine: {'line': b"writing list of installed files to '/home/omron/Omron_LD/build/om_aiv_util/install.log'\n"}
+[9.534450] (-) TimerEvent: {}
+[9.548781] (om_aiv_util) CommandEnded: {'returncode': 0}
+[9.549337] (om_aiv_util) JobEnded: {'identifier': 'om_aiv_util', 'rc': 0}
+[9.606583] (ld_visualisation) StdoutLine: {'line': b'-- Found sensor_msgs: 2.0.4 (/opt/ros/foxy/share/sensor_msgs/cmake)\n'}
+[9.634571] (-) TimerEvent: {}
+[9.729590] (ld_visualisation) StdoutLine: {'line': b'-- Found control_msgs: 2.5.0 (/opt/ros/foxy/share/control_msgs/cmake)\n'}
+[9.734692] (-) TimerEvent: {}
+[9.835067] (-) TimerEvent: {}
+[9.935470] (-) TimerEvent: {}
+[10.035865] (-) TimerEvent: {}
+[10.133307] (ld_visualisation) StdoutLine: {'line': b'-- Found visualization_msgs: 2.0.4 (/opt/ros/foxy/share/visualization_msgs/cmake)\n'}
+[10.135989] (-) TimerEvent: {}
+[10.213534] (ld_visualisation) StdoutLine: {'line': b'-- Found tf2_ros: 0.13.10 (/opt/ros/foxy/share/tf2_ros/cmake)\n'}
+[10.236095] (-) TimerEvent: {}
+[10.336538] (-) TimerEvent: {}
+[10.437002] (-) TimerEvent: {}
+[10.536609] (ld_visualisation) StdoutLine: {'line': b'-- Found om_aiv_msg: 0.0.0 (/home/omron/Omron_LD/install/om_aiv_msg/share/om_aiv_msg/cmake)\n'}
+[10.537080] (-) TimerEvent: {}
+[10.595329] (ld_visualisation) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.9.6 (/opt/ros/foxy/share/ament_lint_auto/cmake)\n'}
+[10.637207] (-) TimerEvent: {}
+[10.670665] (ld_visualisation) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[10.673456] (ld_visualisation) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[10.674245] (ld_visualisation) StdoutLine: {'line': b'-- Configured cppcheck include dirs: /home/omron/Omron_LD/src/ld_visualisation/include\n'}
+[10.674429] (ld_visualisation) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[10.676787] (ld_visualisation) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[10.677024] (ld_visualisation) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[10.677615] (ld_visualisation) StdoutLine: {'line': b"-- Added test 'flake8' to check Python code syntax and style conventions\n"}
+[10.679280] (ld_visualisation) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[10.680029] (ld_visualisation) StdoutLine: {'line': b"-- Added test 'pep257' to check Python code against some of the style conventions in PEP 257\n"}
+[10.682287] (ld_visualisation) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[10.682488] (ld_visualisation) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[10.683097] (ld_visualisation) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[10.688259] (ld_visualisation) StdoutLine: {'line': b'-- Configuring done\n'}
+[10.737301] (-) TimerEvent: {}
+[10.745993] (ld_visualisation) StdoutLine: {'line': b'-- Generating done\n'}
+[10.748885] (ld_visualisation) StdoutLine: {'line': b'-- Build files have been written to: /home/omron/Omron_LD/build/ld_visualisation\n'}
+[10.782218] (ld_visualisation) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target goals_marker\x1b[0m\n'}
+[10.783781] (ld_visualisation) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target data_points_marker\x1b[0m\n'}
+[10.785666] (ld_visualisation) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target joints_publisher\x1b[0m\n'}
+[10.825057] (ld_visualisation) StdoutLine: {'line': b'[ 16%] \x1b[32mBuilding CXX object CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o\x1b[0m\n'}
+[10.833706] (ld_visualisation) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/joints_publisher.dir/src/joints_publisher.cpp.o\x1b[0m\n'}
+[10.837414] (-) TimerEvent: {}
+[10.843131] (ld_visualisation) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/data_points_marker.dir/src/data_points_marker.cpp.o\x1b[0m\n'}
+[10.938644] (-) TimerEvent: {}
+[11.039063] (-) TimerEvent: {}
+[11.145022] (-) TimerEvent: {}
+[11.246419] (-) TimerEvent: {}
+[11.346789] (-) TimerEvent: {}
+[11.447131] (-) TimerEvent: {}
+[11.547522] (-) TimerEvent: {}
+[11.649687] (-) TimerEvent: {}
+[11.750067] (-) TimerEvent: {}
+[11.850429] (-) TimerEvent: {}
+[11.952916] (-) TimerEvent: {}
+[12.056267] (-) TimerEvent: {}
+[12.157428] (-) TimerEvent: {}
+[12.257770] (-) TimerEvent: {}
+[12.358148] (-) TimerEvent: {}
+[12.458489] (-) TimerEvent: {}
+[12.558846] (-) TimerEvent: {}
+[12.659212] (-) TimerEvent: {}
+[12.759590] (-) TimerEvent: {}
+[12.860256] (-) TimerEvent: {}
+[12.961579] (-) TimerEvent: {}
+[13.061911] (-) TimerEvent: {}
+[13.162339] (-) TimerEvent: {}
+[13.219409] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/data_points_marker.cpp:\x1b[m\x1b[K In function \xe2\x80\x98\x1b[01m\x1b[Kbool get_map_data(std::string, std::vector<geometry_msgs::msg::Point_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Point_<std::allocator<void> > > >&, std::vector<geometry_msgs::msg::Point_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Point_<std::allocator<void> > > >&, visualization_msgs::msg::Marker&, visualization_msgs::msg::MarkerArray&)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[13.220164] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/data_points_marker.cpp:282:31:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kunused parameter \xe2\x80\x98\x1b[01m\x1b[Kfilename\x1b[m\x1b[K\xe2\x80\x99 [\x1b[01;35m\x1b[K-Wunused-parameter\x1b[m\x1b[K]\n'}
+[13.220347] (ld_visualisation) StderrLine: {'line': b'  282 | _data(\x1b[01;35m\x1b[Kstd::string filename\x1b[m\x1b[K,\n'}
+[13.220486] (ld_visualisation) StderrLine: {'line': b'      |       \x1b[01;35m\x1b[K~~~~~~~~~~~~^~~~~~~~\x1b[m\x1b[K\n'}
+[13.220609] (ld_visualisation) StderrLine: {'line': b'\n'}
+[13.262375] (-) TimerEvent: {}
+[13.362697] (-) TimerEvent: {}
+[13.463056] (-) TimerEvent: {}
+[13.563418] (-) TimerEvent: {}
+[13.663782] (-) TimerEvent: {}
+[13.764122] (-) TimerEvent: {}
+[13.864490] (-) TimerEvent: {}
+[13.964867] (-) TimerEvent: {}
+[14.065237] (-) TimerEvent: {}
+[14.165605] (-) TimerEvent: {}
+[14.265969] (-) TimerEvent: {}
+[14.366334] (-) TimerEvent: {}
+[14.466684] (-) TimerEvent: {}
+[14.567049] (-) TimerEvent: {}
+[14.667427] (-) TimerEvent: {}
+[14.767798] (-) TimerEvent: {}
+[14.868171] (-) TimerEvent: {}
+[14.968521] (-) TimerEvent: {}
+[15.068868] (-) TimerEvent: {}
+[15.169209] (-) TimerEvent: {}
+[15.269539] (-) TimerEvent: {}
+[15.369881] (-) TimerEvent: {}
+[15.470276] (-) TimerEvent: {}
+[15.570624] (-) TimerEvent: {}
+[15.670977] (-) TimerEvent: {}
+[15.771320] (-) TimerEvent: {}
+[15.871683] (-) TimerEvent: {}
+[15.972035] (-) TimerEvent: {}
+[16.072373] (-) TimerEvent: {}
+[16.172696] (-) TimerEvent: {}
+[16.273045] (-) TimerEvent: {}
+[16.373359] (-) TimerEvent: {}
+[16.473684] (-) TimerEvent: {}
+[16.574007] (-) TimerEvent: {}
+[16.674344] (-) TimerEvent: {}
+[16.774693] (-) TimerEvent: {}
+[16.875025] (-) TimerEvent: {}
+[16.980849] (-) TimerEvent: {}
+[17.081206] (-) TimerEvent: {}
+[17.181549] (-) TimerEvent: {}
+[17.281899] (-) TimerEvent: {}
+[17.382229] (-) TimerEvent: {}
+[17.464498] (ld_visualisation) StdoutLine: {'line': b'[ 66%] \x1b[32m\x1b[1mLinking CXX executable joints_publisher\x1b[0m\n'}
+[17.482334] (-) TimerEvent: {}
+[17.582659] (-) TimerEvent: {}
+[17.654286] (ld_visualisation) StdoutLine: {'line': b'[ 83%] \x1b[32m\x1b[1mLinking CXX executable goals_marker\x1b[0m\n'}
+[17.682754] (-) TimerEvent: {}
+[17.783070] (-) TimerEvent: {}
+[17.883443] (-) TimerEvent: {}
+[17.983806] (-) TimerEvent: {}
+[18.035487] (ld_visualisation) StdoutLine: {'line': b'[ 83%] Built target goals_marker\n'}
+[18.083925] (-) TimerEvent: {}
+[18.102531] (ld_visualisation) StdoutLine: {'line': b'[ 83%] Built target joints_publisher\n'}
+[18.184053] (-) TimerEvent: {}
+[18.284350] (-) TimerEvent: {}
+[18.384665] (-) TimerEvent: {}
+[18.484970] (-) TimerEvent: {}
+[18.585283] (-) TimerEvent: {}
+[18.685576] (-) TimerEvent: {}
+[18.785884] (-) TimerEvent: {}
+[18.886196] (-) TimerEvent: {}
+[18.986545] (-) TimerEvent: {}
+[19.086871] (-) TimerEvent: {}
+[19.187194] (-) TimerEvent: {}
+[19.249716] (ld_visualisation) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable data_points_marker\x1b[0m\n'}
+[19.287299] (-) TimerEvent: {}
+[19.387614] (-) TimerEvent: {}
+[19.487989] (-) TimerEvent: {}
+[19.588295] (-) TimerEvent: {}
+[19.599799] (ld_visualisation) StdoutLine: {'line': b'[100%] Built target data_points_marker\n'}
+[19.625393] (ld_visualisation) CommandEnded: {'returncode': 0}
+[19.654941] (ld_visualisation) JobProgress: {'identifier': 'ld_visualisation', 'progress': 'install'}
+[19.655580] (ld_visualisation) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/omron/Omron_LD/build/ld_visualisation'], 'cwd': '/home/omron/Omron_LD/build/ld_visualisation', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_SG:en'), ('USER', 'omron'), ('SSH_AGENT_PID', '1084'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/omron'), ('CHROME_DESKTOP', 'code-url-handler.desktop'), ('TERM_PROGRAM_VERSION', '1.57.1'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL', 'true'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/snap/code/67/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/snap/code/67/usr/share/code/code'), ('MANAGERPID', '834'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '132106'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/omron/Omron_LD/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'omron'), ('JOURNAL_STREAM', '8:35424'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'omron'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/omron/.local/bin:/opt/ros/foxy/bin:/home/omron/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/omron-NUC8i5BEH:@/tmp/.ICE-unix/1127,unix/omron-NUC8i5BEH:/tmp/.ICE-unix/1127'), ('INVOCATION_ID', '5eb07be3a034478a80f39f39b2eea782'), ('XDG_MENU_PREFIX', 'gnome-'), ('BAMF_DESKTOP_FILE_HINT', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('LANG', 'en_SG.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b10b3d5190.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('GSETTINGS_SCHEMA_DIR', '/snap/code/67/usr/share/glib-2.0/schemas'), ('AMENT_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/opt/ros/foxy'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('DISABLE_WAYLAND', '1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/omron/Omron_LD/build/ld_visualisation'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('BREAKPAD_DUMP_LOCATION', '/home/omron/.config/Code/exthost Crash Reports'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/opt/ros/foxy')]), 'shell': False}
+[19.670753] (ld_visualisation) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[19.673076] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/joints_publisher\n'}
+[19.675575] (ld_visualisation) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/joints_publisher" to ""\n'}
+[19.677046] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/data_points_marker\n'}
+[19.679595] (ld_visualisation) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/data_points_marker" to ""\n'}
+[19.680639] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/goals_marker\n'}
+[19.683347] (ld_visualisation) StdoutLine: {'line': b'-- Set runtime path of "/home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/goals_marker" to ""\n'}
+[19.683792] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/launch\n'}
+[19.684074] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/launch/display.launch\n'}
+[19.684209] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/launch/display.launch.py\n'}
+[19.684281] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/config\n'}
+[19.684614] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/config/ld_rviz_config.rviz\n'}
+[19.684747] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/config/ld_rviz2.rviz\n'}
+[19.684855] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/map\n'}
+[19.685289] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/map/data.map\n'}
+[19.685468] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/meshes\n'}
+[19.685843] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/meshes/LD_Platform.STL\n'}
+[19.685993] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/param\n'}
+[19.686606] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/param/vis_param.yaml\n'}
+[19.686754] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/rviz\n'}
+[19.687022] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/rviz/urdf.rviz\n'}
+[19.687126] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/rviz/urdf.vcg\n'}
+[19.687204] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/urdf\n'}
+[19.687512] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/urdf/LD_Platform.urdf.xacro\n'}
+[19.687681] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/urdf/LD_Platform.urdf\n'}
+[19.688371] (-) TimerEvent: {}
+[19.690001] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ament_index/resource_index/package_run_dependencies/ld_visualisation\n'}
+[19.690724] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ament_index/resource_index/parent_prefix_path/ld_visualisation\n'}
+[19.693718] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/ament_prefix_path.sh\n'}
+[19.693956] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/ament_prefix_path.dsv\n'}
+[19.694218] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/path.sh\n'}
+[19.694330] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/path.dsv\n'}
+[19.694435] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.bash\n'}
+[19.694587] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.sh\n'}
+[19.694692] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.zsh\n'}
+[19.694795] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.dsv\n'}
+[19.694899] (ld_visualisation) StdoutLine: {'line': b'-- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/package.dsv\n'}
+[19.699655] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ament_index/resource_index/packages/ld_visualisation\n'}
+[19.699820] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/cmake/ld_visualisationConfig.cmake\n'}
+[19.699922] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/cmake/ld_visualisationConfig-version.cmake\n'}
+[19.700022] (ld_visualisation) StdoutLine: {'line': b'-- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/package.xml\n'}
+[19.702451] (ld_visualisation) CommandEnded: {'returncode': 0}
+[19.760706] (ld_visualisation) JobEnded: {'identifier': 'ld_visualisation', 'rc': 0}
+[19.761954] (-) EventReactorShutdown: {}

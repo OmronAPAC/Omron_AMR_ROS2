@@ -1,0 +1,28 @@
+[0.024s] Invoking command in '/home/omron/Omron_LD/build/om_aiv_msg': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/opt/ros/foxy /usr/bin/cmake --build /home/omron/Omron_LD/build/om_aiv_msg -- -j8 -l8
+[0.266s] -- Found ament_cmake: 0.9.8 (/opt/ros/foxy/share/ament_cmake/cmake)
+[0.267s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[0.278s] -- Found actionlib_msgs: 2.0.4 (/opt/ros/foxy/share/actionlib_msgs/cmake)
+[0.297s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.301s] -- Found rosidl_adapter: 1.2.1 (/opt/ros/foxy/share/rosidl_adapter/cmake)
+[0.417s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.504s] CMake Error at CMakeLists.txt:21 (find_package):
+[0.504s]   By not providing "Findmessage_generation.cmake" in CMAKE_MODULE_PATH this
+[0.505s]   project has asked CMake to find a package configuration file provided by
+[0.505s]   "message_generation", but CMake did not find one.
+[0.505s] 
+[0.505s]   Could not find a package configuration file provided by
+[0.505s]   "message_generation" with any of the following names:
+[0.505s] 
+[0.505s]     message_generationConfig.cmake
+[0.505s]     message_generation-config.cmake
+[0.506s] 
+[0.506s]   Add the installation prefix of "message_generation" to CMAKE_PREFIX_PATH or
+[0.506s]   set "message_generation_DIR" to a directory containing one of the above
+[0.506s]   files.  If "message_generation" provides a separate development package or
+[0.506s]   SDK, be sure it has been installed.
+[0.506s] 
+[0.506s] 
+[0.507s] -- Configuring incomplete, errors occurred!
+[0.507s] See also "/home/omron/Omron_LD/build/om_aiv_msg/CMakeFiles/CMakeOutput.log".
+[0.512s] make: *** [Makefile:1708: cmake_check_build_system] Error 1
+[0.514s] Invoked command in '/home/omron/Omron_LD/build/om_aiv_msg' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/opt/ros/foxy /usr/bin/cmake --build /home/omron/Omron_LD/build/om_aiv_msg -- -j8 -l8

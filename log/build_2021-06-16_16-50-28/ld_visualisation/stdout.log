@@ -1,0 +1,4 @@
+[35m[1mScanning dependencies of target goals_marker[0m
+[ 33%] Built target data_points_marker
+[ 66%] Built target joints_publisher
+[ 83%] [32mBuilding CXX object CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o[0m

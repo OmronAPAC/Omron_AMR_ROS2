@@ -1,0 +1,22 @@
+<launch>
+
+  <arg name="model" default="$(find ld_visualisation)/urdf/LD_Platform.urdf"/>
+  <arg name="gui" default="true" />
+  <arg name="rvizconfig" default="$(find ld_visualisation)/config/ld_rviz_config.rviz" />
+
+  
+  <!-- <param name="use_gui" value="$(arg gui)"/> -->
+
+  <!-- Params for visualisation in RVIZ -->
+  <rosparam command="load" file="$(find ld_visualisation)/param/vis_param.yaml" />
+
+  <node name="joints_publisher" pkg="ld_visualisation" exec="joints_publisher" output="screen"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" exec="robot_state_publisher">
+    <param name="robot_description" command="$(find xacro)/xacro '$(find ld_visualisation)/urdf/LD_Platform.urdf.xacro'" />
+  </node>
+  <node name="rviz2" pkg="rviz2" exec="rviz2" args="-d $(arg rvizconfig)" required="true" />
+  <!--<node name="data_points_marker" pkg="ld_visualisation" exec="data_points_marker" output="screen"/>
+  <node name="goals_marker" pkg="ld_visualisation" exec="goals_marker" output="screen"/>
+  <node name="goto_point" pkg="ld_visualisation" exec="goto_point" output="screen"/> -->
+
+</launch>

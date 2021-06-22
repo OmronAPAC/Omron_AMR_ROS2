@@ -1,0 +1,26 @@
+[0.289s] Invoking command in '/home/omron/Omron_LD/src/om_aiv_navigation': PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/om_aiv_navigation build --build-base /home/omron/Omron_LD/build/om_aiv_navigation/build install --prefix /home/omron/Omron_LD/install/om_aiv_navigation --record /home/omron/Omron_LD/build/om_aiv_navigation/install.log --single-version-externally-managed
+[0.526s] running egg_info
+[0.527s] writing ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/PKG-INFO
+[0.527s] writing dependency_links to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/dependency_links.txt
+[0.527s] writing entry points to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/entry_points.txt
+[0.528s] writing requirements to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/requires.txt
+[0.528s] writing top-level names to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/top_level.txt
+[0.563s] reading manifest file '../../build/om_aiv_navigation/om_aiv_navigation.egg-info/SOURCES.txt'
+[0.564s] writing manifest file '../../build/om_aiv_navigation/om_aiv_navigation.egg-info/SOURCES.txt'
+[0.564s] running build
+[0.565s] running build_py
+[0.565s] copying om_aiv_navigation/goto_goal.py -> /home/omron/Omron_LD/build/om_aiv_navigation/build/lib/om_aiv_navigation
+[0.565s] running install
+[0.566s] running install_lib
+[0.567s] copying /home/omron/Omron_LD/build/om_aiv_navigation/build/lib/om_aiv_navigation/goto_goal.py -> /home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation
+[0.568s] byte-compiling /home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation/goto_goal.py to goto_goal.cpython-38.pyc
+[0.569s] running install_data
+[0.570s] running install_egg_info
+[0.571s] removing '/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation-0.0.0-py3.8.egg-info' (and everything under it)
+[0.572s] Copying ../../build/om_aiv_navigation/om_aiv_navigation.egg-info to /home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation-0.0.0-py3.8.egg-info
+[0.573s] running install_scripts
+[0.592s] Installing action_server script to /home/omron/Omron_LD/install/om_aiv_navigation/lib/om_aiv_navigation
+[0.592s] Installing goto_goal script to /home/omron/Omron_LD/install/om_aiv_navigation/lib/om_aiv_navigation
+[0.592s] Installing goto_goal3_action script to /home/omron/Omron_LD/install/om_aiv_navigation/lib/om_aiv_navigation
+[0.593s] writing list of installed files to '/home/omron/Omron_LD/build/om_aiv_navigation/install.log'
+[0.623s] Invoked command in '/home/omron/Omron_LD/src/om_aiv_navigation' returned '0': PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/om_aiv_navigation build --build-base /home/omron/Omron_LD/build/om_aiv_navigation/build install --prefix /home/omron/Omron_LD/install/om_aiv_navigation --record /home/omron/Omron_LD/build/om_aiv_navigation/install.log --single-version-externally-managed

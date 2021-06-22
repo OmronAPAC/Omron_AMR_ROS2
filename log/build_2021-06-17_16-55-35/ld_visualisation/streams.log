@@ -1,0 +1,46 @@
+[0.017s] Invoking command in '/home/omron/Omron_LD/build/ld_visualisation': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/omron/Omron_LD/build/ld_visualisation -- -j8 -l8
+[0.091s] [ 33%] Built target joints_publisher
+[0.091s] [ 66%] Built target goals_marker
+[0.094s] [100%] Built target data_points_marker
+[0.261s] Invoked command in '/home/omron/Omron_LD/build/ld_visualisation' returned '0': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/omron/Omron_LD/build/ld_visualisation -- -j8 -l8
+[0.290s] Invoking command in '/home/omron/Omron_LD/build/ld_visualisation': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --install /home/omron/Omron_LD/build/ld_visualisation
+[0.299s] -- Install configuration: ""
+[0.300s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/joints_publisher
+[0.300s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/data_points_marker
+[0.301s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/lib/ld_visualisation/goals_marker
+[0.301s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/launch
+[0.301s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/launch/display.launch
+[0.301s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/launch/display.launch.py
+[0.301s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/config
+[0.301s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/config/ld_rviz_config.rviz
+[0.302s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/config/ld_rviz2.rviz
+[0.302s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/map
+[0.302s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/map/data_old.map
+[0.302s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/map/data.map
+[0.302s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/meshes
+[0.302s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/meshes/LD_Platform.STL
+[0.302s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/param
+[0.303s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/param/vis_param.yaml
+[0.303s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/param/ros1vis_param.yaml
+[0.303s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/rviz
+[0.303s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/rviz/urdf.rviz
+[0.303s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/rviz/urdf.vcg
+[0.303s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/urdf
+[0.303s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/urdf/LD_Platform.urdf.xacro
+[0.303s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/urdf/LD_Platform.urdf
+[0.304s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ament_index/resource_index/package_run_dependencies/ld_visualisation
+[0.304s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ament_index/resource_index/parent_prefix_path/ld_visualisation
+[0.304s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/ament_prefix_path.sh
+[0.304s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/ament_prefix_path.dsv
+[0.304s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/path.sh
+[0.304s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/environment/path.dsv
+[0.307s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.bash
+[0.307s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.sh
+[0.307s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.zsh
+[0.307s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/local_setup.dsv
+[0.307s] -- Installing: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/package.dsv
+[0.307s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ament_index/resource_index/packages/ld_visualisation
+[0.308s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/cmake/ld_visualisationConfig.cmake
+[0.308s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/cmake/ld_visualisationConfig-version.cmake
+[0.308s] -- Up-to-date: /home/omron/Omron_LD/install/ld_visualisation/share/ld_visualisation/package.xml
+[0.308s] Invoked command in '/home/omron/Omron_LD/build/ld_visualisation' returned '0': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --install /home/omron/Omron_LD/build/ld_visualisation

@@ -1,0 +1,21 @@
+[0.257s] Invoking command in '/home/omron/Omron_LD/src/om_aiv_navigation': PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/om_aiv_navigation build --build-base /home/omron/Omron_LD/build/om_aiv_navigation/build install --prefix /home/omron/Omron_LD/install/om_aiv_navigation --record /home/omron/Omron_LD/build/om_aiv_navigation/install.log --single-version-externally-managed
+[0.470s] running egg_info
+[0.471s] writing ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/PKG-INFO
+[0.471s] writing dependency_links to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/dependency_links.txt
+[0.471s] writing entry points to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/entry_points.txt
+[0.472s] writing requirements to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/requires.txt
+[0.472s] writing top-level names to ../../build/om_aiv_navigation/om_aiv_navigation.egg-info/top_level.txt
+[0.509s] reading manifest file '../../build/om_aiv_navigation/om_aiv_navigation.egg-info/SOURCES.txt'
+[0.510s] writing manifest file '../../build/om_aiv_navigation/om_aiv_navigation.egg-info/SOURCES.txt'
+[0.510s] running build
+[0.510s] running build_py
+[0.511s] running install
+[0.511s] running install_lib
+[0.512s] running install_data
+[0.513s] running install_egg_info
+[0.515s] removing '/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation-0.0.0-py3.8.egg-info' (and everything under it)
+[0.515s] Copying ../../build/om_aiv_navigation/om_aiv_navigation.egg-info to /home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation-0.0.0-py3.8.egg-info
+[0.516s] running install_scripts
+[0.536s] Installing action_server script to /home/omron/Omron_LD/install/om_aiv_navigation/lib/om_aiv_navigation
+[0.537s] writing list of installed files to '/home/omron/Omron_LD/build/om_aiv_navigation/install.log'
+[0.747s] Invoked command in '/home/omron/Omron_LD/src/om_aiv_navigation' returned '0': PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/om_aiv_navigation build --build-base /home/omron/Omron_LD/build/om_aiv_navigation/build install --prefix /home/omron/Omron_LD/install/om_aiv_navigation --record /home/omron/Omron_LD/build/om_aiv_navigation/install.log --single-version-externally-managed

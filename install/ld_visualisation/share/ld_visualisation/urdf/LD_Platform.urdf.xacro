@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="LD_Platform">
+
+  <xacro:property name="pkg_name" value="ld_visualisation" />
+  <xacro:property name="mesh_file" value="LD_Platform.STL" />
+
+  <xacro:property name="PI" value="3.1415926535897" />
+  <xacro:property name="PI_2" value="1.5707963267949" />
+
+  <xacro:property name="main_body_mass" value="4.07" />
+  <xacro:property name="main_body_base_joint_x" value="0" />
+  <xacro:property name="main_body_base_joint_y" value="0" />
+  <xacro:property name="main_body_base_joint_z" value="0.085" />
+
+  <xacro:property name="wheel_mass" value="0.17" />
+  <xacro:property name="drive_wh_width" value="0.03937" />
+  <xacro:property name="drive_wh_radius" value="0.088" />
+  <xacro:property name="castor_wh_width" value="0.02775" />
+  <xacro:property name="castor_wh_radius" value="0.0375" />
+  <xacro:property name="drive_wh_joint_x" value="0" />
+  <xacro:property name="drive_wh_joint_y" value="0.196425" />
+  <xacro:property name="drive_wh_joint_z" value="0.000881" />
+  <xacro:property name="fr_castor_offset_x" value="0.209" />
+  <xacro:property name="fr_castor_offset_y" value="0.108" />
+  <xacro:property name="fr_castor_offset_z" value="0.049" />
+  <xacro:property name="bk_castor_offset_x" value="0.228" />
+  <xacro:property name="bk_castor_offset_y" value="0.156" />
+  <xacro:property name="bk_castor_offset_z" value="0.049" />
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <link name="base_link">
+  </link>
+
+  <link name="main_body">
+    <visual>
+      <origin xyz="0 0 0" rpy="${PI_2} 0 ${PI_2}" />
+      <geometry>
+        <mesh filename="package://${pkg_name}/meshes/${mesh_file}" />
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="${PI_2} 0 ${PI_2}" />
+      <geometry>
+        <mesh filename="package://${pkg_name}/meshes/${mesh_file}" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${main_body_mass}"/>
+      <inertia ixx="0.426" ixy="0.0" ixz="0.0" iyy="0.496" iyz="0.0" izz="0.91"/>
+    </inertial>
+  </link>
+
+  <joint name="main_body_to_base" type="fixed">
+    <parent link="base_link"/>
+    <child link="main_body"/>
+    <origin xyz="${main_body_base_joint_x} ${main_body_base_joint_y} ${main_body_base_joint_z}"/>
+    
+  </joint>
+
+  <link name="left_wheel">
+    <visual>
+      <origin rpy="${PI_2} 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="${drive_wh_width}" radius="${drive_wh_radius}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${drive_wh_width}" radius="${drive_wh_radius}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${wheel_mass}"/>
+      <inertia ixx="0.000204" ixy="0.0" ixz="0.0" iyy="0.000306" iyz="0.0" izz="0.000204"/>
+    </inertial>
+  </link>
+
+  <joint name="left_wheel_joint" type="continuous">
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <parent link="main_body"/>
+    <child link="left_wheel"/>
+    <origin rpy="0 0 0" xyz="${drive_wh_joint_x} ${drive_wh_joint_y} ${drive_wh_joint_z}"/>
+  </joint> 
+
+  <link name="right_wheel">
+    <visual>
+      <origin rpy="${PI_2} 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="${drive_wh_width}" radius="${drive_wh_radius}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${drive_wh_width}" radius="${drive_wh_radius}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${wheel_mass}"/>
+      <inertia ixx="0.000204" ixy="0.0" ixz="0.0" iyy="0.000306" iyz="0.0" izz="0.000204"/>
+    </inertial>
+  </link>
+
+  <joint name="right_wheel_joint" type="continuous">
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <parent link="main_body"/>
+    <child link="right_wheel"/>
+    <origin rpy="${PI} 0 0" xyz="${drive_wh_joint_x} -${drive_wh_joint_y} ${drive_wh_joint_z}"/>
+  </joint>
+
+  <link name="right_front_small_wheel">
+    <visual>
+      <origin rpy="${PI_2} 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="${castor_wh_width}" radius="${castor_wh_radius}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${castor_wh_width}" radius="${castor_wh_radius}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${wheel_mass}"/>
+      <inertia ixx="0.000204" ixy="0.0" ixz="0.0" iyy="0.000306" iyz="0.0" izz="0.000204"/>
+    </inertial>
+  </link>
+
+  <joint name="right_front_small_wheel_joint" type="continuous">
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <parent link="main_body"/>
+    <child link="right_front_small_wheel"/>
+    <origin rpy="${PI} 0 0" xyz="${fr_castor_offset_x} -${fr_castor_offset_y} -${fr_castor_offset_z}"/>
+  </joint>
+
+  <link name="left_front_small_wheel">
+    <visual>
+      <origin rpy="${PI_2} 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="${castor_wh_width}" radius="${castor_wh_radius}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${castor_wh_width}" radius="${castor_wh_radius}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${wheel_mass}"/>
+      <inertia ixx="0.000204" ixy="0.0" ixz="0.0" iyy="0.000306" iyz="0.0" izz="0.000204"/>
+    </inertial>
+  </link>
+
+  <joint name="left_front_small_wheel_joint" type="continuous">
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <parent link="main_body"/>
+    <child link="left_front_small_wheel"/>
+    <origin rpy="0 0 0" xyz="${fr_castor_offset_x} ${fr_castor_offset_y} -${fr_castor_offset_z}"/>
+  </joint> 
+
+  <link name="left_back_small_wheel">
+    <visual>
+      <origin rpy="${PI_2} 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="${castor_wh_width}" radius="${castor_wh_radius}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${castor_wh_width}" radius="${castor_wh_radius}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${wheel_mass}"/>
+      <inertia ixx="0.000204" ixy="0.0" ixz="0.0" iyy="0.000306" iyz="0.0" izz="0.000204"/>
+    </inertial>
+  </link>
+
+  <joint name="left_back_small_wheel_joint" type="continuous">
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <parent link="main_body"/>
+    <child link="left_back_small_wheel"/>
+    <origin rpy="0 0 0" xyz="-${bk_castor_offset_x} ${bk_castor_offset_y} -${bk_castor_offset_z}"/>
+  </joint>
+  
+  <link name="right_back_small_wheel">
+    <visual>
+      <origin rpy="${PI_2} 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="${castor_wh_width}" radius="${castor_wh_radius}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${castor_wh_width}" radius="${castor_wh_radius}"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="${wheel_mass}"/>
+      <inertia ixx="0.000204" ixy="0.0" ixz="0.0" iyy="0.000306" iyz="0.0" izz="0.000204"/>
+    </inertial>
+  </link>
+
+  <joint name="right_back_small_wheel_joint" type="continuous">
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <parent link="main_body"/>
+    <child link="right_back_small_wheel"/>
+    <origin rpy="${PI} 0 0" xyz="-${bk_castor_offset_x} -${bk_castor_offset_y} -${bk_castor_offset_z}"/>
+  </joint>
+</robot>

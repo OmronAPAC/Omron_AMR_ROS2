@@ -1,0 +1,57 @@
+[0.018s] Invoking command in '/home/omron/Omron_LD/build/ld_visualisation': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/omron/Omron_LD/build/ld_visualisation -- -j8 -l8
+[0.064s] [35m[1mScanning dependencies of target goals_marker[0m
+[0.090s] [ 33%] Built target joints_publisher
+[0.090s] [ 66%] Built target data_points_marker
+[0.096s] [ 83%] [32mBuilding CXX object CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o[0m
+[1.365s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[1.365s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:163:20:[m[K [01;31m[Kerror: [m[Kinvalid use of ‘[01m[Kusing Request = using ArclListen_Request = struct om_aiv_msg::srv::ArclListen_Request_<std::allocator<void> >[m[K’
+[1.365s]   163 |     goals_list_req.[01;31m[KRequest[m[K.resp_header = GOAL_RESP_H;
+[1.365s]       |                    [01;31m[K^~~~~~~[m[K
+[1.365s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:164:20:[m[K [01;31m[Kerror: [m[Kinvalid use of ‘[01m[Kusing Request = using ArclApi_Request = struct om_aiv_msg::srv::ArclApi_Request_<std::allocator<void> >[m[K’
+[1.365s]   164 |     goals_info_req.[01;31m[KRequest[m[K.line_identifier = GOALS_LIST_END;
+[1.365s]       |                    [01;31m[K^~~~~~~[m[K
+[1.367s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:175:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_pub[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_id[m[K’?
+[1.367s]   175 |         [01;31m[Kgoals_pub[m[K->publish(goals);
+[1.368s]       |         [01;31m[K^~~~~~~~~[m[K
+[1.368s]       |         [32m[Kgoals_id[m[K
+[1.369s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K At global scope:
+[1.369s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:186:13:[m[K [01;31m[Kerror: [m[Kvariable or field ‘[01m[Kreq_goals_coord[m[K’ declared void
+[1.369s]   186 |     rclcpp::[01;31m[KServiceClient[m[K& arcl_api_client,
+[1.369s]       |             [01;31m[K^~~~~~~~~~~~~[m[K
+[1.369s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:186:13:[m[K [01;31m[Kerror: [m[K‘[01m[KServiceClient[m[K’ is not a member of ‘[01m[Krclcpp[m[K’; did you mean ‘[01m[KServiceBase[m[K’?
+[1.369s]   186 |     rclcpp::[01;31m[KServiceClient[m[K& arcl_api_client,
+[1.369s]       |             [01;31m[K^~~~~~~~~~~~~[m[K
+[1.370s]       |             [32m[KServiceBase[m[K
+[1.372s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:186:28:[m[K [01;31m[Kerror: [m[K‘[01m[Karcl_api_client[m[K’ was not declared in this scope
+[1.372s]   186 |     rclcpp::ServiceClient& [01;31m[Karcl_api_client[m[K,
+[1.372s]       |                            [01;31m[K^~~~~~~~~~~~~~~[m[K
+[1.372s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:187:29:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K&[m[K’ token
+[1.372s]   187 |     om_aiv_msg::srv::ArclApi[01;31m[K&[m[K goals_info_req,
+[1.372s]       |                             [01;31m[K^[m[K
+[1.374s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:187:31:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_info_req[m[K’ was not declared in this scope
+[1.374s]   187 |     om_aiv_msg::srv::ArclApi& [01;31m[Kgoals_info_req[m[K,
+[1.375s]       |                               [01;31m[K^~~~~~~~~~~~~~[m[K
+[1.375s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:188:41:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K&[m[K’ token
+[1.375s]   188 |     visualization_msgs::msg::MarkerArray[01;31m[K&[m[K goals,
+[1.375s]       |                                         [01;31m[K^[m[K
+[1.376s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:188:43:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_id[m[K’?
+[1.376s]   188 |     visualization_msgs::msg::MarkerArray& [01;31m[Kgoals[m[K,
+[1.376s]       |                                           [01;31m[K^~~~~[m[K
+[1.376s]       |                                           [32m[Kgoals_id[m[K
+[1.376s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:189:41:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K&[m[K’ token
+[1.376s]   189 |     visualization_msgs::msg::MarkerArray[01;31m[K&[m[K goals_text,
+[1.376s]       |                                         [01;31m[K^[m[K
+[1.378s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:189:43:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_text[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_list[m[K’?
+[1.378s]   189 |     visualization_msgs::msg::MarkerArray& [01;31m[Kgoals_text[m[K,
+[1.378s]       |                                           [01;31m[K^~~~~~~~~~[m[K
+[1.378s]       |                                           [32m[Kgoals_list[m[K
+[1.378s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:190:37:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kone_goal[m[K’
+[1.378s]   190 |     visualization_msgs::msg::Marker [01;31m[Kone_goal[m[K,
+[1.378s]       |                                     [01;31m[K^~~~~~~~[m[K
+[1.379s] [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:191:37:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kone_goal_text[m[K’
+[1.379s]   191 |     visualization_msgs::msg::Marker [01;31m[Kone_goal_text[m[K)
+[1.379s]       |                                     [01;31m[K^~~~~~~~~~~~~[m[K
+[2.898s] make[2]: *** [CMakeFiles/goals_marker.dir/build.make:63: CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o] Error 1
+[2.898s] make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/goals_marker.dir/all] Error 2
+[2.898s] make: *** [Makefile:141: all] Error 2
+[2.901s] Invoked command in '/home/omron/Omron_LD/build/ld_visualisation' returned '2': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/cmake --build /home/omron/Omron_LD/build/ld_visualisation -- -j8 -l8

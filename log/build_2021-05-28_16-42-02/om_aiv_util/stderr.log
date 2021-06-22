@@ -1,0 +1,5 @@
+  File "/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/arcl_api_server.py", line 48
+    service = node.create_service(ArclApi, 'arcl_api_service', req_handler)
+    ^
+SyntaxError: invalid syntax
+

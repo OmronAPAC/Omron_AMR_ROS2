@@ -1,0 +1,61 @@
+[35m[1mScanning dependencies of target goals_marker[0m
+[ 33%] Built target joints_publisher
+[ 66%] Built target data_points_marker
+[ 83%] [32mBuilding CXX object CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o[0m
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:170:42:[m[K [01;31m[Kerror: [m[Kinvalid initialization of reference of type ‘[01m[Kstd::shared_ptr<om_aiv_msg::srv::ArclListen_Request_<std::allocator<void> > >&[m[K’ from expression of type ‘[01m[Kstd::shared_ptr<om_aiv_msg::srv::ArclApi_Request_<std::allocator<void> > >[m[K’
+  170 |         req_goals_coord(arcl_api_client, [01;31m[Kgoals_info_req[m[K, goals, goals_text, one_goal, one_goal_text);
+      |                                          [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:60:59:[m[K [01;36m[Knote: [m[Kin passing argument 2 of ‘[01m[Kvoid req_goals_coord(rclcpp::Client<om_aiv_msg::srv::ArclApi>::SharedPtr&, std::shared_ptr<om_aiv_msg::srv::ArclListen_Request_<std::allocator<void> > >&, visualization_msgs::msg::MarkerArray&, visualization_msgs::msg::MarkerArray&, visualization_msgs::msg::Marker, visualization_msgs::msg::Marker)[m[K’
+   60 |     [01;36m[Kstd::shared_ptr<om_aiv_msg::srv::ArclListen_Request>& goals_info_req[m[K,
+      |     [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K In function ‘[01m[Kvoid req_goals_coord(rclcpp::Client<om_aiv_msg::srv::ArclApi>::SharedPtr&, std::shared_ptr<om_aiv_msg::srv::ArclListen_Request_<std::allocator<void> > >&, visualization_msgs::msg::MarkerArray&, visualization_msgs::msg::MarkerArray&, visualization_msgs::msg::Marker, visualization_msgs::msg::Marker)[m[K’:
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:201:25:[m[K [01;31m[Kerror: [m[K‘[01m[Kusing element_type = struct om_aiv_msg::srv::ArclListen_Request_<std::allocator<void> >[m[K’ {aka ‘[01m[Kstruct om_aiv_msg::srv::ArclListen_Request_<std::allocator<void> >[m[K’} has no member named ‘[01m[Kcommand[m[K’
+  201 |         goals_info_req->[01;31m[Kcommand[m[K = cmd + goals_list[i];
+      |                         [01;31m[K^~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:204:73:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Krclcpp::Client<om_aiv_msg::srv::ArclApi>::async_send_request(std::shared_ptr<om_aiv_msg::srv::ArclListen_Request_<std::allocator<void> > >&)[m[K’
+  204 |         auto result = arcl_api_client->async_send_request(goals_info_req[01;31m[K)[m[K;
+      |                                                                         [01;31m[K^[m[K
+In file included from [01m[K/opt/ros/foxy/include/rclcpp/callback_group.hpp:23[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:20[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executor.hpp:33[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:21[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+                 from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[01m[K/opt/ros/foxy/include/rclcpp/client.hpp:318:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Krclcpp::Client<ServiceT>::SharedFuture rclcpp::Client<ServiceT>::async_send_request(rclcpp::Client<ServiceT>::SharedRequest) [with ServiceT = om_aiv_msg::srv::ArclApi; rclcpp::Client<ServiceT>::SharedFuture = std::shared_future<std::shared_ptr<om_aiv_msg::srv::ArclApi_Response_<std::allocator<void> > > >; typename ServiceT::Response::SharedPtr = std::shared_ptr<om_aiv_msg::srv::ArclApi_Response_<std::allocator<void> > >; rclcpp::Client<ServiceT>::SharedRequest = std::shared_ptr<om_aiv_msg::srv::ArclApi_Request_<std::allocator<void> > >][m[K’
+  318 |   [01;36m[Kasync_send_request[m[K(SharedRequest request)
+      |   [01;36m[K^~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/foxy/include/rclcpp/client.hpp:318:36:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[Kshared_ptr<[01;32m[Kom_aiv_msg::srv::ArclListen_Request_<std::allocator<void> >[m[K>[m[K’ to ‘[01m[Kshared_ptr<[01;32m[Kom_aiv_msg::srv::ArclApi_Request_<std::allocator<void> >[m[K>[m[K’
+  318 |   async_send_request([01;36m[KSharedRequest request[m[K)
+      |                      [01;36m[K~~~~~~~~~~~~~~^~~~~~~[m[K
+[01m[K/opt/ros/foxy/include/rclcpp/client.hpp:333:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class CallbackT, typename std::enable_if<rclcpp::function_traits::same_arguments<CallbackT, std::function<void(std::shared_future<std::shared_ptr<om_aiv_msg::srv::ArclApi_Response_<std::allocator<void> > > >)> >::value, void>::type* <anonymous> > rclcpp::Client<ServiceT>::SharedFuture rclcpp::Client<ServiceT>::async_send_request(rclcpp::Client<ServiceT>::SharedRequest, CallbackT&&) [with CallbackT = CallbackT; typename std::enable_if<rclcpp::function_traits::same_arguments<CallbackT, std::function<void(std::shared_future<typename ServiceT::Response::SharedPtr>)> >::value>::type* <anonymous> = <enumerator>; ServiceT = om_aiv_msg::srv::ArclApi][m[K’
+  333 |   [01;36m[Kasync_send_request[m[K(SharedRequest request, CallbackT && cb)
+      |   [01;36m[K^~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/foxy/include/rclcpp/client.hpp:333:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:204:73:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+  204 |         auto result = arcl_api_client->async_send_request(goals_info_req[01;36m[K)[m[K;
+      |                                                                         [01;36m[K^[m[K
+In file included from [01m[K/opt/ros/foxy/include/rclcpp/callback_group.hpp:23[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/any_executable.hpp:20[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategy.hpp:24[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/memory_strategies.hpp:18[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executor_options.hpp:20[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executor.hpp:33[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executors/multi_threaded_executor.hpp:25[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/executors.hpp:21[m[K,
+                 from [01m[K/opt/ros/foxy/include/rclcpp/rclcpp.hpp:146[m[K,
+                 from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:1[m[K:
+[01m[K/opt/ros/foxy/include/rclcpp/client.hpp:359:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class CallbackT, typename std::enable_if<rclcpp::function_traits::same_arguments<CallbackT, std::function<void(std::shared_future<std::pair<std::shared_ptr<om_aiv_msg::srv::ArclApi_Request_<std::allocator<void> > >, std::shared_ptr<om_aiv_msg::srv::ArclApi_Response_<std::allocator<void> > > > >)> >::value, void>::type* <anonymous> > rclcpp::Client<ServiceT>::SharedFutureWithRequest rclcpp::Client<ServiceT>::async_send_request(rclcpp::Client<ServiceT>::SharedRequest, CallbackT&&) [with CallbackT = CallbackT; typename std::enable_if<rclcpp::function_traits::same_arguments<CallbackT, std::function<void(std::shared_future<std::pair<typename ServiceT::Request::SharedPtr, typename ServiceT::Response::SharedPtr> >)> >::value>::type* <anonymous> = <enumerator>; ServiceT = om_aiv_msg::srv::ArclApi][m[K’
+  359 |   [01;36m[Kasync_send_request[m[K(SharedRequest request, CallbackT && cb)
+      |   [01;36m[K^~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/foxy/include/rclcpp/client.hpp:359:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:204:73:[m[K [01;36m[Knote: [m[K  candidate expects 2 arguments, 1 provided
+  204 |         auto result = arcl_api_client->async_send_request(goals_info_req[01;36m[K)[m[K;
+      |                                                                         [01;36m[K^[m[K
+make[2]: *** [CMakeFiles/goals_marker.dir/build.make:63: CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/goals_marker.dir/all] Error 2
+make: *** [Makefile:141: all] Error 2

@@ -1,0 +1,217 @@
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:58:13:[m[K [01;31m[Kerror: [m[K‘[01m[KServiceClient[m[K’ in namespace ‘[01m[Krclcpp[m[K’ does not name a type; did you mean ‘[01m[KServiceBase[m[K’?
+   58 |     rclcpp::[01;31m[KServiceClient[m[K& arcl_api_client,
+      |             [01;31m[K^~~~~~~~~~~~~[m[K
+      |             [32m[KServiceBase[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:74:5:[m[K [01;31m[Kerror: [m[K‘[01m[Knh[m[K’ was not declared in this scope
+   74 |     [01;31m[Knh[m[K.param<std::string>(HEAD_FRAME_PARAM, head_frame, "/pose");
+      |     [01;31m[K^~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:74:25:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K>[m[K’ token
+   74 |     nh.param<std::string[01;31m[K>[m[K(HEAD_FRAME_PARAM, head_frame, "/pose");
+      |                         [01;31m[K^[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:74:27:[m[K [01;35m[Kwarning: [m[Kleft operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+   74 |     nh.param<std::string>([01;35m[KHEAD_FRAME_PARAM[m[K, head_frame, "/pose");
+      |                           [01;35m[K^~~~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:74:57:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+   74 |     nh.param<std::string>(HEAD_FRAME_PARAM, head_frame, [01;35m[K"/pose"[m[K);
+      |                                                         [01;35m[K^~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:75:25:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[K>[m[K’ token
+   75 |     nh.param<std::string[01;31m[K>[m[K(GOALS_VIS_TOPIC, goals_vis_topic, "visualization_marker_array");
+      |                         [01;31m[K^[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:75:27:[m[K [01;35m[Kwarning: [m[Kleft operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+   75 |     nh.param<std::string>([01;35m[KGOALS_VIS_TOPIC[m[K, goals_vis_topic, "visualization_marker_array");
+      |                           [01;35m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:75:61:[m[K [01;35m[Kwarning: [m[Kright operand of comma operator has no effect [[01;35m[K-Wunused-value[m[K]
+   75 |     nh.param<std::string>(GOALS_VIS_TOPIC, goals_vis_topic, [01;35m[K"visualization_marker_array"[m[K);
+      |                                                             [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:76:14:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kfloat[m[K’
+   76 |     nh.param<[01;31m[Kfloat[m[K>(GOALS_A_CLR_PARAM, goals_a_clr, 1.0);
+      |              [01;31m[K^~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:77:14:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kfloat[m[K’
+   77 |     nh.param<[01;31m[Kfloat[m[K>(GOALS_R_CLR_PARAM, goals_r_clr, 0);
+      |              [01;31m[K^~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:78:14:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kfloat[m[K’
+   78 |     nh.param<[01;31m[Kfloat[m[K>(GOALS_G_CLR_PARAM, goals_g_clr, 1.0);
+      |              [01;31m[K^~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:79:14:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kfloat[m[K’
+   79 |     nh.param<[01;31m[Kfloat[m[K>(GOALS_B_CLR_PARAM, goals_b_clr, 0);
+      |              [01;31m[K^~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:80:14:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kfloat[m[K’
+   80 |     nh.param<[01;31m[Kfloat[m[K>(GOAL_TEXTS_A_CLR_PARAM, goal_texts_a_clr, 1.0);
+      |              [01;31m[K^~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:81:14:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kfloat[m[K’
+   81 |     nh.param<[01;31m[Kfloat[m[K>(GOAL_TEXTS_R_CLR_PARAM, goal_texts_r_clr, 0);
+      |              [01;31m[K^~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:82:14:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kfloat[m[K’
+   82 |     nh.param<[01;31m[Kfloat[m[K>(GOAL_TEXTS_G_CLR_PARAM, goal_texts_g_clr, 1.0);
+      |              [01;31m[K^~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:83:14:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kfloat[m[K’
+   83 |     nh.param<[01;31m[Kfloat[m[K>(GOAL_TEXTS_B_CLR_PARAM, goal_texts_b_clr, 0);
+      |              [01;31m[K^~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:85:13:[m[K [01;31m[Kerror: [m[K‘[01m[KServiceClient[m[K’ is not a member of ‘[01m[Krclcpp[m[K’; did you mean ‘[01m[KServiceBase[m[K’?
+   85 |     rclcpp::[01;31m[KServiceClient[m[K arcl_api_client = nh.serviceClient<om_aiv_util::ArclApi>(API_SRV_NAME);
+      |             [01;31m[K^~~~~~~~~~~~~[m[K
+      |             [32m[KServiceBase[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:88:93:[m[K [01;31m[Kerror: [m[K‘[01m[Kall_goals_cb[m[K’ was not declared in this scope
+   88 |     auto subscriber = node->create_subscription<std_msgs::msg::String>(ALL_GOALS_TOPIC, 10, [01;31m[Kall_goals_cb[m[K);
+      |                                                                                             [01;31m[K^~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:94:25:[m[K [01;31m[Kerror: [m[K‘[01m[KMarkerArray[m[K’ is not a member of ‘[01m[Kvisualization_msgs[m[K’; did you mean ‘[01m[Kvisualization_msgs::msg::MarkerArray[m[K’?
+   94 |     visualization_msgs::[01;31m[KMarkerArray[m[K goals;
+      |                         [01;31m[K^~~~~~~~~~~[m[K
+In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker_array.hpp:7[m[K,
+                 from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:3[m[K:
+[01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker_array__struct.hpp:117:7:[m[K [01;36m[Knote: [m[K‘[01m[Kvisualization_msgs::msg::MarkerArray[m[K’ declared here
+  117 | using [01;36m[KMarkerArray[m[K =
+      |       [01;36m[K^~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:95:25:[m[K [01;31m[Kerror: [m[K‘[01m[KMarker[m[K’ is not a member of ‘[01m[Kvisualization_msgs[m[K’; did you mean ‘[01m[Kvisualization_msgs::msg::Marker[m[K’?
+   95 |     visualization_msgs::[01;31m[KMarker[m[K one_goal;
+      |                         [01;31m[K^~~~~~[m[K
+In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker.hpp:7[m[K,
+                 from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:2[m[K:
+[01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker__struct.hpp:373:7:[m[K [01;36m[Knote: [m[K‘[01m[Kvisualization_msgs::msg::Marker[m[K’ declared here
+  373 | using [01;36m[KMarker[m[K =
+      |       [01;36m[K^~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:96:25:[m[K [01;31m[Kerror: [m[K‘[01m[KMarkerArray[m[K’ is not a member of ‘[01m[Kvisualization_msgs[m[K’; did you mean ‘[01m[Kvisualization_msgs::msg::MarkerArray[m[K’?
+   96 |     visualization_msgs::[01;31m[KMarkerArray[m[K goals_text;
+      |                         [01;31m[K^~~~~~~~~~~[m[K
+In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker_array.hpp:7[m[K,
+                 from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:3[m[K:
+[01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker_array__struct.hpp:117:7:[m[K [01;36m[Knote: [m[K‘[01m[Kvisualization_msgs::msg::MarkerArray[m[K’ declared here
+  117 | using [01;36m[KMarkerArray[m[K =
+      |       [01;36m[K^~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:97:25:[m[K [01;31m[Kerror: [m[K‘[01m[KMarker[m[K’ is not a member of ‘[01m[Kvisualization_msgs[m[K’; did you mean ‘[01m[Kvisualization_msgs::msg::Marker[m[K’?
+   97 |     visualization_msgs::[01;31m[KMarker[m[K one_goal_text;
+      |                         [01;31m[K^~~~~~[m[K
+In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker.hpp:7[m[K,
+                 from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:2[m[K:
+[01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker__struct.hpp:373:7:[m[K [01;36m[Knote: [m[K‘[01m[Kvisualization_msgs::msg::Marker[m[K’ declared here
+  373 | using [01;36m[KMarker[m[K =
+      |       [01;36m[K^~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:98:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kone_goal[m[K’ was not declared in this scope
+   98 |     [01;31m[Kone_goal[m[K.header.frame_id = head_frame;
+      |     [01;31m[K^~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:100:43:[m[K [01;31m[Kerror: [m[K‘[01m[Kvisualization_msgs::Marker[m[K’ has not been declared
+  100 |     one_goal.action = visualization_msgs::[01;31m[KMarker[m[K::MODIFY;
+      |                                           [01;31m[K^~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:102:41:[m[K [01;31m[Kerror: [m[K‘[01m[Kvisualization_msgs::Marker[m[K’ has not been declared
+  102 |     one_goal.type = visualization_msgs::[01;31m[KMarker[m[K::ARROW;
+      |                                         [01;31m[K^~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:110:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kone_goal_text[m[K’ was not declared in this scope
+  110 |     [01;31m[Kone_goal_text[m[K.header.frame_id = head_frame;
+      |     [01;31m[K^~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:112:48:[m[K [01;31m[Kerror: [m[K‘[01m[Kvisualization_msgs::Marker[m[K’ has not been declared
+  112 |     one_goal_text.action = visualization_msgs::[01;31m[KMarker[m[K::MODIFY;
+      |                                                [01;31m[K^~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:115:46:[m[K [01;31m[Kerror: [m[K‘[01m[Kvisualization_msgs::Marker[m[K’ has not been declared
+  115 |     one_goal_text.type = visualization_msgs::[01;31m[KMarker[m[K::TEXT_VIEW_FACING;
+      |                                              [01;31m[K^~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:124:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kom_aiv_util[m[K’ has not been declared
+  124 |     [01;31m[Kom_aiv_util[m[K::ArclListen goals_list_req;
+      |     [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:125:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kom_aiv_util[m[K’ has not been declared
+  125 |     [01;31m[Kom_aiv_util[m[K::ArclApi goals_info_req;
+      |     [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:126:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_list_req[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_list[m[K’?
+  126 |     [01;31m[Kgoals_list_req[m[K.request.resp_header = GOAL_RESP_H;
+      |     [01;31m[K^~~~~~~~~~~~~~[m[K
+      |     [32m[Kgoals_list[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:127:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_info_req[m[K’ was not declared in this scope
+  127 |     [01;31m[Kgoals_info_req[m[K.request.line_identifier = GOALS_LIST_END;
+      |     [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:132:25:[m[K [01;31m[Kerror: [m[K‘[01m[Karcl_api_client[m[K’ was not declared in this scope
+  132 |         req_goals_coord([01;31m[Karcl_api_client[m[K, goals_info_req, goals, goals_text, one_goal, one_goal_text);
+      |                         [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:132:58:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_id[m[K’?
+  132 |         req_goals_coord(arcl_api_client, goals_info_req, [01;31m[Kgoals[m[K, goals_text, one_goal, one_goal_text);
+      |                                                          [01;31m[K^~~~~[m[K
+      |                                                          [32m[Kgoals_id[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:132:65:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_text[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_list[m[K’?
+  132 |         req_goals_coord(arcl_api_client, goals_info_req, goals, [01;31m[Kgoals_text[m[K, one_goal, one_goal_text);
+      |                                                                 [01;31m[K^~~~~~~~~~[m[K
+      |                                                                 [32m[Kgoals_list[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:132:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kreq_goals_coord[m[K’ was not declared in this scope
+  132 |         [01;31m[Kreq_goals_coord[m[K(arcl_api_client, goals_info_req, goals, goals_text, one_goal, one_goal_text);
+      |         [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:135:59:[m[K [01;31m[Kerror: [m[K‘[01m[Know[m[K’ is not a member of ‘[01m[Krclcpp::Time[m[K’
+  135 |             goals.markers[i].header.stamp = rclcpp::Time::[01;31m[Know[m[K();
+      |                                                           [01;31m[K^~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:138:9:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_pub[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_id[m[K’?
+  138 |         [01;31m[Kgoals_pub[m[K.publish(goals);
+      |         [01;31m[K^~~~~~~~~[m[K
+      |         [32m[Kgoals_id[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:141:17:[m[K [01;31m[Kerror: [m[K‘[01m[KspinOnce[m[K’ is not a member of ‘[01m[Krclcpp[m[K’
+  141 |         rclcpp::[01;31m[KspinOnce[m[K();
+      |                 [01;31m[K^~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K At global scope:
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:149:13:[m[K [01;31m[Kerror: [m[Kvariable or field ‘[01m[Kreq_goals_coord[m[K’ declared void
+  149 |     rclcpp::[01;31m[KServiceClient[m[K& arcl_api_client,
+      |             [01;31m[K^~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:149:13:[m[K [01;31m[Kerror: [m[K‘[01m[KServiceClient[m[K’ is not a member of ‘[01m[Krclcpp[m[K’; did you mean ‘[01m[KServiceBase[m[K’?
+  149 |     rclcpp::[01;31m[KServiceClient[m[K& arcl_api_client,
+      |             [01;31m[K^~~~~~~~~~~~~[m[K
+      |             [32m[KServiceBase[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:149:28:[m[K [01;31m[Kerror: [m[K‘[01m[Karcl_api_client[m[K’ was not declared in this scope
+  149 |     rclcpp::ServiceClient& [01;31m[Karcl_api_client[m[K,
+      |                            [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:150:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kom_aiv_util[m[K’ has not been declared
+  150 |     [01;31m[Kom_aiv_util[m[K::ArclApi& goals_info_req,
+      |     [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:150:27:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_info_req[m[K’ was not declared in this scope
+  150 |     om_aiv_util::ArclApi& [01;31m[Kgoals_info_req[m[K,
+      |                           [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:151:25:[m[K [01;31m[Kerror: [m[K‘[01m[KMarkerArray[m[K’ is not a member of ‘[01m[Kvisualization_msgs[m[K’; did you mean ‘[01m[Kvisualization_msgs::msg::MarkerArray[m[K’?
+  151 |     visualization_msgs::[01;31m[KMarkerArray[m[K& goals,
+      |                         [01;31m[K^~~~~~~~~~~[m[K
+In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker_array.hpp:7[m[K,
+                 from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:3[m[K:
+[01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker_array__struct.hpp:117:7:[m[K [01;36m[Knote: [m[K‘[01m[Kvisualization_msgs::msg::MarkerArray[m[K’ declared here
+  117 | using [01;36m[KMarkerArray[m[K =
+      |       [01;36m[K^~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:151:38:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_id[m[K’?
+  151 |     visualization_msgs::MarkerArray& [01;31m[Kgoals[m[K,
+      |                                      [01;31m[K^~~~~[m[K
+      |                                      [32m[Kgoals_id[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:152:25:[m[K [01;31m[Kerror: [m[K‘[01m[KMarkerArray[m[K’ is not a member of ‘[01m[Kvisualization_msgs[m[K’; did you mean ‘[01m[Kvisualization_msgs::msg::MarkerArray[m[K’?
+  152 |     visualization_msgs::[01;31m[KMarkerArray[m[K& goals_text,
+      |                         [01;31m[K^~~~~~~~~~~[m[K
+In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker_array.hpp:7[m[K,
+                 from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:3[m[K:
+[01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker_array__struct.hpp:117:7:[m[K [01;36m[Knote: [m[K‘[01m[Kvisualization_msgs::msg::MarkerArray[m[K’ declared here
+  117 | using [01;36m[KMarkerArray[m[K =
+      |       [01;36m[K^~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:152:38:[m[K [01;31m[Kerror: [m[K‘[01m[Kgoals_text[m[K’ was not declared in this scope; did you mean ‘[01m[Kgoals_list[m[K’?
+  152 |     visualization_msgs::MarkerArray& [01;31m[Kgoals_text[m[K,
+      |                                      [01;31m[K^~~~~~~~~~[m[K
+      |                                      [32m[Kgoals_list[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:153:25:[m[K [01;31m[Kerror: [m[K‘[01m[KMarker[m[K’ is not a member of ‘[01m[Kvisualization_msgs[m[K’; did you mean ‘[01m[Kvisualization_msgs::msg::Marker[m[K’?
+  153 |     visualization_msgs::[01;31m[KMarker[m[K one_goal,
+      |                         [01;31m[K^~~~~~[m[K
+In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker.hpp:7[m[K,
+                 from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:2[m[K:
+[01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker__struct.hpp:373:7:[m[K [01;36m[Knote: [m[K‘[01m[Kvisualization_msgs::msg::Marker[m[K’ declared here
+  373 | using [01;36m[KMarker[m[K =
+      |       [01;36m[K^~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:154:25:[m[K [01;31m[Kerror: [m[K‘[01m[KMarker[m[K’ is not a member of ‘[01m[Kvisualization_msgs[m[K’; did you mean ‘[01m[Kvisualization_msgs::msg::Marker[m[K’?
+  154 |     visualization_msgs::[01;31m[KMarker[m[K one_goal_text)
+      |                         [01;31m[K^~~~~~[m[K
+In file included from [01m[K/opt/ros/foxy/include/visualization_msgs/msg/marker.hpp:7[m[K,
+                 from [01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:2[m[K:
+[01m[K/opt/ros/foxy/include/visualization_msgs/msg/detail/marker__struct.hpp:373:7:[m[K [01;36m[Knote: [m[K‘[01m[Kvisualization_msgs::msg::Marker[m[K’ declared here
+  373 | using [01;36m[KMarker[m[K =
+      |       [01;36m[K^~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:209:35:[m[K [01;31m[Kerror: [m[K‘[01m[KStringConstPtr[m[K’ in namespace ‘[01m[Kstd_msgs[m[K’ does not name a type
+  209 | void all_goals_cb(const std_msgs::[01;31m[KStringConstPtr[m[K& msg)
+      |                                   [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:[m[K In function ‘[01m[Kvoid all_goals_cb(const int&)[m[K’:
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:212:31:[m[K [01;31m[Kerror: [m[Kbase operand of ‘[01m[K->[m[K’ is not a pointer
+  212 |     std::string raw_resp = msg[01;31m[K->[m[Kdata;
+      |                               [01;31m[K^~[m[K
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/data_points_marker.cpp:[m[K In function ‘[01m[Kbool get_map_data(std::string, std::vector<geometry_msgs::msg::Point_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Point_<std::allocator<void> > > >&, std::vector<geometry_msgs::msg::Point_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Point_<std::allocator<void> > > >&, visualization_msgs::msg::Marker&, visualization_msgs::msg::MarkerArray&)[m[K’:
+[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/data_points_marker.cpp:282:31:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kfilename[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+  282 | ol get_map_data([01;35m[Kstd::string filename[m[K,
+      |                 [01;35m[K~~~~~~~~~~~~^~~~~~~~[m[K
+
+make[2]: *** [CMakeFiles/goals_marker.dir/build.make:63: CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/goals_marker.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+make: *** [Makefile:141: all] Error 2

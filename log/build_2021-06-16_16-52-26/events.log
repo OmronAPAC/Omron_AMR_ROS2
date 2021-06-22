@@ -1,0 +1,99 @@
+[0.000000] (-) TimerEvent: {}
+[0.000405] (-) JobUnselected: {'identifier': 'ld_viz'}
+[0.000471] (-) JobUnselected: {'identifier': 'om_aiv_msg'}
+[0.000551] (-) JobUnselected: {'identifier': 'om_aiv_navigation'}
+[0.000571] (-) JobUnselected: {'identifier': 'om_aiv_util'}
+[0.000612] (ld_visualisation) JobQueued: {'identifier': 'ld_visualisation', 'dependencies': OrderedDict([('om_aiv_msg', '/home/omron/Omron_LD/install/om_aiv_msg')])}
+[0.000648] (ld_visualisation) JobStarted: {'identifier': 'ld_visualisation'}
+[0.015813] (ld_visualisation) JobProgress: {'identifier': 'ld_visualisation', 'progress': 'cmake'}
+[0.016616] (ld_visualisation) JobProgress: {'identifier': 'ld_visualisation', 'progress': 'build'}
+[0.017369] (ld_visualisation) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/omron/Omron_LD/build/ld_visualisation', '--', '-j8', '-l8'], 'cwd': '/home/omron/Omron_LD/build/ld_visualisation', 'env': OrderedDict([('GJS_DEBUG_TOPICS', 'JS ERROR;JS LOG'), ('LESSOPEN', '| /usr/bin/lesspipe %s'), ('LANGUAGE', 'en_SG:en'), ('USER', 'omron'), ('SSH_AGENT_PID', '1084'), ('XDG_SESSION_TYPE', 'x11'), ('GIT_ASKPASS', '/snap/code/66/usr/share/code/resources/app/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib:/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/x86_64-linux-gnu:/opt/ros/foxy/lib'), ('HOME', '/home/omron'), ('CHROME_DESKTOP', 'code-url-handler.desktop'), ('TERM_PROGRAM_VERSION', '1.57.0'), ('DESKTOP_SESSION', 'ubuntu'), ('GIO_LAUNCHED_DESKTOP_FILE', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL', 'true'), ('ROS_PYTHON_VERSION', '3'), ('GNOME_SHELL_SESSION_MODE', 'ubuntu'), ('GTK_MODULES', 'gail:atk-bridge'), ('VSCODE_GIT_ASKPASS_MAIN', '/snap/code/66/usr/share/code/resources/app/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/snap/code/66/usr/share/code/code'), ('MANAGERPID', '834'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('GIO_LAUNCHED_DESKTOP_FILE_PID', '2205'), ('IM_CONFIG_PHASE', '1'), ('COLCON_PREFIX_PATH', '/home/omron/Omron_LD/install'), ('ROS_DISTRO', 'foxy'), ('LOGNAME', 'omron'), ('JOURNAL_STREAM', '8:35424'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('XDG_SESSION_CLASS', 'user'), ('USERNAME', 'omron'), ('TERM', 'xterm-256color'), ('GNOME_DESKTOP_SESSION_ID', 'this-is-deprecated'), ('ROS_LOCALHOST_ONLY', '0'), ('WINDOWPATH', '2'), ('PATH', '/home/omron/.local/bin:/opt/ros/foxy/bin:/home/omron/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'), ('SESSION_MANAGER', 'local/omron-NUC8i5BEH:@/tmp/.ICE-unix/1127,unix/omron-NUC8i5BEH:/tmp/.ICE-unix/1127'), ('INVOCATION_ID', '5eb07be3a034478a80f39f39b2eea782'), ('XDG_MENU_PREFIX', 'gnome-'), ('BAMF_DESKTOP_FILE_HINT', '/var/lib/snapd/desktop/applications/code_code.desktop'), ('XDG_RUNTIME_DIR', '/run/user/1000'), ('GDK_BACKEND', 'x11'), ('DISPLAY', ':0'), ('LANG', 'en_SG.UTF-8'), ('XDG_CURRENT_DESKTOP', 'Unity'), ('XMODIFIERS', '@im=ibus'), ('XDG_SESSION_DESKTOP', 'ubuntu'), ('XAUTHORITY', '/run/user/1000/gdm/Xauthority'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-b10b3d5190.sock'), ('TERM_PROGRAM', 'vscode'), ('SSH_AUTH_SOCK', '/run/user/1000/keyring/ssh'), ('GSETTINGS_SCHEMA_DIR', '/snap/code/66/usr/share/glib-2.0/schemas'), ('AMENT_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy'), ('ORIGINAL_XDG_CURRENT_DESKTOP', 'ubuntu:GNOME'), ('SHELL', '/bin/bash'), ('DISABLE_WAYLAND', '1'), ('QT_ACCESSIBILITY', '1'), ('GDMSESSION', 'ubuntu'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('GPG_AGENT_INFO', '/run/user/1000/gnupg/S.gpg-agent:0:1'), ('GJS_DEBUG_OUTPUT', 'stderr'), ('QT_IM_MODULE', 'ibus'), ('PWD', '/home/omron/Omron_LD/build/ld_visualisation'), ('XDG_CONFIG_DIRS', '/etc/xdg/xdg-ubuntu:/etc/xdg'), ('XDG_DATA_DIRS', '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages'), ('BREAKPAD_DUMP_LOCATION', '/home/omron/.config/Code/exthost Crash Reports'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation:/home/omron/Omron_LD/install/om_aiv_util:/home/omron/Omron_LD/install/om_aiv_navigation:/home/omron/Omron_LD/install/ld_viz:/opt/ros/foxy')]), 'shell': False}
+[0.062888] (ld_visualisation) StdoutLine: {'line': b'\x1b[35m\x1b[1mScanning dependencies of target goals_marker\x1b[0m\n'}
+[0.082775] (ld_visualisation) StdoutLine: {'line': b'[ 66%] Built target joints_publisher\n'}
+[0.083014] (ld_visualisation) StdoutLine: {'line': b'[ 66%] Built target data_points_marker\n'}
+[0.094004] (ld_visualisation) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o\x1b[0m\n'}
+[0.098998] (-) TimerEvent: {}
+[0.199351] (-) TimerEvent: {}
+[0.299830] (-) TimerEvent: {}
+[0.400279] (-) TimerEvent: {}
+[0.500696] (-) TimerEvent: {}
+[0.601112] (-) TimerEvent: {}
+[0.701640] (-) TimerEvent: {}
+[0.802208] (-) TimerEvent: {}
+[0.902632] (-) TimerEvent: {}
+[1.003014] (-) TimerEvent: {}
+[1.103358] (-) TimerEvent: {}
+[1.203773] (-) TimerEvent: {}
+[1.304222] (-) TimerEvent: {}
+[1.319817] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:\x1b[m\x1b[K In function \xe2\x80\x98\x1b[01m\x1b[Kint main(int, char**)\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[1.320050] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:163:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kinvalid use of \xe2\x80\x98\x1b[01m\x1b[Kusing Request = using ArclListen_Request = struct om_aiv_msg::srv::ArclListen_Request_<std::allocator<void> >\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.320469] (ld_visualisation) StderrLine: {'line': b'  163 |     goals_list_req.\x1b[01;31m\x1b[KRequest\x1b[m\x1b[K.resp_header = GOAL_RESP_H;\n'}
+[1.320565] (ld_visualisation) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~\x1b[m\x1b[K\n'}
+[1.320647] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:164:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kinvalid use of \xe2\x80\x98\x1b[01m\x1b[Kusing Request = using ArclApi_Request = struct om_aiv_msg::srv::ArclApi_Request_<std::allocator<void> >\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.320746] (ld_visualisation) StderrLine: {'line': b'  164 |     goals_info_req.\x1b[01;31m\x1b[KRequest\x1b[m\x1b[K.line_identifier = GOALS_LIST_END;\n'}
+[1.320811] (ld_visualisation) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~\x1b[m\x1b[K\n'}
+[1.320870] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:170:27:\x1b[m\x1b[K \x1b[01;35m\x1b[Kwarning: \x1b[m\x1b[Kcomparison of integer expressions of different signedness: \xe2\x80\x98\x1b[01m\x1b[Kint\x1b[m\x1b[K\xe2\x80\x99 and \xe2\x80\x98\x1b[01m\x1b[Kstd::vector<visualization_msgs::msg::Marker_<std::allocator<void> >, std::allocator<visualization_msgs::msg::Marker_<std::allocator<void> > > >::size_type\x1b[m\x1b[K\xe2\x80\x99 {aka \xe2\x80\x98\x1b[01m\x1b[Klong unsigned int\x1b[m\x1b[K\xe2\x80\x99} [\x1b[01;35m\x1b[K-Wsign-compare\x1b[m\x1b[K]\n'}
+[1.320935] (ld_visualisation) StderrLine: {'line': b'  170 |         for (int i = 0; \x1b[01;35m\x1b[Ki < goals.markers.size()\x1b[m\x1b[K; i++)\n'}
+[1.321015] (ld_visualisation) StderrLine: {'line': b'      |                         \x1b[01;35m\x1b[K~~^~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[1.322410] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:175:9:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kgoals_pub\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Kgoals_id\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[1.322543] (ld_visualisation) StderrLine: {'line': b'  175 |         \x1b[01;31m\x1b[Kgoals_pub\x1b[m\x1b[K->publish(goals);\n'}
+[1.322613] (ld_visualisation) StderrLine: {'line': b'      |         \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.322689] (ld_visualisation) StderrLine: {'line': b'      |         \x1b[32m\x1b[Kgoals_id\x1b[m\x1b[K\n'}
+[1.323708] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:\x1b[m\x1b[K At global scope:\n'}
+[1.323983] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:186:13:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kvariable or field \xe2\x80\x98\x1b[01m\x1b[Kreq_goals_coord\x1b[m\x1b[K\xe2\x80\x99 declared void\n'}
+[1.324056] (ld_visualisation) StderrLine: {'line': b'  186 |     rclcpp::\x1b[01;31m\x1b[KServiceClient\x1b[m\x1b[K& arcl_api_client,\n'}
+[1.324138] (ld_visualisation) StderrLine: {'line': b'      |             \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[1.324211] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:186:13:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KServiceClient\x1b[m\x1b[K\xe2\x80\x99 is not a member of \xe2\x80\x98\x1b[01m\x1b[Krclcpp\x1b[m\x1b[K\xe2\x80\x99; did you mean \xe2\x80\x98\x1b[01m\x1b[KServiceBase\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[1.324273] (ld_visualisation) StderrLine: {'line': b'  186 |     rclcpp::\x1b[01;31m\x1b[KServiceClient\x1b[m\x1b[K& arcl_api_client,\n'}
+[1.324331] (ld_visualisation) StderrLine: {'line': b'      |             \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[1.324388] (ld_visualisation) StderrLine: {'line': b'      |             \x1b[32m\x1b[KServiceBase\x1b[m\x1b[K\n'}
+[1.326721] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:186:28:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Karcl_api_client\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[1.326931] (ld_visualisation) StderrLine: {'line': b'  186 |     rclcpp::ServiceClient& \x1b[01;31m\x1b[Karcl_api_client\x1b[m\x1b[K,\n'}
+[1.327122] (ld_visualisation) StderrLine: {'line': b'      |                            \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[1.327234] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:187:29:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[K&\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[1.327296] (ld_visualisation) StderrLine: {'line': b'  187 |     om_aiv_msg::srv::ArclApi\x1b[01;31m\x1b[K&\x1b[m\x1b[K goals_info_req,\n'}
+[1.327354] (ld_visualisation) StderrLine: {'line': b'      |                             \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[1.329206] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:187:31:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kgoals_info_req\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope\n'}
+[1.329375] (ld_visualisation) StderrLine: {'line': b'  187 |     om_aiv_msg::srv::ArclApi& \x1b[01;31m\x1b[Kgoals_info_req\x1b[m\x1b[K,\n'}
+[1.329465] (ld_visualisation) StderrLine: {'line': b'      |                               \x1b[01;31m\x1b[K^~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[1.329539] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:188:41:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[K&\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[1.329603] (ld_visualisation) StderrLine: {'line': b'  188 |     visualization_msgs::msg::MarkerArray\x1b[01;31m\x1b[K&\x1b[m\x1b[K goals,\n'}
+[1.329672] (ld_visualisation) StderrLine: {'line': b'      |                                         \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[1.330848] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:188:43:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kgoals\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Kgoals_id\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[1.331000] (ld_visualisation) StderrLine: {'line': b'  188 |     visualization_msgs::msg::MarkerArray& \x1b[01;31m\x1b[Kgoals\x1b[m\x1b[K,\n'}
+[1.331101] (ld_visualisation) StderrLine: {'line': b'      |                                           \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[1.331193] (ld_visualisation) StderrLine: {'line': b'      |                                           \x1b[32m\x1b[Kgoals_id\x1b[m\x1b[K\n'}
+[1.331252] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:189:41:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[K&\x1b[m\x1b[K\xe2\x80\x99 token\n'}
+[1.331312] (ld_visualisation) StderrLine: {'line': b'  189 |     visualization_msgs::msg::MarkerArray\x1b[01;31m\x1b[K&\x1b[m\x1b[K goals_text,\n'}
+[1.331369] (ld_visualisation) StderrLine: {'line': b'      |                                         \x1b[01;31m\x1b[K^\x1b[m\x1b[K\n'}
+[1.332607] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:189:43:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[Kgoals_text\x1b[m\x1b[K\xe2\x80\x99 was not declared in this scope; did you mean \xe2\x80\x98\x1b[01m\x1b[Kgoals_list\x1b[m\x1b[K\xe2\x80\x99?\n'}
+[1.332772] (ld_visualisation) StderrLine: {'line': b'  189 |     visualization_msgs::msg::MarkerArray& \x1b[01;31m\x1b[Kgoals_text\x1b[m\x1b[K,\n'}
+[1.332881] (ld_visualisation) StderrLine: {'line': b'      |                                           \x1b[01;31m\x1b[K^~~~~~~~~~\x1b[m\x1b[K\n'}
+[1.332959] (ld_visualisation) StderrLine: {'line': b'      |                                           \x1b[32m\x1b[Kgoals_list\x1b[m\x1b[K\n'}
+[1.333022] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:190:37:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[Kone_goal\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.333097] (ld_visualisation) StderrLine: {'line': b'  190 |     visualization_msgs::msg::Marker \x1b[01;31m\x1b[Kone_goal\x1b[m\x1b[K,\n'}
+[1.333188] (ld_visualisation) StderrLine: {'line': b'      |                                     \x1b[01;31m\x1b[K^~~~~~~~\x1b[m\x1b[K\n'}
+[1.333255] (ld_visualisation) StderrLine: {'line': b'\x1b[01m\x1b[K/home/omron/Omron_LD/src/ld_visualisation/src/goals_marker.cpp:191:37:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kexpected primary-expression before \xe2\x80\x98\x1b[01m\x1b[Kone_goal_text\x1b[m\x1b[K\xe2\x80\x99\n'}
+[1.333316] (ld_visualisation) StderrLine: {'line': b'  191 |     visualization_msgs::msg::Marker \x1b[01;31m\x1b[Kone_goal_text\x1b[m\x1b[K)\n'}
+[1.333375] (ld_visualisation) StderrLine: {'line': b'      |                                     \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[1.404356] (-) TimerEvent: {}
+[1.504848] (-) TimerEvent: {}
+[1.605274] (-) TimerEvent: {}
+[1.705766] (-) TimerEvent: {}
+[1.806178] (-) TimerEvent: {}
+[1.906524] (-) TimerEvent: {}
+[2.006864] (-) TimerEvent: {}
+[2.107218] (-) TimerEvent: {}
+[2.207594] (-) TimerEvent: {}
+[2.308012] (-) TimerEvent: {}
+[2.408423] (-) TimerEvent: {}
+[2.508819] (-) TimerEvent: {}
+[2.609234] (-) TimerEvent: {}
+[2.709656] (-) TimerEvent: {}
+[2.810126] (-) TimerEvent: {}
+[2.837198] (ld_visualisation) StderrLine: {'line': b'make[2]: *** [CMakeFiles/goals_marker.dir/build.make:63: CMakeFiles/goals_marker.dir/src/goals_marker.cpp.o] Error 1\n'}
+[2.837614] (ld_visualisation) StderrLine: {'line': b'make[1]: *** [CMakeFiles/Makefile2:109: CMakeFiles/goals_marker.dir/all] Error 2\n'}
+[2.837823] (ld_visualisation) StderrLine: {'line': b'make: *** [Makefile:141: all] Error 2\n'}
+[2.839781] (ld_visualisation) CommandEnded: {'returncode': 2}
+[2.876653] (ld_visualisation) JobEnded: {'identifier': 'ld_visualisation', 'rc': 2}
+[2.887430] (-) EventReactorShutdown: {}

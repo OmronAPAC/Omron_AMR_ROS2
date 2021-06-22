@@ -1,0 +1,5 @@
+  File "/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages/om_aiv_navigation/action_server.py", line 48
+    rclpy.spin(action_server)
+    ^
+SyntaxError: invalid syntax
+

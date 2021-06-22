@@ -1,0 +1,44 @@
+[0.379s] Invoking command in '/home/omron/Omron_LD/src/om_aiv_util': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py egg_info --egg-base ../../build/om_aiv_util build --build-base /home/omron/Omron_LD/build/om_aiv_util/build install --prefix /home/omron/Omron_LD/install/om_aiv_util --record /home/omron/Omron_LD/build/om_aiv_util/install.log --single-version-externally-managed
+[0.665s] running egg_info
+[0.666s] writing ../../build/om_aiv_util/om_aiv_util.egg-info/PKG-INFO
+[0.666s] writing dependency_links to ../../build/om_aiv_util/om_aiv_util.egg-info/dependency_links.txt
+[0.666s] writing entry points to ../../build/om_aiv_util/om_aiv_util.egg-info/entry_points.txt
+[0.667s] writing requirements to ../../build/om_aiv_util/om_aiv_util.egg-info/requires.txt
+[0.667s] writing top-level names to ../../build/om_aiv_util/om_aiv_util.egg-info/top_level.txt
+[0.701s] reading manifest file '../../build/om_aiv_util/om_aiv_util.egg-info/SOURCES.txt'
+[0.702s] writing manifest file '../../build/om_aiv_util/om_aiv_util.egg-info/SOURCES.txt'
+[0.703s] running build
+[0.703s] running build_py
+[0.704s] running install
+[0.704s] running install_lib
+[0.706s] creating /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util
+[0.706s] copying /home/omron/Omron_LD/build/om_aiv_util/build/lib/om_aiv_util/socket_taskmaster.py -> /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util
+[0.706s] copying /home/omron/Omron_LD/build/om_aiv_util/build/lib/om_aiv_util/ld_states_publisher.py -> /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util
+[0.706s] copying /home/omron/Omron_LD/build/om_aiv_util/build/lib/om_aiv_util/__init__.py -> /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util
+[0.706s] copying /home/omron/Omron_LD/build/om_aiv_util/build/lib/om_aiv_util/socket_listener.py -> /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util
+[0.706s] copying /home/omron/Omron_LD/build/om_aiv_util/build/lib/om_aiv_util/socket_driver.py -> /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util
+[0.707s] copying /home/omron/Omron_LD/build/om_aiv_util/build/lib/om_aiv_util/socketconnection_class.py -> /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util
+[0.707s] copying /home/omron/Omron_LD/build/om_aiv_util/build/lib/om_aiv_util/arcl_api_server.py -> /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util
+[0.707s] byte-compiling /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/socket_taskmaster.py to socket_taskmaster.cpython-38.pyc
+[0.710s] byte-compiling /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/ld_states_publisher.py to ld_states_publisher.cpython-38.pyc
+[0.711s] byte-compiling /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/__init__.py to __init__.cpython-38.pyc
+[0.712s] byte-compiling /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/socket_listener.py to socket_listener.cpython-38.pyc
+[0.713s] byte-compiling /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/socket_driver.py to socket_driver.cpython-38.pyc
+[0.714s] byte-compiling /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/socketconnection_class.py to socketconnection_class.cpython-38.pyc
+[0.715s] byte-compiling /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/arcl_api_server.py to arcl_api_server.cpython-38.pyc
+[0.716s] running install_data
+[0.716s] creating /home/omron/Omron_LD/install/om_aiv_util/share/ament_index
+[0.717s] creating /home/omron/Omron_LD/install/om_aiv_util/share/ament_index/resource_index
+[0.717s] creating /home/omron/Omron_LD/install/om_aiv_util/share/ament_index/resource_index/packages
+[0.717s] copying resource/om_aiv_util -> /home/omron/Omron_LD/install/om_aiv_util/share/ament_index/resource_index/packages
+[0.717s] copying package.xml -> /home/omron/Omron_LD/install/om_aiv_util/share/om_aiv_util
+[0.717s] copying launch/1robot.launch.py -> /home/omron/Omron_LD/install/om_aiv_util/share/om_aiv_util
+[0.717s] creating /home/omron/Omron_LD/install/om_aiv_util/share/om_aiv_util/config
+[0.718s] copying config/main_param.yaml -> /home/omron/Omron_LD/install/om_aiv_util/share/om_aiv_util/config
+[0.718s] running install_egg_info
+[0.720s] Copying ../../build/om_aiv_util/om_aiv_util.egg-info to /home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util-0.0.0-py3.8.egg-info
+[0.721s] running install_scripts
+[0.744s] Installing arcl_api_server script to /home/omron/Omron_LD/install/om_aiv_util/lib/om_aiv_util
+[0.744s] Installing ld_states_publisher script to /home/omron/Omron_LD/install/om_aiv_util/lib/om_aiv_util
+[0.745s] writing list of installed files to '/home/omron/Omron_LD/build/om_aiv_util/install.log'
+[0.770s] Invoked command in '/home/omron/Omron_LD/src/om_aiv_util' returned '0': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py egg_info --egg-base ../../build/om_aiv_util build --build-base /home/omron/Omron_LD/build/om_aiv_util/build install --prefix /home/omron/Omron_LD/install/om_aiv_util --record /home/omron/Omron_LD/build/om_aiv_util/install.log --single-version-externally-managed

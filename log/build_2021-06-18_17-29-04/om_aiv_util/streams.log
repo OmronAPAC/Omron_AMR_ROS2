@@ -1,0 +1,17 @@
+[0.292s] Invoking command in '/home/omron/Omron_LD/src/om_aiv_util': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py egg_info --egg-base ../../build/om_aiv_util build --build-base /home/omron/Omron_LD/build/om_aiv_util/build install --prefix /home/omron/Omron_LD/install/om_aiv_util --record /home/omron/Omron_LD/build/om_aiv_util/install.log --single-version-externally-managed
+[0.402s] Traceback (most recent call last):
+[0.403s]   File "setup.py", line 3, in <module>
+[0.403s]     from setuptools import setup
+[0.403s]   File "/usr/lib/python3/dist-packages/setuptools/__init__.py", line 17, in <module>
+[0.403s]     import setuptools.version
+[0.403s]   File "/usr/lib/python3/dist-packages/setuptools/version.py", line 1, in <module>
+[0.403s]     import pkg_resources
+[0.403s]   File "/usr/lib/python3/dist-packages/pkg_resources/__init__.py", line 84, in <module>
+[0.404s]     __import__('pkg_resources.extern.packaging.requirements')
+[0.404s]   File "/usr/lib/python3/dist-packages/pkg_resources/_vendor/packaging/requirements.py", line 14, in <module>
+[0.404s]     from .markers import MARKER_EXPR, Marker
+[0.404s]   File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+[0.404s]   File "<frozen importlib._bootstrap>", line 975, in _find_and_load_unlocked
+[0.404s]   File "<frozen importlib._bootstrap>", line 664, in _load_unlocked
+[0.404s] KeyboardInterrupt
+[0.418s] Invoked command in '/home/omron/Omron_LD/src/om_aiv_util' returned '-2': CMAKE_PREFIX_PATH=/home/omron/Omron_LD/install/om_aiv_msg:/home/omron/Omron_LD/install/ld_visualisation PYTHONPATH=/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_msg/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages:/home/omron/Omron_LD/install/om_aiv_navigation/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages /usr/bin/python3 setup.py egg_info --egg-base ../../build/om_aiv_util build --build-base /home/omron/Omron_LD/build/om_aiv_util/build install --prefix /home/omron/Omron_LD/install/om_aiv_util --record /home/omron/Omron_LD/build/om_aiv_util/install.log --single-version-externally-managed

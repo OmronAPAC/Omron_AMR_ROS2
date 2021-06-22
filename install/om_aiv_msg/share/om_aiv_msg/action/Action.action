@@ -1,0 +1,11 @@
+# Goal/Request
+string command
+string[] identifier
+
+---
+# Result
+string res_msg
+
+---
+# Feedback
+string feed_msg
