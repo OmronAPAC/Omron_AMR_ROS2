@@ -44,7 +44,7 @@ class LdActionClient(Node):
 def main(args=None):
     rclpy.init(args=args)
     action_client = LdActionClient()
-    action_client.send_goal('Goal2')
+    action_client.send_goal('Goal1')
     rclpy.spin(action_client)
 
 
