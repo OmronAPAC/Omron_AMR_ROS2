@@ -1,4 +1,0 @@
-[console_scripts]
-arcl_api_server = om_aiv_util.arcl_api_server:main
-ld_states_publisher = om_aiv_util.ld_states_publisher:main
-
