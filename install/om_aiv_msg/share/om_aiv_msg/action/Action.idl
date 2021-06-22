@@ -6,7 +6,7 @@
 module om_aiv_msg {
   module action {
     @verbatim (language="comment", text=
-      " Goal")
+      " Goal/Request")
     struct Action_Goal {
       string command;
 

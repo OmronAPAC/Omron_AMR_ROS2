@@ -1,4 +1,4 @@
-= LD-ROS - Developer Guide
+= LD-ROS2 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toclevels: 3
@@ -21,11 +21,12 @@ endif::[]
 :url-repo: https://github.com/zach-goh/OmronRepos/tree/master
 :url-ug: https://github.com/zach-goh/OmronRepos/blob/master/docs/UserGuide.adoc
 
-Last updated: `13 JULY 2020` By: `Xavier`
+Last updated: `22 June 2021` By: `Guan Yew`
 
 == Authors
 
 * Xavier, Lee Kok Teng (link:https://github.com/lekoook[lekoook])
+* Tan Guan Yew (link:https://github.com/guanyewtan[guanyewtan])
 
 == Getting Started
 [[prerequisites]]

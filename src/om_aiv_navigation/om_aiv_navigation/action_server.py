@@ -19,7 +19,7 @@ class LDActionServer(Node):
 
         self.socket_taskmaster = SocketTaskmaster()
         self.socket_taskmaster.connect(str(self.ip_address), int(self.port))
-        self.socket_taskmaster.login(self.passwd)        
+        self.socket_taskmaster.login(bytes(self.passwd, 'utf-8'))        
         self.get_logger().info("Action server is up!")
         
         self._feedback = Action.Feedback()
@@ -32,25 +32,26 @@ class LDActionServer(Node):
             [bytes(goal.request.identifier[0], "utf-8")])
         while True:
             (is_done, result, feedback) = self.socket_taskmaster.wait_command()
+            #self.get_logger().info(str(is_done))
             if is_done:
-                self._feedback.feed_msg = str(feedback)
+                self._feedback.feed_msg = feedback.decode()
                 goal.publish_feedback(self._feedback)
-                self._result.res_msg = result
+                self._result.res_msg = result.decode()
+                goal.succeed()
+                #self.get_logger().info(self._result.res_msg)
                 break
             else:
-                self._feedback.feed_msg = str(feedback)
+                self._feedback.feed_msg = feedback.decode()
                 goal.publish_feedback(self._feedback)
 
             time.sleep(0.1)
 
-        # return self._result
-        return Action.Result()
+        return self._result
+        #return Action.Result()
 
 def main():
     rclpy.init()
-    
     action_server = LDActionServer()
-    
     rclpy.spin(action_server)
 
 
