@@ -2,8 +2,8 @@ devel/
 logs/
 build/
 bin/
-log/
-install/
+log/*
+install/*
 .catkin_tools/
 *.pyc
 *.vscode/
