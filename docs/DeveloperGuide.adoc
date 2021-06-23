@@ -202,29 +202,29 @@ First, make sure you have installed ROS as described in <<prerequisites>>.
 +
 ....
 cd /to/desired/path
-git clone https://github.com/zach-goh/Omron_LD_ROS_Package
+git clone https://github.com/zach-goh/Omron_LD
 ....
 . Navigate to that directory with:
 +
 ....
-cd Omron_LD_ROS_Package
+cd Omron_LD
 ....
 . Build this package with:
 +
 ....
-catkin build
+colcon build
 ....
 +
 Depending on your machine, this can take a while to build.
 . After it has built successfully, ensure you source this workspace with:
 +
 ....
-source /devel/setup.bash
+source install/setup.bash
 ....
 . Run the `om_aiv_util` package with:
 +
 ....
-roslaunch om_aiv_util 1robot.launch
+ros2 launch om_aiv_util 1robot.launch
 ....
 +
 This will launch the core nodes that communicates this host machine with LD via the ARCL interface.
@@ -235,21 +235,14 @@ You may notice a mismatch of map and laser scans. In this case, you need to make
 === Intel NUC8i5BEH Host Machine
 As mentioned in this guide, we use `Intel NUC8i5BEH` mini PC as our host machine. This machine has met the requirements in <<prerequisites>> and has it's ROS set up to work with multiple machines as described in <<set-up-host-remote-machine>>.
 
-Additionally, the machine has been configured to run this package automatically when it has booted into Ubuntu. This allows us to run ROS nodes on our own remote machines with this host machine as the ROS Master, in headless mode. The idea is that we do not need to fiddle with the host machine each time we want to use ROS with our LD. Press the power button on `Intel NUC8i5BEH`, waits for a minute or so to boot, then run ROS nodes on our remote machine(s).
+Additionally, the machine has been configured to run this package automatically when it has booted into Ubuntu. This allows us to run ROS nodes on our own remote machines with this host machine. The idea is that we do not need to fiddle with the host machine each time we want to use ROS with our LD. Press the power button on `Intel NUC8i5BEH`, waits for a minute or so to boot, then run ROS nodes on our remote machine(s).
 
 This is achieved with help of several external programs and bash scripts:
 
-. tmux and tmuxinator
-+
-`link:https://github.com/tmux/tmux/wiki[tmux]` is a terminal multiplexer for Unix-like operating systems. It allows multiple terminal sessions to be accessed simultaneously in a single window. This is useful for when we need to link:https://www.ssh.com/[ssh] into our host machine and needs to display multiple command line windows within a single window.
-+
-`link:https://github.com/tmuxinator/tmuxinator[tmuxinator]` allows us to create and manage tmux sessions easily. This is used by us to launch multiple command line windows including the ROS Master within a single `tmux` window. The configuration file for our tmuxinator set up can be found at `/home/omron/.tmuxinator/ld-ros.yaml` in our host machine.
-
 . Custom bash script
 +
-In order to help automate the running of the ROS at boot, we have written a simple bash script to do this. This bash script can be found at `/home/omron/workspace/run-ld-ros.bash`. 
-+
-In short, it waits for ethernet connection to LD to be alive and then launch our ROS package using tmuxinator. See the contents of the file for details.
+In order to help automate the running of the ROS at boot, we have written a simple bash script to do this. This bash script can be found at `~/boot.bash`. 
+
 
 . `cron`
 +
@@ -265,29 +258,29 @@ Follow these steps to run this package:
 +
 ....
 cd /to/desired/path
-git clone https://github.com/zach-goh/Omron_LD_ROS_Package
+git clone https://github.com/zach-goh/Omron_LD
 ....
 . Navigate to that directory with:
 +
 ....
-cd Omron_LD_ROS_Package
+cd Omron_LD
 ....
 . Build this package with:
 +
 ....
-catkin build
+colcon build
 ....
 +
 Depending on your machine, this can take a while to build.
 . After it has built successfully, ensure you source this workspace with:
 +
 ....
-source /devel/setup.bash
+source install/setup.bash
 ....
 . Try running the `ld_visualisation` package with: 
 +
 ....
-roslaunch ld_visualisation display.launch
+ros2 launch ld_visualisation display.launch
 ....
 . If you have set up the host machine and ROS multiple machines correctly, you should see RVIZ opened with a map along with the laser scans of your LD.
 
@@ -310,11 +303,11 @@ With the three ROS nodes, the host machine will provide a ROS interface to allow
 The remote machines are then able to leverage these nodes to communicate with the LD to retrieve information or to control it. These are indicated by the green blocks in the diagram. See <<ld-visualisation-package>> for how this can be implemented.
 
 === LD States Publisher
-This ROS node is named `ld_states_publisher` during ROS runtime. The code can be found in `om_aiv_util/scripts/ld_states_publisher.py`.
+This ROS node is named `ld_states_publisher` during ROS runtime. The code can be found in `om_aiv_util/om_aiv_util/ld_states_publisher.py`.
 
 The purpose of this node is to listen for a few standard information that is published by the ARCL server about the LD. It then publishes these information on dedicated topics in the ROS environment.
 
-These information are summarised below:
+The information is summarised below:
 
 * `Status`: General message on robot's operations and actions.
 * `StateOfCharge`: Battery percentage
@@ -352,7 +345,7 @@ Use `MobilePlanner` software to see what laser devices are installed in the LD a
 ====
 
 === ARCL API Server
-This ROS service node is named `arcl_api_server` during ROS runtime. The code can be found in `om_aiv_util/scripts/arcl_api_server.py`.
+This ROS service node is named `arcl_api_server` during ROS runtime. The code can be found in `om_aiv_util/om_aiv_util/arcl_api_server.py`.
 
 The purpose of this service node is to allow other ROS nodes to requests for information of a ARCL command and waits for the response. Essentially this allows any ROS nodes to post a ARCL command to the ARCL server and retrieves the response via this service node without having to have access to LD directly.
 
@@ -360,7 +353,7 @@ This service node supports every single ARCL commands.
 
 === Action Server
 This is a ROS action node, named `action_servers` during ROS runtime.
-The code can be found in `om_aiv_navigation/scripts/action_servers.py`.
+The code can be found in `om_aiv_navigation/om_aiv_navigation/action_servers.py`.
 
 The purpose of this action node is similar to `ARCL API Server`. However, the key difference here is that is supports the publishing of feedback during the execution of a ARCL command. This is useful in instances where you need to execute a ARCL command that will last for a significant duration. 
 
@@ -368,13 +361,13 @@ For example, executing a `goto` ARCL command to move the LD to a specified locat
 
 [[ld-visualisation-package]]
 === LD Visualisation Package
-The `LD Visualisation` package illustrates how a remote machine can communicate with the host machine's ROS master in order to talk to the LD to retrieve information from it or control it.
+The `LD Visualisation` package illustrates how a remote machine can communicate with the host machine in order to talk to the LD to retrieve information from it or control it.
 
 `LD Visualisation` serves as an example as to how you can leverage the `ARCL API Server`, `LD States Publisher` and `Action Server` nodes to have basic interaction with the LD through ROS. 
 
 To understand how `LD Visualisation` is structured with the entire ROS package and communicates with LD, see <<architecture>>.
 
-`LD Visualisation` has four nodes, they are summarised as below:
+`LD Visualisation` has three nodes, they are summarised as below:
 
 [cols="1,1a", options="header"]
 .LD Visualisation nodes
@@ -405,14 +398,6 @@ Additionally, it also reads a `.map` created by the `MobilePlanner` software. Th
 **This map file should exist on the remote machine running `LD Visualisation`.**
 
 See <<map-loading-reading>> to understand how to load a map onto the remote machine.
-
-|goto_point
-|
-This node is responsible for subscribing to the topic that publishes the position of the `2D Estimate Pose` tool in RVIZ.
-
-Using this information, it sends an appropriate request to `Action Server` to request the LD to move to the specified position. During this motion, any feedback and result by the ARCL server is then published on the `Action Server` sub-topics.
-
-This node essentially allows users to move the LD using RVIZ to any valid location on the RVIZ map.
 
 |===
 
@@ -473,37 +458,30 @@ I'm not exactly sure why the `MobilePlanner` software team decided to do this wa
 
 == Examples
 === ROS Action: goto Goal
-There are two example codes, `om_aiv_navigation/scripts/goto_goal2_action.py` and `om_aiv_navigation/scripts/goto_goal3_action.py`.
+There are two example codes, `om_aiv_navigation/om_aiv_navigation/goto_goal.py` and `om_aiv_navigation/om_aiv_navigation/goto_goal_demo.py`.
 
 These code files serves as an example as to how you can leverage the ROS Action servers that came with this package.
 
-The example code simply performs the `goto` ARCL command with `Goal2` and `Goal3` as the arguments. This is get the LD to move to `Goal2` and `Goal3` on the map respectively. During these operations, the feedback and result messages will be published in ROS topics.
+The example code simply performs the `goto` ARCL command with `Goal1` and `Goal2` as the arguments. This is get the LD to move to `Goal1` and `Goal2` on the map, depending on which script is run. During these operations, the feedback and result messages will be published in ROS topics.
 
 [NOTE]
-You need to have two goals named `Goal2` and `Goal3` in your LD map for these examples to work.
+You need to have two goals named `Goal1` and `Goal2` in your LD map for these examples to work.
 
 . First, ensure your host machine, ROS master is up and running.
 . Run `ld_visualisation` package to see the movement of your LD. To do this:
 +
 ....
-roslaunch ld_visualisation display.launch
+ros2 launch ld_visualisation display.launch
 ....
-. In 2 separate terminal with the workspace sourced, run the following commands, each command in each terminal:
-+
-....
-rostopic echo /action_servers/feedback
-rostopic echo /action_servers/result
-....
-This will show you the feedback message during the operation and the result message when the operation has completed.
+
 . In a separate terminal with the workspace sourced, run:
 +
 ....
-rosrun om_aiv_navigation goto_goal2_action.py 
+rosrun om_aiv_navigation goto_goal.py 
 ....
-This will move your LD to `Goal2` on your map. At the same time you should see the `/action_servers/feedback` topic containing messages about this operation. Once the operation has completed, you should see  the result message in `/action_servers/result` topic.
-. Next, try moving LD to `Goal3` with:
+This will move your LD to `Goal1` on your map. Once the operation has completed, you should see  the result message in the terminal.
+. Next, try moving LD to `Goal1`, then `Goal2` with:
 +
 .... 
-rosrun om_aiv_navigation goto_goal3_action.py 
+ros2 run om_aiv_navigation goto_goal_demo.py 
 .... 
-You should see similar messages just like `Goal2`.
