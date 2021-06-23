@@ -32,32 +32,24 @@ Last updated: `22 June 2021` By: `Guan Yew`
 [[prerequisites]]
 === Prerequisites
 
-. **Git**
+. **Ubuntu 20.04 LTS (Focal Fossa)**
 +
-* Download link:https://git-scm.com/downloads[Git]. 
+See link:https://ubuntu.com/download/desktop[Ubuntu] webpage for installation instructions (version 20.04 release).
 +
-* If you are a beginner to `Git` version-control system, you are suggested to download GUI clients to assist you. Some examples can be found link:https://git-scm.com/downloads/guis/[here].
-+
-* There are many resources to learn how to use `Git`, see link:https://git-scm.com/doc[here], link:https://try.github.io/[here], link:https://product.hubspot.com/blog/git-and-github-tutorial-for-beginners[here]. Google for more.
+These packages were tested using Ubuntu Linux OS. Although ROS 2 is officially supported on multiple platforms including Windows OS (experimental), *Ubuntu Linux OS is preferred* since there is greater support for packages on Ubuntu platform. (These packages have not been tested on Windows OS)
 
-. **Ubuntu 18.04 LTS (Bionic Beaver)**
+. **Robot Operating System 2 (ROS 2) Foxy Fitzroy Release**
 +
-See link:https://ubuntu.com/[Ubuntu] webpage for installation instructions. Look for 18.04 release.
+Download and installation instructions can be found link:https://docs.ros.org/en/foxy/Installation/Linux-Install-Debians.html[here].
 +
-Although ROS is officially supported on multiple platforms include Windows OS (experimental), Ubuntu OS is preferred since support for packages on Ubuntu platform is more matured. Additionally, this package is tested to be working on Ubuntu platform.
-
-. **Robot Operating System (ROS) Melodic Release**
+[NOTE]
+Installing via the Ubuntu terminal and debian packages is the most convenient way to install ROS 2.
 +
-Download and installation instructions can be found link:http://wiki.ros.org/melodic/Installation[here].
+__Omron_TM_ROS2__ is currently supported on ROS 2 Foxy only.
 +
-__LD-ROS__ is currently supported on ROS 1 Melodic only.
+This guide assumes you know the basics of using the ROS 2 environment. If you are new to ROS 2, please follow their series of link:https://docs.ros.org/en/foxy/Tutorials.html[tutorials] to get started with using ROS 2.
 +
-
-. **How to use ROS**
-+
-This guide assumes you know the basics of using the ROS environment. If you are new to ROS, please follow their series of link:http://wiki.ros.org/ROS/Tutorials[tutorials] to get started with using ROS.
-+
-You will need to complete the `Beginner Level` tutorials at the minimum. As well as the entries, `Running ROS across multiple machines` and `Defining Custom Messages` in the `Intermediate Level` tutorials.
+You will need to complete at least the `Beginner Level` tutorials. 
 
 . **'selector2' Python2 module**
 +
@@ -69,11 +61,9 @@ See link:https://pypi.org/project/selectors2/[selectors2].
 +
 Telnet application. This is only used for directly communicating with LD's ARCL interface via a command line interface.
 
-. **MobilePlanner 4.7.7 / ARAM**
+. **MobilePlanner 5.1.8 / ARAM**
 +
-The LD set up instructions found here assumes you are using `MobilePlanner 4.7.7` to configure your LD. For maximum compatibility, try to use this version of MobilePlanner.
-+
-The `ARAM` version should be `(4.7.7.2)`. You can check this via `MobilePlanner` softwatr.
+The LD set up instructions found here assumes you are using `MobilePlanner 5.1.8` to configure your LD. For maximum compatibility, try to use this version of MobilePlanner.
 
 === Hardware Requirements
 This package assumes a specific hardware configuration in order to work correctly.
@@ -82,15 +72,15 @@ This package assumes a specific hardware configuration in order to work correctl
 +
 This will be the LD robot you will be controlling via this package.
 
-. Host machine running ROS Master.
+. Host machine
 +
 This is a machine that communicates with LD, either via ethernet or wireless connection using the ARCL interface. In our use case, we use the Intel NUC8i5BEH mini PC to run ROS and communicate with LD via ethernet connection.
 
 . User remote machines running ROS nodes.
 +
-This can be a single or multiple machines that is used to run ROS nodes that communicates with the host machine running ROS Master. This can either be connected to the host machine via wired or wireless connection. Although a wireless connection will be preferred for user mobility and convenience.
+This can be a single or multiple machines that is used to run ROS nodes that communicates with the host machine. This can either be connected to the host machine via wired or wireless connection. Although a wireless connection will be preferred for user mobility and convenience.
 
-==== Coomunications Overview
+==== Communications Overview
 
 The diagram below gives an overview of how the communications will be configured:
 
@@ -113,7 +103,7 @@ In order to use this package, your LD must be configured correctly to communicat
 ==== Set Up User Ethernet
 For reliable communication with the LD, the user ethernet port is preferred. Hence, the user ethernet port along with it's IP needs to be configured via `SetNetGo`. You can find instructions on using `SetNetGo` in LD's User Manual or MobilePlanner User Manual.
 
-In short, you need to configure the LD's user ethernet port to use `192.168.1.10` as it's address. This address is set in ROS param files found in this package to be used as the remote socket address. If you decide to use another address, you will need to change those ROS params.
+In short, you need to configure the LD's user ethernet port to use `192.168.1.1` as it's address. This address is set in the launch file of the om_aiv_util directory to be used as the remote socket address. If you decide to use another address, you will need to change those ROS params.
 
 Additionally, the host machine should be configured with the `192.168.1.50` address since this is also set in the ROS params in this package. If you decide to use another address, you will need to change those ROS params as well.
 
@@ -130,9 +120,9 @@ This will enable ARCL. **Setting to 'True' is important and required.**
 * `PortNumber`: `7171`
 + 
 This is the port number that remote clients (like this ROS package) needs to connect to for ARCL. Default is `7171`. The ROS params is set to use this port. If you change this port here, you will need to change those ROS params as well.
-* `Password`: `adept`
+* `Password`: `omron`
 +
-This is the password for ARCL server. **This is required.** The ROS parameter for this password in this package is set to `adept`. If you set this to something else other than `adept` in this field, you will need to change those ROS params as well.
+This is the password for ARCL server. **This is required.** The ROS parameter for this password in this package is set to `omron`. If you set this to something else other than `omron` in this field, you will need to change those ROS params as well.
 
 .Example for `ARCL server setup`
 image::arcl_server_setup.png[]
@@ -187,7 +177,7 @@ image::outgoing_arcl_commands.png[]
 
 [[set-up-host-remote-machine]]
 === Set Up Host/Remote Machine
-The host machine is used to run the ROS Master and communicates with LD via the ARCL interface in order to retrieve vital information about the LD that is used for this package to work.
+The host machine is used to communicate with the LD via the ARCL interface in order to retrieve vital information about the LD that is used for this package to work.
 
 In our use case, we use the Intel NUC8i5BEH mini PC as host machine connected to LD's user ethernet port. Make sure your host machine meets the requirements in <<prerequisites>>.
 
@@ -196,12 +186,12 @@ As for remote machine(s), you can use your personal computer to run ROS nodes. M
 ==== IP Address
 Since we have set the `OutgoingHostname` to `192.168.1.50`, you need to set the ethernet network interface of your host machine to have an address of `192.168.1.50` as well. Look online on how to do this for Ubuntu.
 
-==== ROS Multiple Machines
-In order to run ROS on mulitple machines, you need to configure your host machine as well as your user remote machine(s) to talk to each other correctly.
+==== ROS2 Across Multiple Machines
+In order to run ROS2 on mulitple machines, you need to configure your host machine as well as your user remote machine(s) to talk to each other correctly.
 
-ROS has provided a link:http://wiki.ros.org/ROS/NetworkSetup[guide] for doing this. Please follow it to understand how to set up correctly.
+Ensure that both the remote machine and host machine are on the same subnet and are discoverable to each other.
 
-They have also provided a simple link:http://wiki.ros.org/ROS/Tutorials/MultipleMachines[tutorial] to run simple ROS nodes that will test if you have configured correctly. You can follow these instructions to test your configurations.
+Also ensure that the ROS_DOMAIN_ID of both devices are the same.
 
 ==== Host Machine ROS Package Set Up
 Once you have your network set up correctly, you need to set up our ROS package to work correctly in your host machine.
