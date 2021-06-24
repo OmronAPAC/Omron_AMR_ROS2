@@ -1,4 +1,4 @@
-= LD-ROS2 - Developer Guide
+= AMR-ROS2 - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toclevels: 3
@@ -53,28 +53,28 @@ You will need to complete at least the `Beginner Level` tutorials.
 
 . **'selector2' Python2 module**
 +
-__LD-ROS__ uses Python low-level socket to communicate with the LD robot. __selector2__ is used to assist in managing the reading/writing process through these sockets.
+__LD-ROS__ uses Python low-level socket to communicate with the AMR. __selector2__ is used to assist in managing the reading/writing process through these sockets.
 +
 See link:https://pypi.org/project/selectors2/[selectors2].
 
 . **Telnet**
 +
-Telnet application. This is only used for directly communicating with LD's ARCL interface via a command line interface.
+Telnet application. This is only used for directly communicating with AMR's ARCL interface via a command line interface.
 
 . **MobilePlanner 5.1.8 / ARAM**
 +
-The LD set up instructions found here assumes you are using `MobilePlanner 5.1.8` to configure your LD. For maximum compatibility, try to use this version of MobilePlanner.
+The AMR set up instructions found here assumes you are using `MobilePlanner 5.1.8` to configure your AMR. For maximum compatibility, try to use this version of MobilePlanner.
 
 === Hardware Requirements
 This package assumes a specific hardware configuration in order to work correctly.
 
 . LD-60
 +
-This will be the LD robot you will be controlling via this package.
+This will be the AMR robot you will be controlling via this package.
 
 . Host machine
 +
-This is a machine that communicates with LD, either via ethernet or wireless connection using the ARCL interface. In our use case, we use the Intel NUC8i5BEH mini PC to run ROS and communicate with LD via ethernet connection.
+This is a machine that communicates with the AMR, either via ethernet or wireless connection using the ARCL interface. In our use case, we use the Intel NUC8i5BEH mini PC to run ROS and communicate with the AMR via ethernet connection.
 
 . User remote machines running ROS nodes.
 +
@@ -88,27 +88,27 @@ The diagram below gives an overview of how the communications will be configured
 image::comms_overview.png[]
 
 ==== Hardware Wiring
-The diagram below gives an overview of how the various machines needs to be wired with the LD.
+The diagram below gives an overview of how the various machines needs to be wired with the AMR.
 
 .Machines Wiring Diagram
 image::wiring_diagram.png[]
 
-The buck converter (or any other stepdown/buck converter you will use) steps the 24V-26V voltage provided by the LD's User Power port down to a 12V-19V voltage range. The host machine used in this package is `Intel NUC8i5BEH` which accepts a 12V-19V range as input. If you use any other host machines, you will need to ensure the voltage  is stepped down or up from the LD User Power port.
+The buck converter (or any other stepdown/buck converter you will use) steps the 24V-26V voltage provided by the AMR's User Power port down to a 12V-19V voltage range. The host machine used in this package is `Intel NUC8i5BEH` which accepts a 12V-19V range as input. If you use any other host machines, you will need to ensure the voltage  is stepped down or up from the AMR User Power port.
 
-For information on what pins on LD User Power port can be used, please see your LD's User Manual to understand which pins to use as it may differ.
+For information on what pins on AMR User Power port can be used, please see your AMR's User Manual to understand which pins to use as it may differ.
 
 === Set Up LD
-In order to use this package, your LD must be configured correctly to communicate with the host machine running this ROS package. This configuration will be done via `MobilePlanner` hence, this guide assumes you have basic knowledge on using the `MobilePlanner` software.
+In order to use this package, your AMR must be configured correctly to communicate with the host machine running this ROS package. This configuration will be done via `MobilePlanner` hence, this guide assumes you have basic knowledge on using the `MobilePlanner` software.
 
 ==== Set Up User Ethernet
-For reliable communication with the LD, the user ethernet port is preferred. Hence, the user ethernet port along with it's IP needs to be configured via `SetNetGo`. You can find instructions on using `SetNetGo` in LD's User Manual or MobilePlanner User Manual.
+For reliable communication with the AMR, the user ethernet port is preferred. Hence, the user ethernet port along with it's IP needs to be configured via `SetNetGo`. You can find instructions on using `SetNetGo` in LD's User Manual or MobilePlanner User Manual.
 
 In short, you need to configure the LD's user ethernet port to use `192.168.1.1` as it's address. This address is set in the launch file of the om_aiv_util directory to be used as the remote socket address. If you decide to use another address, you will need to change those ROS params.
 
 Additionally, the host machine should be configured with the `192.168.1.50` address since this is also set in the ROS params in this package. If you decide to use another address, you will need to change those ROS params as well.
 
 ==== Set Up ARCL
-The primary communication interface between the LD and host machine is the `ARCL` interface. `ARCL` which stands for 'Advanced Robotics Command Language' is a communication interface that allows operators to control the LD through a network connection. See the ARCL Reference Manual to understand it's usage.
+The primary communication interface between the AMR and host machine is the `ARCL` interface. `ARCL` which stands for 'Advanced Robotics Command Language' is a communication interface that allows operators to control the AMR through a network connection. See the ARCL Reference Manual to understand it's usage.
 
 The LD's ARCL configuration parameters must be set correctly for this package to work. First, connect to LD with `MobilePlanner` and open up the configuration page for your LD.
 
@@ -177,9 +177,9 @@ image::outgoing_arcl_commands.png[]
 
 [[set-up-host-remote-machine]]
 === Set Up Host/Remote Machine
-The host machine is used to communicate with the LD via the ARCL interface in order to retrieve vital information about the LD that is used for this package to work.
+The host machine is used to communicate with the AMR via the ARCL interface in order to retrieve vital information about the AMR that is used for this package to work.
 
-In our use case, we use the Intel NUC8i5BEH mini PC as host machine connected to LD's user ethernet port. Make sure your host machine meets the requirements in <<prerequisites>>.
+In our use case, we use the Intel NUC8i5BEH mini PC as host machine connected to AMR's user ethernet port. Make sure your host machine meets the requirements in <<prerequisites>>.
 
 As for remote machine(s), you can use your personal computer to run ROS nodes. Make sure your machine meets the requirements in <<prerequisites>>.
 
@@ -202,12 +202,12 @@ First, make sure you have installed ROS as described in <<prerequisites>>.
 +
 ....
 cd /to/desired/path
-git clone https://github.com/zach-goh/Omron_LD
+git clone https://github.com/zach-goh/Omron_AMR_ROS2
 ....
 . Navigate to that directory with:
 +
 ....
-cd Omron_LD
+cd Omron_AMR_ROS2
 ....
 . Build this package with:
 +
@@ -227,15 +227,15 @@ source install/setup.bash
 ros2 launch om_aiv_util 1robot.launch
 ....
 +
-This will launch the core nodes that communicates this host machine with LD via the ARCL interface.
+This will launch the core nodes that communicates this host machine with AMR via the ARCL interface.
 
 [NOTE]
-You may notice a mismatch of map and laser scans. In this case, you need to make sure the local copy of the map file in the host machine is the same as the one used internally by LD. To understand this, see <<map-loading-reading>>
+You may notice a mismatch of map and laser scans. In this case, you need to make sure the local copy of the map file in the host machine is the same as the one used internally by AMR. To understand this, see <<map-loading-reading>>
 
 === Intel NUC8i5BEH Host Machine
 As mentioned in this guide, we use `Intel NUC8i5BEH` mini PC as our host machine. This machine has met the requirements in <<prerequisites>> and has it's ROS set up to work with multiple machines as described in <<set-up-host-remote-machine>>.
 
-Additionally, the machine has been configured to run this package automatically when it has booted into Ubuntu. This allows us to run ROS nodes on our own remote machines with this host machine. The idea is that we do not need to fiddle with the host machine each time we want to use ROS with our LD. Press the power button on `Intel NUC8i5BEH`, waits for a minute or so to boot, then run ROS nodes on our remote machine(s).
+Additionally, the machine has been configured to run this package automatically when it has booted into Ubuntu. This allows us to run ROS nodes on our own remote machines with this host machine. The idea is that we do not need to fiddle with the host machine each time we want to use ROS with our AMR. Press the power button on `Intel NUC8i5BEH`, waits for a minute or so to boot, then run ROS nodes on our remote machine(s).
 
 This is achieved with help of several external programs and bash scripts:
 
@@ -258,12 +258,12 @@ Follow these steps to run this package:
 +
 ....
 cd /to/desired/path
-git clone https://github.com/zach-goh/Omron_LD
+git clone https://github.com/zach-goh/Omron_AMR_ROS2
 ....
 . Navigate to that directory with:
 +
 ....
-cd Omron_LD
+cd Omron_AMR_ROS2
 ....
 . Build this package with:
 +
@@ -282,7 +282,7 @@ source install/setup.bash
 ....
 ros2 launch ld_visualisation display.launch
 ....
-. If you have set up the host machine and ROS multiple machines correctly, you should see RVIZ opened with a map along with the laser scans of your LD.
+. If you have set up the host machine and ROS multiple machines correctly, you should see RVIZ opened with a map along with the laser scans of your AMR.
 
 == Software Design
 [[architecture]]
@@ -292,28 +292,28 @@ An overview of this package architecture is summarised in the diagram below:
 .Overview of package
 image::overview.png[]
 
-External devices can communicate with the LD via the ARCL interface. The LD hosts an ARCL server that remote clients can communicate with. This is indicated by the blue `ARCL Server` block in the diagram.
+External devices can communicate with the AMR via the ARCL interface. The AMR hosts an ARCL server that remote clients can communicate with. This is indicated by the blue `ARCL Server` block in the diagram.
 
-In this case, the host machine will communicate via this ARCL interface. The host machine has three python modules, `Socket Driver`, `Socket Listener` and `Socket Taskmaster`. Each module opens a socket connection to the ARCL server. There are three ROS nodes that the host machines will run, `ARCL API Server`, `LD States Publisher` and `Action Server`. Their relationship with the python modules are illustrated in the diagram. These nodes and sockets will run on the host machine that is directly connected to the LD. These are indicated by the red blocks in the diagram.
+In this case, the host machine will communicate via this ARCL interface. The host machine has three python modules, `Socket Driver`, `Socket Listener` and `Socket Taskmaster`. Each module opens a socket connection to the ARCL server. There are three ROS nodes that the host machines will run, `ARCL API Server`, `LD States Publisher` and `Action Server`. Their relationship with the python modules are illustrated in the diagram. These nodes and sockets will run on the host machine that is directly connected to the AMR. These are indicated by the red blocks in the diagram.
 
 `ARCL API Server` and `LD States Publisher` nodes are implemented in the `om_aiv_util` package. `Action Server` node is implemented in the `om_aiv_navigation` package.
 
-With the three ROS nodes, the host machine will provide a ROS interface to allow remote machines to retrieve information from, as well as controlling the LD.
+With the three ROS nodes, the host machine will provide a ROS interface to allow remote machines to retrieve information from, as well as controlling the AMR.
 
-The remote machines are then able to leverage these nodes to communicate with the LD to retrieve information or to control it. These are indicated by the green blocks in the diagram. See <<ld-visualisation-package>> for how this can be implemented.
+The remote machines are then able to leverage these nodes to communicate with the LD to retrieve information or to control it. These are indicated by the green blocks in the diagram. See <<amr-visualisation-package>> for how this can be implemented.
 
 === LD States Publisher
 This ROS node is named `ld_states_publisher` during ROS runtime. The code can be found in `om_aiv_util/om_aiv_util/ld_states_publisher.py`.
 
-The purpose of this node is to listen for a few standard information that is published by the ARCL server about the LD. It then publishes these information on dedicated topics in the ROS environment.
+The purpose of this node is to listen for a few standard information that is published by the ARCL server about the AMR. It then publishes these information on dedicated topics in the ROS environment.
 
 The information is summarised below:
 
 * `Status`: General message on robot's operations and actions.
 * `StateOfCharge`: Battery percentage
-* `Location`: XY coordinates of LD's position
-* `LocalizationScore`: The health of LD's localization accuracy.
-* `Temperature`: Operation temperature of LD.
+* `Location`: XY coordinates of AMRv's position
+* `LocalizationScore`: The health of AMR's localization accuracy.
+* `Temperature`: Operation temperature of AMR.
 * `ExtendedStatusForHumans`: Additional message to `Status` message
 
 ==== ARCL Commands Used
@@ -335,19 +335,19 @@ __RangeDeviceGetCurrent__ is not documented in the ARCL Reference Guide. This co
 
 This command works in the following format: `RangeDeviceGetCurrent [laser-device-name]`
 
-Where you should substitute [laser-device-name] field, including the `[]`, with the idetifying name of the laser device you want the data from. The output data are pairs of X-Y coordinates that represents the scan points in the world coordinate frame of the LD.
+Where you should substitute [laser-device-name] field, including the `[]`, with the idetifying name of the laser device you want the data from. The output data are pairs of X-Y coordinates that represents the scan points in the world coordinate frame of the AMR.
 
 So an output with 5 laser points will look like this: `X1 Y1 X2 Y2 X3 Y3 X4 Y4 X5 Y5`
 
-For example in this package, __RangeDeviceGetCurrent Laser_1__ is used. The __Laser_1__ refers to the primary laser device used for mapping by LD. Specifying another laser device name will show the data for that device instead (eg. Laser_2).
+For example in this package, __RangeDeviceGetCurrent Laser_1__ is used. The __Laser_1__ refers to the primary laser device used for mapping by AMR. Specifying another laser device name will show the data for that device instead (eg. Laser_2).
 
-Use `MobilePlanner` software to see what laser devices are installed in the LD and what their names are.
+Use `MobilePlanner` software to see what laser devices are installed in the AMR and what their names are.
 ====
 
 === ARCL API Server
 This ROS service node is named `arcl_api_server` during ROS runtime. The code can be found in `om_aiv_util/om_aiv_util/arcl_api_server.py`.
 
-The purpose of this service node is to allow other ROS nodes to requests for information of a ARCL command and waits for the response. Essentially this allows any ROS nodes to post a ARCL command to the ARCL server and retrieves the response via this service node without having to have access to LD directly.
+The purpose of this service node is to allow other ROS nodes to requests for information of a ARCL command and waits for the response. Essentially this allows any ROS nodes to post a ARCL command to the ARCL server and retrieves the response via this service node without having to have access to AMR directly.
 
 This service node supports every single ARCL commands.
 
@@ -357,33 +357,33 @@ The code can be found in `om_aiv_navigation/om_aiv_navigation/action_servers.py`
 
 The purpose of this action node is similar to `ARCL API Server`. However, the key difference here is that is supports the publishing of feedback during the execution of a ARCL command. This is useful in instances where you need to execute a ARCL command that will last for a significant duration. 
 
-For example, executing a `goto` ARCL command to move the LD to a specified location. The LD will take time to reach the goal. During this time ARCL server will continuously post messages regarding the status of this command. `Action Server` leverages this and informs callers of this action server about these status messages.
+For example, executing a `goto` ARCL command to move the AMR to a specified location. The AMR will take time to reach the goal. During this time ARCL server will continuously post messages regarding the status of this command. `Action Server` leverages this and informs callers of this action server about these status messages.
 
-[[ld-visualisation-package]]
+[[amr-visualisation-package]]
 === LD Visualisation Package
-The `LD Visualisation` package illustrates how a remote machine can communicate with the host machine in order to talk to the LD to retrieve information from it or control it.
+The `AMR Visualisation` package illustrates how a remote machine can communicate with the host machine in order to talk to the AMR to retrieve information from it or control it.
 
-`LD Visualisation` serves as an example as to how you can leverage the `ARCL API Server`, `LD States Publisher` and `Action Server` nodes to have basic interaction with the LD through ROS. 
+`AMR Visualisation` serves as an example as to how you can leverage the `ARCL API Server`, `LD States Publisher` and `Action Server` nodes to have basic interaction with the AMR through ROS. 
 
-To understand how `LD Visualisation` is structured with the entire ROS package and communicates with LD, see <<architecture>>.
+To understand how `AMR Visualisation` is structured with the entire ROS package and communicates with AMR, see <<architecture>>.
 
-`LD Visualisation` has three nodes, they are summarised as below:
+`AMR Visualisation` has three nodes, they are summarised as below:
 
 [cols="1,1a", options="header"]
-.LD Visualisation nodes
+.AMR Visualisation nodes
 |===
 |**Node name**
 |**Description**
 
 |joints_publisher
 |
-This node is responsible for subscribing to the topic that publishes current location of the LD.
+This node is responsible for subscribing to the topic that publishes current location of the AMR.
 
-Using this information, it updates the position of LD shown on RVIZ.
+Using this information, it updates the position of AMR shown on RVIZ.
 
 |goals_marker
 |
-This node is responsible for subscribing to the topic that publishes the name of goals that LD is tracking.
+This node is responsible for subscribing to the topic that publishes the name of goals that AMR is tracking.
 
 Using these goal names, it then requests for the coordinates of these goal points using `ARCL API Server`. These coordinates are used to visualise these goals on RVIZ.
 
@@ -395,7 +395,7 @@ Using these information, it publishes marker points on RVIZ to visualise every s
 
 Additionally, it also reads a `.map` created by the `MobilePlanner` software. This `.map` file contains all static map laser scan data points as well as forbidden areas. These information are all read by this node to be visualised on RVIZ. This is what makes the displaying of the map possible.
 
-**This map file should exist on the remote machine running `LD Visualisation`.**
+**This map file should exist on the remote machine running `AMR Visualisation`.**
 
 See <<map-loading-reading>> to understand how to load a map onto the remote machine.
 
@@ -404,17 +404,17 @@ See <<map-loading-reading>> to understand how to load a map onto the remote mach
 == Implementation
 [[map-loading-reading]]
 === Map Loading and Reading
-ARCL unfortunately does not provide an interface to retrieve every single map data point as well as other map objects information from the LD.
+ARCL unfortunately does not provide an interface to retrieve every single map data point as well as other map objects information from the AMR.
 
-These information are stored in the `.map` file when you use `MobilePlanner` to scan a new map environment. The `ld_visualisation` package leverages this `.map` file to read these information display on RVIZ accordingly.
+These information are stored in the `.map` file when you use `MobilePlanner` to scan a new map environment. The `amr_visualisation` package leverages this `.map` file to read these information display on RVIZ accordingly.
 
-As it currently stands, a copy of the `.map` file must be retrieved from LD via `MobilePlanner`, placed in the `ld_visualisation/map` directory and renamed to `data.map`. This `.map` file is read by `data_points_marker` node during ROS runtime to display map information on RVIZ.
+As it currently stands, a copy of the `.map` file must be retrieved from AMR via `MobilePlanner`, placed in the `amr_visualisation/map` directory and renamed to `data.map`. This `.map` file is read by `data_points_marker` node during ROS runtime to display map information on RVIZ.
 
 Any other `.map` files in this directory will be ignored.
 
-The name of this `.map` file can be configured as a ROS param. `LD Visualisation` ROS params can be found in `ld_visualisation/param/vis_param.yaml`
+The name of this `.map` file can be configured as a ROS param. `AMR Visualisation` ROS params can be found in `amr_visualisation/param/vis_param.yaml`
 
-With this implementation it means that any changes to the `.map` file on LD can be reflected in RVIZ only by transferring the entire new `.map` file to our package and restarting the `LD Visualisation` nodes. **This is a hard restriction from LD software.** Additional support has to be provided by the LD software team before a more user friendly and convenient solution can be reached.
+With this implementation it means that any changes to the `.map` file on AMR can be reflected in RVIZ only by transferring the entire new `.map` file to our package and restarting the `AMR Visualisation` nodes. **This is a hard restriction from AMR software.** Additional support has to be provided by the AMR software team before a more user friendly and convenient solution can be reached.
 
 === Forbidden Areas Information Format
 This section concerns how the forbidden areas information are stored in the `.map` file. The format is not so straightforward and hence I feel the need to include this section.
@@ -462,16 +462,16 @@ There are two example codes, `om_aiv_navigation/om_aiv_navigation/goto_goal.py` 
 
 These code files serves as an example as to how you can leverage the ROS Action servers that came with this package.
 
-The example code simply performs the `goto` ARCL command with `Goal1` and `Goal2` as the arguments. This is get the LD to move to `Goal1` and `Goal2` on the map, depending on which script is run. During these operations, the feedback and result messages will be published in ROS topics.
+The example code simply performs the `goto` ARCL command with `Goal1` and `Goal2` as the arguments. This is get the v to move to `Goal1` and `Goal2` on the map, depending on which script is run. During these operations, the feedback and result messages will be published in ROS topics.
 
 [NOTE]
-You need to have two goals named `Goal1` and `Goal2` in your LD map for these examples to work.
+You need to have two goals named `Goal1` and `Goal2` in your AMR map for these examples to work.
 
 . First, ensure your host machine, ROS master is up and running.
-. Run `ld_visualisation` package to see the movement of your LD. To do this:
+. Run `amr_visualisation` package to see the movement of your AMR. To do this:
 +
 ....
-ros2 launch ld_visualisation display.launch
+ros2 launch amr_visualisation display.launch
 ....
 
 . In a separate terminal with the workspace sourced, run:
@@ -479,8 +479,8 @@ ros2 launch ld_visualisation display.launch
 ....
 ros2 run om_aiv_navigation goto_goal.py 
 ....
-This will move your LD to `Goal1` on your map. Once the operation has completed, you should see  the result message in the terminal.
-. Next, try moving LD to `Goal1`, then `Goal2` with:
+This will move your AMR to `Goal1` on your map. Once the operation has completed, you should see  the result message in the terminal.
+. Next, try moving AMR to `Goal1`, then `Goal2` with:
 +
 .... 
 ros2 run om_aiv_navigation goto_goal_demo.py 

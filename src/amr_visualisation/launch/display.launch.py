@@ -19,14 +19,13 @@ def load_file(package_name, file_path):
 
 
 def generate_launch_description():
-    robot_description_config = load_file('ld_visualisation', 'urdf/LD_Platform.urdf')
+    robot_description_config = load_file('amr_visualisation', 'urdf/AMR_Platform.urdf')
     robot_description = {'robot_description' : robot_description_config}
 
-    vis_config = get_package_share_directory('ld_visualisation') + "/param/vis_param.yaml"
+    vis_config = get_package_share_directory('amr_visualisation') + "/param/vis_param.yaml"
 
     # RViz
-    #rviz_config_file = get_package_share_directory('ld_visualisation') + "/config/ld_rviz2.rviz"
-    rviz_config_file = "src/ld_visualisation/config/ld_rviz.rviz"
+    rviz_config_file = "src/amr_visualisation/config/amr_rviz.rviz"
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',
@@ -46,14 +45,14 @@ def generate_launch_description():
 
     # Joints Publisher
     joints_publisher_node = Node(
-        package='ld_visualisation',
+        package='amr_visualisation',
         executable='joints_publisher',
         output='screen',
     )
 
     # Data Points Marker
     data_points_node = Node(
-        package='ld_visualisation',
+        package='amr_visualisation',
         executable='data_points_marker',
         output='screen',
         parameters=[vis_config],
@@ -61,7 +60,7 @@ def generate_launch_description():
         
     # Goals Marker
     goals_node = Node(
-        package='ld_visualisation',
+        package='amr_visualisation',
         executable='goals_marker',
         output='screen',
     )

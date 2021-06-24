@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(ld_visualisation)
+project(amr_visualisation)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
