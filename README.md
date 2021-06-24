@@ -18,7 +18,7 @@ This repository contains various ROS packages that allows you to interface with 
 3. Navigate LD via RVIZ tool
     * Go to specified point
 
-**For details on the packages' inner workings, see the [Developer's Guide](https://github.com/zach-goh/Omron_LD_ROS_Package/blob/master/docs/DeveloperGuide.adoc).**
+**For details on the packages' inner workings, see the [Developer's Guide](https://github.com/guanyewtan/Omron_LD/blob/master/docs/DeveloperGuide.adoc).**
 
 ## Limitations
 ROS is not able to have access to robot hardware, therefore this package does not have full access to all LD's capabilities. This package uses ARCL to communicate and control the LD and thus the limitations of this package is defined by ARCL's limitations.
