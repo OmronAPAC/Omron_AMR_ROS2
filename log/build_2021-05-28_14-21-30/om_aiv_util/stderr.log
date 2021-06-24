@@ -1,2 +1,0 @@
-/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/ld_states_publisher.py:33: SyntaxWarning: "is" with a literal. Did you mean "=="?
-  if len(values) is 3:

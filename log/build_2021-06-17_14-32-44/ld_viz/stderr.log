@@ -1,5 +1,0 @@
-  File "/home/omron/Omron_LD/install/ld_viz/lib/python3.8/site-packages/ld_viz/joints_publisher.py", line 83
-    pose_cb(const om_aiv_util::StatusConstPtr& pose_msg)
-                  ^
-SyntaxError: invalid syntax
-

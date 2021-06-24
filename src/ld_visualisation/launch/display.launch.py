@@ -32,7 +32,6 @@ def generate_launch_description():
         executable='rviz2',
         output='log',
         arguments=['-d', rviz_config_file],
-        parameters=[robot_description],
         )
 
 

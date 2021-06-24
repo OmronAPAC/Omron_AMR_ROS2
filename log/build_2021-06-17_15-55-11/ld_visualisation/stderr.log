@@ -1,5 +1,0 @@
-[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/data_points_marker.cpp:[m[K In function ‘[01m[Kbool get_map_data(std::string, std::vector<geometry_msgs::msg::Point_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Point_<std::allocator<void> > > >&, std::vector<geometry_msgs::msg::Point_<std::allocator<void> >, std::allocator<geometry_msgs::msg::Point_<std::allocator<void> > > >&, visualization_msgs::msg::Marker&, visualization_msgs::msg::MarkerArray&)[m[K’:
-[01m[K/home/omron/Omron_LD/src/ld_visualisation/src/data_points_marker.cpp:282:31:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kfilename[m[K’ [[01;35m[K-Wunused-parameter[m[K]
-  282 | l get_map_data([01;35m[Kstd::string filename[m[K,
-      |                [01;35m[K~~~~~~~~~~~~^~~~~~~~[m[K
-

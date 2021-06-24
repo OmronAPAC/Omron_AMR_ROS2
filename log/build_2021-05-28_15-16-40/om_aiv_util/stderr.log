@@ -1,5 +1,0 @@
-  File "/home/omron/Omron_LD/install/om_aiv_util/lib/python3.8/site-packages/om_aiv_util/ld_states_publisher.py", line 110
-    self.status_pub = self.create_publisher(Status, "ldarcl_status", 10)
-    ^
-SyntaxError: invalid syntax
-
