@@ -37,6 +37,12 @@ Last updated: `22 June 2021` By: `Guan Yew`
 See link:https://ubuntu.com/download/desktop[Ubuntu] webpage for installation instructions (version 20.04 release).
 +
 These packages were tested using Ubuntu Linux OS. Although ROS 2 is officially supported on multiple platforms including Windows OS (experimental), *Ubuntu Linux OS is preferred* since there is greater support for packages on Ubuntu platform. (These packages have not been tested on Windows OS)
++
+*Virtual Machines:*
++
+This AMR package can also be used on a virtual machine running Ubuntu 20.04. Ensure that the virtual machine is able to communicate with the AMR via ethernet cable, and network configuration has been done according to <<Set Up User Ethernet>>. 
++
+The virtual machine tested is Oracle VM VirtualBox. Ensure that the network adapter has been set as "Bridged Adapter".
 
 . **Robot Operating System 2 (ROS 2) Foxy Fitzroy Release**
 +
@@ -97,7 +103,7 @@ The buck converter (or any other stepdown/buck converter you will use) steps the
 
 For information on what pins on AMR User Power port can be used, please see your AMR's User Manual to understand which pins to use as it may differ.
 
-=== Set Up LD
+=== Set Up AMR
 In order to use this package, your AMR must be configured correctly to communicate with the host machine running this ROS package. This configuration will be done via `MobilePlanner` hence, this guide assumes you have basic knowledge on using the `MobilePlanner` software.
 
 ==== Set Up User Ethernet
@@ -192,6 +198,8 @@ In order to run ROS2 on mulitple machines, you need to configure your host machi
 Ensure that both the remote machine and host machine are on the same subnet and are discoverable to each other.
 
 Also ensure that the ROS_DOMAIN_ID of both devices are the same.
+
+To verify success, run the steps in the next few sections. The remote machine should be able to run the visualisation packages correctly.
 
 ==== Host Machine ROS Package Set Up
 Once you have your network set up correctly, you need to set up our ROS package to work correctly in your host machine.
@@ -460,9 +468,11 @@ I'm not exactly sure why the `MobilePlanner` software team decided to do this wa
 === ROS Action: goto Goal
 There are two example codes, `om_aiv_navigation/om_aiv_navigation/goto_goal.py` and `om_aiv_navigation/om_aiv_navigation/goto_goal_demo.py`.
 
-These code files serves as an example as to how you can leverage the ROS Action servers that came with this package.
+These code files serves as an example as to how you can leverage the ROS Action servers that come with this package. The `om_aiv_util` package starts an action server, and the example code uses an action client to send a goal to the action server.
 
-The example code simply performs the `goto` ARCL command with `Goal1` and `Goal2` as the arguments. This is get the v to move to `Goal1` and `Goal2` on the map, depending on which script is run. During these operations, the feedback and result messages will be published in ROS topics.
+The example code simply performs the `goto` ARCL command with `Goal1` and `Goal2` as the arguments. This is get the AMR to move to `Goal1` and `Goal2` on the map, depending on which script is run.
+
+During these operations, the feedback and result messages will be published in ROS topics.
 
 [NOTE]
 You need to have two goals named `Goal1` and `Goal2` in your AMR map for these examples to work.
