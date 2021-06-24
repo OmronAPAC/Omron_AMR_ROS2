@@ -289,7 +289,7 @@ bool get_map_data(std::string filename,
     //std::string path = ament_index_cpp::get_package_share_directory(PACK_NAME);
     //path = path.append(MAP_FOLDER).append("/");
     //std::string map_path = path.append(filename);
-    std::string map_path = ament_index_cpp::get_package_share_directory("ld_visualisation") + "/map/data.map";
+    std::string map_path = ament_index_cpp::get_package_share_directory("ld_visualisation") + "/map/" + filename;
     std::ifstream map_file(map_path);
     if (map_file.fail()) return false;
 

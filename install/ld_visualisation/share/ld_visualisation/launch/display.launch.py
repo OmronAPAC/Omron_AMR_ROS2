@@ -26,7 +26,7 @@ def generate_launch_description():
 
     # RViz
     #rviz_config_file = get_package_share_directory('ld_visualisation') + "/config/ld_rviz2.rviz"
-    rviz_config_file = "/home/omron/Omron_LD/src/ld_visualisation/config/ld_rviz2.rviz"
+    rviz_config_file = "src/ld_visualisation/config/ld_rviz.rviz"
     rviz_node = Node(
         package='rviz2',
         executable='rviz2',

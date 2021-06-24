@@ -88,7 +88,7 @@ install(TARGETS
 )
 
 install(
-  DIRECTORY launch config map meshes param rviz urdf
+  DIRECTORY launch config map meshes param urdf
   DESTINATION share/${PROJECT_NAME}
 )
 
