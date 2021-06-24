@@ -477,7 +477,7 @@ ros2 launch ld_visualisation display.launch
 . In a separate terminal with the workspace sourced, run:
 +
 ....
-rosrun om_aiv_navigation goto_goal.py 
+ros2 run om_aiv_navigation goto_goal.py 
 ....
 This will move your LD to `Goal1` on your map. Once the operation has completed, you should see  the result message in the terminal.
 . Next, try moving LD to `Goal1`, then `Goal2` with:
