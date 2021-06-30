@@ -28,7 +28,8 @@ class AmrActionClient(Node):
 
         #Return the result of get_result_callback
         self.get_logger().info(self._get_result_future.result().result.res_msg)
-        return self._get_result_future.result().result.res_msg
+        #return self._get_result_future.result().result.res_msg
+        return self._get_result_future.result()
 
     def goal_response_callback(self, future):
         self.goal_handle = future.result()
@@ -42,7 +43,7 @@ class AmrActionClient(Node):
 def main(args=None):
     rclpy.init(args=args)
     action_client = AmrActionClient()
-    print(action_client.send_goal('Goal1'))
+    action_client.send_goal('Goal1')
     #rclpy.spin(action_client)
 
 

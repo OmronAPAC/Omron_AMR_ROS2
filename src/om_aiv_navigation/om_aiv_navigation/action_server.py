@@ -43,7 +43,7 @@ class LDActionServer(Node):
                 goal.publish_feedback(self._feedback)
                 self._result.res_msg = result.decode()
                 goal.succeed()
-                #self.get_logger().info(self._result.res_msg)
+                self.get_logger().info("action_server.py: " + self._result.res_msg)
                 break
 
             elif ("Failed going to goal" in feedback.decode()):
