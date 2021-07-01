@@ -10,11 +10,11 @@ def main():
         rclpy.init()
         action_client = AmrActionClient()
         goal2result = action_client.send_goal('Goal2')
-        if not ("Arrived at" in goal2result.result.res_msg):
+        if not ("Arrived at" in goal2result):
             exit()
 
         goal1result = action_client.send_goal('Goal1')
-        if not ("Arrived at" in goal1result.result.res_msg):
+        if not ("Arrived at" in goal1result):
             exit()
 
     except KeyboardInterrupt:
