@@ -22,7 +22,8 @@ setup(
         'console_scripts': [
             'action_server = om_aiv_navigation.action_server:main',
             'goto_goal = om_aiv_navigation.goto_goal:main',
-            'goto_goal_demo = om_aiv_navigation.goto_goal_demo:main'
+            'goto_goal_demo = om_aiv_navigation.goto_goal_demo:main',
+            'dock = om_aiv_navigation.dock:main'
         ],
     },
 )
