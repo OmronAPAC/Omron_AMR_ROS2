@@ -481,17 +481,44 @@ You need to have two goals named `Goal1` and `Goal2` in your AMR map for these e
 . Run `amr_visualisation` package to see the movement of your AMR. To do this:
 +
 ....
-ros2 launch amr_visualisation display.launch
+ros2 launch amr_visualisation display.launch.py
 ....
 
 . In a separate terminal with the workspace sourced, run:
 +
 ....
-ros2 run om_aiv_navigation goto_goal.py 
+ros2 run om_aiv_navigation goto_goal
 ....
 This will move your AMR to `Goal1` on your map. Once the operation has completed, you should see  the result message in the terminal.
 . Next, try moving AMR to `Goal1`, then `Goal2` with:
 +
 .... 
-ros2 run om_aiv_navigation goto_goal_demo.py 
+ros2 run om_aiv_navigation goto_goal_demo
 .... 
+
+=== ROS Action: Dock
+There is an example code `om_aiv_navigation/om_aiv_navigation/dock.py` that demonstrates how you can add new commands using the action server by sending your own ARCL commands.
+
+This example is the same as the one above but serves to show how new commands can easily be added.
+
+. First, ensure your host machine, ROS master is up and running.
+. Run `amr_visualisation` package to see the movement of your AMR. To do this:
++
+....
+ros2 launch amr_visualisation display.launch.py
+....
+
+. In a separate terminal with the workspace sourced, run:
++
+....
+ros2 run om_aiv_navigation dock
+....
+This will move your AMR to `Dock` on the map. Once in position, the docking sequence should begin as per normal.
+
+==== Command creation
+To create your own standalone commands, a few extra steps are required for the ARCL messages to be parsed correctly.
+
+. Navigate to `src/om_aiv_navigation/om_aiv_navigation/action_server.py` then add an `elif` clause to the function `execute_callback()`.
+. Choose an appropriate substring to search for that determines that the action taken is completed and search for that substring in the feedback message.
+. Assign a representative message for the action to `self._result.res_msg` then `return self._result`
+. Navigate to `src/om_aiv_navigation/om_aiv_navigation/[your_command].py` and add an `elif` clause to the method `feedback_callback()` to print out an appropriate feedback message by searching for a substring in the feedback message.

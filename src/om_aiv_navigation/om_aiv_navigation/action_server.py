@@ -36,7 +36,8 @@ class LDActionServer(Node):
             if ("No goal" in feedback.decode()):
                 self._result.res_msg = "No such goal"
                 return self._result
-            #look for interval messages
+            
+            #publish feedback messages
             goal.publish_feedback(feedback.decode())
                 
             #self.get_logger().info(feedback.decode())
@@ -47,7 +48,6 @@ class LDActionServer(Node):
                 goal.succeed()
                 self.get_logger().info("action_server.py: " + self._result.res_msg)
                 break
-            
             elif (" Docked " in feedback.decode()):
                 self._result.res_msg = "Docked successfully"
                 return self._result
