@@ -42,10 +42,7 @@ class AmrActionClient(Node):
 
     def feedback_callback(self, feedback_msg):
         feedback = feedback_msg.feedback.feed_msg
-        if ("Going to" in feedback):
-            self.get_logger().info(feedback)
-        if (" Docking ") in feedback:
-            self.get_logger().info("Docking")
+        self.get_logger().info(feedback)
 
 def main(args=None):
     rclpy.init(args=args)

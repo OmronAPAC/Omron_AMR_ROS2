@@ -513,12 +513,11 @@ ros2 launch amr_visualisation display.launch.py
 ....
 ros2 run om_aiv_navigation dock
 ....
-This will move your AMR to `Dock` on the map. Once in position, the docking sequence should begin as per normal.
+This will move your AMR to `Dock` on the map. Once in position, the docking sequence should proceed as per usual.
 
-==== Command creation
+==== Command Parsing
 To create your own standalone commands, a few extra steps are required for the ARCL messages to be parsed correctly.
 
-. Navigate to `src/om_aiv_navigation/om_aiv_navigation/action_server.py` then add an `elif` clause to the function `execute_callback()`.
-. Choose an appropriate substring to search for that determines that the action taken is completed and search for that substring in the feedback message.
-. Assign a representative message for the action to `self._result.res_msg` then `return self._result`
-. Navigate to `src/om_aiv_navigation/om_aiv_navigation/[your_command].py` and add an `elif` clause to the method `feedback_callback()` to print out an appropriate feedback message by searching for a substring in the feedback message.
+. Navigate to `src/om_aiv_util/om_aiv_util/parser.py` then add an `elif` clause to the function `(process_arcl_server())`.
+. Choose an appropriate substring to search for that determines that the action taken is completed and search for that substring in the feedback message. You can refer to ARCL documentation to determine what constitutes an appropriate substring to search for.
+. Assign a representative message to check if the action is completed or has failed with `PASS` or `FAIL` respectively, then choose a simplified string to indicate the respective command and return it as a tuple.

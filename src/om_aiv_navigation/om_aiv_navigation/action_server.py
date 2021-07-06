@@ -47,7 +47,7 @@ class LDActionServer(Node):
                 break
             else:
                 parse = self.parser.process_arcl_server(feedback.decode())
-                self.get_logger().info("parser" + parse[1])
+                #self.get_logger().info("parser" + parse[1])
                 self._feedback.feed_msg = parse[1]
                 if parse[0] == 0:
                     self._result.res_msg = parse[1]
