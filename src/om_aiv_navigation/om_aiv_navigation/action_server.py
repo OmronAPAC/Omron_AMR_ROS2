@@ -45,15 +45,17 @@ class LDActionServer(Node):
                 goal.succeed()
                 self.get_logger().info("action_server.py: " + self._result.res_msg)
                 break
-            elif (" Docked " in feedback.decode()):
-                self._result.res_msg = "Docked Successfully"
-                return self._result
-
-            elif ("Failed going to goal" in feedback.decode()):
-                self._result.res_msg = "Failed going to goal"
-                return self._result
             else:
-                self._feedback.feed_msg = feedback.decode()
+                parse = self.parser.process_arcl_server(feedback.decode())
+                self.get_logger().info("parser" + parse[1])
+                self._feedback.feed_msg = parse[1]
+                if parse[0] == 0:
+                    self._result.res_msg = parse[1]
+                    goal.succeed()
+                    return self._result
+                elif parse[0] == 1:
+                    self._result.res_msg = parse[1]
+                    return self._result
                 goal.publish_feedback(self._feedback)
 
             time.sleep(0.1)
