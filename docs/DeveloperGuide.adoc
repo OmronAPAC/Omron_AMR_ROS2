@@ -497,9 +497,12 @@ ros2 run om_aiv_navigation goto_goal_demo
 .... 
 
 === ROS Action: Dock
-There is an example code `om_aiv_navigation/om_aiv_navigation/dock.py` that demonstrates how you can add new commands using the action server by sending your own ARCL commands.
+There is an example code `om_aiv_navigation/om_aiv_navigation/dock.py` that demonstrates how you can add new commands using the action server by sending your own ARCL commands through an action client.
 
 This example is the same as the one above but serves to show how new commands can easily be added.
+
+[NOTE]
+The commands given should be valid ARCL commands. Refer to the ARCL documentation on what constitutes a valid ARCL command.
 
 . First, ensure your host machine, ROS master is up and running.
 . Run `amr_visualisation` package to see the movement of your AMR. To do this:
@@ -519,5 +522,6 @@ This will move your AMR to `Dock` on the map. Once in position, the docking sequ
 To create your own standalone commands, a few extra steps are required for the ARCL messages to be parsed correctly.
 
 . Navigate to `src/om_aiv_util/om_aiv_util/parser.py` then add an `elif` clause to the function `(process_arcl_server())`.
-. Choose an appropriate substring to search for that determines that the action taken is completed and search for that substring in the feedback message. You can refer to ARCL documentation to determine what constitutes an appropriate substring to search for.
-. Assign a representative message to check if the action is completed or has failed with `PASS` or `FAIL` respectively, then choose a simplified string to indicate the respective command and return it as a tuple.
+. Choose an appropriate substring to search for that determines that the action taken is completed. i.e. `Docking` in `DockingState:Docking`
+. Search for that substring in the feedback message. You can refer to ARCL documentation to determine what constitutes an appropriate substring to search for.
+. Assign a representative message to check if the action is completed or has failed with `PASS` or `FAIL` respectively, then choose a simplified string to indicate the respective command and return it as a tuple to the callback function for the Action Server.
