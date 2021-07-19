@@ -15,8 +15,8 @@ This repository contains various ROS packages that allows you to interface with 
     * Display live laser scans
     * Display forbidden areas
     * Display map goals
-3. Navigate AMR via RVIZ tool
-    * Go to specified point
+3. Navigate AMR
+    * Go to specified goal point
     * Go back to designated dock
 
 **For details on the packages' inner workings, see the [Developer's Guide](https://github.com/guanyewtan/Omron_LD/blob/master/docs/DeveloperGuide.adoc).**
