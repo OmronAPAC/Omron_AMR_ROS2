@@ -413,6 +413,16 @@ Additionally, it also reads a `.map` created by the `MobilePlanner` software. Th
 
 See <<map-loading-reading>> to understand how to load a map onto the remote machine.
 
+| goto_point
+| This node is responsible for subscribing to the topic that RViz uses when you click on 2D Goal Pose and put it on the map.
+
+When the subscriber receives a set of coordinates, a callback function will format the coordinates and send it to the AMR through the action server. The AMR will move to that point.
+
+| localize_at_point
+| This node is responsible for subscribing to the topic that RViz uses when you click on 2D Pose Estimate and put it on the map.
+
+When the subscriber receives a set of coordinates, a callback function will format the coordinates and send it to the AMR through the action server. The AMR will then be localized to that spot on the map.
+
 |===
 
 == Implementation
@@ -493,6 +503,29 @@ This will move your AMR to `Goal1` on your map. Once the operation has completed
 .... 
 ros2 run om_aiv_navigation goto_goal_demo
 .... 
+
+=== ROS Action: goto_point and localize_at_point
+In `om_aiv_navigation/om_aiv_navigation/goto_point.py` and `om_aiv_navigation/om_aiv_navigation/localize_at_point.py` are examples of how rviz functions can be subscribed to and used for navigating the AMR. 
+
+They make use of the same action server used to interact with the LD, while subscribing to the RViz topics for the 2 buttons `2D Pose Estimate` and `2D Goal Pose`. When the subscriber receives the published coordinates, the callback function use the action client to send the command to the action server.
+
+image::rviz_pose.png[]
+
+. Ensure your host machine, ROS master is up and running.
+. Run `amr_visualisation` package to see the movement of your AMR. To do this:
++
+....
+ros2 launch amr_visualisation display.launch.py
+....
+. Click on the `2D Goal Pose` button and then on the map.
+. The AMR should move to the point clicked on.
+. Afterwards, to test the localization, hit E-stop on the AMR and turn it off.
+. Push it somewhere far from its original location
+. Turn it back on.
+. Click on the 2D Pose Estimate button.
+. Click on the map where the actual robot location is and ensure that the arrow is pointing in the same direction as the robot.
+. The robot should now be localized to that location.
+
 
 === ROS Action: Dock
 There is an example code `om_aiv_navigation/om_aiv_navigation/dock.py` that demonstrates how you can add new commands using the action server by sending your own ARCL commands through an action client.
