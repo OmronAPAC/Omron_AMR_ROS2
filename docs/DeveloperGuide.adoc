@@ -21,7 +21,7 @@ endif::[]
 :url-repo: https://github.com/zach-goh/OmronRepos/tree/master
 :url-ug: https://github.com/zach-goh/OmronRepos/blob/master/docs/UserGuide.adoc
 
-Last updated: `16 July 2021` By: `Zeon`
+Last updated: `22 July 2021` By: `Zeon`
 
 == Authors
 
@@ -247,12 +247,7 @@ This will launch the core nodes that communicates this host machine with AMR via
 You may notice a mismatch of map and laser scans. In this case, you need to make sure the local copy of the map file in the host machine is the same as the one used internally by AMR. To understand this, see <<map-loading-reading>>
 
 === Intel NUC8i5BEH Host Machine
-Please see https://github.com/zach-goh/Omron_AMR_ROS2/blob/master/launch_ros_on_startup.docx[here] for a guide on how we configured our NUC to run the ROS nodes upon startup
-
-
-. `cron`
-+
-The custom bash script we have will automate the launching of several things for us. However, we need to get the machine to run that script at boot. To do this, we use `cron` job scheduling utility to help us. To configure, input `crontab -e` in a bash terminal. Please look online for usage of `cron`.
+Please see https://github.com/zach-goh/Omron_AMR_ROS2/blob/master/launch_ros_on_startup.docx[here] for a guide on how we configured our NUC to run the ROS nodes upon startup.
 
 === Running on Remote Machine
 The instructions here assumes you have basic knowledge of using Git, Ubuntu, Bash terminal and ROS environment.
@@ -510,6 +505,9 @@ image::rviz_pose.png[]
 ros2 launch amr_visualisation display.launch.py
 ....
 . Click on the `2D Goal Pose` button and then on the map.
++
+image::rviz_example.png[]
++
 . The AMR should move to the point clicked on.
 . Afterwards, to test the localization, hit E-stop on the AMR and turn it off.
 . Push it somewhere far from its original location
