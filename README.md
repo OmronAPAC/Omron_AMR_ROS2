@@ -18,6 +18,9 @@ This repository contains various ROS packages that allows you to interface with 
 3. Navigate AMR
     * Go to specified goal point
     * Go back to designated dock
+4. Navigate and localize AMR using RViz
+    * Go to a specified point on RViz map
+    * Localize to a specified point on RViz map
 
 **For details on the packages' inner workings, see the [Developer's Guide](https://github.com/guanyewtan/Omron_LD/blob/master/docs/DeveloperGuide.adoc).**
 
