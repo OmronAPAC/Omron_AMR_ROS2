@@ -64,6 +64,20 @@ def generate_launch_description():
         executable='goals_marker',
         output='screen',
     )
+    
+    # RViz goto point node
+    goto_point_node = Node(
+        package='om_aiv_navigation',
+        executable='goto_point',
+        output='screen',
+    )
+    
+    # RViz goto point node
+    localize_at_point_node = Node(
+        package='om_aiv_navigation',
+        executable='localize_at_point',
+        output='screen',
+    )
         
 
     return LaunchDescription([
@@ -71,6 +85,8 @@ def generate_launch_description():
         rviz_node, 
         joints_publisher_node,
         data_points_node,
-        goals_node
+        goals_node,
+        goto_point_node,
+        localize_at_point_node
         ])
 

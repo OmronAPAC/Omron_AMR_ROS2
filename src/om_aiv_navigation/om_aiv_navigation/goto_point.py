@@ -26,6 +26,7 @@ class GotoPoint(Node):
         position = msg.pose.position
         orientation = msg.pose.orientation
         degree = self.euler_from_quaternion(orientation.w, orientation.x, orientation.y, orientation.z)[2]
+        #converting from radian to degree
         degree *= 57.296
         # ensure that AMR does not over-turn
         if degree > 180:

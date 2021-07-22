@@ -238,7 +238,7 @@ source install/setup.bash
 . Run the `om_aiv_util` package with:
 +
 ....
-ros2 launch om_aiv_util 1robot.launch.py
+ros2 launch om_aiv_util server.launch.py
 ....
 +
 This will launch the core nodes that communicates this host machine with AMR via the ARCL interface.
@@ -247,15 +247,7 @@ This will launch the core nodes that communicates this host machine with AMR via
 You may notice a mismatch of map and laser scans. In this case, you need to make sure the local copy of the map file in the host machine is the same as the one used internally by AMR. To understand this, see <<map-loading-reading>>
 
 === Intel NUC8i5BEH Host Machine
-As mentioned in this guide, we use `Intel NUC8i5BEH` mini PC as our host machine. This machine has met the requirements in <<prerequisites>> and has it's ROS set up to work with multiple machines as described in <<set-up-host-remote-machine>>.
-
-Additionally, the machine has been configured to run this package automatically when it has booted into Ubuntu. This allows us to run ROS nodes on our own remote machines with this host machine. This improves the accessibility of ROS with our AMR. Press the power button on `Intel NUC8i5BEH`, wait for a minute or so to boot, then run ROS nodes on our remote machine(s).
-
-This is achieved with help of several external programs and bash scripts:
-
-. Custom bash script
-+
-In order to help automate the running of the ROS at boot, we have written a simple bash script to do this. This bash script can be found at `~/boot.bash`. 
+Please see https://github.com/zach-goh/Omron_AMR_ROS2/blob/master/launch_ros_on_startup.docx[here] for a guide on how we configured our NUC to run the ROS nodes upon startup
 
 
 . `cron`
