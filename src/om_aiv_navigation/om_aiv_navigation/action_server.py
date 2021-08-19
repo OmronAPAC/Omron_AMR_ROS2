@@ -2,6 +2,7 @@ import rclpy
 import time
 from rclpy.action import ActionServer
 from om_aiv_util.socket_taskmaster import *
+from om_aiv_util.parser import *
 from om_aiv_msg.action import Action
 from rclpy.node import Node
 
@@ -24,6 +25,8 @@ class LDActionServer(Node):
         
         self._feedback = Action.Feedback()
         self._result = Action.Result()
+        
+        self.parser = Parser()
 
     def execute_callback(self, goal):
         self.socket_taskmaster.push_command(
