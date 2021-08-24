@@ -475,6 +475,15 @@ void laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
     }
 }
 
+/**
+ * @brief Function for getting minimum and maximum coordinates in point vector
+ * 
+ * @param points point array where minimum and maximum coordinates are collected from
+ * @param minx minimum x coordinate
+ * @param maxx maximum x coordinate
+ * @param miny minimum y coordinate
+ * @param maxy maximum y coordinate
+ */
 void get_min_max_coordinates(std::vector<geometry_msgs::msg::Point> points, double* minx, double* maxx, double* miny, double* maxy)
 {    
     for (int i = 0; i < (int) points.size(); i++)
@@ -490,7 +499,14 @@ void get_min_max_coordinates(std::vector<geometry_msgs::msg::Point> points, doub
     }
 }
 
-// fill map using points collected from point vector
+/**
+ * @brief function for filling in map with point vector
+ * 
+ * @param grid OccupancyGrid to fill with
+ * @param points Point vector used to check if grid should be filled
+ * @param minx minimum x coordinate used to set relative positioning
+ * @param miny minimum y coordinate used to set relative positioning
+ */
 nav_msgs::msg::OccupancyGrid fill_map(nav_msgs::msg::OccupancyGrid grid, std::vector<geometry_msgs::msg::Point> points, double minx, double miny) 
 {
     for (int i = 0; i < (int) points.size(); i++)
@@ -506,7 +522,11 @@ nav_msgs::msg::OccupancyGrid fill_map(nav_msgs::msg::OccupancyGrid grid, std::ve
     return grid;
 }
 
-// initialize map with all -1
+/**
+ * @brief sets entire OccupancyGrid to -1 for unknown value in grid
+ * 
+ * @param grid OccupancyGrid to fill with
+ */
 nav_msgs::msg::OccupancyGrid initialize_map(nav_msgs::msg::OccupancyGrid grid) 
 {
     for (int i=0; i < int(grid.info.height * grid.info.width); i++) 
