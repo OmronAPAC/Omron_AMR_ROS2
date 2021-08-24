@@ -29,6 +29,7 @@ find_package(control_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(om_aiv_msg REQUIRED)
+find_package(nav_msgs REQUIRED)
 
 
 if(BUILD_TESTING)
@@ -80,6 +81,7 @@ ament_target_dependencies(data_points_marker
   tf2_ros
   om_aiv_msg
   visualization_msgs
+  nav_msgs
 )
 
 install(TARGETS

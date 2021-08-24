@@ -8,6 +8,9 @@
 #include "tf2/LinearMath/Quaternion.h"
 #include "om_aiv_msg/srv/arcl_api.hpp"
 #include "om_aiv_msg/srv/arcl_listen.hpp"
+#include "nav_msgs/msg/occupancy_grid.hpp"
+#include "nav_msgs/msg/occupancy_grid.h"
+#include "sensor_msgs/msg/laser_scan.hpp"
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -91,6 +94,15 @@ bool get_map_data(std::string filename,
     visualization_msgs::msg::Marker& fa,
     visualization_msgs::msg::MarkerArray& f_areas);
 void laser_sub_cb(const std_msgs::msg::String::SharedPtr msg);
+void get_min_max_coordinates(
+    std::vector<geometry_msgs::msg::Point> points, 
+    double* minx, double* maxx, double* miny, double* maxy);
+nav_msgs::msg::OccupancyGrid fill_map(
+    nav_msgs::msg::OccupancyGrid grid, 
+    std::vector<geometry_msgs::msg::Point> points, 
+    double minx, double miny);
+nav_msgs::msg::OccupancyGrid initialize_map(nav_msgs::msg::OccupancyGrid grid);
+    
 
 // createQuaternionMsgFromYaw function
 geometry_msgs::msg::Quaternion createQuaternionMsgFromYaw(double yaw)
@@ -178,7 +190,8 @@ int main(int argc, char** argv)
     std::cout << "rng_device: " << rng_device << std::endl;
 
 
-    auto points_pub = node->create_publisher<visualization_msgs::msg::Marker>(VIS_TOPIC, 10);
+    // initialize publishers and subscribers
+    auto map_pub = node->create_publisher<nav_msgs::msg::OccupancyGrid>("map_grid", 10);
     auto fa_pub = node->create_publisher<visualization_msgs::msg::MarkerArray>("f_areas", 10);
     auto laser_scan_pub = node->create_publisher<visualization_msgs::msg::Marker>(VIS_TOPIC, 10);
     auto laser_data_sub = node->create_subscription<std_msgs::msg::String>(LS_SUB_TOPIC, 10, laser_sub_cb);
@@ -188,6 +201,7 @@ int main(int argc, char** argv)
     std::vector<geometry_msgs::msg::Point> lines;
     visualization_msgs::msg::MarkerArray f_areas;
     visualization_msgs::msg::Marker fa;
+    nav_msgs::msg::OccupancyGrid grid;
     fa.header.frame_id = HEAD_FRAME;
     fa.action = visualization_msgs::msg::Marker::ADD;
     fa.ns = FA_NS;
@@ -204,42 +218,30 @@ int main(int argc, char** argv)
     if (!get_map_data(MAP_NAME, points, lines, fa, f_areas)) RCLCPP_ERROR(node->get_logger(), "Reading map failed");
     RCLCPP_INFO(node->get_logger(), "Waiting for RVIZ");
 
-    // Configure the messages to publish.
-    visualization_msgs::msg::Marker points_arr;
-    visualization_msgs::msg::Marker lines_list;
-    points_arr.header.frame_id = lines_list.header.frame_id = HEAD_FRAME;
-    points_arr.header.stamp = lines_list.header.stamp = node->now();
-    points_arr.ns = POINTS_NS;
-    lines_list.ns = LINES_NS;
-    points_arr.action = lines_list.action = visualization_msgs::msg::Marker::ADD;
-    points_arr.pose.orientation.w = lines_list.pose.orientation.w = 1.0;
-    points_arr.id = POINTS_M_ID;
-    lines_list.id = LINES_M_ID;
-    points_arr.type = visualization_msgs::msg::Marker::POINTS;
-    lines_list.type = visualization_msgs::msg::Marker::LINE_LIST;
-    points_arr.scale.x = POINTS_X_SCALE;
-    points_arr.scale.y = POINTS_Y_SCALE;
-    lines_list.scale.x = LINES_X_SCALE;
-    points_arr.color.a = POINTS_A_CLR;
-    points_arr.color.r = POINTS_R_CLR;
-    points_arr.color.g = POINTS_G_CLR;
-    points_arr.color.b = POINTS_B_CLR;
-    lines_list.color.a = LINES_A_CLR;
-    lines_list.color.r = LINES_R_CLR;
-    lines_list.color.g = LINES_G_CLR;
-    lines_list.color.b = LINES_B_CLR;
+    // get min and max coordiantes of point vector
+    double minx = INT32_MAX, miny = INT32_MAX, maxx = -INT32_MAX, maxy = -INT32_MAX;
+    get_min_max_coordinates(points, &minx, &maxx, &miny, &maxy);
 
-    // Prepare all points.
-    for (int i = 0; i < (int) points.size(); i++)
-    {
-        points_arr.points.push_back(points[i]);
-    }
+    // initialize map grid
+    grid.header.stamp = node->get_clock()->now();
+    grid.info.resolution = 0.15;
+    grid.info.origin.orientation = createQuaternionMsgFromYaw(0);
+    grid.header.frame_id = "/map";
 
-    // Prepare all lines.
-    for (int i = 0; i < (int) lines.size(); i++)
-    {
-        lines_list.points.push_back(lines[i]);
-    }
+    // set starting point of grid to be at minimum coordinates of points
+    geometry_msgs::msg::Point origin;
+    origin.x = minx;
+    origin.y = miny;
+    origin.z = 0;
+    grid.info.origin.position = origin;
+
+    // convert max map size into grids and +1 as int casting rounds down
+    grid.info.width = int((maxx-minx)/grid.info.resolution + 1);
+    grid.info.height = int((maxy-miny)/grid.info.resolution + 1);
+
+    // fill map using point data from data.map
+    grid = initialize_map(grid);
+    grid = fill_map(grid, points, minx, miny);
     
     /// Draw laser scan data ///
     laser_points.header.frame_id = HEAD_FRAME;
@@ -258,12 +260,10 @@ int main(int argc, char** argv)
     // std::cout << laser_points.points[1].x << "HeaveHo" << std::endl;
     while (rclcpp::ok())
     {
-        points_pub->publish(points_arr);
-        points_pub->publish(lines_list);
         fa_pub->publish(f_areas);
-
         laser_points.header.stamp = node->now();
         laser_scan_pub->publish(laser_points);
+        map_pub->publish(grid);
         rclcpp::spin_some(node);
         rate.sleep();
     }
@@ -473,4 +473,45 @@ void laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
         //std::cout <<  x << " " << y << " TRTRTRTRT" << std::endl;
 
     }
+}
+
+void get_min_max_coordinates(std::vector<geometry_msgs::msg::Point> points, double* minx, double* maxx, double* miny, double* maxy)
+{    
+    for (int i = 0; i < (int) points.size(); i++)
+    {
+        if (points[i].x < *minx)
+            *minx = points[i].x;
+        if (points[i].x > *maxx)
+            *maxx = points[i].x;
+        if (points[i].y < *miny)
+            *miny = points[i].y;
+        if (points[i].y > *maxy)
+            *maxy = points[i].y;
+    }
+}
+
+// fill map using points collected from point vector
+nav_msgs::msg::OccupancyGrid fill_map(nav_msgs::msg::OccupancyGrid grid, std::vector<geometry_msgs::msg::Point> points, double minx, double miny) 
+{
+    for (int i = 0; i < (int) points.size(); i++)
+    {
+        float relx = points[i].x - minx;
+        float rely = points[i].y - miny;
+        rely /= grid.info.resolution;
+        relx /= grid.info.resolution;
+
+        // This is 2D array represented by 1D. correct position would be (height_position * width) + width
+        grid.data[int((int(rely)*grid.info.width) + relx)] = 100;
+    }
+    return grid;
+}
+
+// initialize map with all -1
+nav_msgs::msg::OccupancyGrid initialize_map(nav_msgs::msg::OccupancyGrid grid) 
+{
+    for (int i=0; i < int(grid.info.height * grid.info.width); i++) 
+    {
+        grid.data.push_back(-1);
+    }    
+    return grid;
 }

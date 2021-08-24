@@ -361,7 +361,7 @@ The purpose of this action node is similar to `ARCL API Server`. However, this n
 For example, when executing a `goto` ARCL command to move the AMR to a specified location, the AMR will require time to reach the goal. During this time, the ARCL server will continuously post messages regarding the status of the command and the AMR. `Action Server` leverages this and informs clients to this action server about these status messages.
 
 [[amr-visualisation-package]]
-=== LD Visualisation Package
+=== AMR Visualisation Package
 The `AMR Visualisation` package illustrates how a remote machine can communicate with the host machine to talk to the AMR to retrieve information.
 
 `AMR Visualisation` serves as an example as to how you can leverage the `ARCL API Server`, `LD States Publisher` and `Action Server` nodes to have basic interactions with the AMR through ROS. 
@@ -394,7 +394,7 @@ This node is responsible for subscribing to the topic that publishes the coordin
 
 Using these information, it publishes marker points on RVIZ to visualise every single scanned points.
 
-Additionally, it also reads a `.map` created by the `MobilePlanner` software. This `.map` file contains all static map laser scan data points as well as forbidden areas. These information are all read by this node to be visualised on RVIZ. This is what makes the displaying of the map possible.
+Additionally, it also reads a `.map` created by the `MobilePlanner` software. This `.map` file contains all static map laser scan data points as well as forbidden areas. These information are all read by this node to be visualised on RVIZ. The points are then converted into an nav_msgs::msg::OccupancyGrid type to be represented as a map
 
 **This map file should exist on the remote machine running `AMR Visualisation`.**
 
@@ -424,6 +424,8 @@ A copy of the `.map` file must be retrieved from AMR via `MobilePlanner`, then p
 Any other `.map` files in this directory will be ignored.
 
 The name of this `.map` file can be configured as a ROS param. `AMR Visualisation` ROS params can be found in `amr_visualisation/param/vis_param.yaml`
+
+The `.map` file coordinate data is converted into an appropriately sized OccupancyGrid map. To ensure correct scaling, the map coordinates are based off the input data from the `.map` file exactly and has its origin position set to the minimum coordinates found in the `.map` file. More information on how this implementation works can be found in `amr_visualisation/src/data_points_marker.cpp`
 
 With this implementation, any changes to the `.map` file on AMR can be reflected in RVIZ only by transferring the entire new `.map` file to our package and restarting the `AMR Visualisation` nodes. **This is a hard restriction from AMR software.** Additional support has to be provided by the AMR software team before a more user friendly and convenient solution can be reached.
 
