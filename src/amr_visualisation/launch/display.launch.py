@@ -79,6 +79,13 @@ def generate_launch_description():
         output='screen',
     )
         
+    map_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='world_publisher',
+        output='log',
+        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'map', 'pose']
+    )
 
     return LaunchDescription([
         robot_state_publisher, 
@@ -87,6 +94,7 @@ def generate_launch_description():
         data_points_node,
         goals_node,
         goto_point_node,
-        localize_at_point_node
+        localize_at_point_node,
+        map_node
         ])
 

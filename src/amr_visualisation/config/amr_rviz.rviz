@@ -46,8 +46,7 @@ Visualization Manager:
       Enabled: true
       Name: MarkerArray
       Namespaces:
-        goal_texts: true
-        goals: true
+        {}
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -59,11 +58,7 @@ Visualization Manager:
       Enabled: true
       Name: Marker
       Namespaces:
-        goal_texts: true
-        goals: true
-        lines: true
         ls_points: true
-        points: true
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -145,6 +140,26 @@ Visualization Manager:
       Update Interval: 0
       Value: true
       Visual Enabled: true
+    - Alpha: 0.699999988079071
+      Class: rviz_default_plugins/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map_grid
+      Update Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map_grid_updates
+      Use Timestamp: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -188,7 +203,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 9.507649421691895
+      Distance: 32.317867279052734
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -203,10 +218,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.785398006439209
+      Pitch: 1.0647965669631958
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 0.785398006439209
+      Yaw: 0.005398321896791458
     Saved: ~
 Window Geometry:
   Displays:
