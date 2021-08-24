@@ -9,8 +9,6 @@
 #include "om_aiv_msg/srv/arcl_api.hpp"
 #include "om_aiv_msg/srv/arcl_listen.hpp"
 #include "nav_msgs/msg/occupancy_grid.hpp"
-#include "nav_msgs/msg/occupancy_grid.h"
-#include "sensor_msgs/msg/laser_scan.hpp"
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -86,6 +84,7 @@ const std::string FA_B_CLR_PARAM = "fa_b_colour";
 
 // Global variables
 visualization_msgs::msg::Marker laser_points;
+visualization_msgs::msg::MarkerArray laser_pub_array;
 
 // Function prototypes
 bool get_map_data(std::string filename, 
@@ -136,7 +135,7 @@ int main(int argc, char** argv)
 {
     rclcpp::init(argc, argv);
     node = std::make_shared<rclcpp::Node>("data_points_marker");
-    rclcpp::Rate rate(5);
+    rclcpp::Rate rate(1);
 
     // Get all parameters.
     node->declare_parameter(PACK_NAME_PARAM, "pkg");
@@ -261,7 +260,12 @@ int main(int argc, char** argv)
     while (rclcpp::ok())
     {
         fa_pub->publish(f_areas);
+        // update laser scans stamp and clear all points present in rviz 
+        // rviz stores all markers regardless of whether they are visible
         laser_points.header.stamp = node->now();
+        laser_points.action = 2;
+        laser_points.action = visualization_msgs::msg::Marker::ADD;
+
         laser_scan_pub->publish(laser_points);
         map_pub->publish(grid);
         rclcpp::spin_some(node);
@@ -424,7 +428,9 @@ void laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
     std::string::size_type pos = raw_resp.find(rng_device);
     if (pos != std::string::npos)
     {
+
         laser_points.points.clear();
+        laser_pub_array.markers.clear();
         std::string vals_str;
         try
         {
@@ -459,7 +465,7 @@ void laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
         // std::cout << "5BOOLEAN IS: " << (bool) (iss >> x >> y) << std::endl;
         
         //std::cout << vals_str << std::endl;
-        //std::cout << (bool) (iss >> x) << " " << y << " HUEHUEHUEHUE" << std::endl;
+        //std::cout << (bool) (iss >> x) << " " << y << " HUEHUEHUEHUE" << std::endl;   
         while (iss >> x >> y)
         {
             geometry_msgs::msg::Point p;
@@ -467,6 +473,8 @@ void laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
             p.y = y / 1000.0;
             p.z = 0;
             laser_points.points.push_back(p);
+            // laser_pub_array.markers.push_back(laser_points);
+            // laser_points.points.pop_back();
             //std::cout << laser_points.points[1].x << std::endl;
             //std::cout << p.x << " " << p.y << " TRTRTRTRT" << std::endl;
         }
