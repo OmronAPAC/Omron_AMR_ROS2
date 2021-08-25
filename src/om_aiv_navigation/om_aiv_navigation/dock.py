@@ -21,14 +21,11 @@ class AmrActionClient(Node):
         self._send_goal_future = self._action_client.send_goal_async(self.goal, feedback_callback=self.feedback_callback)
         self._send_goal_future.add_done_callback(self.goal_response_callback)
         rclpy.spin_until_future_complete(self, self._send_goal_future)
-        #rclpy.spin_until_future_complete(self, self._get_result_future)
 
         self._get_result_future = self._send_goal_future.result().get_result_async()
         rclpy.spin_until_future_complete(self, self._get_result_future)
 
-        #Return the result of get_result_callback
         self.get_logger().info(self._get_result_future.result().result.res_msg)
-        #return self._get_result_future.result().result.res_msg
         return self._get_result_future.result().result.res_msg
 
     def goal_response_callback(self, future):
@@ -48,7 +45,7 @@ def main(args=None):
     rclpy.init(args=args)
     action_client = AmrActionClient()
     action_client.send_goal('dock')
-    #rclpy.spin(action_client)
+    rclpy.spin(action_client)
 
 
 if __name__ == '__main__':

@@ -101,6 +101,9 @@ nav_msgs::msg::OccupancyGrid fill_map(
     std::vector<geometry_msgs::msg::Point> points, 
     double minx, double miny);
 nav_msgs::msg::OccupancyGrid initialize_map(nav_msgs::msg::OccupancyGrid grid);
+nav_msgs::msg::OccupancyGrid set_grid_attributes(
+    nav_msgs::msg::OccupancyGrid grid, 
+    double minx, double maxx, double miny, double maxy);
     
 
 // createQuaternionMsgFromYaw function
@@ -195,12 +198,14 @@ int main(int argc, char** argv)
     auto laser_scan_pub = node->create_publisher<visualization_msgs::msg::Marker>(VIS_TOPIC, 10);
     auto laser_data_sub = node->create_subscription<std_msgs::msg::String>(LS_SUB_TOPIC, 10, laser_sub_cb);
 
-    //// Begin drawing points and line on RVIZ ////
+    // Declare message types to be used
     std::vector<geometry_msgs::msg::Point> points;
     std::vector<geometry_msgs::msg::Point> lines;
     visualization_msgs::msg::MarkerArray f_areas;
     visualization_msgs::msg::Marker fa;
     nav_msgs::msg::OccupancyGrid grid;
+
+    //// Begin drawing points and line on RVIZ ////
     fa.header.frame_id = HEAD_FRAME;
     fa.action = visualization_msgs::msg::Marker::ADD;
     fa.ns = FA_NS;
@@ -221,22 +226,8 @@ int main(int argc, char** argv)
     double minx = INT32_MAX, miny = INT32_MAX, maxx = -INT32_MAX, maxy = -INT32_MAX;
     get_min_max_coordinates(points, &minx, &maxx, &miny, &maxy);
 
-    // initialize map grid
-    grid.header.stamp = node->get_clock()->now();
-    grid.info.resolution = 0.15;
-    grid.info.origin.orientation = createQuaternionMsgFromYaw(0);
-    grid.header.frame_id = "/map";
-
-    // set starting point of grid to be at minimum coordinates of points
-    geometry_msgs::msg::Point origin;
-    origin.x = minx;
-    origin.y = miny;
-    origin.z = 0;
-    grid.info.origin.position = origin;
-
-    // convert max map size into grids and +1 as int casting rounds down
-    grid.info.width = int((maxx-minx)/grid.info.resolution + 1);
-    grid.info.height = int((maxy-miny)/grid.info.resolution + 1);
+    // initialize map 
+    grid = set_grid_attributes(grid, minx, maxx, miny, maxy);
 
     // fill map using point data from data.map
     grid = initialize_map(grid);
@@ -290,9 +281,6 @@ bool get_map_data(std::string filename,
     visualization_msgs::msg::MarkerArray& f_areas)
 {
     // Read map file
-    //std::string path = ament_index_cpp::get_package_share_directory(PACK_NAME);
-    //path = path.append(MAP_FOLDER).append("/");
-    //std::string map_path = path.append(filename);
     std::string map_path = ament_index_cpp::get_package_share_directory("amr_visualisation") + "/map/" + filename;
     std::ifstream map_file(map_path);
     if (map_file.fail()) return false;
@@ -438,34 +426,11 @@ void laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
         }
         catch(const std::out_of_range& e)
         {
-            // RCLCPP_ERROR(node->get_logger(), "ERROROROROROR");
-            // std::cout <<  "CAUGHTEGEGEGEGEGEGE" << std::endl;
             vals_str.clear();
         }
         std::istringstream iss(vals_str);
-        //std::istringstream iss("-2000 -20 -5555 -55");
         double x, y = 0.0;
         laser_points.points.clear();
-
-        // std::cout << "0 iss is: " << iss.str() << std::endl;
-        // iss >> x;
-        // std::cout << "1 iss is: " << iss.str() << " but x is : " << x << std::endl;
-        // iss >> x;
-        // std::cout << "2 iss is: " << iss.str() << " but x is : " << x << std::endl;
-        // iss >> x;
-        // std::cout << "3 iss is: " << iss.str() << " but x is : " << x << std::endl;
-        // iss >> x;
-        // std::cout << "4 iss is: " << iss.str() << " but x is : " << x << std::endl;
-        // std::cout << iss.str() << std::endl;
-        // std::cout << "0BOOLEAN IS: " << (bool) (iss >> x >> y) << std::endl;
-        // std::cout << "1BOOLEAN IS: " << (bool) (iss >> x >> y) << std::endl;
-        // std::cout << "2BOOLEAN IS: " << (bool) (iss >> x >> y) << std::endl;
-        // std::cout << "3BOOLEAN IS: " << (bool) (iss >> x >> y) << std::endl;
-        // std::cout << "4BOOLEAN IS: " << (bool) (iss >> x >> y) << std::endl;
-        // std::cout << "5BOOLEAN IS: " << (bool) (iss >> x >> y) << std::endl;
-        
-        //std::cout << vals_str << std::endl;
-        //std::cout << (bool) (iss >> x) << " " << y << " HUEHUEHUEHUE" << std::endl;   
         while (iss >> x >> y)
         {
             geometry_msgs::msg::Point p;
@@ -473,13 +438,7 @@ void laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
             p.y = y / 1000.0;
             p.z = 0;
             laser_points.points.push_back(p);
-            // laser_pub_array.markers.push_back(laser_points);
-            // laser_points.points.pop_back();
-            //std::cout << laser_points.points[1].x << std::endl;
-            //std::cout << p.x << " " << p.y << " TRTRTRTRT" << std::endl;
         }
-        //std::cout <<  x << " " << y << " TRTRTRTRT" << std::endl;
-
     }
 }
 
@@ -542,4 +501,32 @@ nav_msgs::msg::OccupancyGrid initialize_map(nav_msgs::msg::OccupancyGrid grid)
         grid.data.push_back(-1);
     }    
     return grid;
+}
+
+/**
+ * @brief sets the necessary attributes in the occupancy grid to show up in RViz
+ * 
+ * @param grid empty OccupancyGrid variable to fill with
+ * @param minx minimum x coordinate
+ * @param maxx maximum x coordinate
+ * @param miny minimum y coordinate
+ * @param maxy maximum y coordinate
+ */
+nav_msgs::msg::OccupancyGrid set_grid_attributes(nav_msgs::msg::OccupancyGrid grid, double minx, double maxx, double miny, double maxy)
+{
+    grid.header.stamp = node->get_clock()->now();
+    grid.info.resolution = 0.15;
+    grid.info.origin.orientation = createQuaternionMsgFromYaw(0);
+    grid.header.frame_id = "/map";
+
+    // set starting point of grid to be at minimum coordinates of points
+    geometry_msgs::msg::Point origin;
+    origin.x = minx;
+    origin.y = miny;
+    origin.z = 0;
+    grid.info.origin.position = origin;
+
+    // convert max map size into grids and +1 as int casting rounds down
+    grid.info.width = int((maxx-minx)/grid.info.resolution + 1);
+    grid.info.height = int((maxy-miny)/grid.info.resolution + 1);
 }

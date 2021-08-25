@@ -2,7 +2,6 @@
 
 from __future__ import print_function
 import rclpy
-import sys
 import math
 from rclpy.action import ActionClient
 from rclpy.node import Node
@@ -28,7 +27,7 @@ class GotoPoint(Node):
         degree = self.euler_from_quaternion(orientation.w, orientation.x, orientation.y, orientation.z)[2]
         #converting from radian to degree
         degree *= 57.296
-        # ensure that AMR does not over-turn
+        # ensure that AMR does not over-turn in one direction
         if degree > 180:
             degree -=360
         goto_coordinates = str(int(position.x*1000)) + " " + str(int(position.y*1000)) + " " + str(int(degree))
