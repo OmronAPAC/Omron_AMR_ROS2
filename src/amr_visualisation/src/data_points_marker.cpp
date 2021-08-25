@@ -135,7 +135,7 @@ int main(int argc, char** argv)
 {
     rclcpp::init(argc, argv);
     node = std::make_shared<rclcpp::Node>("data_points_marker");
-    rclcpp::Rate rate(1);
+    rclcpp::Rate rate(5);
 
     // Get all parameters.
     node->declare_parameter(PACK_NAME_PARAM, "pkg");
