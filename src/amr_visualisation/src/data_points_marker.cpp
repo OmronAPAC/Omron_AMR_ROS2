@@ -246,15 +246,14 @@ int main(int argc, char** argv)
     laser_points.color.r = LS_POINTS_R_CLR;
     laser_points.color.g = LS_POINTS_G_CLR;
     laser_points.color.b = LS_POINTS_B_CLR;
-    
-    // std::cout << laser_points.points[1].x << "HeaveHo" << std::endl;
+
     while (rclcpp::ok())
     {
         fa_pub->publish(f_areas);
         // update laser scans stamp and clear all points present in rviz 
         // rviz stores all markers regardless of whether they are visible
         laser_points.header.stamp = node->now();
-        laser_points.action = 2;
+        laser_points.action = 3;
         laser_points.action = visualization_msgs::msg::Marker::ADD;
 
         laser_scan_pub->publish(laser_points);
@@ -515,7 +514,7 @@ nav_msgs::msg::OccupancyGrid initialize_map(nav_msgs::msg::OccupancyGrid grid)
 nav_msgs::msg::OccupancyGrid set_grid_attributes(nav_msgs::msg::OccupancyGrid grid, double minx, double maxx, double miny, double maxy)
 {
     grid.header.stamp = node->get_clock()->now();
-    grid.info.resolution = 0.15;
+    grid.info.resolution = 0.02;
     grid.info.origin.orientation = createQuaternionMsgFromYaw(0);
     grid.header.frame_id = "/map";
 
@@ -529,4 +528,5 @@ nav_msgs::msg::OccupancyGrid set_grid_attributes(nav_msgs::msg::OccupancyGrid gr
     // convert max map size into grids and +1 as int casting rounds down
     grid.info.width = int((maxx-minx)/grid.info.resolution + 1);
     grid.info.height = int((maxy-miny)/grid.info.resolution + 1);
+    return grid;
 }
