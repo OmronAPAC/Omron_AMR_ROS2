@@ -428,7 +428,7 @@ Here we use the OccupancyGrid message type to represent the map as it is a light
 
 The name of this `.map` file can be configured as a ROS param. `AMR Visualisation` ROS params can be found in `amr_visualisation/param/vis_param.yaml`
 
-The `.map` file coordinate data is converted into an appropriately sized OccupancyGrid map. To ensure correct scaling, the map coordinates are based off the input data from the `.map` file exactly and has its origin position set to the minimum coordinates found in the `.map` file. All points are then iterated through and if it lies on a grid, that grid has its occupancy value set to 100.
+The `.map` file coordinate data is converted into an appropriately sized OccupancyGrid map. To ensure correct positioning and scaling, the map coordinates are based off the input data from the `.map` file exactly and has its origin position set to the minimum coordinates found in the `.map` file. All points are then iterated through and if it lies on a grid, that grid has its occupancy value set to 100.
 
 image::map_explanation.png[]
 
