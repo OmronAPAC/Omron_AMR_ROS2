@@ -86,6 +86,12 @@ def generate_launch_description():
         output='log',
         arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'map', 'pose']
     )
+    
+    laser_scans_node = Node(
+        package='amr_visualisation',
+        executable='laser_scans',
+        output='screen',
+    )
 
     return LaunchDescription([
         robot_state_publisher, 
@@ -95,6 +101,7 @@ def generate_launch_description():
         goals_node,
         goto_point_node,
         localize_at_point_node,
-        map_node
+        map_node,
+        laser_scans_node
         ])
 

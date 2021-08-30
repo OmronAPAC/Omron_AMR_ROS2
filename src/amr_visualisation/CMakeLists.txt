@@ -31,6 +31,20 @@ find_package(tf2_ros REQUIRED)
 find_package(om_aiv_msg REQUIRED)
 find_package(nav_msgs REQUIRED)
 
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
+include_directories(
+  include
+  ${rclcpp_INCLUDE_DIRS}
+  ${rclcpp_action_INCLUDE_DIRS}
+  ${catkin_INCLUDE_DIRS}
+)
+
+link_directories(${catkin_LIBRARY_DIRS})
+set(HEADERS
+  include/amr_visualisation/laser_scans.hpp
+)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -84,8 +98,24 @@ ament_target_dependencies(data_points_marker
   nav_msgs
 )
 
+add_executable(laser_scans
+  src/laser_scans.cpp
+)
+
+ament_target_dependencies(laser_scans
+  rclcpp
+  std_msgs
+  sensor_msgs
+  geometry_msgs
+  control_msgs
+  tf2_ros
+  om_aiv_msg
+  visualization_msgs
+  nav_msgs
+)
+
 install(TARGETS
-  joints_publisher data_points_marker goals_marker
+  joints_publisher data_points_marker goals_marker laser_scans
   DESTINATION lib/${PROJECT_NAME}
 )
 

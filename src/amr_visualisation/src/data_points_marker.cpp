@@ -1,532 +1,305 @@
-#include "rclcpp/rclcpp.hpp"
-#include <ament_index_cpp/get_package_share_directory.hpp>
-#include "visualization_msgs/msg/marker.hpp"
-#include "visualization_msgs/msg/marker_array.hpp"
-#include "geometry_msgs/msg/quaternion.hpp"
-#include "std_msgs/msg/string.hpp"
-#include "tf2_ros/transform_broadcaster.h"
-#include "tf2/LinearMath/Quaternion.h"
-#include "om_aiv_msg/srv/arcl_api.hpp"
-#include "om_aiv_msg/srv/arcl_listen.hpp"
-#include "nav_msgs/msg/occupancy_grid.hpp"
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <utility>
+#include "amr_visualisation/data_points_marker.hpp"
 
-// Configurable values.
-std::string PACK_NAME;
-std::string MAP_NAME;
-std::string HEAD_FRAME;
-std::string VIS_TOPIC;
-std::string rng_device;
-float POINTS_A_CLR;
-float POINTS_R_CLR;
-float POINTS_G_CLR;
-float POINTS_B_CLR;
-float LINES_A_CLR;
-float LINES_R_CLR;
-float LINES_G_CLR;
-float LINES_B_CLR;
-float LS_POINTS_A_CLR;
-float LS_POINTS_R_CLR;
-float LS_POINTS_G_CLR;
-float LS_POINTS_B_CLR;
-float FA_A_CLR;
-float FA_R_CLR;
-float FA_G_CLR;
-float FA_B_CLR;
 
-// Non configurable values.
-const std::string MAP_FOLDER = "/map";
-const std::string POINTS_NUM_H = "NumPoints";
-const std::string LINES_NUM_H = "NumLines";
-const std::string POINTS_H = "DATA";
-const std::string LINES_H = "LINES";
-const std::string FA_H = "Cairn: ForbiddenArea";
-const std::string POINTS_NS = "points";
-const std::string LINES_NS = "lines";
-const std::string LS_POINTS_NS = "ls_points";
-const std::string LS_SUB_TOPIC = "ldarcl_laser";
-const std::string FA_NS = "f_areas";
-const int32_t POINTS_M_ID = 0;
-const int32_t LINES_M_ID = 1;
-const int32_t LS_POINTS_M_ID = 2;
-const double POINTS_X_SCALE = 0.045;
-const double POINTS_Y_SCALE = 0.045;
-const double LINES_X_SCALE = 0.045;
-const double LS_POINTS_X_SCALE = 0.045;
-const double LS_POINTS_Y_SCALE = 0.045;
-
-// Names for all config parameters.
-const std::string PACK_NAME_PARAM = "pkg_name";
-const std::string MAP_NAME_PARAM = "map_name";
-const std::string HEAD_FRAME_PARAM = "head_frame";
-const std::string VIS_TOPIC_PARAM = "vis_topic";
-const std::string RNG_DEVICE_PARAM = "range_device";
-const std::string POINTS_A_CLR_PARAM = "points_a_colour";
-const std::string POINTS_R_CLR_PARAM = "points_r_colour";
-const std::string POINTS_G_CLR_PARAM = "points_g_colour";
-const std::string POINTS_B_CLR_PARAM = "points_b_colour";
-const std::string LINES_A_CLR_PARAM = "lines_a_colour";
-const std::string LINES_R_CLR_PARAM = "lines_r_colour";
-const std::string LINES_G_CLR_PARAM = "lines_g_colour";
-const std::string LINES_B_CLR_PARAM = "lines_b_colour";
-const std::string LS_POINTS_A_CLR_PARAM = "ls_points_a_colour";
-const std::string LS_POINTS_R_CLR_PARAM = "ls_points_r_colour";
-const std::string LS_POINTS_G_CLR_PARAM = "ls_points_g_colour";
-const std::string LS_POINTS_B_CLR_PARAM = "ls_points_b_colour";
-const std::string FA_A_CLR_PARAM = "fa_a_colour";
-const std::string FA_R_CLR_PARAM = "fa_r_colour";
-const std::string FA_G_CLR_PARAM = "fa_g_colour";
-const std::string FA_B_CLR_PARAM = "fa_b_colour";
-
-// Global variables
-visualization_msgs::msg::Marker laser_points;
-visualization_msgs::msg::MarkerArray laser_pub_array;
-
-// Function prototypes
-bool get_map_data(std::string filename, 
-    std::vector<geometry_msgs::msg::Point>& points, 
-    std::vector<geometry_msgs::msg::Point>& lines,
-    visualization_msgs::msg::Marker& fa,
-    visualization_msgs::msg::MarkerArray& f_areas);
-void laser_sub_cb(const std_msgs::msg::String::SharedPtr msg);
-void get_min_max_coordinates(
-    std::vector<geometry_msgs::msg::Point> points, 
-    double* minx, double* maxx, double* miny, double* maxy);
-nav_msgs::msg::OccupancyGrid fill_map(
-    nav_msgs::msg::OccupancyGrid grid, 
-    std::vector<geometry_msgs::msg::Point> points, 
-    double minx, double miny);
-nav_msgs::msg::OccupancyGrid initialize_map(nav_msgs::msg::OccupancyGrid grid);
-nav_msgs::msg::OccupancyGrid set_grid_attributes(
-    nav_msgs::msg::OccupancyGrid grid, 
-    double minx, double maxx, double miny, double maxy);
-    
-
-// createQuaternionMsgFromYaw function
-geometry_msgs::msg::Quaternion createQuaternionMsgFromYaw(double yaw)
+DataPointsMarker::DataPointsMarker() : Node("map_publisher")
 {
-    tf2::Quaternion tfq;
-    tfq.setRPY(0, 0, yaw);
-    geometry_msgs::msg::Quaternion gmq;
+  using namespace std::chrono_literals;
+  
+  map_pub = this->create_publisher<nav_msgs::msg::OccupancyGrid>("map_grid", 10);
+  fa_pub = this->create_publisher<visualization_msgs::msg::MarkerArray>("f_areas", 10);
 
-    double roll = 0;
-    double pitch = 0;
+  set_forbidden_area_params();
 
-    double cy = cos(yaw * 0.5);
-    double sy = sin(yaw * 0.5);
-    double cp = cos(pitch * 0.5);
-    double sp = sin(pitch * 0.5);
-    double cr = cos(roll * 0.5);
-    double sr = sin(roll * 0.5);
+  if (!get_map_data("data.map")) 
+  {
+      RCLCPP_ERROR(this->get_logger(), "Reading map failed");
+  }
+  RCLCPP_INFO(this->get_logger(), "Waiting for RVIZ");
+  get_min_max_coordinates();
+  set_grid_attributes();
+  initialize_map();
+  fill_map();
 
-    gmq.w = cy * cp * cr + sy * sp * sr; //w
-    gmq.x = cy * cp * sr - sy * sp * cr; //x
-    gmq.y = sy * cp * sr + cy * sp * cr; //y
-    gmq.z = sy * cp * cr - cy * sp * sr; //z
-
-    return gmq;
+  timer = this->create_wall_timer(
+    500ms, std::bind(&DataPointsMarker::timer_callback, this));
 }
 
-// Node declaration
-rclcpp::Node::SharedPtr node = nullptr;
-
-int main(int argc, char** argv)
+void DataPointsMarker::timer_callback()
 {
-    rclcpp::init(argc, argv);
-    node = std::make_shared<rclcpp::Node>("data_points_marker");
-    rclcpp::Rate rate(5);
-
-    // Get all parameters.
-    node->declare_parameter(PACK_NAME_PARAM, "pkg");
-    node->declare_parameter(MAP_NAME_PARAM, "data.map");
-    node->declare_parameter(HEAD_FRAME_PARAM, "/pose");
-    node->declare_parameter(VIS_TOPIC_PARAM, "visualization_marker");
-    node->declare_parameter(RNG_DEVICE_PARAM, "Laser_1");
-    node->declare_parameter(POINTS_A_CLR_PARAM, 1.0);
-    node->declare_parameter(POINTS_R_CLR_PARAM, 0.0);
-    node->declare_parameter(POINTS_G_CLR_PARAM, 0.0);
-    node->declare_parameter(POINTS_B_CLR_PARAM, 0.0);
-    node->declare_parameter(LINES_A_CLR_PARAM, 1.0);
-    node->declare_parameter(LINES_R_CLR_PARAM, 0.0);
-    node->declare_parameter(LINES_G_CLR_PARAM, 0.0);
-    node->declare_parameter(LINES_B_CLR_PARAM, 0.0);
-    node->declare_parameter(LS_POINTS_A_CLR_PARAM, 1.0);
-    node->declare_parameter(LS_POINTS_R_CLR_PARAM, 0.0);
-    node->declare_parameter(LS_POINTS_G_CLR_PARAM, 0.0);
-    node->declare_parameter(LS_POINTS_B_CLR_PARAM, 0.0);
-    node->declare_parameter(FA_A_CLR_PARAM, 0.5);
-    node->declare_parameter(FA_R_CLR_PARAM, 1.0);
-    node->declare_parameter(FA_G_CLR_PARAM, 0.0);
-    node->declare_parameter(FA_B_CLR_PARAM, 0.0);
-
-    PACK_NAME = node->get_parameter(PACK_NAME_PARAM).as_string();
-    MAP_NAME = node->get_parameter(MAP_NAME_PARAM).as_string();
-    HEAD_FRAME = node->get_parameter(HEAD_FRAME_PARAM).as_string();
-    VIS_TOPIC = node->get_parameter(VIS_TOPIC_PARAM).as_string();
-    rng_device = node->get_parameter(RNG_DEVICE_PARAM).as_string();
-    POINTS_A_CLR = node->get_parameter(POINTS_A_CLR_PARAM).as_double();
-    POINTS_R_CLR = node->get_parameter(POINTS_R_CLR_PARAM).as_double();
-    POINTS_G_CLR = node->get_parameter(POINTS_G_CLR_PARAM).as_double();
-    POINTS_B_CLR = node->get_parameter(POINTS_B_CLR_PARAM).as_double();
-    LINES_A_CLR = node->get_parameter(LINES_A_CLR_PARAM).as_double();
-    LINES_R_CLR = node->get_parameter(LINES_R_CLR_PARAM).as_double();
-    LINES_G_CLR = node->get_parameter(LINES_G_CLR_PARAM).as_double();
-    LINES_B_CLR = node->get_parameter(LINES_B_CLR_PARAM).as_double();
-    LS_POINTS_A_CLR = node->get_parameter(LS_POINTS_A_CLR_PARAM).as_double();
-    LS_POINTS_R_CLR = node->get_parameter(LS_POINTS_R_CLR_PARAM).as_double();
-    LS_POINTS_G_CLR = node->get_parameter(LS_POINTS_G_CLR_PARAM).as_double();
-    LS_POINTS_B_CLR = node->get_parameter(LS_POINTS_B_CLR_PARAM).as_double();
-    FA_A_CLR = node->get_parameter(FA_A_CLR_PARAM).as_double();
-    FA_R_CLR = node->get_parameter(FA_R_CLR_PARAM).as_double();
-    FA_G_CLR = node->get_parameter(FA_G_CLR_PARAM).as_double();
-    FA_B_CLR = node->get_parameter(FA_B_CLR_PARAM).as_double();
-
-    std::cout << "PACKNAME: " << PACK_NAME << std::endl;
-    std::cout << "MAP_NAME: " << MAP_NAME << std::endl;
-    std::cout << "HEAD_FRAME: " << HEAD_FRAME << std::endl;
-    std::cout << "VIS_TOPIC: " << VIS_TOPIC << std::endl;
-    std::cout << "rng_device: " << rng_device << std::endl;
-
-
-    // initialize publishers and subscribers
-    auto map_pub = node->create_publisher<nav_msgs::msg::OccupancyGrid>("map_grid", 10);
-    auto fa_pub = node->create_publisher<visualization_msgs::msg::MarkerArray>("f_areas", 10);
-    auto laser_scan_pub = node->create_publisher<visualization_msgs::msg::Marker>(VIS_TOPIC, 10);
-    auto laser_data_sub = node->create_subscription<std_msgs::msg::String>(LS_SUB_TOPIC, 10, laser_sub_cb);
-
-    // Declare message types to be used
-    std::vector<geometry_msgs::msg::Point> points;
-    std::vector<geometry_msgs::msg::Point> lines;
-    visualization_msgs::msg::MarkerArray f_areas;
-    visualization_msgs::msg::Marker fa;
-    nav_msgs::msg::OccupancyGrid grid;
-
-    //// Begin drawing points and line on RVIZ ////
-    fa.header.frame_id = HEAD_FRAME;
-    fa.action = visualization_msgs::msg::Marker::ADD;
-    fa.ns = FA_NS;
-    fa.pose.orientation.w = 1.0;
-    fa.pose.position.z = 0;
-    fa.type = visualization_msgs::msg::Marker::CUBE;
-    fa.id = 0;
-    fa.scale.z = 0.25;
-    fa.color.a = FA_A_CLR;
-    fa.color.r = FA_R_CLR;
-    fa.color.g = FA_G_CLR;
-    fa.color.b = FA_B_CLR;
-    
-    if (!get_map_data(MAP_NAME, points, lines, fa, f_areas)) RCLCPP_ERROR(node->get_logger(), "Reading map failed");
-    RCLCPP_INFO(node->get_logger(), "Waiting for RVIZ");
-
-    // get min and max coordiantes of point vector
-    double minx = INT32_MAX, miny = INT32_MAX, maxx = -INT32_MAX, maxy = -INT32_MAX;
-    get_min_max_coordinates(points, &minx, &maxx, &miny, &maxy);
-
-    // initialize map 
-    grid = set_grid_attributes(grid, minx, maxx, miny, maxy);
-
-    // fill map using point data from data.map
-    grid = initialize_map(grid);
-    grid = fill_map(grid, points, minx, miny);
-    
-    /// Draw laser scan data ///
-    laser_points.header.frame_id = HEAD_FRAME;
-    laser_points.action = visualization_msgs::msg::Marker::ADD;
-    laser_points.ns = LS_POINTS_NS;
-    laser_points.pose.orientation.w = 1.0;
-    laser_points.type = visualization_msgs::msg::Marker::POINTS;
-    laser_points.id = LS_POINTS_M_ID;
-    laser_points.scale.x = LS_POINTS_X_SCALE;
-    laser_points.scale.y = LS_POINTS_Y_SCALE;
-    laser_points.color.a = LS_POINTS_A_CLR;
-    laser_points.color.r = LS_POINTS_R_CLR;
-    laser_points.color.g = LS_POINTS_G_CLR;
-    laser_points.color.b = LS_POINTS_B_CLR;
-
-    while (rclcpp::ok())
-    {
-        fa_pub->publish(f_areas);
-        // update laser scans stamp and clear all points present in rviz 
-        // rviz stores all markers regardless of whether they are visible
-        laser_points.header.stamp = node->now();
-        laser_points.action = 3;
-        laser_points.action = visualization_msgs::msg::Marker::ADD;
-
-        laser_scan_pub->publish(laser_points);
-        map_pub->publish(grid);
-        rclcpp::spin_some(node);
-        rate.sleep();
-    }
-    return 0;
+  fa_pub->publish(f_areas);
+  map_pub->publish(grid);
 }
 
-/**
- * @brief Attemps to open .map file with the given file name and read all points and lines coordinates.
- * 
- * @param filename name of .map file to read, including file extension.
- * @param points Vector to store all read points.
- * @param lines Vector to store all read lines.
- * @return true if data is read without issue.
- * @return false if file fails to open or there is error in reading data.
- */
-bool get_map_data(std::string filename, 
-    std::vector<geometry_msgs::msg::Point>& points,
-    std::vector<geometry_msgs::msg::Point>& lines,
-    visualization_msgs::msg::Marker& fa,
-    visualization_msgs::msg::MarkerArray& f_areas)
+geometry_msgs::msg::Quaternion DataPointsMarker::createQuaternionMsgFromYaw(double yaw)
 {
-    // Read map file
-    std::string map_path = ament_index_cpp::get_package_share_directory("amr_visualisation") + "/map/" + filename;
-    std::ifstream map_file(map_path);
-    if (map_file.fail()) return false;
+  tf2::Quaternion tfq;
+  tfq.setRPY(0, 0, yaw);
+  geometry_msgs::msg::Quaternion gmq;
 
-    int num_of_points = 0;
-    int num_of_lines = 0;
-    std::string line;
-    std::string ignore_head;
-    while (std::getline(map_file, line))
+  double roll = 0;
+  double pitch = 0;
+
+  double cy = cos(yaw * 0.5);
+  double sy = sin(yaw * 0.5);
+  double cp = cos(pitch * 0.5);
+  double sp = sin(pitch * 0.5);
+  double cr = cos(roll * 0.5);
+  double sr = sin(roll * 0.5);
+
+  gmq.w = cy * cp * cr + sy * sp * sr; //w
+  gmq.x = cy * cp * sr - sy * sp * cr; //x
+  gmq.y = sy * cp * sr + cy * sp * cr; //y
+  gmq.z = sy * cp * cr - cy * sp * sr; //z
+
+  return gmq;
+}
+
+void DataPointsMarker::get_min_max_coordinates()
+{    
+  minx = INT32_MAX;
+  miny = INT32_MAX; 
+  maxx = -INT32_MAX;
+  maxy = -INT32_MAX;
+  for (int i = 0; i < (int) points.size(); i++)
+  {
+    if (points[i].x < minx)
+      minx = points[i].x;
+    if (points[i].x > maxx)
+      maxx = points[i].x;
+    if (points[i].y < miny)
+      miny = points[i].y;
+    if (points[i].y > maxy)
+      maxy = points[i].y;
+  }
+}
+
+void DataPointsMarker::get_points_count(std::string* line, std::string* ignore_head, int* num_of_points)
+{
+  if ((*line).find(POINTS_NUM_H) != std::string::npos)
+  {
+    std::istringstream iss(*line);
+    iss >> *ignore_head;
+    iss >> *num_of_points;
+  }
+}
+
+void DataPointsMarker::get_lines_count(std::string* line, std::string* ignore_head, int* num_of_lines)
+{
+  if ((*line).find(LINES_NUM_H) != std::string::npos)
+  {
+    std::istringstream iss(*line);
+    iss >> *ignore_head;
+    iss >> *num_of_lines;
+  }
+}
+
+void DataPointsMarker::set_point(int x, int y)
+{
+  geometry_msgs::msg::Point p;
+  p.x = (double)x / 1000.0; // Values are in millimeter.
+  p.y = (double)y / 1000.0;
+  p.z = 0;
+  points.push_back(p);
+}
+
+void DataPointsMarker::set_line(int x1, int y1, int x2, int y2)
+{
+  geometry_msgs::msg::Point p1;
+  geometry_msgs::msg::Point p2;
+  p1.x = (double)x1 / 1000.0; // Values are in millimeter.
+  p1.y = (double)y1 / 1000.0;
+  p1.z = 0;
+  p2.x = (double)x2 / 1000.0;
+  p2.y = (double)y2 / 1000.0;
+  p2.z = 0;
+
+  // Needs two consecutive points to form a line.
+  lines.push_back(p1);
+  lines.push_back(p2);
+}
+
+void DataPointsMarker::get_forbidden_area_information(std::string line, double *dt_theta,
+  double *x1, double *y1, double *x2, double *y2)
+{
+  std::istringstream iss(line);
+  std::string dummy;
+  for (int i = 0; i < 8; i++)
+  {
+    // The first 8 pieces of that line are irrelevant except for the 5th piece which is the angle/orientation of the forbidden area.
+    if (i == 4)
     {
-        // Retrieve the number of points.
-        if (line.find(POINTS_NUM_H) != std::string::npos)
-        {
-            std::istringstream iss(line);
-            iss >> ignore_head;
-            iss >> num_of_points;
-        }
-
-        // Retrieve the number of lines.
-        if (line.find(LINES_NUM_H) != std::string::npos)
-        {
-            std::istringstream iss(line);
-            iss >> ignore_head;
-            iss >> num_of_lines;
-        }
-
-        // We have seen the points data, collect them.
-        if (line.find(POINTS_H) != std::string::npos)
-        {
-            int x, y;
-            for (int i = 0; i < num_of_points; i++)
-            {
-                std::getline(map_file, line);
-                std::istringstream iss(line);
-                if (!(iss >> x >> y)) 
-                    RCLCPP_ERROR(node->get_logger(), "%s - Error reading points from file.", "amr_visualisation");
-                geometry_msgs::msg::Point p;
-                p.x = (double)x / 1000.0; // Values are in millimeter.
-                p.y = (double)y / 1000.0;
-                p.z = 0;
-                points.push_back(p);
-            }
-        }
-
-        // We have seen the lines data, collect them.
-        if (line.find(LINES_H) != std::string::npos)
-        {
-            int x1, y1, x2, y2;
-            for (int i = 0; i < num_of_lines; i++)
-            {
-                std::getline(map_file, line);
-                std::istringstream iss(line);
-                if(!(iss >> x1 >> y1 >> x2 >> y2)) 
-                    RCLCPP_ERROR(node->get_logger(), "%s - Error reading points from file.", "348");
-                geometry_msgs::msg::Point p1;
-                geometry_msgs::msg::Point p2;
-                p1.x = (double)x1 / 1000.0; // Values are in millimeter.
-                p1.y = (double)y1 / 1000.0;
-                p1.z = 0;
-                p2.x = (double)x2 / 1000.0;
-                p2.y = (double)y2 / 1000.0;
-                p2.z = 0;
-                // Needs two consecutive points to form a line.
-                lines.push_back(p1);
-                lines.push_back(p2);
-            }
-        }
-
-        // This line contains forbidden area information, collect them.
-        if (line.find(FA_H) != std::string::npos)
-        {
-            // Read the raw info
-            double x1, y1, x2, y2, dt_theta;
-            std::istringstream iss(line);
-            std::string dummy;
-            for (int i = 0; i < 8; i++)
-            {
-                // The first 8 pieces of that line are irrelevant except for the 5th piece which is the angle/orientation of the forbidden area.
-                if (i == 4)
-                {
-                    iss >> dt_theta;
-                    dt_theta = dt_theta * 0.01745329;
-                }
-                else
-                {
-                    iss >> dummy;
-                }
-            }
-            if (!(iss >> y1 >> x1 >> y2 >> x2)) 
-                RCLCPP_ERROR(node->get_logger(), "%s - Error reading forbidden area from file: %s", 
-                    "Hi", "Bye");
-
-            // Compute the actual forbidden area from the transformed area.
-            // The raw info in the map file is a transformed coordinates of the actual forbidden area.
-            // We transform back to the actual area.
-            double cx = (x1 + x2) / 2000.0; // Centre of transformed X coord.
-            double cy = (y1 + y2) / 2000.0; // Centre of transformed Y coord.
-            double r = sqrt((cx * cx) + (cy * cy)); // Distance from centre of transformed area to origin. Polar coordinates, r component.
-            double theta = atan2(cy, cx); // Polar coordinates, theta component.
-
-            // Get back the centre point of actual forbidden area.
-            double o_theta = theta - dt_theta; 
-            double ocx = r * sin(o_theta);
-            double ocy = r * cos(o_theta);
-            dt_theta -= M_PI_2;
-            
-            // Convert to quaternion
-            geometry_msgs::msg::Quaternion q;
-
-            q = createQuaternionMsgFromYaw(dt_theta);
-
-            // Push to vector that will be published.
-            fa.pose.position.x = ocx;
-            fa.pose.position.y = ocy;
-            fa.pose.orientation = q;
-            fa.scale.x = (x2 - x1) / 1000.0;
-            fa.scale.y = (y2 - y1) / 1000.0;
-            f_areas.markers.push_back(fa);
-            fa.id += 1;
-        }
+      iss >> *dt_theta;
+      *dt_theta *= 0.01745329;
     }
+    else
+    {
+      iss >> dummy;
+    }
+  }
+  if (!(iss >> *y1 >> *x1 >> *y2 >> *x2)) 
+    {
+      RCLCPP_ERROR(this->get_logger(), "%s - Error reading forbidden area from file: %s", 
+        "Hi", "Bye");
+    }
+}
+
+void DataPointsMarker::set_forbidden_area_information(
+  double dt_theta, double x1, double y1, double x2, double y2)
+{
+  // Compute the actual forbidden area from the transformed area.
+  // The raw info in the map file is a transformed coordinates of the actual forbidden area.
+  // We transform back to the actual area.
+  double cx = (x1 + x2) / 2000.0; // Centre of transformed X coord.
+  double cy = (y1 + y2) / 2000.0; // Centre of transformed Y coord.
+  double r = sqrt((cx * cx) + (cy * cy)); // Distance from centre of transformed area to origin. Polar coordinates, r component.
+  double theta = atan2(cy, cx); // Polar coordinates, theta component.
+
+  // Get back the centre point of actual forbidden area.
+  double o_theta = theta - dt_theta; 
+  double ocx = r * sin(o_theta);
+  double ocy = r * cos(o_theta);
+  dt_theta -= M_PI_2;
+    
+  // Convert to quaternion
+  geometry_msgs::msg::Quaternion q;
+
+  q = createQuaternionMsgFromYaw(dt_theta);
+
+  // Push to vector that will be published.
+  fa.pose.position.x = ocx;
+  fa.pose.position.y = ocy;
+  fa.pose.orientation = q;
+  fa.scale.x = (x2 - x1) / 1000.0;
+  fa.scale.y = (y2 - y1) / 1000.0;
+  f_areas.markers.push_back(fa);
+  fa.id += 1;
+}
+
+void DataPointsMarker::set_forbidden_area_params()
+{
+  fa.header.frame_id = "pose";
+  fa.action = visualization_msgs::msg::Marker::ADD;
+  fa.ns = "f_areas";
+  fa.pose.orientation.w = 1.0;
+  fa.pose.position.z = 0;
+  fa.type = visualization_msgs::msg::Marker::CUBE;
+  fa.id = 0;
+  fa.scale.z = 0.25;
+  fa.color.a = 0.5;
+  fa.color.r = 1.0;
+  fa.color.g = 0.0;
+  fa.color.b = 0.0;
+}
+
+bool DataPointsMarker::get_map_data(std::string filename)
+{
+  // Read map file
+  std::string map_path = ament_index_cpp::get_package_share_directory("amr_visualisation") + "/map/" + filename;
+  std::ifstream map_file(map_path);
+
+  if (map_file.fail()) 
+  {
+    return false;
+  }
+
+  int num_of_points = 0;
+  int num_of_lines = 0;
+  std::string line;
+  std::string ignore_head;
+  while (std::getline(map_file, line))
+  {
+    get_points_count(&line, &ignore_head, &num_of_points);
+    get_lines_count(&line, &ignore_head, &num_of_lines);
+
+    // We have seen the points data, collect them.
+    if (line.find(POINTS_H) != std::string::npos)
+    {
+      int x, y;
+      for (int i = 0; i < num_of_points; i++)
+      {
+        std::getline(map_file, line);
+        std::istringstream iss(line);
+        if (!(iss >> x >> y))
+        {
+          RCLCPP_ERROR(this->get_logger(), "%s - Error reading points from file.", "amr_visualisation");
+        }
+        set_point(x, y);
+      }
+    }
+
+    // We have seen the lines data, collect them.
+    if (line.find(LINES_H) != std::string::npos)
+    {
+      int x1, y1, x2, y2;
+      for (int i = 0; i < num_of_lines; i++)
+      {
+        std::getline(map_file, line);
+        std::istringstream iss(line);
+        if(!(iss >> x1 >> y1 >> x2 >> y2))
+        {
+          RCLCPP_ERROR(this->get_logger(), "%s - Error reading points from file.", "348");
+        }
+        set_line(x1, y1, x2, y2);
+      }
+    }
+
+    // This line contains forbidden area information, collect them.
+    if (line.find(FA_H) != std::string::npos)
+    {
+      // Read the raw info
+      double x1, y1, x2, y2, dt_theta;
+      get_forbidden_area_information(line, &dt_theta, &x1, &y1, &x2, &y2);
+      set_forbidden_area_information(dt_theta, x1, y1, x2, x2);
+    }
+  }
     return true;
 }
 
-/**
- * @brief Callback function for subscribing to laser scan values topic.
- * 
- * @param msg Message containing a string of values.
- */
-void laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
+void DataPointsMarker::fill_map()
 {
-    std::string raw_resp = msg->data;
-    std::string::size_type pos = raw_resp.find(rng_device);
-    if (pos != std::string::npos)
-    {
+  for (int i = 0; i < (int) points.size(); i++)
+  {
+    float relx = points[i].x - minx;
+    float rely = points[i].y - miny;
+    rely /= grid.info.resolution;
+    relx /= grid.info.resolution;
 
-        laser_points.points.clear();
-        laser_pub_array.markers.clear();
-        std::string vals_str;
-        try
-        {
-            vals_str = raw_resp.substr(pos + rng_device.length() + 1); // +1 to exclude the following space.
-        }
-        catch(const std::out_of_range& e)
-        {
-            vals_str.clear();
-        }
-        std::istringstream iss(vals_str);
-        double x, y = 0.0;
-        laser_points.points.clear();
-        while (iss >> x >> y)
-        {
-            geometry_msgs::msg::Point p;
-            p.x = x / 1000.0;
-            p.y = y / 1000.0;
-            p.z = 0;
-            laser_points.points.push_back(p);
-        }
-    }
+    // This is 2D array represented by 1D. correct position would be (height_position * width) + width
+    grid.data[int((int(rely)*grid.info.width) + relx)] = 100;
+  }
 }
 
-/**
- * @brief Function for getting minimum and maximum coordinates in point vector
- * 
- * @param points point array where minimum and maximum coordinates are collected from
- * @param minx minimum x coordinate
- * @param maxx maximum x coordinate
- * @param miny minimum y coordinate
- * @param maxy maximum y coordinate
- */
-void get_min_max_coordinates(std::vector<geometry_msgs::msg::Point> points, double* minx, double* maxx, double* miny, double* maxy)
-{    
-    for (int i = 0; i < (int) points.size(); i++)
-    {
-        if (points[i].x < *minx)
-            *minx = points[i].x;
-        if (points[i].x > *maxx)
-            *maxx = points[i].x;
-        if (points[i].y < *miny)
-            *miny = points[i].y;
-        if (points[i].y > *maxy)
-            *maxy = points[i].y;
-    }
+void DataPointsMarker::initialize_map() 
+{
+  for (int i=0; i < int(grid.info.height * grid.info.width); i++) 
+  {
+    grid.data.push_back(-1);
+  }    
 }
 
-/**
- * @brief function for filling in map with point vector
- * 
- * @param grid OccupancyGrid to fill with
- * @param points Point vector used to check if grid should be filled
- * @param minx minimum x coordinate used to set relative positioning
- * @param miny minimum y coordinate used to set relative positioning
- */
-nav_msgs::msg::OccupancyGrid fill_map(nav_msgs::msg::OccupancyGrid grid, std::vector<geometry_msgs::msg::Point> points, double minx, double miny) 
+void DataPointsMarker::set_grid_attributes()
 {
-    for (int i = 0; i < (int) points.size(); i++)
-    {
-        float relx = points[i].x - minx;
-        float rely = points[i].y - miny;
-        rely /= grid.info.resolution;
-        relx /= grid.info.resolution;
+  grid.header.stamp = this->get_clock()->now();
+  grid.info.resolution = 0.02;
+  grid.info.origin.orientation = createQuaternionMsgFromYaw(0);
+  grid.header.frame_id = "/map";
 
-        // This is 2D array represented by 1D. correct position would be (height_position * width) + width
-        grid.data[int((int(rely)*grid.info.width) + relx)] = 100;
-    }
-    return grid;
+  // set starting point of grid to be at minimum coordinates of points
+  geometry_msgs::msg::Point origin;
+  origin.x = minx;
+  origin.y = miny;
+  origin.z = 0;
+  grid.info.origin.position = origin;
+
+  // convert max map size into grids and +1 as int casting rounds down
+  grid.info.width = int((maxx-minx)/grid.info.resolution + 1);
+  grid.info.height = int((maxy-miny)/grid.info.resolution + 1);
 }
 
-/**
- * @brief sets entire OccupancyGrid to -1 for unknown value in grid
- * 
- * @param grid OccupancyGrid to fill with
- */
-nav_msgs::msg::OccupancyGrid initialize_map(nav_msgs::msg::OccupancyGrid grid) 
+int main(int argc, char** argv)
 {
-    for (int i=0; i < int(grid.info.height * grid.info.width); i++) 
-    {
-        grid.data.push_back(-1);
-    }    
-    return grid;
-}
-
-/**
- * @brief sets the necessary attributes in the occupancy grid to show up in RViz
- * 
- * @param grid empty OccupancyGrid variable to fill with
- * @param minx minimum x coordinate
- * @param maxx maximum x coordinate
- * @param miny minimum y coordinate
- * @param maxy maximum y coordinate
- */
-nav_msgs::msg::OccupancyGrid set_grid_attributes(nav_msgs::msg::OccupancyGrid grid, double minx, double maxx, double miny, double maxy)
-{
-    grid.header.stamp = node->get_clock()->now();
-    grid.info.resolution = 0.02;
-    grid.info.origin.orientation = createQuaternionMsgFromYaw(0);
-    grid.header.frame_id = "/map";
-
-    // set starting point of grid to be at minimum coordinates of points
-    geometry_msgs::msg::Point origin;
-    origin.x = minx;
-    origin.y = miny;
-    origin.z = 0;
-    grid.info.origin.position = origin;
-
-    // convert max map size into grids and +1 as int casting rounds down
-    grid.info.width = int((maxx-minx)/grid.info.resolution + 1);
-    grid.info.height = int((maxy-miny)/grid.info.resolution + 1);
-    return grid;
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<DataPointsMarker>());
+  rclcpp::shutdown();
+  return 0;
 }
