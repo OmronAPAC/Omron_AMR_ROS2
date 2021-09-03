@@ -267,6 +267,32 @@ void DataPointsMarker::fill_map()
     // This is 2D array represented by 1D. correct position would be (height_position * width) + width
     grid.data[int((int(rely)*grid.info.width) + relx)] = 100;
   }
+  for (int i = 0; i < (int) lines.size(); i++)
+  {
+    if (i % 2 == 1)
+    {
+      continue;
+    }
+    double vector_x, vector_y, distance;
+    float step_x, step_y;
+    int steps;
+    vector_x = lines[i+1].x - lines[i].x;
+    vector_y = lines[i+1].y - lines[i].y;
+    distance = std::hypot(vector_x, vector_y);
+    steps = distance / grid.info.resolution;
+    step_x = vector_x / steps;
+    step_y = vector_y / steps;
+    for(int j=0; j<steps; j++)
+    {
+      float relx = lines[i].x + (step_x*j) - minx;
+      float rely = lines[i].y + (step_y*j) - miny;
+      rely /= grid.info.resolution;
+      relx /= grid.info.resolution;
+
+      // This is 2D array represented by 1D. correct position would be (height_position * width) + width
+      grid.data[int((int(rely)*grid.info.width) + relx)] = 100;
+    }
+  }
 }
 
 void DataPointsMarker::initialize_map() 
