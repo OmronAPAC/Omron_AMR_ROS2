@@ -3,6 +3,7 @@
 #include "visualization_msgs/msg/marker.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 #include "geometry_msgs/msg/quaternion.hpp"
+#include "geometry_msgs/msg/point.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "tf2_ros/transform_broadcaster.h"
 #include "tf2/LinearMath/Quaternion.h"
@@ -95,7 +96,18 @@ public:
   /** \brief Creates a quaternion msg given only yaw*/
   geometry_msgs::msg::Quaternion createQuaternionMsgFromYaw(double yaw);
 
+  double getYawFromQuaternionMsg(geometry_msgs::msg::Quaternion quaternion);
+
 private:
+  /** \brief checks if a point is within the map array and colours it */
+  void check_and_colour_grid(geometry_msgs::msg::Point coordinate, int occupancy_value);
+
+  /** \brief gets the normal angle of an input angle in radians */
+  double get_normal(double theta);
+
+  /** \brief This function takes in heading in radians and distance and returns the coordinate difference */
+  geometry_msgs::msg::Point get_extrapolated_coordinates(double theta, double distance);
+
   /** \brief gets number of points in map */
   void get_points_count(std::string* line, std::string* ignore_head, int* num_of_points);
 

@@ -26,7 +26,6 @@ DataPointsMarker::DataPointsMarker() : Node("map_publisher")
 
 void DataPointsMarker::timer_callback()
 {
-  fa_pub->publish(f_areas);
   map_pub->publish(grid);
 }
 
@@ -52,6 +51,15 @@ geometry_msgs::msg::Quaternion DataPointsMarker::createQuaternionMsgFromYaw(doub
   gmq.z = sy * cp * cr - cy * sp * sr; //z
 
   return gmq;
+}
+
+double DataPointsMarker::getYawFromQuaternionMsg(geometry_msgs::msg::Quaternion quaternion)
+{
+  double yaw;
+  double varA = +2.0 * ((quaternion.w * quaternion.z) + (quaternion.x * quaternion.y));
+  double varB = +1.0 - 2.0 * ((quaternion.y*quaternion.y) + (quaternion.z*quaternion.z));
+  yaw = std::atan2(varA, varB);
+  return yaw;
 }
 
 void DataPointsMarker::get_min_max_coordinates()
@@ -163,6 +171,7 @@ void DataPointsMarker::set_forbidden_area_information(
   // Convert to quaternion
   geometry_msgs::msg::Quaternion q;
 
+  // q = createQuaternionMsgFromYaw(0.375);
   q = createQuaternionMsgFromYaw(dt_theta);
 
   // Push to vector that will be published.
@@ -255,20 +264,140 @@ bool DataPointsMarker::get_map_data(std::string filename)
     return true;
 }
 
+/** \brief gets the normal angle for calculating width. assumes -180 to +180 degrees from 0 heading */
+double DataPointsMarker::get_normal(double theta)
+{
+  double pi = 3.141592654;
+  if (theta >= pi/2)
+  {
+    theta -= pi/2;
+  }
+  else
+  {
+    theta += pi/2;
+  }
+  return theta;
+}
+
+/** \brief This function takes in heading in radians and distance and returns the coordinate difference */
+geometry_msgs::msg::Point DataPointsMarker::get_extrapolated_coordinates(double theta, double distance)
+{
+  double pi = 3.141592654;
+  // sin and cos functions take in radians
+  geometry_msgs::msg::Point difference;
+  // 0 to 90 degrees
+  if (theta >= 0 && theta <= (pi / 2))
+  {
+    difference.x = distance * cos(theta);
+    difference.y = distance * sin(theta);
+  }
+  // 90 to 180 degrees
+  else if (theta > (pi / 2) && theta <= pi)
+  {
+    difference.x = distance * cos(pi - theta);
+    difference.y = -(distance * sin(pi - theta));
+  }
+  // 0 to -90 degrees
+  else if (theta < 0 && theta >= -(pi / 2))
+  {
+    difference.x = -(distance * cos(theta));
+    difference.y = distance * sin(theta);
+  }
+  // -90 to -180 degrees
+  else if (theta < -(pi / 2) && theta >= -pi)
+  {
+    // assumes that theta is a negative value
+    difference.x = -(distance * cos(theta + pi));
+    difference.y = -(distance * sin(theta + pi));
+  }
+  return difference;
+}
+
+void DataPointsMarker::check_and_colour_grid(geometry_msgs::msg::Point coordinate, int occupancy_value)
+{
+  float relx;
+  float rely;
+  int position_on_grid;
+  relx = coordinate.x - minx;
+  rely = coordinate.y - miny;
+  rely /= grid.info.resolution;
+  relx /= grid.info.resolution;
+
+  // Check if point is within map
+  if (rely <= grid.info.height && relx <= grid.info.width && rely >= 0 && relx >= 0)
+  {
+    // This is 2D array represented by 1D. correct position would be (height_position * width) + width
+    position_on_grid = int((int(rely)*grid.info.width) + relx);
+    grid.data[position_on_grid] = occupancy_value;
+  }
+}
+
 void DataPointsMarker::fill_map()
 {
+  // For each forbidden area, get number of steps on each axis of rectangle
+  for (long unsigned int i=0; i<f_areas.markers.size(); i++)
+  {
+    // Get number of steps to calculate to cover the full length and breadth of forbidden area
+    int step_count_length = (f_areas.markers[i].scale.x / grid.info.resolution) + 1;
+    int step_count_breadth = (f_areas.markers[i].scale.y / grid.info.resolution) + 1;
+    // not sure if this should be radians or degree.
+    double yaw = getYawFromQuaternionMsg(f_areas.markers[i].pose.orientation);
+    // Get the x and y difference in step for length of forbidden area
+    // The resolution here is divided by 2 to increase fidelity of the forbidden area
+    auto step_length = get_extrapolated_coordinates(yaw, grid.info.resolution/2);
+    // Get the x and y difference in step for breadh of forbidden area. The angle this is trigonometrically calculated from
+    // is the normal of the yaw of the original orientation
+    auto step_breadth = get_extrapolated_coordinates(get_normal(yaw), grid.info.resolution/2);
+
+    // Since we have an origin point, begin filling rectangle from origin.
+    // For each row in the forbidden area, get their starting coordinates
+    for (int j=0; j<step_count_breadth; j++)
+    {
+      geometry_msgs::msg::Point starting_position_positive;
+      starting_position_positive.x = f_areas.markers[i].pose.position.x + (step_breadth.x * j);
+      starting_position_positive.y = f_areas.markers[i].pose.position.y + (step_breadth.y * j); 
+
+      geometry_msgs::msg::Point starting_position_negative;
+      starting_position_negative.x = f_areas.markers[i].pose.position.x - (step_breadth.x * j);
+      starting_position_negative.y = f_areas.markers[i].pose.position.y - (step_breadth.y * j); 
+
+      // get the position of every point in a row to check
+      for (int k=0; k<step_count_length; k++)
+      {
+        // Occupancy value here is set to 85 just to distinguish between forbidden areas and actual map obstacles
+        // They should be set to 100 if map is used for path planning
+        geometry_msgs::msg::Point starting_position_positive_positive;
+        starting_position_positive_positive.x = starting_position_positive.x + (step_length.x*k);
+        starting_position_positive_positive.y = starting_position_positive.y + (step_length.y*k);
+        check_and_colour_grid(starting_position_positive_positive, 85);
+        geometry_msgs::msg::Point starting_position_positive_negative;
+        starting_position_positive_negative.x = starting_position_positive.x - (step_length.x*k);
+        starting_position_positive_negative.y = starting_position_positive.y - (step_length.y*k);
+        check_and_colour_grid(starting_position_positive_negative, 85);
+        geometry_msgs::msg::Point starting_position_negative_positive;
+        starting_position_negative_positive.x = starting_position_negative.x + (step_length.x*k);
+        starting_position_negative_positive.y = starting_position_negative.y + (step_length.y*k);
+        check_and_colour_grid(starting_position_negative_positive, 85);
+        geometry_msgs::msg::Point starting_position_negative_negative;
+        starting_position_negative_negative.x = starting_position_negative.x - (step_length.x*k);
+        starting_position_negative_negative.y = starting_position_negative.y - (step_length.y*k);
+        check_and_colour_grid(starting_position_negative_negative, 85);
+      }
+    }
+  }
+
+  // for each point in point vector, convert to relative coordinates compared to grid origin
+  // if point lies within a grid, colour it black
   for (int i = 0; i < (int) points.size(); i++)
   {
-    float relx = points[i].x - minx;
-    float rely = points[i].y - miny;
-    rely /= grid.info.resolution;
-    relx /= grid.info.resolution;
-
-    // This is 2D array represented by 1D. correct position would be (height_position * width) + width
-    grid.data[int((int(rely)*grid.info.width) + relx)] = 100;
+    check_and_colour_grid(points[i], 100);
   }
+
   for (int i = 0; i < (int) lines.size(); i++)
   {
+    // for each 2 points in line vector, convert to relative coordinates compared to grid origin
+    // break each line up into as many points as grid resolution allows
+    // check if points lie within a grid and colour it black
     if (i % 2 == 1)
     {
       continue;
@@ -276,21 +405,23 @@ void DataPointsMarker::fill_map()
     double vector_x, vector_y, distance;
     float step_x, step_y;
     int steps;
+
+    // gets vector from 1 point to another
     vector_x = lines[i+1].x - lines[i].x;
     vector_y = lines[i+1].y - lines[i].y;
+    // calculates magnitude of the vector
     distance = std::hypot(vector_x, vector_y);
+    // break the distance into points based on grid resolution
     steps = distance / grid.info.resolution;
     step_x = vector_x / steps;
     step_y = vector_y / steps;
+    // incrementally checks each point from the start of the line where they lie on the grid
     for(int j=0; j<steps; j++)
     {
-      float relx = lines[i].x + (step_x*j) - minx;
-      float rely = lines[i].y + (step_y*j) - miny;
-      rely /= grid.info.resolution;
-      relx /= grid.info.resolution;
-
-      // This is 2D array represented by 1D. correct position would be (height_position * width) + width
-      grid.data[int((int(rely)*grid.info.width) + relx)] = 100;
+      geometry_msgs::msg::Point step_temp;
+      step_temp.x = lines[i].x + (step_x*j);
+      step_temp.y = lines[i].y + (step_y*j);
+      check_and_colour_grid(step_temp, 100);
     }
   }
 }
