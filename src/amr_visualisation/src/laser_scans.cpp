@@ -2,10 +2,13 @@
 
 LaserScans::LaserScans() : Node("laser_node")
 {
+  using namespace std::chrono_literals;
+
   init_laser_scans();
   laser_scan_pub = this->create_publisher<visualization_msgs::msg::Marker>("visualization_marker", 10);
   laser_data_sub = this->create_subscription<std_msgs::msg::String>(
     "ldarcl_laser", 10, std::bind(&LaserScans::laser_sub_cb, this, std::placeholders::_1));
+  clear_laser_timer = this->create_wall_timer(10000ms, std::bind(&LaserScans::timer_callback, this));
   geometry_msgs::msg::Point p;
   p.x = 0;
   p.y = 0;
@@ -16,6 +19,14 @@ LaserScans::LaserScans() : Node("laser_node")
   }
 }
 
+void LaserScans::timer_callback()
+{
+  laser_points.action = 3;
+  laser_scan_pub->publish(laser_points);
+  laser_points.action = visualization_msgs::msg::Marker::ADD;
+  laser_scan_pub->publish(laser_points);
+}
+
 void LaserScans::laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
 {
   std::string raw_resp = msg->data;
@@ -23,7 +34,7 @@ void LaserScans::laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
   std::string::size_type pos = raw_resp.find(rng_device);
   if (pos != std::string::npos)
   {
-    // laser_points.points.clear();
+    laser_points.points.clear();
     std::string vals_str;
     try
     {
@@ -44,11 +55,10 @@ void LaserScans::populate_laser_scans(std::string vals_str)
 {
     std::istringstream iss(vals_str);
     double x, y = 0.0;
-    int i = 0;
+    laser_points.points.clear();
     while (iss >> x >> y)
     {
-      add_laser_point(x, y, i);
-      i++;
+      add_laser_point(x, y);
     }
 }
 
@@ -59,14 +69,13 @@ void LaserScans::update_laser_points()
   laser_points.action = visualization_msgs::msg::Marker::ADD;
 }
 
-void LaserScans::add_laser_point(double x, double y, int i)
+void LaserScans::add_laser_point(double x, double y)
 {
   geometry_msgs::msg::Point p;
   p.x = x / 1000.0;
   p.y = y / 1000.0;
   p.z = 0;
-  laser_points.points[i].x = x / 1000;
-  laser_points.points[i].y = y / 1000;
+  laser_points.points.push_back(p);
 }
 
 void LaserScans::init_laser_scans()
@@ -84,6 +93,8 @@ void LaserScans::init_laser_scans()
     laser_points.color.r = 0;
     laser_points.color.g = 1;
     laser_points.color.b = 1;
+    laser_points.lifetime.sec = 2;
+    laser_points.lifetime.nanosec = 0;
 }
 
 int main(int argc, char** argv)

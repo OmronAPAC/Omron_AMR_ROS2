@@ -15,6 +15,7 @@
 #include <vector>
 #include <utility>
 #include <memory>
+#include <chrono>
 
 #pragma once
 
@@ -74,10 +75,13 @@ private:
   void init_laser_scans();
 
   /** \brief collects a set of x and y coordinates and adds them to the marker */
-  void add_laser_point(double x, double y, int i);
+  void add_laser_point(double x, double y);
+
+  void timer_callback();
 
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr laser_scan_pub;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr laser_data_sub;
+  rclcpp::TimerBase::SharedPtr clear_laser_timer;
   
   visualization_msgs::msg::Marker laser_points;
 };
