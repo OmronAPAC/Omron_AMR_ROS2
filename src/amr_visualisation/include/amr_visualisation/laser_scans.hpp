@@ -74,7 +74,7 @@ private:
   void init_laser_scans();
 
   /** \brief collects a set of x and y coordinates and adds them to the marker */
-  void add_laser_point(double x, double y);
+  void add_laser_point(double x, double y, int i);
 
   rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr laser_scan_pub;
   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr laser_data_sub;

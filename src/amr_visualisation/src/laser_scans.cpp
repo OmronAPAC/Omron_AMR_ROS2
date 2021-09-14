@@ -6,6 +6,14 @@ LaserScans::LaserScans() : Node("laser_node")
   laser_scan_pub = this->create_publisher<visualization_msgs::msg::Marker>("visualization_marker", 10);
   laser_data_sub = this->create_subscription<std_msgs::msg::String>(
     "ldarcl_laser", 10, std::bind(&LaserScans::laser_sub_cb, this, std::placeholders::_1));
+  geometry_msgs::msg::Point p;
+  p.x = 0;
+  p.y = 0;
+  p.z = 0;
+  for (int i=0; i<455; i++)
+  {
+    laser_points.points.push_back(p);
+  }
 }
 
 void LaserScans::laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
@@ -15,7 +23,7 @@ void LaserScans::laser_sub_cb(const std_msgs::msg::String::SharedPtr msg)
   std::string::size_type pos = raw_resp.find(rng_device);
   if (pos != std::string::npos)
   {
-    laser_points.points.clear();
+    // laser_points.points.clear();
     std::string vals_str;
     try
     {
@@ -36,10 +44,11 @@ void LaserScans::populate_laser_scans(std::string vals_str)
 {
     std::istringstream iss(vals_str);
     double x, y = 0.0;
-    laser_points.points.clear();
+    int i = 0;
     while (iss >> x >> y)
     {
-      add_laser_point(x, y);
+      add_laser_point(x, y, i);
+      i++;
     }
 }
 
@@ -50,13 +59,14 @@ void LaserScans::update_laser_points()
   laser_points.action = visualization_msgs::msg::Marker::ADD;
 }
 
-void LaserScans::add_laser_point(double x, double y)
+void LaserScans::add_laser_point(double x, double y, int i)
 {
   geometry_msgs::msg::Point p;
   p.x = x / 1000.0;
   p.y = y / 1000.0;
   p.z = 0;
-  laser_points.points.push_back(p);
+  laser_points.points[i].x = x / 1000;
+  laser_points.points[i].y = y / 1000;
 }
 
 void LaserScans::init_laser_scans()
