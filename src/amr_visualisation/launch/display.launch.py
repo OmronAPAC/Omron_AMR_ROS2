@@ -19,7 +19,9 @@ def load_file(package_name, file_path):
 
 
 def generate_launch_description():
-    robot_description_config = load_file('amr_visualisation', 'urdf/AMR_Platform.urdf')
+    #robot_description_config = load_file('amr_visualisation', 'urdf/AMR_Platform.urdf')
+    # robot_description_config = load_file('amr_visualisation', 'urdf/LD90.urdf')
+    robot_description_config = load_file('amr_visualisation', 'urdf/LD250.urdf')
     robot_description = {'robot_description' : robot_description_config}
 
     vis_config = get_package_share_directory('amr_visualisation') + "/param/vis_param.yaml"
