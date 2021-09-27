@@ -25,7 +25,9 @@ setup(
             'goto_goal_demo = om_aiv_navigation.goto_goal_demo:main',
             'dock = om_aiv_navigation.dock:main',
             'goto_point = om_aiv_navigation.goto_point:main',
-            'localize_at_point = om_aiv_navigation.localize_at_point:main'
+            'localize_at_point = om_aiv_navigation.localize_at_point:main',
+            'add_obstacle = om_aiv_navigation.add_obstacle:main',
+            'point_add_server = om_aiv_navigation.point_add_server:main',
         ],
     },
 )

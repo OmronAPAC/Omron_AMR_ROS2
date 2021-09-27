@@ -11,14 +11,14 @@
 #include "sensor_msgs/point_cloud2_iterator.hpp"
 #include "geometry_msgs/msg/point.hpp"
 
-class CheckBox : public rclcpp::Node
+class Pcl_Filter : public rclcpp::Node
 {
   public:
-    CheckBox()
-    : Node("CheckBox")
+    Pcl_Filter()
+    : Node("pcl_filter")
     {
       subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-      "cloud_in", 10, std::bind(&CheckBox::topic_callback, this, std::placeholders::_1));
+      "/zed2/zed_node/point_cloud/cloud_registered", 10, std::bind(&Pcl_Filter::topic_callback, this, std::placeholders::_1));
       publisher_ = this->create_publisher<geometry_msgs::msg::Point>("obstacle_point", 10);
     }
 
@@ -26,14 +26,11 @@ class CheckBox : public rclcpp::Node
     void topic_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) const
     {
       float min_bound_x = -0.55;
-      float max_bound_x = 0.55;
-      float min_bound_y = -0.55;
-      float max_bound_y = 1.3;
-      float position_offset_y = 0.35;
-      float position_offset_x = 0;
-      geometry_msgs::msg::Point obstruction;
-      bool has_obstruction = false;
-
+      float min_bound_y = 0.55;
+      float max_bound_x = -0.55;
+      float max_bound_y = 1.2;
+      float min_x = INT_MAX;
+      float min_y = INT_MAX;
       for (sensor_msgs::PointCloud2ConstIterator<float> iter_x(*msg, "x"),
         iter_y(*msg, "y"), iter_z(*msg, "z");
         iter_x != iter_x.end(); ++iter_x, ++iter_y, ++iter_z)
@@ -50,24 +47,22 @@ class CheckBox : public rclcpp::Node
         if (*iter_x >= min_bound_x && *iter_x <= max_bound_x &&
           *iter_y >= min_bound_y && *iter_y <= max_bound_y)
         {
-          // RCLCPP_INFO(this->get_logger(), "coord of bound point is x %f y %f", *iter_x, *iter_y);
-          obstruction.x = *iter_x;
-          obstruction.y = *iter_y;
-          has_obstruction = true;
-          // RCLCPP_INFO(this->get_logger(), "coord of point is x %f y %f", obstruction.x, obstruction.y);
-          break;
+          if (*iter_x < min_x)
+          {
+            min_x = *iter_x;
+          }
+          if (*iter_y < min_y)
+          {
+            min_y = *iter_y;
+          }
+          RCLCPP_INFO(this->get_logger(), "coord of bound point is x %f y %f", *iter_x, *iter_y);
         }
-
       }
-      
-      if (has_obstruction)
-      {
-        RCLCPP_INFO(this->get_logger(), "coord of point is x %f y %f", obstruction.x, obstruction.y);
-        publisher_->publish(obstruction);
-      }
-      // RCLCPP_INFO(this->get_logger(), "Finished a loop");
+      geometry_msgs::msg::Point closest_point;
+      closest_point.x = min_x;
+      closest_point.y = min_y;
+      publisher_->publish(closest_point);
     }
-
     rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
     rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr publisher_;
 };
@@ -75,7 +70,7 @@ class CheckBox : public rclcpp::Node
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<CheckBox>());
+  rclcpp::spin(std::make_shared<Pcl_Filter>());
   rclcpp::shutdown();
   return 0;
 }

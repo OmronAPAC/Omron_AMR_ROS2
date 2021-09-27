@@ -65,6 +65,22 @@ ament_target_dependencies(pcl_filter
   perception_pcl
 )
 
+add_executable(pcl_processing
+  src/pcl_processing.cpp
+)
+
+ament_target_dependencies(pcl_processing
+  rclcpp
+  sensor_msgs
+  pcl_conversions
+  pcl_ros
+  perception_pcl
+)
+
+target_link_libraries(pcl_processing
+  ${Boost_SYSTEM_LIBRARY}  # pcl_conversions requires this
+)
+
 target_link_libraries(pcl_filter
   ${Boost_SYSTEM_LIBRARY}  # pcl_conversions requires this
 )
@@ -87,6 +103,7 @@ ament_target_dependencies(check_box
 install(TARGETS
   pcl_filter
   check_box
+  pcl_processing
   DESTINATION lib/${PROJECT_NAME}
 )
 
