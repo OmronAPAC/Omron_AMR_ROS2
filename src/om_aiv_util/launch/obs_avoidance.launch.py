@@ -36,10 +36,17 @@ def generate_launch_description():
         executable='check_box',
         output='screen'
     )
+    
+    pcl_processing_node = Node(
+        package='pcl_processing',
+        executable='pcl_processing',
+        output='screen'
+    )
 
     return LaunchDescription([
         pcl_filter_node,
         check_box_node,
         add_obstacle_node,
+        # pcl_processing_node,
         # point_add_server_node,
         ])

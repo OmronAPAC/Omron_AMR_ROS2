@@ -26,11 +26,12 @@ class CheckBox : public rclcpp::Node
     void topic_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) const
     {
       float min_bound_x = -0.55;
-      float max_bound_x = 0.55;
+      float max_bound_x = 1.2;
       float min_bound_y = -0.55;
-      float max_bound_y = 1.3;
+      float max_bound_y = 0.55;
       float position_offset_y = 0.35;
       float position_offset_x = 0;
+      float smallest_distance = INT_MAX;
       geometry_msgs::msg::Point obstruction;
       bool has_obstruction = false;
 
@@ -51,11 +52,23 @@ class CheckBox : public rclcpp::Node
           *iter_y >= min_bound_y && *iter_y <= max_bound_y)
         {
           // RCLCPP_INFO(this->get_logger(), "coord of bound point is x %f y %f", *iter_x, *iter_y);
-          obstruction.x = *iter_x;
-          obstruction.y = *iter_y;
-          has_obstruction = true;
-          // RCLCPP_INFO(this->get_logger(), "coord of point is x %f y %f", obstruction.x, obstruction.y);
-          break;
+          // obstruction.x = *iter_x;
+          // obstruction.y = *iter_y;
+          // has_obstruction = true;
+          // // RCLCPP_INFO(this->get_logger(), "coord of point is x %f y %f", obstruction.x, obstruction.y);
+          
+          // break;
+
+          float dist = std::hypot(*iter_x, *iter_y);
+          if (dist < smallest_distance)
+          {
+            // RCLCPP_INFO(this->get_logger(), "dist is %f smallest is %f", dist, smallest_distance);
+            smallest_distance = dist;
+            obstruction.x = *iter_y;
+            obstruction.y = *iter_x;
+            has_obstruction = true;
+            // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", min_x, min_y);
+          }
         }
 
       }

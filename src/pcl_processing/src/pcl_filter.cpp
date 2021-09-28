@@ -9,6 +9,7 @@
 #include <pcl/common/transforms.h>
 #include <pcl/filters/passthrough.h>
 #include "sensor_msgs/point_cloud2_iterator.hpp"
+#include <pcl/filters/statistical_outlier_removal.h>
 
 class Pcl_Filter : public rclcpp::Node
 {
@@ -38,10 +39,10 @@ class Pcl_Filter : public rclcpp::Node
       float max_bound_y = 0.8;
       
       // do rotation on converted pointcloud message
-      float rot = 1.57;
-      Eigen::Affine3f transform_2 = Eigen::Affine3f::Identity();
-      transform_2.rotate(Eigen::AngleAxisf(rot, Eigen::Vector3f(0,0,1)));
-      pcl::transformPointCloud (*temp_cloud, *rotated_cloud, transform_2);  
+      // float rot = 1.57;
+      // Eigen::Affine3f transform_2 = Eigen::Affine3f::Identity();
+      // transform_2.rotate(Eigen::AngleAxisf(rot, Eigen::Vector3f(0,0,1)));
+      // pcl::transformPointCloud (*temp_cloud, *rotated_cloud, transform_2);  
 
       // transform_2 = Eigen::Affine3f::Identity();
       // // transform_2.rotate(Eigen::AngleAxisf(rot, Eigen::Vector3f(0,0,1)));
@@ -51,19 +52,25 @@ class Pcl_Filter : public rclcpp::Node
 
       // filter z-axis for point cloud maximum
       pcl::PassThrough<pcl::PointXYZ> passmax;
-      passmax.setInputCloud(rotated_cloud);
+      passmax.setInputCloud(temp_cloud);
       passmax.setFilterFieldName ("z");
       passmax.setFilterLimits (1.0, 10000);
       passmax.setFilterLimitsNegative (true);
-      passmax.filter (*temp_cloud);
+      passmax.filter (*rotated_cloud);
       // filter z-axis for point cloud minimum
       pcl::PassThrough<pcl::PointXYZ> passmin;
-      passmin.setInputCloud(temp_cloud);
+      passmin.setInputCloud(rotated_cloud);
       passmin.setFilterFieldName ("z");
       passmin.setFilterLimits (-10000, -0.5);
       passmin.setFilterLimitsNegative (true);
-      passmin.filter (*rotated_cloud);
+      passmin.filter (*temp_cloud);
       // convert back to ROS msg to publish
+
+      // pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
+      // sor.setInputCloud (temp_cloud);
+      // sor.setMeanK (50);
+      // sor.setStddevMulThresh (2.0);
+      // sor.filter (*rotated_cloud);
 
       pcl::toROSMsg(*temp_cloud, pub_msg);
       pub_msg.header.frame_id = "map";
