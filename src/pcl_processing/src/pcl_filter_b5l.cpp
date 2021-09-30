@@ -18,7 +18,7 @@ class Pcl_Filter : public rclcpp::Node
     : Node("pcl_filter")
     {
       subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-      "/zed2/zed_node/point_cloud/cloud_registered", 10, std::bind(&Pcl_Filter::topic_callback, this, std::placeholders::_1));
+      "pointcloud2_xyzi", 10, std::bind(&Pcl_Filter::topic_callback, this, std::placeholders::_1));
       publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_in", 10);
     }
 
@@ -32,43 +32,48 @@ class Pcl_Filter : public rclcpp::Node
       pcl::PointCloud<pcl::PointXYZ>::Ptr temp_cloud(new pcl::PointCloud<pcl::PointXYZ>);
       pcl::PointCloud<pcl::PointXYZ>::Ptr rotated_cloud(new pcl::PointCloud<pcl::PointXYZ>);
       pcl::fromPCLPointCloud2(pc,*temp_cloud);
+
+      float min_bound_x = -0.55;
+      float max_bound_x = 0.55;
+      float min_bound_y = -0.55;
+      float max_bound_y = 0.8;
       
       // do rotation on converted pointcloud message
-      // float rot = 1.57;
-      // Eigen::Affine3f transform_2 = Eigen::Affine3f::Identity();
-      // transform_2.rotate(Eigen::AngleAxisf(rot, Eigen::Vector3f(0,0,1)));
-      // pcl::transformPointCloud (*temp_cloud, *rotated_cloud, transform_2);  
+      float rot = 1.57;
+      Eigen::Affine3f transform_2 = Eigen::Affine3f::Identity();
+      transform_2.rotate(Eigen::AngleAxisf(rot, Eigen::Vector3f(0,0,1)));
+      pcl::transformPointCloud (*temp_cloud, *rotated_cloud, transform_2);  
 
-      // transform_2 = Eigen::Affine3f::Identity();
-      // // transform_2.rotate(Eigen::AngleAxisf(rot, Eigen::Vector3f(0,0,1)));
+      transform_2 = Eigen::Affine3f::Identity();
+      transform_2.rotate(Eigen::AngleAxisf(rot, Eigen::Vector3f(0,1,0)));
       // transform_2.rotate(Eigen::AngleAxisf(rot, Eigen::Vector3f(1,1,1)));
-      // pcl::transformPointCloud (*rotated_cloud, *temp_cloud, transform_2);
+      pcl::transformPointCloud (*rotated_cloud, *temp_cloud, transform_2);
       
 
-      // // filter z-axis for point cloud maximum
-      // pcl::PassThrough<pcl::PointXYZ> passmax;
-      // passmax.setInputCloud(temp_cloud);
-      // passmax.setFilterFieldName ("z");
-      // passmax.setFilterLimits (1.0, 10000);
-      // passmax.setFilterLimitsNegative (true);
-      // passmax.filter (*rotated_cloud);
-      // // filter z-axis for point cloud minimum
-      // pcl::PassThrough<pcl::PointXYZ> passmin;
-      // passmin.setInputCloud(rotated_cloud);
-      // passmin.setFilterFieldName ("z");
-      // passmin.setFilterLimits (-10000, -0.5);
-      // passmin.setFilterLimitsNegative (true);
-      // passmin.filter (*temp_cloud);
-      // // convert back to ROS msg to publish
+      // filter z-axis for point cloud maximum
+      pcl::PassThrough<pcl::PointXYZ> passmax;
+      passmax.setInputCloud(temp_cloud);
+      passmax.setFilterFieldName ("z");
+      passmax.setFilterLimits (1.0, 10000);
+      passmax.setFilterLimitsNegative (true);
+      passmax.filter (*rotated_cloud);
+      // filter z-axis for point cloud minimum
+      pcl::PassThrough<pcl::PointXYZ> passmin;
+      passmin.setInputCloud(rotated_cloud);
+      passmin.setFilterFieldName ("z");
+      passmin.setFilterLimits (-10000, -0.5);
+      passmin.setFilterLimitsNegative (true);
+      passmin.filter (*temp_cloud);
+      // convert back to ROS msg to publish
 
       pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
       sor.setInputCloud (temp_cloud);
       sor.setMeanK (50);
-      sor.setStddevMulThresh (2.0);
+      sor.setStddevMulThresh (1.0);
       sor.filter (*rotated_cloud);
 
       pcl::toROSMsg(*rotated_cloud, pub_msg);
-      pub_msg.header.frame_id = "processed_cloud";
+      pub_msg.header.frame_id = "map";
 
       ///////////////////////////////////////////////////////////////////////////////
       ////////////// EXPERIMENTATION ITERATING THROUGH POINT CLOUD //////////////////

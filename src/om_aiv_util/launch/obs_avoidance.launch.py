@@ -13,6 +13,12 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     
+    config = os.path.join(
+        get_package_share_directory('pcl_processing'),
+        'config',
+        'camera_params.yaml'
+        )
+    
     pcl_filter_node = Node(
         package='pcl_processing',
         executable='pcl_filter',
@@ -40,13 +46,23 @@ def generate_launch_description():
     pcl_processing_node = Node(
         package='pcl_processing',
         executable='pcl_processing',
+        parameters = [config],
         output='screen'
+    )
+    
+    points_node = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='point_marker_publisher',
+        output='log',
+        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'main_body', 'obstacle_points']
     )
 
     return LaunchDescription([
-        pcl_filter_node,
-        check_box_node,
+        # pcl_filter_node,
+        # check_box_node,
         add_obstacle_node,
-        # pcl_processing_node,
+        points_node,
+        pcl_processing_node,
         # point_add_server_node,
         ])

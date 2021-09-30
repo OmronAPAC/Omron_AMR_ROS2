@@ -26,9 +26,11 @@ class CheckBox : public rclcpp::Node
     void topic_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) const
     {
       float min_bound_x = -0.55;
-      float max_bound_x = 1.2;
-      float min_bound_y = -0.55;
-      float max_bound_y = 0.55;
+      float max_bound_x = 1.5;
+      float min_bound_y = -0.75;
+      float max_bound_y = 0.75;
+      float min_bound_z = -0.5;
+      float max_bound_z = 1;
       float position_offset_y = 0.35;
       float position_offset_x = 0;
       float smallest_distance = INT_MAX;
@@ -49,7 +51,8 @@ class CheckBox : public rclcpp::Node
         }
 
         if (*iter_x >= min_bound_x && *iter_x <= max_bound_x &&
-          *iter_y >= min_bound_y && *iter_y <= max_bound_y)
+          *iter_y >= min_bound_y && *iter_y <= max_bound_y &&
+          *iter_z >= min_bound_z && *iter_z <= max_bound_z)
         {
           // RCLCPP_INFO(this->get_logger(), "coord of bound point is x %f y %f", *iter_x, *iter_y);
           // obstruction.x = *iter_x;
