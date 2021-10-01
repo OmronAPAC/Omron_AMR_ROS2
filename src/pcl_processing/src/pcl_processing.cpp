@@ -101,13 +101,14 @@ class PclProcessing : public rclcpp::Node
           }
         }
       }
+      // Publishes the filtered cloud for visualization and testing purposes
       cloud_publisher->publish(pub_msg);
       if (!has_obstruction)
       {
         return;
       }
-      // // compensate for camera's position on the robot
-      RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
+      // compensate for camera's position on the robot
+      // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
       obstruction.x += camera_offset_x;
       obstruction.y += camera_offset_y;
       // RCLCPP_INFO(this->get_logger(), "coord of MODIFIED points is x %f y %f", obstruction.x, obstruction.y);
@@ -127,7 +128,7 @@ class PclProcessing : public rclcpp::Node
     float max_bound_z = 1.5;
     float camera_offset_y = 0;
     float camera_offset_x = 0.35;
-    float smallest_distance = INT_MAX;
+    float camera_horizontal_tilt = 0;
 };
 
 int main(int argc, char * argv[])

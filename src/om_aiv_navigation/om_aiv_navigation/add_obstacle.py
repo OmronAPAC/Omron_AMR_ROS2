@@ -14,7 +14,7 @@ ADD_POINT_COMMAND = "customreadingaddlidar "
 GOAL_POSE_TOPIC = "goal_pose"
 
 
-class GotoPoint(Node):
+class AddPoint(Node):
     
     # initializes class as action client to ARCL action server
     def __init__(self):
@@ -80,7 +80,7 @@ class GotoPoint(Node):
     
 def main(args=None):
     rclpy.init(args=args)
-    action_client = GotoPoint()
+    action_client = AddPoint()
     rclpy.spin(action_client)
     
 if __name__ == '__main__':
