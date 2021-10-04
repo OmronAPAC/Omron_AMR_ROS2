@@ -28,6 +28,7 @@ class AddPoint(Node):
     # callback for subscription from pc
     def subscription_callback(self, msg):
         self.publisher.publish(self.init_marker(msg))
+        self.get_logger().info("point of x " + str(msg.x) + " and y " + str(msg.y) + " received")
         if msg.x == 0 and msg.y == 0:
             self.get_logger().info("return")
             return

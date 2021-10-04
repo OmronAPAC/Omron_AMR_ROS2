@@ -12,6 +12,7 @@
 #include <pcl/filters/statistical_outlier_removal.h>
 #include "geometry_msgs/msg/point.hpp"
 #include <string>
+#include "pcl_processing/camera_calibration.hpp"
 
 class PclProcessing : public rclcpp::Node
 {
@@ -26,6 +27,8 @@ class PclProcessing : public rclcpp::Node
         std::bind(&PclProcessing::topic_callback, this, std::placeholders::_1));
       publisher_ = this->create_publisher<geometry_msgs::msg::Point>("obstacle_point", 10);
       cloud_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_in", 10);
+      calibrator = CameraCalibration();
+
       rclcpp::Parameter min_bound_x_param = this->get_parameter("min_bound_x");
       rclcpp::Parameter max_bound_x_param = this->get_parameter("max_bound_x");
       rclcpp::Parameter min_bound_y_param = this->get_parameter("min_bound_y");
@@ -44,7 +47,7 @@ class PclProcessing : public rclcpp::Node
     }
 
   private:
-    void topic_callback(const sensor_msgs::msg::PointCloud2::SharedPtr msg) const
+    void topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg) const
     {
       // RCLCPP_INFO(this->get_logger(), "callback");
 
@@ -89,13 +92,18 @@ class PclProcessing : public rclcpp::Node
           *iter_y >= min_bound_y && *iter_y <= max_bound_y &&
           *iter_z >= min_bound_z && *iter_z <= max_bound_z)
         {
-          float dist = std::hypot(*iter_x, *iter_y);
+          geometry_msgs::msg::Point current_point;
+          current_point.x = *iter_x;
+          current_point.y = *iter_y;
+          current_point = calibrator.TranslateRobotOrigin(current_point, camera_offset_x, camera_offset_y);
+
+          float dist = std::hypot(current_point.x, current_point.y);
           if (dist < smallest_distance)
           {
             // RCLCPP_INFO(this->get_logger(), "dist is %f smallest is %f", dist, smallest_distance);
             smallest_distance = dist;
-            obstruction.x = *iter_x;
-            obstruction.y = *iter_y;
+            obstruction.x = current_point.x;
+            obstruction.y = current_point.y;
             has_obstruction = true;
             // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
           }
@@ -109,16 +117,20 @@ class PclProcessing : public rclcpp::Node
       }
       // compensate for camera's position on the robot
       // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
-      obstruction.x += camera_offset_x;
-      obstruction.y += camera_offset_y;
+      // obstruction.x += camera_offset_x;
+      // obstruction.y += camera_offset_y;
       // RCLCPP_INFO(this->get_logger(), "coord of MODIFIED points is x %f y %f", obstruction.x, obstruction.y);
 
       publisher_->publish(obstruction);
+      // obstruction.x = obstruction.x/2;
+      // obstruction.y = obstruction.y/2;
+      // publisher_->publish(obstruction);
     }
 
     rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
     rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr publisher_;
     rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr cloud_publisher;
+    CameraCalibration calibrator;
 
     float min_bound_x = -0.55;
     float max_bound_x = 1.5;

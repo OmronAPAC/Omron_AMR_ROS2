@@ -53,6 +53,14 @@ include_directories(include
   ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+
+
+set(HEADERS
+  include/pcl_processing/camera_calibration.hpp
+)
+
+add_library(camera_calibration src/camera_calibration.cpp)
+
 add_executable(pcl_filter
   src/pcl_filter.cpp
 )
@@ -75,35 +83,53 @@ ament_target_dependencies(pcl_processing
   pcl_conversions
   pcl_ros
   perception_pcl
+  geometry_msgs
 )
 
 target_link_libraries(pcl_processing
   ${Boost_SYSTEM_LIBRARY}  # pcl_conversions requires this
+  camera_calibration
 )
 
 target_link_libraries(pcl_filter
   ${Boost_SYSTEM_LIBRARY}  # pcl_conversions requires this
 )
 
-add_executable(check_box
-  src/check_box.cpp
-)
+# add_executable(check_box
+#   src/check_box.cpp
+# )
 
-ament_target_dependencies(check_box
-  rclcpp
-  sensor_msgs
-  nav_msgs
-  geometry_msgs
-  pcl_conversions
-  pcl_ros
-  perception_pcl
-  om_aiv_msg
-)
+# ament_target_dependencies(check_box
+#   rclcpp
+#   sensor_msgs
+#   nav_msgs
+#   geometry_msgs
+#   pcl_conversions
+#   pcl_ros
+#   perception_pcl
+#   om_aiv_msg
+# )
+
+# add_executable(camera_calibration
+#   src/camera_calibration.cpp
+# )
+
+# ament_target_dependencies(camera_calibration
+#   rclcpp
+#   sensor_msgs
+#   nav_msgs
+#   geometry_msgs
+#   pcl_conversions
+#   pcl_ros
+#   perception_pcl
+#   om_aiv_msg
+# )
 
 install(TARGETS
   pcl_filter
-  check_box
+  # check_box
   pcl_processing
+  # camera_calibration
   DESTINATION lib/${PROJECT_NAME}
 )
 
