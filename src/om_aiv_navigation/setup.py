@@ -28,6 +28,7 @@ setup(
             'localize_at_point = om_aiv_navigation.localize_at_point:main',
             'add_obstacle = om_aiv_navigation.add_obstacle:main',
             'point_add_server = om_aiv_navigation.point_add_server:main',
+            'quat_to_euler = om_aiv_navigation.quat_to_euler:main',
         ],
     },
 )

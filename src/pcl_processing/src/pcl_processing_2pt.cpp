@@ -1,7 +1,4 @@
 #include <memory>
-#include <string>
-#include <math.h>
-#include <vector>
 
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
@@ -14,6 +11,7 @@
 #include "sensor_msgs/point_cloud2_iterator.hpp"
 #include <pcl/filters/statistical_outlier_removal.h>
 #include "geometry_msgs/msg/point.hpp"
+#include <string>
 #include "pcl_processing/camera_calibration.hpp"
 
 class PclProcessing : public rclcpp::Node
@@ -31,9 +29,6 @@ class PclProcessing : public rclcpp::Node
       cloud_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_in", 10);
       calibrator = CameraCalibration();
 
-      rclcpp::Parameter points_to_add = this->get_parameter("points_to_add");
-      rclcpp::Parameter camera_horizontal_fov = this->get_parameter("camera_horizontal_fov");
-
       rclcpp::Parameter min_bound_x_param = this->get_parameter("min_bound_x");
       rclcpp::Parameter max_bound_x_param = this->get_parameter("max_bound_x");
       rclcpp::Parameter min_bound_y_param = this->get_parameter("min_bound_y");
@@ -49,13 +44,15 @@ class PclProcessing : public rclcpp::Node
       max_bound_y = max_bound_y_param.as_double();
       min_bound_z = min_bound_z_param.as_double();
       max_bound_z = max_bound_z_param.as_double();
-      points_count = points_to_add.as_int();
-      cam_horizontal_fov = camera_horizontal_fov.as_double();
     }
 
   private:
     void topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg) const
     {
+      // RCLCPP_INFO(this->get_logger(), "callback");
+
+      bool has_obstruction = false;
+      
       // this converts the pointcloud2 message into something that pcl can use
       pcl::PCLPointCloud2 pc;
       sensor_msgs::msg::PointCloud2 pub_msg;
@@ -75,18 +72,11 @@ class PclProcessing : public rclcpp::Node
       pub_msg.header.frame_id = "processed_cloud";
 
       // Bounding box and nearest distance checker
-      std::vector<geometry_msgs::msg::Point> obstruction;
-      std::vector<float> smallest_distance;
+      geometry_msgs::msg::Point obstruction;
+      geometry_msgs::msg::Point obs;
+      float smallest_distance = INT_MAX;
+      float small_distance = INT_MAX;
 
-      // Initialize vector sizes
-      for (int i=0; i<points_count; i++){
-        geometry_msgs::msg::Point point;
-        obstruction.push_back(point);
-        float init_max_distance = INT_MAX;
-        smallest_distance.push_back(init_max_distance);
-      }
-
-      // Iterate through each point in point cloud
       for (sensor_msgs::PointCloud2ConstIterator<float> iter_x(pub_msg, "x"),
         iter_y(pub_msg, "y"), iter_z(pub_msg, "z");
         iter_x != iter_x.end(); ++iter_x, ++iter_y, ++iter_z)
@@ -105,40 +95,59 @@ class PclProcessing : public rclcpp::Node
           *iter_y >= min_bound_y && *iter_y <= max_bound_y &&
           *iter_z >= min_bound_z && *iter_z <= max_bound_z)
         {
-          // Convert points to robot centre reference
-          geometry_msgs::msg::Point current_point;
-          current_point.x = *iter_x;
-          current_point.y = *iter_y;
-          current_point = calibrator.TranslateRobotOrigin(current_point, camera_offset_x, camera_offset_y);
+          // check if points are on left or right of front of robot
+          if (*iter_y >= 0){
+            geometry_msgs::msg::Point current_point;
+            current_point.x = *iter_x;
+            current_point.y = *iter_y;
+            current_point = calibrator.TranslateRobotOrigin(current_point, camera_offset_x, camera_offset_y);
 
-          // check which slice points lie in
-          float angle = std::atan2(current_point.y, current_point.x);
-          angle += cam_horizontal_fov / 2;
-          float slice = angle / (cam_horizontal_fov / points_count);
+            float dist = std::hypot(current_point.x, current_point.y);
+            if (dist < smallest_distance)
+            {
+              // RCLCPP_INFO(this->get_logger(), "dist is %f smallest is %f", dist, smallest_distance);
+              smallest_distance = dist;
+              obstruction.x = current_point.x;
+              obstruction.y = current_point.y;
+              has_obstruction = true;
+              // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
+            }
+          }
+          if (*iter_y < 0) {
+            geometry_msgs::msg::Point current_point;
+            current_point.x = *iter_x;
+            current_point.y = *iter_y;
+            current_point = calibrator.TranslateRobotOrigin(current_point, camera_offset_x, camera_offset_y);
 
-          // Adjust closest point in slice, record down coordinates
-          float dist = std::hypot(current_point.x, current_point.y);
-          if (dist < smallest_distance[slice])
-          {
-            // RCLCPP_INFO(this->get_logger(), "dist is %f smallest is %f", dist, smallest_distance);
-            smallest_distance[slice] = dist;
-            obstruction[slice].x = current_point.x;
-            obstruction[slice].y = current_point.y;
-            // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
+            float dist = std::hypot(current_point.x, current_point.y);
+            if (dist < small_distance)
+            {
+              // RCLCPP_INFO(this->get_logger(), "dist is %f smallest is %f", dist, smallest_distance);
+              small_distance = dist;
+              obs.x = current_point.x;
+              obs.y = current_point.y;
+              has_obstruction = true;
+              // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
+            }
           }
         }
       }
       // Publishes the filtered cloud for visualization and testing purposes
       cloud_publisher->publish(pub_msg);
-
+      if (!has_obstruction)
+      {
+        return;
+      }
+      // compensate for camera's position on the robot
       // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
       // RCLCPP_INFO(this->get_logger(), "coord of MODIFIED points is x %f y %f", obstruction.x, obstruction.y);
-      for (int i=0; i < points_count; i++)
+      if (!obstruction.x == 0 && !obstruction.y == 0) 
       {
-        if (smallest_distance[i] != INT_MAX) 
-        {
-          publisher_->publish(obstruction[i]);
-        }
+        publisher_->publish(obstruction);
+      }
+      if (!obs.x == 0 && !obs.y == 0) 
+      {
+        publisher_->publish(obs);
       }
     }
 
@@ -156,8 +165,6 @@ class PclProcessing : public rclcpp::Node
     float camera_offset_y = 0;
     float camera_offset_x = 0.35;
     float camera_horizontal_tilt = 0;
-    float cam_horizontal_fov;
-    int points_count;
 };
 
 int main(int argc, char * argv[])

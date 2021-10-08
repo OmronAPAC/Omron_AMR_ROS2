@@ -6,13 +6,15 @@ pcl_processing:
     camera_height: 0.5
     camera_x_offset: 0.35
     camera_y_offset: 0.0
-    # Value here is in Radians
+    points_to_add: 4               # How many partitions to split the point cloud into
+    # Values here are in Radians
+    camera_horizontal_fov: 1.92    # Camera Point Cloud Horizontal fov
     camera_yaw_offset: 0.0
     # Size of bounding box
     # Note that ZED2 point cloud faces the x-axis,
     # Looking Forward would be increasing distance in the x-axis
     min_bound_x: -0.55
-    max_bound_x: 1.2
+    max_bound_x: 2.0
     min_bound_y: -0.75
     max_bound_y: 0.75
     min_bound_z: -0.35
