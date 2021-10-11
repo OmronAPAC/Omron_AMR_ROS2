@@ -28,18 +28,18 @@ class AddPoint(Node):
     # callback for subscription from pc
     def subscription_callback(self, msg):
         self.publisher.publish(self.init_marker(msg))
-        # self.get_logger().info("point of x " + str(msg.x) + " and y " + str(msg.y) + " received")
-        # if msg.x == 0 and msg.y == 0:
-        #     self.get_logger().info("return")
-        #     return
-        # if not self.free:
-        #     self.get_logger().info("service not free")
-        #     return
-        # self.free = False
-        # forward = int(msg.x * 1000)
-        # horizontal = int(msg.y * 1000)
-        # obstacle_position = str(forward) + " " + str(horizontal)        
-        # self.send_goto_point(obstacle_position)
+        self.get_logger().info("point of x " + str(msg.x) + " and y " + str(msg.y) + " received")
+        if msg.x == 0 and msg.y == 0:
+            self.get_logger().info("return")
+            return
+        if not self.free:
+            self.get_logger().info("service not free")
+            return
+        self.free = False
+        forward = int(msg.x * 1000)
+        horizontal = int(msg.y * 1000)
+        obstacle_position = str(forward) + " " + str(horizontal)        
+        self.send_goto_point(obstacle_position)
     
     def send_goto_point(self, coords):
         command = ADD_POINT_COMMAND + coords
@@ -74,9 +74,9 @@ class AddPoint(Node):
         marker.pose.position.y = marker.pose.position.y
         marker.id = self.id
         self.id += 1
-        if self.id > 100:
+        if self.id > 1000:
             self.id = 0
-        marker.lifetime.sec = 8
+        marker.lifetime.sec = 30
         return marker
     
 def main(args=None):
