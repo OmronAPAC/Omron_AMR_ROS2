@@ -57,6 +57,7 @@ include_directories(include
 
 set(HEADERS
   include/pcl_processing/camera_calibration.hpp
+  include/pcl_processing/pcl_processing.hpp
 )
 
 add_library(camera_calibration src/camera_calibration.cpp)
