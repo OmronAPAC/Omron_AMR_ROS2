@@ -9,9 +9,8 @@ from om_aiv_msg.action import Action
 from om_aiv_msg.srv import ArclApi
 from geometry_msgs.msg import Point
 from visualization_msgs.msg import Marker
-from om_aiv_msg.msg import Status
 
-ADD_POINT_COMMAND = "customreadingaddabsolutelidar "
+ADD_POINT_COMMAND = "customreadingaddlidar "
 GOAL_POSE_TOPIC = "goal_pose"
 
 
@@ -22,15 +21,9 @@ class AddPoint(Node):
         super().__init__("add_point_client")
         self.client = self.create_client(ArclApi, 'arcl_api_service')
         self.subscription = self.create_subscription(Point, 'obstacle_point', self.subscription_callback, 10)
-        self.subscription = self.create_subscription(Status, 'ldarcl_status', self.location_callback, 10)
         self.publisher = self.create_publisher(Marker, 'obs_points', 10)
         self.id = 0
         self.free = True
-        
-    def location_callback(self, msg):
-        self.location_x = msg.location.x
-        self.location_y = msg.location.y
-        self.theta = msg.location.theta
         
     # callback for subscription from pc
     def subscription_callback(self, msg):
