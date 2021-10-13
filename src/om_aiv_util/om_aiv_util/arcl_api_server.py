@@ -23,7 +23,6 @@ def custom_spin(arcl_service):
         rclpy.shutdown()
 
 
-
 class ArclApiService(Node):
     def __init__(self):
         super().__init__('arcl_api_server')
