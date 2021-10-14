@@ -9,7 +9,6 @@ from om_aiv_msg.action import Action
 from om_aiv_msg.srv import ArclApi
 from geometry_msgs.msg import Point
 from visualization_msgs.msg import Marker
-from om_aiv_msg.msg import Status
 
 ADD_POINT_COMMAND = "customreadingaddabsolutelidar "
 GOAL_POSE_TOPIC = "goal_pose"
@@ -22,31 +21,25 @@ class AddPoint(Node):
         super().__init__("add_point_client")
         self.client = self.create_client(ArclApi, 'arcl_api_service')
         self.subscription = self.create_subscription(Point, 'obstacle_point', self.subscription_callback, 10)
-        self.subscription = self.create_subscription(Status, 'ldarcl_status', self.location_callback, 10)
         self.publisher = self.create_publisher(Marker, 'obs_points', 10)
         self.id = 0
         self.free = True
-        
-    def location_callback(self, msg):
-        self.location_x = msg.location.x
-        self.location_y = msg.location.y
-        self.theta = msg.location.theta
         
     # callback for subscription from pc
     def subscription_callback(self, msg):
         self.publisher.publish(self.init_marker(msg))
         self.get_logger().info("point of x " + str(msg.x) + " and y " + str(msg.y) + " received")
-        if msg.x == 0 and msg.y == 0:
-            self.get_logger().info("return")
-            return
-        if not self.free:
-            self.get_logger().info("service not free")
-            return
-        self.free = False
-        forward = int(msg.x * 1000)
-        horizontal = int(msg.y * 1000)
-        obstacle_position = str(forward) + " " + str(horizontal)        
-        self.send_goto_point(obstacle_position)
+        # if msg.x == 0 and msg.y == 0:
+        #     self.get_logger().info("return")
+        #     return
+        # if not self.free:
+        #     self.get_logger().info("service not free")
+        #     return
+        # self.free = False
+        # x_coord = int(msg.x * 1000)
+        # y_coord = int(msg.y * 1000)
+        # obstacle_position = str(x_coord) + " " + str(y_coord)
+        # self.send_goto_point(obstacle_position)
     
     def send_goto_point(self, coords):
         command = ADD_POINT_COMMAND + coords
@@ -83,7 +76,7 @@ class AddPoint(Node):
         self.id += 1
         if self.id > 1000:
             self.id = 0
-        marker.lifetime.sec = 30
+        marker.lifetime.sec = 8
         return marker
     
 def main(args=None):

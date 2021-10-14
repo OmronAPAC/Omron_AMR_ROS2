@@ -10,7 +10,7 @@ pcl_processing:
     camera_y_offset: 0.0
     points_to_add: 3               # How many partitions to split the point cloud into
     # Values here are in Radians
-    camera_horizontal_fov: 1.92    # camera point cloud horizontal FoV
+    camera_horizontal_fov: 2.0944    # camera point cloud horizontal FoV
     camera_yaw_offset: 0.0
     # Size of bounding box
     # Note that ZED2 point cloud faces the x-axis,

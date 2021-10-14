@@ -346,7 +346,7 @@ class ObstacleCheck : public rclcpp::Node
     }
 
     /** \brief This function takes in heading in radians and distance and returns the coordinate difference */
-    geometry_msgs::msg::Point get_extrapolated_coordinates(double theta, double distance)
+    geometry_msgs::msg::Point PclProcessing::get_extrapolated_coordinates(double theta, double distance)
     {
       // sin and cos functions take in radians
       geometry_msgs::msg::Point difference;

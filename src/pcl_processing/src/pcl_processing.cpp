@@ -34,8 +34,17 @@ PclProcessing::PclProcessing()
 
   subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(camera_topic, 10, 
     std::bind(&PclProcessing::topic_callback, this, std::placeholders::_1));
+  status_sub = this->create_subscription<om_aiv_msg::msg::Status>("ldarcl_status", 10, 
+    std::bind(&PclProcessing::status_callback, this, std::placeholders::_1));
   publisher_ = this->create_publisher<geometry_msgs::msg::Point>("obstacle_point", 10);
   cloud_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_in", 10);
+}
+
+void PclProcessing::status_callback(om_aiv_msg::msg::Status::SharedPtr msg)
+{
+  odom_pos_x = msg->location.x / 1000;
+  odom_pos_y = msg->location.y / 1000;
+  theta = msg->location.theta / RADIAN_CONST;
 }
 
 void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
@@ -117,11 +126,73 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   // RCLCPP_INFO(this->get_logger(), "coord of MODIFIED points is x %f y %f", obstruction.x, obstruction.y);
   for (int i=0; i < points_count; i++)
   {
+    auto world_obstacle = convert_world_coord(obstruction[i]);
     if (smallest_distance[i] != INT_MAX) 
     {
-      publisher_->publish(obstruction[i]);
+      publisher_->publish(world_obstacle);
     }
   }
+}
+
+geometry_msgs::msg::Point PclProcessing::convert_world_coord(geometry_msgs::msg::Point current_point)
+{
+  float hypot = std::hypot(current_point.x, current_point.y);
+  float angle = std::atan(std::abs(current_point.y) / std::abs(current_point.x));
+  RCLCPP_INFO(this->get_logger(), "angle is %f", angle);
+  float combined_angle;
+
+  // Conditional to add angle
+  if(current_point.y>=0)
+  {
+    combined_angle = theta + angle;
+  } // Conditional to subtract angle
+  else if (current_point.y<0)
+  {
+    combined_angle = theta - angle;
+  }
+  RCLCPP_INFO(this->get_logger(), "combined angle is %f", combined_angle);
+
+  auto difference = get_world_base_coord(combined_angle, hypot);
+  difference.x += odom_pos_x;
+  difference.y += odom_pos_y;
+
+  return difference;
+}
+
+/** \brief This function takes in heading in radians and distance and returns the coordinate relative position to the robot */
+geometry_msgs::msg::Point PclProcessing::get_world_base_coord(double theta, double distance)
+{
+  // sin and cos functions take in radians
+  geometry_msgs::msg::Point rel_pos;
+  // 0 to 90 degrees
+  if (theta >= 0 && theta <= (PI / 2))
+  {
+    rel_pos.x = distance * cos(theta);
+    rel_pos.y = distance * sin(theta);
+    RCLCPP_INFO(this->get_logger(), "0 to 90 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
+  }
+  // 90 to 180 degrees
+  else if (theta > (PI / 2) && theta <= PI)
+  {
+    rel_pos.x = distance * cos(PI - theta);
+    rel_pos.y = -(distance * sin(PI - theta));
+    RCLCPP_INFO(this->get_logger(), "90 to 180 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
+  }
+  // 0 to -90 degrees
+  else if (theta < 0 && theta >= -(PI / 2))
+  {
+    rel_pos.x = distance * cos(-theta);
+    rel_pos.y = -(distance * sin(-theta));
+    RCLCPP_INFO(this->get_logger(), "0 to -90 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
+  }
+  // -90 to -180 degrees
+  else if (theta < -(PI / 2) && theta >= -PI)
+  {
+    // assumes that theta is a negative value
+    rel_pos.x = -(distance * cos(theta + PI));
+    rel_pos.y = -(distance * sin(theta + PI));
+  }
+  return rel_pos;
 }
 
 // check which slice points lie in

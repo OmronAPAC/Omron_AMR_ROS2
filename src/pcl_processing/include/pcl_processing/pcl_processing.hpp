@@ -14,6 +14,7 @@
 #include "sensor_msgs/point_cloud2_iterator.hpp"
 #include <pcl/filters/statistical_outlier_removal.h>
 #include "geometry_msgs/msg/point.hpp"
+#include "om_aiv_msg/msg/status.hpp"
 
 #include "pcl_processing/camera_calibration.hpp"
 
@@ -31,11 +32,18 @@ private:
   /** \brief topic callback for pointcloud data*/
   void topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
+  void status_callback(om_aiv_msg::msg::Status::SharedPtr msg);
+
   /** \brief checks which partition of the horizontal */
   float check_slice(geometry_msgs::msg::Point current_point);
 
+  geometry_msgs::msg::Point convert_world_coord(geometry_msgs::msg::Point current_point);
+
+  /** \brief This function takes in heading in radians and distance and returns the coordinate relative position to the robot */
+  geometry_msgs::msg::Point get_world_base_coord(double theta, double distance);
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
+  rclcpp::Subscription<om_aiv_msg::msg::Status>::SharedPtr status_sub;
   rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr publisher_;
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr cloud_publisher;
   CameraCalibration calibrator;
@@ -50,5 +58,12 @@ private:
   float camera_offset_x = 0.35;
   float camera_horizontal_tilt = 0;
   float cam_horizontal_fov;
+  float odom_pos_x;
+  float odom_pos_y;
+  // Theta is the robot heading based off the x axis, counter clockwise gives positive value
+  float theta;
   int points_count;
+
+  float PI = 3.141592654;
+  float RADIAN_CONST = 57.2958;
 };

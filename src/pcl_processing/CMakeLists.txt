@@ -85,6 +85,7 @@ ament_target_dependencies(pcl_processing
   pcl_ros
   perception_pcl
   geometry_msgs
+  om_aiv_msg
 )
 
 target_link_libraries(pcl_processing
