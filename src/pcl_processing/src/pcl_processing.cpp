@@ -199,13 +199,36 @@ geometry_msgs::msg::Point PclProcessing::convert_world_coord(geometry_msgs::msg:
   float combined_angle;
 
   // Conditional to add angle
-  if(current_point.y>=0)
+  if (current_point.x>=0)
   {
-    combined_angle = theta + angle;
-  } // Conditional to subtract angle
-  else if (current_point.y<0)
+    if(current_point.y>=0)
+    {
+      combined_angle = theta + angle;
+    } // Conditional to subtract angle
+    else if (current_point.y<0)
+    {
+      combined_angle = theta - angle;
+    }
+  }
+  else if (current_point.x<0)
   {
-    combined_angle = theta - angle;
+    float neg_theta;
+    if (theta >= 0)
+    {
+      neg_theta = -PI + theta
+    }
+    else if (theta < 0)
+    {
+      neg_theta = -PI + theta
+    }
+    if(current_point.y>=0)
+    {
+      combined_angle = neg_theta - angle;
+    } // Conditional to subtract angle
+    else if (current_point.y<0)
+    {
+      combined_angle = neg_theta + angle;
+    }
   }
   // RCLCPP_INFO(this->get_logger(), "combined angle is %f", combined_angle);
 
