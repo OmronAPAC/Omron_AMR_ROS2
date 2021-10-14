@@ -9,18 +9,20 @@ PclProcessing::PclProcessing()
 {
   calibrator = CameraCalibration();
 
+  // get parameter from yaml file
   rclcpp::Parameter points_to_add = this->get_parameter("points_to_add");
   rclcpp::Parameter camera_horizontal_fov = this->get_parameter("camera_horizontal_fov");
-
   rclcpp::Parameter min_bound_x_param = this->get_parameter("min_bound_x");
   rclcpp::Parameter max_bound_x_param = this->get_parameter("max_bound_x");
   rclcpp::Parameter min_bound_y_param = this->get_parameter("min_bound_y");
   rclcpp::Parameter max_bound_y_param = this->get_parameter("max_bound_y");
   rclcpp::Parameter min_bound_z_param = this->get_parameter("min_bound_z");
   rclcpp::Parameter max_bound_z_param = this->get_parameter("max_bound_z");
-  rclcpp::Parameter camera_offset_x = this->get_parameter("camera_x_offset");
-  rclcpp::Parameter camera_offset_y = this->get_parameter("camera_y_offset");
+  rclcpp::Parameter camera_offset_x_param = this->get_parameter("camera_x_offset");
+  rclcpp::Parameter camera_offset_y_param = this->get_parameter("camera_y_offset");
   rclcpp::Parameter camera_topic_param = this->get_parameter("camera_topic");
+  rclcpp::Parameter decay_time_param = this->get_parameter("decay_time");
+  rclcpp::Parameter distance_threshold_param = this->get_parameter("distance_threshold");
 
   min_bound_x = min_bound_x_param.as_double();
   max_bound_x = max_bound_x_param.as_double();
@@ -28,16 +30,28 @@ PclProcessing::PclProcessing()
   max_bound_y = max_bound_y_param.as_double();
   min_bound_z = min_bound_z_param.as_double();
   max_bound_z = max_bound_z_param.as_double();
+  camera_offset_x = camera_offset_x_param.as_double();
+  camera_offset_y = camera_offset_y_param.as_double();
+  decay_time = decay_time_param.as_double();
   points_count = points_to_add.as_int();
+  distance_threshold = distance_threshold_param.as_double();
   cam_horizontal_fov = camera_horizontal_fov.as_double();
   std::string camera_topic = camera_topic_param.as_string();
 
+  // Initialize publisher and subscriber
   subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(camera_topic, 10, 
     std::bind(&PclProcessing::topic_callback, this, std::placeholders::_1));
   status_sub = this->create_subscription<om_aiv_msg::msg::Status>("ldarcl_status", 10, 
     std::bind(&PclProcessing::status_callback, this, std::placeholders::_1));
   publisher_ = this->create_publisher<geometry_msgs::msg::Point>("obstacle_point", 10);
   cloud_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_in", 10);
+
+  // Initialize point history vector
+  history_iter = 0;
+  for (int i=0; i<decay_time*points_count; i++) {
+    geometry_msgs::msg::PoseStamped temp;
+    history.push_back(temp);
+  }
 }
 
 void PclProcessing::status_callback(om_aiv_msg::msg::Status::SharedPtr msg)
@@ -127,18 +141,61 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   for (int i=0; i < points_count; i++)
   {
     auto world_obstacle = convert_world_coord(obstruction[i]);
-    if (smallest_distance[i] != INT_MAX) 
+    bool is_nearby = check_recency_and_proximity(world_obstacle);
+    if (!is_nearby)
     {
-      publisher_->publish(world_obstacle);
+      if (smallest_distance[i] != INT_MAX) 
+      {
+        add_point_to_history(world_obstacle);
+        publisher_->publish(world_obstacle);
+      }
     }
   }
+}
+
+void PclProcessing::add_point_to_history(geometry_msgs::msg::Point current_point)
+{
+  history[history_iter].header.stamp.sec = this->get_clock()->now().seconds();
+  history[history_iter].pose.position.x = current_point.x;
+  history[history_iter].pose.position.y = current_point.y;
+  history_iter += 1;
+  if (history_iter >= int(decay_time*points_count))
+  {
+    history_iter = 0;
+  }
+}
+
+bool PclProcessing::check_recency_and_proximity(geometry_msgs::msg::Point current_point)
+{
+  bool is_nearby = false;
+  for (int i=0; i<decay_time*points_count; i++)
+  {
+    // If a point is at origin, pass
+    if (history[i].pose.position.x == 0 && history[i].pose.position.y == 0)
+    {
+      continue;
+    }
+    // Check if difference between node time and stamp is more than decay time
+    if (this->get_clock()->now().seconds() - history[i].header.stamp.sec < decay_time)
+    {
+      // Check if current point is nearby any point
+      float x_diff = history[i].pose.position.x - current_point.x;
+      float y_diff = history[i].pose.position.y - current_point.y;
+      float distance = std::hypot(x_diff, y_diff);
+      if (distance < distance_threshold)
+      {
+        is_nearby = true;
+      }
+    }
+  }
+  return is_nearby;
 }
 
 geometry_msgs::msg::Point PclProcessing::convert_world_coord(geometry_msgs::msg::Point current_point)
 {
   float hypot = std::hypot(current_point.x, current_point.y);
   float angle = std::atan(std::abs(current_point.y) / std::abs(current_point.x));
-  RCLCPP_INFO(this->get_logger(), "angle is %f", angle);
+  // RCLCPP_INFO(this->get_logger(), "angle is %f", angle);
   float combined_angle;
 
   // Conditional to add angle
@@ -150,7 +207,7 @@ geometry_msgs::msg::Point PclProcessing::convert_world_coord(geometry_msgs::msg:
   {
     combined_angle = theta - angle;
   }
-  RCLCPP_INFO(this->get_logger(), "combined angle is %f", combined_angle);
+  // RCLCPP_INFO(this->get_logger(), "combined angle is %f", combined_angle);
 
   auto difference = get_world_base_coord(combined_angle, hypot);
   difference.x += odom_pos_x;
@@ -169,21 +226,21 @@ geometry_msgs::msg::Point PclProcessing::get_world_base_coord(double theta, doub
   {
     rel_pos.x = distance * cos(theta);
     rel_pos.y = distance * sin(theta);
-    RCLCPP_INFO(this->get_logger(), "0 to 90 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
+    // RCLCPP_INFO(this->get_logger(), "0 to 90 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
   }
   // 90 to 180 degrees
   else if (theta > (PI / 2) && theta <= PI)
   {
     rel_pos.x = distance * cos(PI - theta);
     rel_pos.y = -(distance * sin(PI - theta));
-    RCLCPP_INFO(this->get_logger(), "90 to 180 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
+    // RCLCPP_INFO(this->get_logger(), "90 to 180 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
   }
   // 0 to -90 degrees
   else if (theta < 0 && theta >= -(PI / 2))
   {
     rel_pos.x = distance * cos(-theta);
     rel_pos.y = -(distance * sin(-theta));
-    RCLCPP_INFO(this->get_logger(), "0 to -90 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
+    // RCLCPP_INFO(this->get_logger(), "0 to -90 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
   }
   // -90 to -180 degrees
   else if (theta < -(PI / 2) && theta >= -PI)

@@ -5,15 +5,16 @@
 
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/point_cloud2.hpp"
+#include "sensor_msgs/point_cloud2_iterator.hpp"
 #include "pcl_conversions/pcl_conversions.h"
 #include <pcl/PCLPointCloud2.h>
 #include <pcl/point_types.h>
 #include <pcl/features/normal_3d.h>
 #include <pcl/common/transforms.h>
 #include <pcl/filters/passthrough.h>
-#include "sensor_msgs/point_cloud2_iterator.hpp"
 #include <pcl/filters/statistical_outlier_removal.h>
 #include "geometry_msgs/msg/point.hpp"
+#include "geometry_msgs/msg/pose_stamped.hpp"
 #include "om_aiv_msg/msg/status.hpp"
 
 #include "pcl_processing/camera_calibration.hpp"
@@ -42,6 +43,11 @@ private:
   /** \brief This function takes in heading in radians and distance and returns the coordinate relative position to the robot */
   geometry_msgs::msg::Point get_world_base_coord(double theta, double distance);
 
+  bool check_recency_and_proximity(geometry_msgs::msg::Point current_point);
+
+  void add_point_to_history(geometry_msgs::msg::Point current_point);
+
+
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
   rclcpp::Subscription<om_aiv_msg::msg::Status>::SharedPtr status_sub;
   rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr publisher_;
@@ -60,6 +66,10 @@ private:
   float cam_horizontal_fov;
   float odom_pos_x;
   float odom_pos_y;
+  float decay_time;
+  std::vector<geometry_msgs::msg::PoseStamped> history;
+  int history_iter;
+  float distance_threshold;
   // Theta is the robot heading based off the x axis, counter clockwise gives positive value
   float theta;
   int points_count;
