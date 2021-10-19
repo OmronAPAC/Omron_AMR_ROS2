@@ -95,11 +95,18 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
     smallest_distance.push_back(init_max_distance);
   }
 
+  int skip = 0;
+
   // Iterate through each point in point cloud
   for (sensor_msgs::PointCloud2ConstIterator<float> iter_x(pub_msg, "x"),
     iter_y(pub_msg, "y"), iter_z(pub_msg, "z");
     iter_x != iter_x.end(); ++iter_x, ++iter_y, ++iter_z)
   {
+    skip += 1;
+    if (skip % 2 == 1)
+    {
+      continue;
+    }
     if (std::isnan(*iter_x) || std::isnan(*iter_y) || std::isnan(*iter_z)) 
     {
       RCLCPP_DEBUG(
@@ -144,9 +151,9 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   {
     auto world_obstacle = convert_world_coord(obstruction[i]);
     bool is_nearby = check_recency_and_proximity(world_obstacle);
-    if (!is_nearby)
+    if (!is_nearby && smallest_distance[i] != INT_MAX)
     {
-      if (smallest_distance[i] != INT_MAX) 
+      if (world_obstacle.x != odom_pos_x && world_obstacle.y != odom_pos_y ) 
       {
         add_point_to_history(world_obstacle);
         publisher_->publish(world_obstacle);
@@ -178,7 +185,7 @@ bool PclProcessing::check_recency_and_proximity(geometry_msgs::msg::Point curren
       continue;
     }
     // Check if difference between node time and stamp is more than decay time
-    if (this->get_clock()->now().seconds() - history[i].header.stamp.sec < decay_time)
+    if (this->get_clock()->now().seconds() - history[i].header.stamp.sec < decay_time/2)
     {
       // Check if current point is nearby any point
       float x_diff = history[i].pose.position.x - current_point.x;
@@ -233,8 +240,20 @@ geometry_msgs::msg::Point PclProcessing::convert_world_coord(geometry_msgs::msg:
     }
   }
   // RCLCPP_INFO(this->get_logger(), "combined angle is %f", combined_angle);
+  // normalize angle
+  if (combined_angle < -PI)
+  {
+    combined_angle += 2 * PI;
+  }
+  else if (combined_angle > PI)
+  {
+    combined_angle -= 2 * PI;
+  }
 
   auto difference = get_world_base_coord(combined_angle, hypot);
+
+  // RCLCPP_INFO(this->get_logger(), "current point is x %f y %f, theta is %f", current_point.x, current_point.y,theta);
+  // RCLCPP_INFO(this->get_logger(), "coord diff is x %f y %f", difference.x, difference.y);
   difference.x += odom_pos_x;
   difference.y += odom_pos_y;
 

@@ -18,7 +18,7 @@ pcl_processing:
     # Note that ZED2 point cloud faces the x-axis,
     # Looking Forward would be increasing distance in the x-axis
     min_bound_x: -0.55
-    max_bound_x: 2.5
+    max_bound_x: 3.0
     min_bound_y: -0.75
     max_bound_y: 0.75
     min_bound_z: -0.35
