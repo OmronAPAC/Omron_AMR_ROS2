@@ -28,25 +28,25 @@ class AddPoint(Node):
     # callback for subscription from pc
     def subscription_callback(self, msg):
         self.publisher.publish(self.init_marker(msg))
-        self.get_logger().info("point of x " + str(msg.x) + " and y " + str(msg.y) + " received")
-        # if msg.x == 0 and msg.y == 0:
-        #     self.get_logger().info("return")
-        #     return
-        # if not self.free:
-        #     self.get_logger().info("service not free")
-        #     return
-        # self.free = False
-        # x_coord = int(msg.x * 1000)
-        # y_coord = int(msg.y * 1000)
-        # obstacle_position = str(x_coord) + " " + str(y_coord)
-        # self.send_goto_point(obstacle_position)
+        # self.get_logger().info("point of x " + str(msg.x) + " and y " + str(msg.y) + " received")
+        if msg.x == 0 and msg.y == 0:
+            self.get_logger().info("return")
+            return
+        if not self.free:
+            self.get_logger().info("service not free")
+            return
+        self.free = False
+        x_coord = int(msg.x * 1000)
+        y_coord = int(msg.y * 1000)
+        obstacle_position = str(x_coord) + " " + str(y_coord)
+        self.send_goto_point(obstacle_position)
     
     def send_goto_point(self, coords):
         command = ADD_POINT_COMMAND + coords
         self.client.wait_for_service()
         goal = ArclApi.Request()
         goal.command = command
-        goal.line_identifier = "Added reading"
+        goal.line_identifier = "Added absolute reading"
 
         self._future = self.client.call_async(goal)
         self._future.add_done_callback(self.response_callback)

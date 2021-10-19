@@ -55,7 +55,7 @@ def generate_launch_description():
         executable='static_transform_publisher',
         name='point_marker_publisher',
         output='log',
-        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'main_body', 'obstacle_points']
+        arguments=['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', 'map', 'obstacle_points']
     )
 
     return LaunchDescription([

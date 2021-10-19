@@ -59,6 +59,8 @@ void PclProcessing::status_callback(om_aiv_msg::msg::Status::SharedPtr msg)
   odom_pos_x = msg->location.x / 1000;
   odom_pos_y = msg->location.y / 1000;
   theta = msg->location.theta / RADIAN_CONST;
+
+  // RCLCPP_INFO(this->get_logger(), "coord of odom points is x %f y %f theta %f", odom_pos_x, odom_pos_y, theta);
 }
 
 void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
@@ -215,11 +217,11 @@ geometry_msgs::msg::Point PclProcessing::convert_world_coord(geometry_msgs::msg:
     float neg_theta;
     if (theta >= 0)
     {
-      neg_theta = -PI + theta
+      neg_theta = -PI + theta;
     }
     else if (theta < 0)
     {
-      neg_theta = -PI + theta
+      neg_theta = PI + theta;
     }
     if(current_point.y>=0)
     {
@@ -254,8 +256,8 @@ geometry_msgs::msg::Point PclProcessing::get_world_base_coord(double theta, doub
   // 90 to 180 degrees
   else if (theta > (PI / 2) && theta <= PI)
   {
-    rel_pos.x = distance * cos(PI - theta);
-    rel_pos.y = -(distance * sin(PI - theta));
+    rel_pos.x = -(distance * cos(PI - theta));
+    rel_pos.y = distance * sin(PI - theta);
     // RCLCPP_INFO(this->get_logger(), "90 to 180 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
   }
   // 0 to -90 degrees
