@@ -7,13 +7,14 @@ pcl_processing:
     robot_height: 0.9              # Height of robot
     camera_height: 0.5             # Height of camera off the ground 
     camera_x_offset: 0.35          # Distance in meters of camera offset parallel to robot front
-    camera_y_offset: 0.0           # Distance in meters of camera offset perpendicular to robot front
+    camera_y_offset: 0.06           # Distance in meters of camera offset perpendicular to robot front
+    #zed2 point cloud reference frame is zed2_left_camera_frame
     points_to_add: 3               # How many partitions to split the point cloud into
     decay_time: 8.0                # Time in seconds for the ARCL added points to decay
     distance_threshold: 0.03       # Distance in meters to add a new point
     # Values here are in Radians
     camera_horizontal_fov: 2.0944  # camera point cloud horizontal FoV
-    camera_yaw_offset: 0.0
+    camera_yaw_offset: 0.1
     # Size of bounding box
     # Note that ZED2 point cloud faces the x-axis,
     # Looking Forward would be increasing distance in the x-axis

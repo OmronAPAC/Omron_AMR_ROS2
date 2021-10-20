@@ -20,6 +20,7 @@ PclProcessing::PclProcessing()
   rclcpp::Parameter max_bound_z_param = this->get_parameter("max_bound_z");
   rclcpp::Parameter camera_offset_x_param = this->get_parameter("camera_x_offset");
   rclcpp::Parameter camera_offset_y_param = this->get_parameter("camera_y_offset");
+  rclcpp::Parameter camera_offset_yaw_param = this->get_parameter("camera_yaw_offset");
   rclcpp::Parameter camera_topic_param = this->get_parameter("camera_topic");
   rclcpp::Parameter decay_time_param = this->get_parameter("decay_time");
   rclcpp::Parameter distance_threshold_param = this->get_parameter("distance_threshold");
@@ -32,6 +33,7 @@ PclProcessing::PclProcessing()
   max_bound_z = max_bound_z_param.as_double();
   camera_offset_x = camera_offset_x_param.as_double();
   camera_offset_y = camera_offset_y_param.as_double();
+  camera_yaw_offset = camera_offset_yaw_param.as_double();
   decay_time = decay_time_param.as_double();
   points_count = points_to_add.as_int();
   distance_threshold = distance_threshold_param.as_double();
@@ -85,7 +87,11 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   sor.setStddevMulThresh (1);
   sor.filter (*rotated_cloud);
 
-  pcl::toROSMsg(*rotated_cloud, pub_msg);
+  Eigen::Affine3f transform_2 = Eigen::Affine3f::Identity();
+  transform_2.rotate(Eigen::AngleAxisf(camera_yaw_offset, Eigen::Vector3f(0,0,1)));
+  pcl::transformPointCloud (*rotated_cloud, *temp_cloud, transform_2); 
+
+  pcl::toROSMsg(*temp_cloud, pub_msg);
   pub_msg.header.frame_id = "processed_cloud";
 
   // Bounding box and nearest distance checker
@@ -151,13 +157,14 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   cloud_publisher->publish(pub_msg);
 
   // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
-  // RCLCPP_INFO(this->get_logger(), "coord of MODIFIED points is x %f y %f", obstruction.x, obstruction.y);
   for (int i=0; i < points_count; i++)
   {
+  RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction[i].x, obstruction[i].y);
     auto world_obstacle = convert_world_coord(obstruction[i]);
     bool is_nearby = check_recency_and_proximity(world_obstacle);
     bool is_near_laser = check_laserscans_proximity(world_obstacle);
-    if (!is_nearby && is_near_laser && smallest_distance[i] != INT_MAX)
+    if (!is_nearby && !is_near_laser && smallest_distance[i] != INT_MAX)
+    // if (!is_nearby && smallest_distance[i] != INT_MAX)
     {
       if (world_obstacle.x != odom_pos_x && world_obstacle.y != odom_pos_y ) 
       {
