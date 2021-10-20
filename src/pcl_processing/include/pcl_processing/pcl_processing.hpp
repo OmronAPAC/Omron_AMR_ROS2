@@ -16,6 +16,7 @@
 #include "geometry_msgs/msg/point.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "om_aiv_msg/msg/status.hpp"
+#include "visualization_msgs/msg/marker.hpp"
 
 #include "pcl_processing/camera_calibration.hpp"
 
@@ -35,6 +36,8 @@ private:
 
   void status_callback(om_aiv_msg::msg::Status::SharedPtr msg);
 
+  void laser_callback(visualization_msgs::msg::Marker::SharedPtr msg);
+
   /** \brief checks which partition of the horizontal */
   float check_slice(geometry_msgs::msg::Point current_point);
 
@@ -45,11 +48,15 @@ private:
 
   bool check_recency_and_proximity(geometry_msgs::msg::Point current_point);
 
+  bool check_laserscans_proximity(geometry_msgs::msg::Point current_point);
+
   void add_point_to_history(geometry_msgs::msg::Point current_point);
 
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
   rclcpp::Subscription<om_aiv_msg::msg::Status>::SharedPtr status_sub;
+  rclcpp::Subscription<visualization_msgs::msg::Marker>::SharedPtr laser_sub;
+
   rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr publisher_;
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr cloud_publisher;
   CameraCalibration calibrator;
@@ -68,6 +75,7 @@ private:
   float odom_pos_y;
   float decay_time;
   std::vector<geometry_msgs::msg::PoseStamped> history;
+  std::vector<geometry_msgs::msg::Point> laser_scan_data;
   int history_iter;
   float distance_threshold;
   // Theta is the robot heading based off the x axis, counter clockwise gives positive value

@@ -54,6 +54,11 @@ PclProcessing::PclProcessing()
   }
 }
 
+void PclProcessing::laser_callback(visualization_msgs::msg::Marker::SharedPtr msg)
+{
+  laser_scan_data = msg->points;
+}
+
 void PclProcessing::status_callback(om_aiv_msg::msg::Status::SharedPtr msg)
 {
   odom_pos_x = msg->location.x / 1000;
@@ -151,7 +156,8 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   {
     auto world_obstacle = convert_world_coord(obstruction[i]);
     bool is_nearby = check_recency_and_proximity(world_obstacle);
-    if (!is_nearby && smallest_distance[i] != INT_MAX)
+    bool is_near_laser = check_laserscans_proximity(world_obstacle);
+    if (!is_nearby && is_near_laser && smallest_distance[i] != INT_MAX)
     {
       if (world_obstacle.x != odom_pos_x && world_obstacle.y != odom_pos_y ) 
       {
@@ -160,6 +166,24 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
       }
     }
   }
+}
+
+
+bool PclProcessing::check_laserscans_proximity(geometry_msgs::msg::Point current_point)
+{
+  for (long unsigned int i = 0; i < laser_scan_data.size(); i+=3) {
+    if (i >= laser_scan_data.size()) {
+      break;
+    }
+    float y_diff = laser_scan_data[i].y - current_point.y;
+    float x_diff = laser_scan_data[i].x - current_point.x;
+
+    float distance = std::hypot(x_diff, y_diff);
+    if (distance < distance_threshold) {
+      return true;
+    }
+  }
+  return false;
 }
 
 void PclProcessing::add_point_to_history(geometry_msgs::msg::Point current_point)
@@ -240,7 +264,7 @@ geometry_msgs::msg::Point PclProcessing::convert_world_coord(geometry_msgs::msg:
     }
   }
   // RCLCPP_INFO(this->get_logger(), "combined angle is %f", combined_angle);
-  // normalize angle
+  // Restrict angle to -PI to +PI
   if (combined_angle < -PI)
   {
     combined_angle += 2 * PI;
