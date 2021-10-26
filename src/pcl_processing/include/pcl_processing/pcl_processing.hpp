@@ -13,6 +13,8 @@
 #include <pcl/common/transforms.h>
 #include <pcl/filters/passthrough.h>
 #include <pcl/filters/statistical_outlier_removal.h>
+#include <pcl/filters/conditional_removal.h> 
+#include <pcl/filters/radius_outlier_removal.h>
 #include "geometry_msgs/msg/point.hpp"
 #include "geometry_msgs/msg/pose_stamped.hpp"
 #include "om_aiv_msg/msg/status.hpp"
@@ -34,22 +36,28 @@ private:
   /** \brief topic callback for pointcloud data*/
   void topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
+  /** \brief topic callback for AMR status data*/
   void status_callback(om_aiv_msg::msg::Status::SharedPtr msg);
 
+  /** \brief topic callback for laser scans data*/
   void laser_callback(visualization_msgs::msg::Marker::SharedPtr msg);
 
   /** \brief checks which partition of the horizontal */
   float check_slice(geometry_msgs::msg::Point current_point);
 
+  /** \brief Coordinates in front of the robot are converted to world-based coordinates */
   geometry_msgs::msg::Point convert_world_coord(geometry_msgs::msg::Point current_point);
 
   /** \brief This function takes in heading in radians and distance and returns the coordinate relative position to the robot */
   geometry_msgs::msg::Point get_world_base_coord(double theta, double distance);
 
+  /** \brief The point is compared against a stored array of past points to check whether a point nearby is already recently added */
   bool check_recency_and_proximity(geometry_msgs::msg::Point current_point);
 
+  /** \brief The point is compared against the latest laserscans from the AMR */
   bool check_laserscans_proximity(geometry_msgs::msg::Point current_point);
 
+  /** \brief the point is added to the history array for comparison */
   void add_point_to_history(geometry_msgs::msg::Point current_point);
 
 
@@ -79,6 +87,7 @@ private:
   std::vector<geometry_msgs::msg::Point> laser_scan_data;
   int history_iter;
   float distance_threshold;
+
   // Theta is the robot heading based off the x axis, counter clockwise gives positive value
   float theta;
   int points_count;

@@ -1,7 +1,8 @@
 pcl_processing:
   ros__parameters:
     # Topic name for the camera point cloud
-    camera_topic: "/zed2/zed_node/point_cloud/cloud_registered"
+    # camera_topic: "/zed2/zed_node/point_cloud/cloud_registered"
+    camera_topic: "zed_pointcloud"
     # Values here are all in metres
     # These values are the offset from center of robot to camera (phrase better)
     robot_height: 0.9              # Height of robot
@@ -14,7 +15,7 @@ pcl_processing:
     distance_threshold: 0.03       # Distance in meters to add a new point
     # Values here are in Radians
     camera_horizontal_fov: 2.0944  # camera point cloud horizontal FoV
-    camera_yaw_offset: 0.1
+    camera_yaw_offset: 0.1  
     # Size of bounding box
     # Note that ZED2 point cloud faces the x-axis,
     # Looking Forward would be increasing distance in the x-axis

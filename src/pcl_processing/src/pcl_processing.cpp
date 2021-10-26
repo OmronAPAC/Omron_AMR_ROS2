@@ -1,5 +1,8 @@
 
 #include "pcl_processing/pcl_processing.hpp"
+#include <chrono>
+
+using namespace std::chrono;
 
 
 PclProcessing::PclProcessing()
@@ -80,18 +83,33 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   pcl::PointCloud<pcl::PointXYZ>::Ptr rotated_cloud(new pcl::PointCloud<pcl::PointXYZ>);
   pcl::fromPCLPointCloud2(pc,*temp_cloud);
 
-  // Outlier filter
-  pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
-  sor.setInputCloud (temp_cloud);
-  sor.setMeanK (50);
-  sor.setStddevMulThresh (1);
-  sor.filter (*rotated_cloud);
+  // outlier filter is too slow, need faster way to process points
+  auto start = high_resolution_clock::now();
 
-  Eigen::Affine3f transform_2 = Eigen::Affine3f::Identity();
-  transform_2.rotate(Eigen::AngleAxisf(camera_yaw_offset, Eigen::Vector3f(0,0,1)));
-  pcl::transformPointCloud (*rotated_cloud, *temp_cloud, transform_2); 
+  // // Outlier filter
+  // pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
+  // sor.setInputCloud (temp_cloud);
+  // sor.setMeanK (20);
+  // sor.setStddevMulThresh (1);
+  // sor.filter (*rotated_cloud);
 
-  pcl::toROSMsg(*temp_cloud, pub_msg);
+  // auto stop = high_resolution_clock::now();
+  // auto duration = duration_cast<microseconds>(stop - start);
+
+  // RCLCPP_INFO(this->get_logger(), "time taken is %ld", duration.count());
+
+  pcl::RadiusOutlierRemoval<pcl::PointXYZ> radiusoutlier;  //Create filter
+ 
+  radiusoutlier.setInputCloud(temp_cloud);    //Set input point cloud
+  radiusoutlier.setRadiusSearch(0.3);     //Set the radius of 100 to find the nearest point
+  radiusoutlier.setMinNeighborsInRadius(5); 
+  radiusoutlier.filter(*rotated_cloud);
+
+  Eigen::Affine3f transform = Eigen::Affine3f::Identity();
+  transform.rotate(Eigen::AngleAxisf(camera_yaw_offset, Eigen::Vector3f(0,0,1)));
+  pcl::transformPointCloud (*rotated_cloud, *temp_cloud, transform); 
+
+  pcl::toROSMsg(*rotated_cloud, pub_msg);
   pub_msg.header.frame_id = "processed_cloud";
 
   // Bounding box and nearest distance checker
@@ -173,6 +191,13 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
       }
     }
   }
+
+  auto stop = high_resolution_clock::now();
+  auto duration = duration_cast<microseconds>(stop - start);
+
+  RCLCPP_INFO(this->get_logger(), "time taken is %ld", duration.count());
+
+
 }
 
 
