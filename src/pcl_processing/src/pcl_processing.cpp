@@ -97,19 +97,20 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   // auto duration = duration_cast<microseconds>(stop - start);
 
   // RCLCPP_INFO(this->get_logger(), "time taken is %ld", duration.count());
-
+  std::vector<int> indices;
+  pcl::removeNaNFromPointCloud(*temp_cloud, *temp_cloud, indices);
   pcl::RadiusOutlierRemoval<pcl::PointXYZ> radiusoutlier;  //Create filter
  
   radiusoutlier.setInputCloud(temp_cloud);    //Set input point cloud
-  radiusoutlier.setRadiusSearch(0.3);     //Set the radius of 100 to find the nearest point
-  radiusoutlier.setMinNeighborsInRadius(5); 
-  radiusoutlier.filter(*rotated_cloud);
+  radiusoutlier.setRadiusSearch(0.15);     //Set the radius of 100 to find the nearest point
+  radiusoutlier.setMinNeighborsInRadius(10); 
+  radiusoutlier.filter(*temp_cloud);
 
   Eigen::Affine3f transform = Eigen::Affine3f::Identity();
   transform.rotate(Eigen::AngleAxisf(camera_yaw_offset, Eigen::Vector3f(0,0,1)));
-  pcl::transformPointCloud (*rotated_cloud, *temp_cloud, transform); 
+  pcl::transformPointCloud (*temp_cloud, *temp_cloud, transform); 
 
-  pcl::toROSMsg(*rotated_cloud, pub_msg);
+  pcl::toROSMsg(*temp_cloud, pub_msg);
   pub_msg.header.frame_id = "processed_cloud";
 
   // Bounding box and nearest distance checker
@@ -124,18 +125,18 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
     smallest_distance.push_back(init_max_distance);
   }
 
-  int skip = 0;
+  // int skip = 0;
 
   // Iterate through each point in point cloud
   for (sensor_msgs::PointCloud2ConstIterator<float> iter_x(pub_msg, "x"),
     iter_y(pub_msg, "y"), iter_z(pub_msg, "z");
     iter_x != iter_x.end(); ++iter_x, ++iter_y, ++iter_z)
   {
-    skip += 1;
-    if (skip % 2 == 1)
-    {
-      continue;
-    }
+    // skip += 1;
+    // if (skip % 2 == 1)
+    // {
+    //   continue;
+    // }
     if (std::isnan(*iter_x) || std::isnan(*iter_y) || std::isnan(*iter_z)) 
     {
       RCLCPP_DEBUG(
