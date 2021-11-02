@@ -86,7 +86,7 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   // outlier filter is too slow, need faster way to process points
   auto start = high_resolution_clock::now();
 
-  // // Outlier filter
+  // // Statistical Outlier filter
   // pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
   // sor.setInputCloud (temp_cloud);
   // sor.setMeanK (20);
@@ -103,7 +103,7 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
  
   radiusoutlier.setInputCloud(temp_cloud);    //Set input point cloud
   radiusoutlier.setRadiusSearch(0.15);     //Set the radius of 100 to find the nearest point
-  radiusoutlier.setMinNeighborsInRadius(10); 
+  radiusoutlier.setMinNeighborsInRadius(15); 
   radiusoutlier.filter(*temp_cloud);
 
   Eigen::Affine3f transform = Eigen::Affine3f::Identity();
@@ -125,18 +125,11 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
     smallest_distance.push_back(init_max_distance);
   }
 
-  // int skip = 0;
-
   // Iterate through each point in point cloud
   for (sensor_msgs::PointCloud2ConstIterator<float> iter_x(pub_msg, "x"),
     iter_y(pub_msg, "y"), iter_z(pub_msg, "z");
     iter_x != iter_x.end(); ++iter_x, ++iter_y, ++iter_z)
   {
-    // skip += 1;
-    // if (skip % 2 == 1)
-    // {
-    //   continue;
-    // }
     if (std::isnan(*iter_x) || std::isnan(*iter_y) || std::isnan(*iter_z)) 
     {
       RCLCPP_DEBUG(
@@ -183,7 +176,6 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
     bool is_nearby = check_recency_and_proximity(world_obstacle);
     bool is_near_laser = check_laserscans_proximity(world_obstacle);
     if (!is_nearby && !is_near_laser && smallest_distance[i] != INT_MAX)
-    // if (!is_nearby && smallest_distance[i] != INT_MAX)
     {
       if (world_obstacle.x != odom_pos_x && world_obstacle.y != odom_pos_y ) 
       {
@@ -204,6 +196,7 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
 
 bool PclProcessing::check_laserscans_proximity(geometry_msgs::msg::Point current_point)
 {
+  // i+=3 isn't necessary as this operation is fast but nearby laserscans are quite near so it does not matter too much here
   for (long unsigned int i = 0; i < laser_scan_data.size(); i+=3) {
     if (i >= laser_scan_data.size()) {
       break;
@@ -357,7 +350,7 @@ geometry_msgs::msg::Point PclProcessing::get_world_base_coord(double theta, doub
 float PclProcessing::check_slice(geometry_msgs::msg::Point current_point)
 {
   float angle = std::atan2(current_point.y, current_point.x);
-  angle += cam_horizontal_fov / 2;
+  angle += ((cam_horizontal_fov / 2) - camera_yaw_offset);
   float slice = angle / (cam_horizontal_fov / points_count);
   return slice;
 }

@@ -14,8 +14,8 @@ pcl_processing:
     decay_time: 8.0                # Time in seconds for the ARCL added points to decay
     distance_threshold: 0.03       # Distance in meters to add a new point
     # Values here are in Radians
-    camera_horizontal_fov: 2.0944  # camera point cloud horizontal FoV
-    camera_yaw_offset: 0.1  
+    camera_horizontal_fov: 2.15  # camera point cloud horizontal FoV
+    camera_yaw_offset: 0.06  
     # Size of bounding box
     # Note that ZED2 point cloud faces the x-axis,
     # Looking Forward would be increasing distance in the x-axis
