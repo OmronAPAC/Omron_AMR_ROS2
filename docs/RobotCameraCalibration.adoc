@@ -40,7 +40,7 @@ https://github.com/OmronAPAC/Omron_AMR_ROS2/blob/master/docs/DeveloperGuide.adoc
 
 . **Handeye 4dof**
 +
-You will also need the Handeye-4dof calibration algorithm from https://github.com/QuantuMope/handeye-4dof[here].
+You will also need the Handeye-4dof calibration algorithm from https://github.com/QuantuMope/handeye-4dof[here]. The ROS2 implementation can be found link:https://github.com/CFZeon/handeye_4dof_ros2[here].
 
 . **ros2_aruco**
 +
@@ -57,10 +57,10 @@ image::rob2cam_architecture.png[]
 The store_poses service appends the current pose of the AruCo marker and the AMR to 2 separate lists when this empty service is called. 
 
 === Calculate Calibration Service
-The calculate_calibration service publishes both the pose of the ArUco marker and the AMR to the handeye-4DoF ROS2 node.
+The calculate_calibration service publishes both the pose of the ArUco marker and the AMR to the handeye-4DoF ROS2 node. The node then calculates the robot to camera calibration and publishes it before destroying itself.
 
 TODO:
-Upon receiving a valid calculation, the node saves the calibration result into the .yaml file in pcl_processing.
+Upon receiving a valid calculation from a subscriber, the node saves the calibration result into the .yaml file in pcl_processing then the node destroys itself.
 
 == Instructions on Usage
 [[instructions]]
@@ -69,7 +69,7 @@ Upon receiving a valid calculation, the node saves the calibration result into t
 ....
 ros2 launch om_aiv_util server.launch.py
 ....
-. Run `robot_camera_calibration` package to see the movement of your AMR. To do this:
+. Run `robot_camera_calibration` package with
 +
 ....
 ros2 run robot_camera_calibration calibration_node
@@ -88,6 +88,11 @@ ros2 run ros2_aruco aruco_node
 +
 ....
 ros2 topic echo aruco_poses
+....
+. Finally, run the handeye-4dof node using 
++
+....
+ros2 run handeye_4dof_ros2 handeye_4dof_node
 ....
 . Open a new console and type rqt.
 . In the rqt interface, select store_poses service.
