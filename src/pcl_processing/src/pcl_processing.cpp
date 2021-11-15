@@ -23,6 +23,8 @@ PclProcessing::PclProcessing()
   rclcpp::Parameter max_bound_z_param = this->get_parameter("max_bound_z");
   rclcpp::Parameter camera_offset_x_param = this->get_parameter("camera_x_offset");
   rclcpp::Parameter camera_offset_y_param = this->get_parameter("camera_y_offset");
+  rclcpp::Parameter camera_offset_roll_param = this->get_parameter("camera_roll_offset");
+  rclcpp::Parameter camera_offset_pitch_param = this->get_parameter("camera_pitch_offset");
   rclcpp::Parameter camera_offset_yaw_param = this->get_parameter("camera_yaw_offset");
   rclcpp::Parameter camera_topic_param = this->get_parameter("camera_topic");
   rclcpp::Parameter decay_time_param = this->get_parameter("decay_time");
@@ -36,6 +38,8 @@ PclProcessing::PclProcessing()
   max_bound_z = max_bound_z_param.as_double();
   camera_offset_x = camera_offset_x_param.as_double();
   camera_offset_y = camera_offset_y_param.as_double();
+  camera_roll_offset = camera_offset_roll_param.as_double();
+  camera_pitch_offset = camera_offset_pitch_param.as_double();
   camera_yaw_offset = camera_offset_yaw_param.as_double();
   decay_time = decay_time_param.as_double();
   points_count = points_to_add.as_int();
@@ -104,11 +108,19 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   radiusoutlier.setInputCloud(temp_cloud);    //Set input point cloud
   radiusoutlier.setRadiusSearch(0.15);     //Set the radius of 100 to find the nearest point
   radiusoutlier.setMinNeighborsInRadius(15); 
-  radiusoutlier.filter(*temp_cloud);
+  radiusoutlier.filter(*rotated_cloud);
 
   Eigen::Affine3f transform = Eigen::Affine3f::Identity();
+  transform.rotate(Eigen::AngleAxisf(camera_roll_offset, Eigen::Vector3f(1,0,0)));
+  transform.rotate(Eigen::AngleAxisf(camera_pitch_offset, Eigen::Vector3f(0,1,0)));
   transform.rotate(Eigen::AngleAxisf(camera_yaw_offset, Eigen::Vector3f(0,0,1)));
-  pcl::transformPointCloud (*temp_cloud, *temp_cloud, transform); 
+  pcl::transformPointCloud (*rotated_cloud, *temp_cloud, transform);
+
+  // Eigen::Affine3f transform2 = Eigen::Affine3f::Identity();
+  // pcl::transformPointCloud (*temp_cloud, *rotated_cloud, transform2); 
+
+  // Eigen::Affine3f transform3 = Eigen::Affine3f::Identity();
+  // pcl::transformPointCloud (*rotated_cloud, *temp_cloud, transform3); 
 
   pcl::toROSMsg(*temp_cloud, pub_msg);
   pub_msg.header.frame_id = "processed_cloud";

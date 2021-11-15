@@ -1,0 +1,101 @@
+= AMR-ROS2 Obstacle Avoidance - Developer Guide
+:site-section: DeveloperGuide
+:toc:
+:toclevels: 3
+:toc-title: Table of Contents
+:toc-placement: preamble
+:icons: font
+:sectnums:
+:imagesDir: dg-images
+:librariesDir: ../libraries
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+:linkattrs:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+
+:url-repo: https://github.com/OmronAPAC/Omron_AMR_ROS2
+:url-ug: https://github.com/OmronAPAC/Omron_AMR_ROS2/blob/master/docs/RobotCameraCalibration.adoc
+
+Last updated: `15 November 2021` By: `Zeon`
+
+== Authors
+
+* Zeon Chua Feiyi (link:https://github.com/CFZeon[CFZeon])
+
+== Getting Started
+[[prerequisites]]
+=== Prerequisites
+
+. **Omron_AMR_ROS2**
++
+These sets of packages assume that you already have the Omron_AMR_ROS2 packages set up.
++
+https://github.com/OmronAPAC/Omron_AMR_ROS2/blob/master/docs/DeveloperGuide.adoc[Omron_AMR_ROS2 Developer's Guide]
+
+
+. **Handeye 4dof**
++
+You will also need the Handeye-4dof calibration algorithm from https://github.com/QuantuMope/handeye-4dof[here].
+
+. **ros2_aruco**
++
+The ROS2 ArUco package uses OpenCV to obtain the pose of the ArUco markers relative to the camera. You can find it link:https://github.com/JMU-ROBOTICS-VIVA/ros2_aruco[here].
+
+== Software Design
+[[architecture]]
+=== Architecture
+An overview of this package architecture and its dependencies is summarised in the diagram below:
+
+image::rob2cam_architecture.png[]
+
+=== Store Poses Service
+The store_poses service appends the current pose of the AruCo marker and the AMR to 2 separate lists when this empty service is called. 
+
+=== Calculate Calibration Service
+The calculate_calibration service publishes both the pose of the ArUco marker and the AMR to the handeye-4DoF ROS2 node.
+
+TODO:
+Upon receiving a valid calculation, the node saves the calibration result into the .yaml file in pcl_processing.
+
+== Instructions on Usage
+[[instructions]]
+. Ensure your host machine is running the ARCL action server. It can be launched with
++
+....
+ros2 launch om_aiv_util server.launch.py
+....
+. Run `robot_camera_calibration` package to see the movement of your AMR. To do this:
++
+....
+ros2 run robot_camera_calibration calibration_node
+....
+. Ensure that your camera feed is streaming properly. We used the ZED2. Instructions on running the ZED2 can be found link:https://github.com/stereolabs/zed-ros-wrapper[here]. Launch the Zed2 ROS2 nodes with
++
+....
+ros2 launch zed_wrapper zed2.launch.py
+....
+. Run the ArUco Marker Node with
++
+....
+ros2 run ros2_aruco aruco_node
+....
+. Ensure that the marker is being properly detected with
++
+....
+ros2 topic echo aruco_poses
+....
+. Open a new console and type rqt.
+. In the rqt interface, select store_poses service.
++
+image::rqt_store_poses.png[]
+. Drive the robot to a location where the camera can see the aruco marker.
+. Click on the Call button in rqt.
+. Repeat steps 8 and 9 until a good sample size is obtained.
+. Navigate to calculate_calibration service in rqt.
+. Click on the Call button in rqt.
+

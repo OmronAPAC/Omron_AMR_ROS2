@@ -78,6 +78,8 @@ private:
   float camera_offset_y = 0;
   float camera_offset_x = 0.35;
   float camera_horizontal_tilt = 0;
+  float camera_roll_offset = 0;
+  float camera_pitch_offset = 0;
   float camera_yaw_offset = 0;
   float cam_horizontal_fov;
   float odom_pos_x;
