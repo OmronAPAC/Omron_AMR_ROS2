@@ -7,13 +7,14 @@ from rclpy.node import Node
 
 from ament_index_python.packages import get_package_share_directory
 calibration_share = get_package_share_directory('camera_calibration')
+pcl_processing_share = get_package_share_directory('pcl_processing')
 
 from om_aiv_msg.msg import Status
-from geometry_msgs.msg import PoseArray
-from geometry_msgs.msg import Pose
+from geometry_msgs.msg import Pose, PoseArray
 from std_srvs.srv import Empty
 
 DEGREE_TO_RAD_CONST = 57.2958
+
 
 class CameraCalibration(Node):
     
@@ -22,146 +23,34 @@ class CameraCalibration(Node):
         super().__init__('camera_calibration')
         self.robot_odometry_subscriber = self.create_subscription(Status, 'ldarcl_status', self.status_callback, 10)
         self.aruco_subscriber = self.create_subscription(PoseArray, 'aruco_poses', self.aruco_callback, 10)
-        self.store_poses_srv = self.create_service(Empty, 'store_poses', self.store_poses)
-        self.calculate_calib_srv = self.create_service(Empty, 'calculate_calibration', self.calculate_hand_eye_calib)
-        self.odom_pose_rot_list = []
-        self.odom_pose_translation_list = []
-        self.marker_pose_rot_list = []
-        self.marker_pose_translation_list = []
-        self.r_4x4 = []
-        self.m_4x4 = []
-        self.i = 0
-        self.marker_pose = Pose()
-
-    # takes a 4x4 matrix and returns the top left 3x3
-    def slice_rot(self, mat):
-        return mat[0:3,0:3]
-
-    # takes a 4x4 and returns the top 3 from the rightmost column
-    def slice_transl(self, mat):
-        return mat[0:3,3:4]
-    
-    
-    #this function converts a pose message into
-    # p = 3x1 translation, r = 3x3 rotation, g = 4x4 transform matrix
-    def pose_to_pq(self, msg):
-        """
-        Modified from: https://answers.ros.org/question/332407/transformstamped-to-transformation-matrix-python/
-        Convert a C{geometry_msgs/Pose} into position/quaternion np arrays
-
-        @param msg: ROS message to be converted
-        @return:
-          - p: position as a np.array
-          - q: quaternion as a numpy array (order = [x,y,z,w])
-          - q: in the quaternion_matrix function here, it takes in w,x,y,z
-        """
-        p = np.array([[msg.position.x], [msg.position.y], [msg.position.z]])
-        p2 = np.array([msg.position.x, msg.position.y, msg.position.z])
-        # q = np.array([msg.orientation.x, msg.orientation.y,
-        #             msg.orientation.z, msg.orientation.w])
-        q = np.array([msg.orientation.w, msg.orientation.x,
-                    msg.orientation.y, msg.orientation.z])
-        norm = np.linalg.norm(q)
-        if np.abs(norm - 1.0) > 1e-3:
-            raise ValueError(
-                "Received un-normalized quaternion (q = {0:s} ||q|| = {1:3.6f})".format(
-                    str(q), np.linalg.norm(q)))
-        elif np.abs(norm - 1.0) > 1e-6:
-            q = q / norm
-        g = self.quaternion_matrix_4x4(q)
-        r = self.quaternion_matrix(q)
-        g[0:3, -1] = p2 # for translation
-        # g[0][3] = p[0]
-        # g[1][3] = p[1]
-        # g[2][3] = p[2]
-        return p, r, g
-    
-    def quaternion_matrix(self, quaternion):
-        # this function uses w, x, y, z
-        # acquired from: https://github.com/cgohlke/transformations/blob/master/transformations/transformations.py
-        """Return homogeneous rotation matrix from quaternion.
-        >>> M = quaternion_matrix([0.99810947, 0.06146124, 0, 0])
-        >>> numpy.allclose(M, rotation_matrix(0.123, [1, 0, 0]))
-        True
-        >>> M = quaternion_matrix([1, 0, 0, 0])
-        >>> numpy.allclose(M, numpy.identity(4))
-        True
-        >>> M = quaternion_matrix([0, 1, 0, 0])
-        >>> numpy.allclose(M, numpy.diag([1, -1, -1, 1]))
-        True
-        """
-        _EPS = np.finfo(float).eps * 4.0
-        q = np.array(quaternion, dtype=np.float64, copy=True)
-        n = np.dot(q, q)
-        if n < _EPS:
-            return np.identity(4)
-        q *= math.sqrt(2.0 / n)
-        q = np.outer(q, q)
-        return np.array(
-            [
-                [
-                    1.0 - q[2, 2] - q[3, 3],
-                    q[1, 2] - q[3, 0],
-                    q[1, 3] + q[2, 0],
-                ],
-                [
-                    q[1, 2] + q[3, 0],
-                    1.0 - q[1, 1] - q[3, 3],
-                    q[2, 3] - q[1, 0],
-                ],
-                [
-                    q[1, 3] - q[2, 0],
-                    q[2, 3] + q[1, 0],
-                    1.0 - q[1, 1] - q[2, 2],
-                ]
-            ]
-        )
+        self.calib_result_sub = self.create_subscription(Pose, 'calibrated_pose', self.calib_pose_callback, 10)
         
-    # subfunction that converts a quaternion to a 4x4 matrix
-    def quaternion_matrix_4x4(self, quaternion):
-        """Return homogeneous rotation matrix from quaternion.
-        >>> M = quaternion_matrix([0.99810947, 0.06146124, 0, 0])
-        >>> numpy.allclose(M, rotation_matrix(0.123, [1, 0, 0]))
-        True
-        >>> M = quaternion_matrix([1, 0, 0, 0])
-        >>> numpy.allclose(M, numpy.identity(4))
-        True
-        >>> M = quaternion_matrix([0, 1, 0, 0])
-        >>> numpy.allclose(M, numpy.diag([1, -1, -1, 1]))
-        True
-        """
-        _EPS = np.finfo(float).eps * 4.0
-        q = np.array(quaternion, dtype=np.float64, copy=True)
-        n = np.dot(q, q)
-        if n < _EPS:
-            return np.identity(4)
-        q *= math.sqrt(2.0 / n)
-        q = np.outer(q, q)
-        return np.array(
-            [
-                [
-                    1.0 - q[2, 2] - q[3, 3],
-                    q[1, 2] - q[3, 0],
-                    q[1, 3] + q[2, 0],
-                    0.0,
-                ],
-                [
-                    q[1, 2] + q[3, 0],
-                    1.0 - q[1, 1] - q[3, 3],
-                    q[2, 3] - q[1, 0],
-                    0.0,
-                ],
-                [
-                    q[1, 3] - q[2, 0],
-                    q[2, 3] + q[1, 0],
-                    1.0 - q[1, 1] - q[2, 2],
-                    0.0,
-                ],
-                [0.0, 0.0, 0.0, 1.0],
-            ]
-        )
-
-
+        self.store_poses_srv = self.create_service(Empty, 'store_poses', self.store_poses)
+        
+        self.marker_pose_pub = self.create_publisher(PoseArray, 'robot_to_marker', 10)
+        self.robot_pose_pub = self.create_publisher(PoseArray, 'base_to_robot', 10)
+        self.odom_pose_list = PoseArray()
+        self.marker_pose_list = PoseArray()
+        self.marker_pose = Pose()
+        self.init_dummy_data()
+        
+    # get the euler angles from a ROS2 quaternion msg as a list
+    def euler_from_quat(self, quat):
+        t0 = +2.0 * (quat.w * quat.x + quat.y * quat.z)
+        t1 = +1.0 - 2.0 * (quat.x * quat.x + quat.y * quat.y)
+        roll_x = round(math.atan2(t0, t1), 5)
+        
+        t2 = +2.0 * (quat.w * quat.y - quat.z * quat.x)
+        t2 = +1.0 if t2 > +1.0 else t2
+        t2 = -1.0 if t2 < -1.0 else t2
+        pitch_y = round(math.asin(t2), 5)
+        
+        t3 = +2.0 * (quat.w * quat.z + quat.x * quat.y)
+        t4 = +1.0 - 2.0 * (quat.y * quat.y + quat.z * quat.z)
+        yaw_z = round(math.atan2(t3, t4), 5)
+        
+        return ([roll_x, pitch_y, yaw_z])
+    
     # function converts the yaw of the robot(theta) in radians and returns a normalized quaternion 
     def quat_from_yaw(self, yaw):
         roll = 0
@@ -181,72 +70,55 @@ class CameraCalibration(Node):
     
     # get location data from status and convert to pose
     def status_callback(self, msg):
-        # self.get_logger().info("pose of robot get")
         self.pos = Pose()
         self.pos.position.x = msg.location.x / 1000
         self.pos.position.y = msg.location.y / 1000
-        
         radian = msg.location.theta / DEGREE_TO_RAD_CONST
-        
         self.quat_from_yaw(radian)
+    
+    # Write lines into config file in pcl_processing    
+    def calib_pose_callback(self,msg):
+        self.get_logger().info("Calibration result: " + str(msg))
+        rpy = self.euler_from_quat(msg.orientation)
+        with open(pcl_processing_share + "/config/camera_params.yaml", 'r+') as file:
+            indentation = "    "
+            lines = file.readlines()
+            for i in range(0,len(lines)):
+                if "camera_x_offset" in lines[i]:
+                    lines[i] = indentation + "camera_x_offset: " + str(msg.position.x) + "\n"
+                if "camera_y_offset" in lines[i]:
+                    lines[i] = indentation + "camera_y_offset: " + str(msg.position.y) + "\n"
+                if "camera_roll_offset" in lines[i]:
+                    lines[i] = indentation + "camera_roll_offset: " + str(rpy[0]) + "\n"
+                if "camera_pitch_offset" in lines[i]:
+                    lines[i] = indentation + "camera_pitch_offset: " + str(rpy[1]) + "\n"
+                if "camera_yaw_offset" in lines[i]:
+                    lines[i] = indentation + "camera_yaw_offset: " + str(rpy[2]) + "\n"
+            with open(pcl_processing_share + "/config/camera_params.yaml", 'w+') as writefile:
+                writefile.writelines(lines)
+        
         
     # get the first and only pose data from aruco service 
     def aruco_callback(self, msg):
-        # self.get_logger().info("pose of marker get")
         self.marker_pose = msg.poses[0]
         
     # store in memory the current position of robot and the pose of the fiducial marker
     def store_poses(self, req, res):
-        # here, p is position, q is rotation and r is transform
-        p, q, r = self.pose_to_pq(self.pos)
-        self.odom_pose_rot_list.append(q)
-        self.odom_pose_translation_list.append(p)
-        self.r_4x4.append(r)
-        # print("odom coords")
-        # print(self.pos)
-        # print(p)
-        # print(q)
+        self.odom_pose_list.poses.append(self.pos)
+        self.marker_pose_list.poses.append(self.marker_pose)
         
-        # repeat conversion and storing process for fiducial aruco marker
-        p, q, r = self.pose_to_pq(self.marker_pose)
-        self.marker_pose_rot_list.append(q)
-        self.marker_pose_translation_list.append(p)
-        self.m_4x4.append(r)
-        # print("marker pose coords")
-        # print(self.marker_pose)
-        # print(p)
-        # print(q)
+        self.robot_pose_pub.publish(self.odom_pose_list)
+        self.marker_pose_pub.publish(self.marker_pose_list)
         self.get_logger().info("Stored current robot position and fiducial marker position")
-        # empty return to signal to rqt that the service call is done if not rqt will crash
-        return res
-    
-    # get calibration based on all the current data collected
-    def calculate_hand_eye_calib(self, req, res):
-        self.cam_rot, self.cam_translation = cv2.calibrateHandEye(
-            self.odom_pose_rot_list,
-            self.odom_pose_translation_list,
-            self.marker_pose_rot_list,
-            self.marker_pose_translation_list
-        )
-        self.get_logger().info("Calculated Calibration")
-        print(self.cam_translation)
-        print(self.cam_rot)
         
-        print("robot 4x4 matrices")
-        print(self.r_4x4)
-        print("marker 4x4 matrices")
-        print(self.m_4x4)
-        print("\n")
-        # empty return to signal to rqt that the service call is done
+        # # empty return to signal to rqt that the service call is done if not rqt will crash
         return res
-
+        
 
 def main(args=None):
     rclpy.init(args=args)
     camera_calibration = CameraCalibration()
-
     rclpy.spin(camera_calibration)
-
     camera_calibration.destroy_node()
     rclpy.shutdown()
 
