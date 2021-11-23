@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'camera_calibration'
+package_name = 'rob2cam_calibration'
 
 setup(
     name=package_name,
@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'calibration_node = camera_calibration.calibration_node:main',
+            'calibration_node = rob2cam_calibration.calibration_node:main',
         ],
     },
 )

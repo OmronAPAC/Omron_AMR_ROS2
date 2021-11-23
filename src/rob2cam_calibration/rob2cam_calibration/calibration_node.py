@@ -6,7 +6,6 @@ import rclpy
 from rclpy.node import Node
 
 from ament_index_python.packages import get_package_share_directory
-calibration_share = get_package_share_directory('camera_calibration')
 pcl_processing_share = get_package_share_directory('pcl_processing')
 
 from om_aiv_msg.msg import Status
@@ -32,7 +31,6 @@ class CameraCalibration(Node):
         self.odom_pose_list = PoseArray()
         self.marker_pose_list = PoseArray()
         self.marker_pose = Pose()
-        self.init_dummy_data()
         
     # get the euler angles from a ROS2 quaternion msg as a list
     def euler_from_quat(self, quat):

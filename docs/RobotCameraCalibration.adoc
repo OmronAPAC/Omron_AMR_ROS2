@@ -1,4 +1,4 @@
-= AMR-ROS2 Obstacle Avoidance - Developer Guide
+= AMR-ROS2 Rob2Cam Calibration - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toclevels: 3
@@ -21,13 +21,16 @@ endif::[]
 :url-repo: https://github.com/OmronAPAC/Omron_AMR_ROS2
 :url-ug: https://github.com/OmronAPAC/Omron_AMR_ROS2/blob/master/docs/RobotCameraCalibration.adoc
 
-Last updated: `15 November 2021` By: `Zeon`
+Last updated: `23 November 2021` By: `Zeon`
 
 == Authors
 
 * Zeon Chua Feiyi (link:https://github.com/CFZeon[CFZeon])
 
 == Getting Started
+=== Description
+This package streamlines the collection of odometric data from the robot and ArUco marker before publishing it to the handeye_4dof_ros2 package and then writes the incoming calibrated input into a config file found in pcl_processing.
+
 [[prerequisites]]
 === Prerequisites
 
@@ -53,26 +56,53 @@ An overview of this package architecture and its dependencies is summarised in t
 
 image::rob2cam_architecture.png[]
 
-=== Store Poses Service
+=== Calibration Node
+
+==== ArUco marker Pose Subscriber
+The marker pose subscriber constantly listens for new incoming ArUco marker data.
+
+==== AMR Status Subscriber
+The status subscriber constantly listens for new incoming data from the AMR including its odometry data.
+
+==== Store Poses Service
 The store_poses service appends the current pose of the AruCo marker and the AMR to 2 separate lists when this empty service is called. 
 
-=== Calculate Calibration Service
-The calculate_calibration service publishes both the pose of the ArUco marker and the AMR to the handeye-4DoF ROS2 node. The node then calculates the robot to camera calibration and publishes it before destroying itself.
+As the AMR only provides information in x, y, theta, a conversion is done to convert it to a Pose before it is published to the handeye_4dof_ros2 node. This can be found in the quat_from_yaw() function.
 
-TODO:
-Upon receiving a valid calculation from a subscriber, the node saves the calibration result into the .yaml file in pcl_processing then the node destroys itself.
+On a ZED2 stereo camera, it is necessary to rotate the camera to marker orientation by -1.57, 0, -1.57 as the camera faces X forward, as opposed to Z forward. The pose should be transformed in the marker callback before it is appended into the list.
+
+TODO: add recency check for the poses.
+
+==== calibrated_pose Subscriber Callback
+
+Upon receiving a valid calculation from the handeye_4dof_ros2 node, the calibration result is saved into the .yaml file in pcl_processing.
 
 == Instructions on Usage
 [[instructions]]
+. Switch to the obstacle avoidance branch.
++
+....
+git switch obs_avoidance_devel
+....
+. Build the packages
++
+....
+colcon build --symlink-install
+....
+. Source the built packages
++
+....
+source install/setup.bash
+....
 . Ensure your host machine is running the ARCL action server. It can be launched with
 +
 ....
 ros2 launch om_aiv_util server.launch.py
 ....
-. Run `robot_camera_calibration` package with
+. Run `rob2cam_calibration` package with
 +
 ....
-ros2 run robot_camera_calibration calibration_node
+ros2 run rob2cam_calibration calibration_node
 ....
 . Ensure that your camera feed is streaming properly. We used the ZED2. Instructions on running the ZED2 can be found link:https://github.com/stereolabs/zed-ros-wrapper[here]. Launch the Zed2 ROS2 nodes with
 +
@@ -100,7 +130,7 @@ ros2 run handeye_4dof_ros2 handeye_4dof_node
 image::rqt_store_poses.png[]
 . Drive the robot to a location where the camera can see the aruco marker.
 . Click on the Call button in rqt.
-. Repeat steps 8 and 9 until a good sample size is obtained.
+. Repeat steps 12 and 13 until a good sample size is obtained.
 . Navigate to calculate_calibration service in rqt.
 . Click on the Call button in rqt.
 
