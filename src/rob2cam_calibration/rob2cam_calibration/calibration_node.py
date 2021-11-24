@@ -1,6 +1,4 @@
-import cv2
 import math
-import numpy as np
 
 import rclpy
 from rclpy.node import Node
@@ -96,7 +94,7 @@ class CameraCalibration(Node):
                 writefile.writelines(lines)
         
         
-    # get the first and only pose data from aruco service 
+    # get the only the first pose data from aruco node
     def aruco_callback(self, msg):
         self.marker_pose = msg.poses[0]
         

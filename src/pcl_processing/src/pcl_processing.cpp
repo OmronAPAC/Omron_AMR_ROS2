@@ -1,9 +1,5 @@
 
 #include "pcl_processing/pcl_processing.hpp"
-#include <chrono>
-
-using namespace std::chrono;
-
 
 PclProcessing::PclProcessing()
 : Node("pcl_processing", rclcpp::NodeOptions()
@@ -52,7 +48,7 @@ PclProcessing::PclProcessing()
     std::bind(&PclProcessing::topic_callback, this, std::placeholders::_1));
   status_sub = this->create_subscription<om_aiv_msg::msg::Status>("ldarcl_status", 10, 
     std::bind(&PclProcessing::status_callback, this, std::placeholders::_1));
-  publisher_ = this->create_publisher<geometry_msgs::msg::Point>("obstacle_point", 10);
+  obstacle_publisher = this->create_publisher<geometry_msgs::msg::Point>("obstacle_point", 10);
   cloud_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_in", 10);
 
   // Initialize point history vector
@@ -73,8 +69,6 @@ void PclProcessing::status_callback(om_aiv_msg::msg::Status::SharedPtr msg)
   odom_pos_x = msg->location.x / 1000;
   odom_pos_y = msg->location.y / 1000;
   theta = msg->location.theta / RADIAN_CONST;
-
-  // RCLCPP_INFO(this->get_logger(), "coord of odom points is x %f y %f theta %f", odom_pos_x, odom_pos_y, theta);
 }
 
 void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
@@ -87,26 +81,11 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   pcl::PointCloud<pcl::PointXYZ>::Ptr rotated_cloud(new pcl::PointCloud<pcl::PointXYZ>);
   pcl::fromPCLPointCloud2(pc,*temp_cloud);
 
-  // outlier filter is too slow, need faster way to process points
-  auto start = high_resolution_clock::now();
-
-  // // Statistical Outlier filter
-  // pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
-  // sor.setInputCloud (temp_cloud);
-  // sor.setMeanK (20);
-  // sor.setStddevMulThresh (1);
-  // sor.filter (*rotated_cloud);
-
-  // auto stop = high_resolution_clock::now();
-  // auto duration = duration_cast<microseconds>(stop - start);
-
-  // RCLCPP_INFO(this->get_logger(), "time taken is %ld", duration.count());
   std::vector<int> indices;
   pcl::removeNaNFromPointCloud(*temp_cloud, *temp_cloud, indices);
   pcl::RadiusOutlierRemoval<pcl::PointXYZ> radiusoutlier;  //Create filter
- 
   radiusoutlier.setInputCloud(temp_cloud);    //Set input point cloud
-  radiusoutlier.setRadiusSearch(0.15);     //Set the radius of 100 to find the nearest point
+  radiusoutlier.setRadiusSearch(0.15);     
   radiusoutlier.setMinNeighborsInRadius(15); 
   radiusoutlier.filter(*rotated_cloud);
 
@@ -115,12 +94,6 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   transform.rotate(Eigen::AngleAxisf(camera_pitch_offset, Eigen::Vector3f(0,1,0)));
   transform.rotate(Eigen::AngleAxisf(camera_yaw_offset, Eigen::Vector3f(0,0,1)));
   pcl::transformPointCloud (*rotated_cloud, *temp_cloud, transform);
-
-  // Eigen::Affine3f transform2 = Eigen::Affine3f::Identity();
-  // pcl::transformPointCloud (*temp_cloud, *rotated_cloud, transform2); 
-
-  // Eigen::Affine3f transform3 = Eigen::Affine3f::Identity();
-  // pcl::transformPointCloud (*rotated_cloud, *temp_cloud, transform3); 
 
   pcl::toROSMsg(*temp_cloud, pub_msg);
   pub_msg.header.frame_id = "processed_cloud";
@@ -142,74 +115,64 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
     iter_y(pub_msg, "y"), iter_z(pub_msg, "z");
     iter_x != iter_x.end(); ++iter_x, ++iter_y, ++iter_z)
   {
-    if (std::isnan(*iter_x) || std::isnan(*iter_y) || std::isnan(*iter_z)) 
+    if (isnan(*iter_x, *iter_y, *iter_z))
     {
-      RCLCPP_DEBUG(
-        this->get_logger(),
-        "rejected for nan in point(%f, %f, %f)\n",
-        *iter_x, *iter_y, *iter_z);
       continue;
     }
-
     // Convert points to robot centre reference
     geometry_msgs::msg::Point current_point;
     current_point.x = *iter_x;
     current_point.y = *iter_y;
     current_point = calibrator.TranslateRobotOrigin(current_point, camera_offset_x, camera_offset_y);
 
-    // Check if points are within bounding box
-    if (*iter_x >= min_bound_x && *iter_x <= max_bound_x &&
-      *iter_y >= min_bound_y && *iter_y <= max_bound_y &&
-      *iter_z >= min_bound_z && *iter_z <= max_bound_z)
+    if (outside_bounds(*iter_x, *iter_y, *iter_z))
     {
-      // check which slice points lie in
-      float slice = check_slice(current_point);
+      continue;
+    }
+    float slice = check_slice(current_point);
 
-      // Adjust closest point in slice, record down coordinates
-      float dist = std::hypot(current_point.x, current_point.y);
-      if (dist < smallest_distance[slice])
-      {
-        // RCLCPP_INFO(this->get_logger(), "dist is %f smallest is %f", dist, smallest_distance);
-        smallest_distance[slice] = dist;
-        obstruction[slice].x = current_point.x;
-        obstruction[slice].y = current_point.y;
-        // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
-      }
+    // Check proximity of current point to robot origin
+    float dist = std::hypot(current_point.x, current_point.y);
+    if (dist < smallest_distance[slice])
+    {
+      smallest_distance[slice] = dist;
+      obstruction[slice].x = current_point.x;
+      obstruction[slice].y = current_point.y;
+      // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
     }
   }
-  // Publishes the filtered cloud for visualization and testing purposes
-  cloud_publisher->publish(pub_msg);
 
-  // RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction.x, obstruction.y);
+  // Convert to world coordinates and check proximity to other obstacles
   for (int i=0; i < points_count; i++)
   {
   RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction[i].x, obstruction[i].y);
     auto world_obstacle = convert_world_coord(obstruction[i]);
     bool is_nearby = check_recency_and_proximity(world_obstacle);
     bool is_near_laser = check_laserscans_proximity(world_obstacle);
-    if (!is_nearby && !is_near_laser && smallest_distance[i] != INT_MAX)
+    if (is_nearby && is_near_laser && smallest_distance[i] == INT_MAX)
     {
-      if (world_obstacle.x != odom_pos_x && world_obstacle.y != odom_pos_y ) 
-      {
-        add_point_to_history(world_obstacle);
-        publisher_->publish(world_obstacle);
-      }
+      continue;
     }
+    if (std::isnan(world_obstacle.x) || std::isnan(world_obstacle.y)) 
+    {
+      continue;
+    }
+    if (world_obstacle.x == odom_pos_x && world_obstacle.y == odom_pos_y ) 
+    {
+      continue;
+    }
+    add_point_to_history(world_obstacle);
+    obstacle_publisher->publish(world_obstacle);
   }
 
-  auto stop = high_resolution_clock::now();
-  auto duration = duration_cast<microseconds>(stop - start);
-
-  RCLCPP_INFO(this->get_logger(), "time taken is %ld", duration.count());
-
-
+  // Publishes the filtered cloud for visualization and testing purposes
+  // Comment out to improve performance
+  // cloud_publisher->publish(pub_msg);
 }
-
 
 bool PclProcessing::check_laserscans_proximity(geometry_msgs::msg::Point current_point)
 {
-  // i+=3 isn't necessary as this operation is fast but nearby laserscans are quite near so it does not matter too much here
-  for (long unsigned int i = 0; i < laser_scan_data.size(); i+=3) {
+  for (long unsigned int i = 0; i < laser_scan_data.size(); i++) {
     if (i >= laser_scan_data.size()) {
       break;
     }
@@ -220,6 +183,30 @@ bool PclProcessing::check_laserscans_proximity(geometry_msgs::msg::Point current
     if (distance < distance_threshold) {
       return true;
     }
+  }
+  return false;
+}
+
+bool PclProcessing::outside_bounds(const float iter_x, const float iter_y, const float iter_z)
+{
+  if (iter_x >= min_bound_x && iter_x <= max_bound_x &&
+    iter_y >= min_bound_y && iter_y <= max_bound_y &&
+    iter_z >= min_bound_z && iter_z <= max_bound_z)
+  {
+    return false;
+  }
+  return true;
+}
+
+bool PclProcessing::isnan(const float iter_x, const float iter_y, const float iter_z)
+{
+  if (std::isnan(iter_x) || std::isnan(iter_y) || std::isnan(iter_z)) 
+  {
+    RCLCPP_DEBUG(
+      this->get_logger(),
+      "rejected for nan in point(%f, %f, %f)\n",
+      iter_x, iter_y, iter_z);
+    return true;
   }
   return false;
 }
@@ -264,55 +251,17 @@ bool PclProcessing::check_recency_and_proximity(geometry_msgs::msg::Point curren
 
 geometry_msgs::msg::Point PclProcessing::convert_world_coord(geometry_msgs::msg::Point current_point)
 {
-  float hypot = std::hypot(current_point.x, current_point.y);
+  // distance between point cloud origin and point
+  float distance = std::hypot(current_point.x, current_point.y);
+
+  // angle from origin to current point
   float angle = std::atan(std::abs(current_point.y) / std::abs(current_point.x));
-  // RCLCPP_INFO(this->get_logger(), "angle is %f", angle);
+  float robot_heading = theta;
   float combined_angle;
 
-  // Conditional to add angle
-  if (current_point.x>=0)
-  {
-    if(current_point.y>=0)
-    {
-      combined_angle = theta + angle;
-    } // Conditional to subtract angle
-    else if (current_point.y<0)
-    {
-      combined_angle = theta - angle;
-    }
-  }
-  else if (current_point.x<0)
-  {
-    float neg_theta;
-    if (theta >= 0)
-    {
-      neg_theta = -PI + theta;
-    }
-    else if (theta < 0)
-    {
-      neg_theta = PI + theta;
-    }
-    if(current_point.y>=0)
-    {
-      combined_angle = neg_theta - angle;
-    } // Conditional to subtract angle
-    else if (current_point.y<0)
-    {
-      combined_angle = neg_theta + angle;
-    }
-  }
-  // RCLCPP_INFO(this->get_logger(), "combined angle is %f", combined_angle);
-  // Restrict angle to -PI to +PI
-  if (combined_angle < -PI)
-  {
-    combined_angle += 2 * PI;
-  }
-  else if (combined_angle > PI)
-  {
-    combined_angle -= 2 * PI;
-  }
-
-  auto difference = get_world_base_coord(combined_angle, hypot);
+  combined_angle = calc_combined_angle(current_point, robot_heading, angle);
+  combined_angle = normalize_angle(combined_angle);
+  auto difference = get_world_base_coord(combined_angle, distance);
 
   // RCLCPP_INFO(this->get_logger(), "current point is x %f y %f, theta is %f", current_point.x, current_point.y,theta);
   // RCLCPP_INFO(this->get_logger(), "coord diff is x %f y %f", difference.x, difference.y);
@@ -322,39 +271,57 @@ geometry_msgs::msg::Point PclProcessing::convert_world_coord(geometry_msgs::msg:
   return difference;
 }
 
-/** \brief This function takes in heading in radians and distance and returns the coordinate relative position to the robot */
+float PclProcessing::calc_combined_angle(geometry_msgs::msg::Point current_point, float robot_heading, float angle)
+{
+  // If points occur from PI/2 to -PI/2 of robot
+  float combined_angle;
+  if (current_point.x>=0)
+  {
+    if(current_point.y>=0)
+    {
+      combined_angle = robot_heading + angle;
+    }
+    else if (current_point.y<0)
+    {
+      combined_angle = robot_heading - angle;
+    }
+  }
+  // If points occur from PI/2 to PI or -PI/2 to -PI
+  else if (current_point.x<0)
+  {
+    // Flip heading to opposite direction
+    robot_heading = normalize_angle(PI + robot_heading);
+    if(current_point.y>=0)
+    {
+      combined_angle = robot_heading - angle;
+    }
+    else if (current_point.y<0)
+    {
+      combined_angle = robot_heading + angle;
+    }
+  }
+  return combined_angle;
+}
+
+float PclProcessing::normalize_angle(float angle)
+{
+  if (angle < -PI)
+  {
+    angle += 2 * PI;
+  }
+  else if (angle > PI)
+  {
+    angle -= 2 * PI;
+  }
+  return angle;
+}
+
 geometry_msgs::msg::Point PclProcessing::get_world_base_coord(double theta, double distance)
 {
   // sin and cos functions take in radians
   geometry_msgs::msg::Point rel_pos;
-  // 0 to 90 degrees
-  if (theta >= 0 && theta <= (PI / 2))
-  {
-    rel_pos.x = distance * cos(theta);
-    rel_pos.y = distance * sin(theta);
-    // RCLCPP_INFO(this->get_logger(), "0 to 90 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
-  }
-  // 90 to 180 degrees
-  else if (theta > (PI / 2) && theta <= PI)
-  {
-    rel_pos.x = -(distance * cos(PI - theta));
-    rel_pos.y = distance * sin(PI - theta);
-    // RCLCPP_INFO(this->get_logger(), "90 to 180 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
-  }
-  // 0 to -90 degrees
-  else if (theta < 0 && theta >= -(PI / 2))
-  {
-    rel_pos.x = distance * cos(-theta);
-    rel_pos.y = -(distance * sin(-theta));
-    // RCLCPP_INFO(this->get_logger(), "0 to -90 coord of rel_pos is x %f y %f", rel_pos.x, rel_pos.y);
-  }
-  // -90 to -180 degrees
-  else if (theta < -(PI / 2) && theta >= -PI)
-  {
-    // assumes that theta is a negative value
-    rel_pos.x = -(distance * cos(theta + PI));
-    rel_pos.y = -(distance * sin(theta + PI));
-  }
+  rel_pos.x = distance * cos(theta);
+  rel_pos.y = distance * sin(theta);
   return rel_pos;
 }
 

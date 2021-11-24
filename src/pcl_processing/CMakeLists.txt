@@ -54,25 +54,12 @@ include_directories(include
 )
 
 
-
 set(HEADERS
   include/pcl_processing/camera_calibration.hpp
   include/pcl_processing/pcl_processing.hpp
 )
 
 add_library(camera_calibration src/camera_calibration.cpp)
-
-add_executable(pcl_filter
-  src/pcl_filter.cpp
-)
-
-ament_target_dependencies(pcl_filter
-  rclcpp
-  sensor_msgs
-  pcl_conversions
-  pcl_ros
-  perception_pcl
-)
 
 add_executable(pcl_processing
   src/pcl_processing.cpp
@@ -93,52 +80,10 @@ target_link_libraries(pcl_processing
   camera_calibration
 )
 
-target_link_libraries(pcl_filter
-  ${Boost_SYSTEM_LIBRARY}  # pcl_conversions requires this
-)
-
-# add_executable(check_box
-#   src/check_box.cpp
-# )
-
-# ament_target_dependencies(check_box
-#   rclcpp
-#   sensor_msgs
-#   nav_msgs
-#   geometry_msgs
-#   pcl_conversions
-#   pcl_ros
-#   perception_pcl
-#   om_aiv_msg
-# )
-
-# add_executable(camera_calibration
-#   src/camera_calibration.cpp
-# )
-
-# ament_target_dependencies(camera_calibration
-#   rclcpp
-#   sensor_msgs
-#   nav_msgs
-#   geometry_msgs
-#   pcl_conversions
-#   pcl_ros
-#   perception_pcl
-#   om_aiv_msg
-# )
-
 install(TARGETS
-  pcl_filter
-  # check_box
   pcl_processing
-  # camera_calibration
   DESTINATION lib/${PROJECT_NAME}
 )
-
-# install(
-#   DIRECTORY launch config map meshes param urdf
-#   DESTINATION share/${PROJECT_NAME}
-# )
 
 install(DIRECTORY
   config

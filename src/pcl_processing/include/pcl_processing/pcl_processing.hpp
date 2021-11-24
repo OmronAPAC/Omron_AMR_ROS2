@@ -60,39 +60,45 @@ private:
   /** \brief the point is added to the history array for comparison */
   void add_point_to_history(geometry_msgs::msg::Point current_point);
 
+  /** \brief check if point being iterated is a valid point */
+  bool isnan(const float iter_x, const float iter_y, const float iter_z);
+
+  /** \brief check if points is outside bounding box */
+  bool outside_bounds(const float iter_x, const float iter_y, const float iter_z);
+
+  /** \brief restricts angle to -PI to +PI */
+  float normalize_angle(float angle);
+
+  /** \brief calculates compounded angle used for world coord conversion */
+  float calc_combined_angle(geometry_msgs::msg::Point current_point, float robot_heading, float angle);
+
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
   rclcpp::Subscription<om_aiv_msg::msg::Status>::SharedPtr status_sub;
   rclcpp::Subscription<visualization_msgs::msg::Marker>::SharedPtr laser_sub;
 
-  rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr publisher_;
+  rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr obstacle_publisher;
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr cloud_publisher;
   CameraCalibration calibrator;
 
-  float min_bound_x = -0.55;
-  float max_bound_x = 1.5;
-  float min_bound_y = -0.75;
-  float max_bound_y = 0.75;
-  float min_bound_z = -0.5;
-  float max_bound_z = 1.5;
-  float camera_offset_y = 0;
-  float camera_offset_x = 0.35;
-  float camera_horizontal_tilt = 0;
-  float camera_roll_offset = 0;
-  float camera_pitch_offset = 0;
-  float camera_yaw_offset = 0;
+  float min_bound_x, max_bound_x;
+  float min_bound_y, max_bound_y;
+  float min_bound_z, max_bound_z;
+  float camera_offset_x, camera_offset_y;
+  float camera_roll_offset;
+  float camera_pitch_offset;
+  float camera_yaw_offset;
   float cam_horizontal_fov;
-  float odom_pos_x;
-  float odom_pos_y;
   float decay_time;
+  float distance_threshold;
   std::vector<geometry_msgs::msg::PoseStamped> history;
   std::vector<geometry_msgs::msg::Point> laser_scan_data;
   int history_iter;
-  float distance_threshold;
-
-  // Theta is the robot heading based off the x axis, counter clockwise gives positive value
-  float theta;
   int points_count;
+
+  // Theta is robot heading based off the x axis, CCW gives positive value
+  float odom_pos_x, odom_pos_y;
+  float theta;
 
   float PI = 3.141592654;
   float RADIAN_CONST = 57.2958;
