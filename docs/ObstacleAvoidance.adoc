@@ -1,1 +1,5 @@
-The obstacle avoidance document contains information that should not be on public domain and has been transferred to microsoft teams under the [pending actual file location]
+The obstacle avoidance document contains information that should not be on public domain and has been transferred to microsoft teams under ROS @ OMRON 
+
+Files > Mobile Robots > ROS2 > Obstacle Avoidance
+
+https://teams.microsoft.com/_#/files/Mobile%20Robots?threadId=19%3A2baf9ba15b2e4b5fbf2a959c82c126b3%40thread.tacv2&ctx=channel&context=Obstacle_Avoidance&rootfolder=%252Fsites%252Ftms_GLB-P_IAB_0051%252FShared%2520Documents%252FMobile%2520Robots%252FROS2%252FObstacle_Avoidance
