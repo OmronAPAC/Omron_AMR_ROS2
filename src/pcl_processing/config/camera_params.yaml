@@ -15,9 +15,9 @@ pcl_processing:
     distance_threshold: 0.03       # Distance in meters to add a new point
     # Values here are in Radians
     camera_horizontal_fov: 2.15  # camera point cloud horizontal FoV in radians
-    camera_roll_offset: 0.02461
-    camera_pitch_offset: 0.35607
-    camera_yaw_offset: 0.06
+    camera_roll_x_offset: 0.02461
+    camera_pitch_y_offset: 0.35607
+    camera_yaw_z_offset: 0.06
     # Size of bounding box
     # Note that ZED2 point cloud faces the x-axis,
     # Looking Forward would be increasing distance in the x-axis

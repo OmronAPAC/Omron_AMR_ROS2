@@ -2,10 +2,7 @@
 
 from __future__ import print_function
 import rclpy
-import math
-from rclpy.action import ActionClient
 from rclpy.node import Node
-from om_aiv_msg.action import Action
 from om_aiv_msg.srv import ArclApi
 from geometry_msgs.msg import Point
 from visualization_msgs.msg import Marker
@@ -23,19 +20,14 @@ class AddPoint(Node):
         self.subscription = self.create_subscription(Point, 'obstacle_point', self.subscription_callback, 10)
         self.publisher = self.create_publisher(Marker, 'obs_points', 10)
         self.id = 0
-        self.free = True
         
     # callback for subscription from pc
     def subscription_callback(self, msg):
-        self.publisher.publish(self.init_marker(msg))
         # self.get_logger().info("point of x " + str(msg.x) + " and y " + str(msg.y) + " received")
+        self.publisher.publish(self.init_marker(msg))
         if msg.x == 0 and msg.y == 0:
             self.get_logger().info("return")
             return
-        if not self.free:
-            self.get_logger().info("service not free")
-            return
-        self.free = False
         x_coord = int(msg.x * 1000)
         y_coord = int(msg.y * 1000)
         obstacle_position = str(x_coord) + " " + str(y_coord)
@@ -50,7 +42,6 @@ class AddPoint(Node):
 
         self._future = self.client.call_async(goal)
         self._future.add_done_callback(self.response_callback)
-        self.free = True
         
     def response_callback(self, future):
         self.get_logger().info(future.result().response)

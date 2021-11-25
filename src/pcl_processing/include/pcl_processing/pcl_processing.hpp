@@ -52,10 +52,10 @@ private:
   geometry_msgs::msg::Point get_world_base_coord(double theta, double distance);
 
   /** \brief The point is compared against a stored array of past points to check whether a point nearby is already recently added */
-  bool check_recency_and_proximity(geometry_msgs::msg::Point current_point);
+  bool nearby_added(geometry_msgs::msg::Point current_point);
 
   /** \brief The point is compared against the latest laserscans from the AMR */
-  bool check_laserscans_proximity(geometry_msgs::msg::Point current_point);
+  bool near_laserscans(geometry_msgs::msg::Point current_point);
 
   /** \brief the point is added to the history array for comparison */
   void add_point_to_history(geometry_msgs::msg::Point current_point);
@@ -73,9 +73,9 @@ private:
   float calc_combined_angle(geometry_msgs::msg::Point current_point, float robot_heading, float angle);
 
 
-  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
-  rclcpp::Subscription<om_aiv_msg::msg::Status>::SharedPtr status_sub;
-  rclcpp::Subscription<visualization_msgs::msg::Marker>::SharedPtr laser_sub;
+  rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pointcloud_subscriber;
+  rclcpp::Subscription<om_aiv_msg::msg::Status>::SharedPtr status_subscriber;
+  rclcpp::Subscription<visualization_msgs::msg::Marker>::SharedPtr laser_subscriber;
 
   rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr obstacle_publisher;
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr cloud_publisher;

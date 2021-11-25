@@ -8,7 +8,7 @@ PclProcessing::PclProcessing()
 {
   calibrator = CameraCalibration();
 
-  // get parameter from yaml file
+  // get parameters from yaml file
   rclcpp::Parameter points_to_add = this->get_parameter("points_to_add");
   rclcpp::Parameter camera_horizontal_fov = this->get_parameter("camera_horizontal_fov");
   rclcpp::Parameter min_bound_x_param = this->get_parameter("min_bound_x");
@@ -19,9 +19,9 @@ PclProcessing::PclProcessing()
   rclcpp::Parameter max_bound_z_param = this->get_parameter("max_bound_z");
   rclcpp::Parameter camera_offset_x_param = this->get_parameter("camera_x_offset");
   rclcpp::Parameter camera_offset_y_param = this->get_parameter("camera_y_offset");
-  rclcpp::Parameter camera_offset_roll_param = this->get_parameter("camera_roll_offset");
-  rclcpp::Parameter camera_offset_pitch_param = this->get_parameter("camera_pitch_offset");
-  rclcpp::Parameter camera_offset_yaw_param = this->get_parameter("camera_yaw_offset");
+  rclcpp::Parameter camera_offset_roll_param = this->get_parameter("camera_roll_x_offset");
+  rclcpp::Parameter camera_offset_pitch_param = this->get_parameter("camera_pitch_y_offset");
+  rclcpp::Parameter camera_offset_yaw_param = this->get_parameter("camera_yaw_z_offset");
   rclcpp::Parameter camera_topic_param = this->get_parameter("camera_topic");
   rclcpp::Parameter decay_time_param = this->get_parameter("decay_time");
   rclcpp::Parameter distance_threshold_param = this->get_parameter("distance_threshold");
@@ -44,9 +44,9 @@ PclProcessing::PclProcessing()
   std::string camera_topic = camera_topic_param.as_string();
 
   // Initialize publisher and subscriber
-  subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(camera_topic, 10, 
+  pointcloud_subscriber = this->create_subscription<sensor_msgs::msg::PointCloud2>(camera_topic, 10, 
     std::bind(&PclProcessing::topic_callback, this, std::placeholders::_1));
-  status_sub = this->create_subscription<om_aiv_msg::msg::Status>("ldarcl_status", 10, 
+  status_subscriber = this->create_subscription<om_aiv_msg::msg::Status>("ldarcl_status", 10, 
     std::bind(&PclProcessing::status_callback, this, std::placeholders::_1));
   obstacle_publisher = this->create_publisher<geometry_msgs::msg::Point>("obstacle_point", 10);
   cloud_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_in", 10);
@@ -129,6 +129,7 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
     {
       continue;
     }
+
     float slice = check_slice(current_point);
 
     // Check proximity of current point to robot origin
@@ -145,19 +146,11 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   // Convert to world coordinates and check proximity to other obstacles
   for (int i=0; i < points_count; i++)
   {
-  RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction[i].x, obstruction[i].y);
+    RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction[i].x, obstruction[i].y);
     auto world_obstacle = convert_world_coord(obstruction[i]);
-    bool is_nearby = check_recency_and_proximity(world_obstacle);
-    bool is_near_laser = check_laserscans_proximity(world_obstacle);
-    if (is_nearby && is_near_laser && smallest_distance[i] == INT_MAX)
-    {
-      continue;
-    }
-    if (std::isnan(world_obstacle.x) || std::isnan(world_obstacle.y)) 
-    {
-      continue;
-    }
-    if (world_obstacle.x == odom_pos_x && world_obstacle.y == odom_pos_y ) 
+    if (nearby_added(world_obstacle) || near_laserscans(world_obstacle) || smallest_distance[i] == INT_MAX
+      || std::isnan(world_obstacle.x) || std::isnan(world_obstacle.y)
+      || (world_obstacle.x == odom_pos_x && world_obstacle.y == odom_pos_y))
     {
       continue;
     }
@@ -170,7 +163,7 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   // cloud_publisher->publish(pub_msg);
 }
 
-bool PclProcessing::check_laserscans_proximity(geometry_msgs::msg::Point current_point)
+bool PclProcessing::near_laserscans(geometry_msgs::msg::Point current_point)
 {
   for (long unsigned int i = 0; i < laser_scan_data.size(); i++) {
     if (i >= laser_scan_data.size()) {
@@ -223,7 +216,7 @@ void PclProcessing::add_point_to_history(geometry_msgs::msg::Point current_point
   }
 }
 
-bool PclProcessing::check_recency_and_proximity(geometry_msgs::msg::Point current_point)
+bool PclProcessing::nearby_added(geometry_msgs::msg::Point current_point)
 {
   bool is_nearby = false;
   for (int i=0; i<decay_time*points_count; i++)
@@ -337,8 +330,6 @@ float PclProcessing::check_slice(geometry_msgs::msg::Point current_point)
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::NodeOptions node_options;
-  node_options.allow_undeclared_parameters(true);
   rclcpp::spin(std::make_shared<PclProcessing>());
   rclcpp::shutdown();
   return 0;
