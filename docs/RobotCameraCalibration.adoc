@@ -29,7 +29,7 @@ Last updated: `23 November 2021` By: `Zeon`
 
 == Getting Started
 === Description
-This package streamlines the collection of odometric data from the robot and ArUco marker before publishing it to the handeye_4dof_ros2 package and then writes the incoming calibrated input into a config file found in pcl_processing.
+This package streamlines the collection of odometry data from the robot and Pose from the  ArUco marker before publishing it to the handeye_4dof_ros2 package and then writes the incoming calibrated input into a .yaml config file found in the pcl_processing package.
 
 [[prerequisites]]
 === Prerequisites
@@ -43,7 +43,7 @@ https://github.com/OmronAPAC/Omron_AMR_ROS2/blob/master/docs/DeveloperGuide.adoc
 
 . **Handeye 4dof**
 +
-You will also need the Handeye-4dof calibration algorithm from https://github.com/QuantuMope/handeye-4dof[here]. The ROS2 implementation can be found link:https://github.com/CFZeon/handeye_4dof_ros2[here].
+You will also need the Handeye-4dof calibration algorithm from https://github.com/QuantuMope/handeye-4dof[here]. The ROS2 implementation is included in this package. Look link:https://github.com/CFZeon/handeye_4dof_ros2[here] for instructions on how to operate it.
 
 . **ros2_aruco**
 +
@@ -76,6 +76,13 @@ TODO: add recency check for the poses.
 ==== calibrated_pose Subscriber Callback
 
 Upon receiving a valid calculation from the handeye_4dof_ros2 node, the calibration result is saved into the .yaml file in pcl_processing.
+
+The file is read and split into its individual lines with 
+`file.readlines()`
+
+Within each line, the specific identifier i.e. `camera_roll_x_offset` is searched for and the value is then replaced by the calibrated value.
+
+The modified lines are then written back into the file.
 
 == Instructions on Usage
 [[instructions]]
@@ -133,4 +140,3 @@ image::rqt_store_poses.png[]
 . Repeat steps 12 and 13 until a good sample size is obtained.
 . Navigate to calculate_calibration service in rqt.
 . Click on the Call button in rqt.
-

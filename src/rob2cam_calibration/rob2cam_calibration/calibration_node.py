@@ -4,14 +4,16 @@ import rclpy
 from rclpy.node import Node
 
 from ament_index_python.packages import get_package_share_directory
-pcl_processing_share = get_package_share_directory('pcl_processing')
+PCL_PROCESSING_SHARE = get_package_share_directory('pcl_processing')
 
 from om_aiv_msg.msg import Status
 from geometry_msgs.msg import Pose, PoseArray
 from std_srvs.srv import Empty
 
 DEGREE_TO_RAD_CONST = 57.2958
-
+INDENTATION = '    '
+CAMERA_PARAM_LOCATION = '/config/camera_params.yaml'
+CALIB_PARAM_LIST = ['camera_x_offset', 'camera_y_offset', 'camera_roll_x_offset', 'camera_pitch_y_offset', 'camera_yaw_z_offset']
 
 class CameraCalibration(Node):
     
@@ -76,32 +78,40 @@ class CameraCalibration(Node):
     def calib_pose_callback(self,msg):
         self.get_logger().info("Calibration result: " + str(msg))
         rpy = self.euler_from_quat(msg.orientation)
-        with open(pcl_processing_share + "/config/camera_params.yaml", 'r+') as file:
-            indentation = "    "
+        # params are formatted in same order as CALIB_PARAM_LIST
+        params = [str(msg.x), str(msg.y), str(rpy[0]), str(rpy[1]), str(rpy[2])]
+        with open(PCL_PROCESSING_SHARE + CAMERA_PARAM_LOCATION, 'r+') as file:
             lines = file.readlines()
             for i in range(0,len(lines)):
-                if "camera_x_offset" in lines[i]:
-                    lines[i] = indentation + "camera_x_offset: " + str(msg.position.x) + "\n"
-                if "camera_y_offset" in lines[i]:
-                    lines[i] = indentation + "camera_y_offset: " + str(msg.position.y) + "\n"
-                if "camera_roll_offset" in lines[i]:
-                    lines[i] = indentation + "camera_roll_offset: " + str(rpy[0]) + "\n"
-                if "camera_pitch_offset" in lines[i]:
-                    lines[i] = indentation + "camera_pitch_offset: " + str(rpy[1]) + "\n"
-                if "camera_yaw_offset" in lines[i]:
-                    lines[i] = indentation + "camera_yaw_offset: " + str(rpy[2]) + "\n"
-            with open(pcl_processing_share + "/config/camera_params.yaml", 'w+') as writefile:
+                for j in range(0,len(CALIB_PARAM_LIST)):
+                    if CALIB_PARAM_LIST[j] not in lines[i]:
+                        continue
+                    strings = lines[i].lstrip(' ').split(' ')
+                    # number parameter in config yaml file
+                    strings[1] = params[j]
+                    if len(strings)<=2:
+                        strings[1] = strings[1] + '\n'
+                    lines[i] = INDENTATION + ' '.join(strings)
+            with open(PCL_PROCESSING_SHARE + CAMERA_PARAM_LOCATION, 'w+') as writefile:
                 writefile.writelines(lines)
         
         
-    # get the only the first pose data from aruco node
+    # Get only the first pose data from aruco node
     def aruco_callback(self, msg):
-        self.marker_pose = msg.poses[0]
+        print("yes")
+        print(msg.header.stamp)
+        print(self.get_clock().now().to_msg())
+        self.poselist = msg
         
-    # store in memory the current position of robot and the pose of the fiducial marker
+    # Store and publish the current position of robot and the pose of the fiducial marker
     def store_poses(self, req, res):
+        current_time = self.get_clock().now().to_msg()
+        last_aruco_time = self.poselist.header.stamp
+        if current_time.sec - last_aruco_time.sec > 1:
+            self.get_logger().info("ArUco marker is outdated. Aborting Operation.")
+            return res
         self.odom_pose_list.poses.append(self.pos)
-        self.marker_pose_list.poses.append(self.marker_pose)
+        self.marker_pose_list.poses.append(self.poselist.poses[0])
         
         self.robot_pose_pub.publish(self.odom_pose_list)
         self.marker_pose_pub.publish(self.marker_pose_list)
@@ -109,7 +119,7 @@ class CameraCalibration(Node):
         
         # # empty return to signal to rqt that the service call is done if not rqt will crash
         return res
-        
+
 
 def main(args=None):
     rclpy.init(args=args)
@@ -121,4 +131,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-    
