@@ -2,3 +2,6 @@ handeye_4dof_node:
   ros__parameters:
     antiparallel_screw_axes: False
     calculate_nonlinear: True
+    base_to_hand_topic: "base_to_robot" 
+    robot_to_marker_topic: "robot_to_marker" 
+    calibrated_pose_topic: "calibrated_pose"

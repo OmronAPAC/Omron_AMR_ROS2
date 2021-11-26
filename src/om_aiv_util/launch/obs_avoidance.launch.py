@@ -17,29 +17,11 @@ def generate_launch_description():
         get_package_share_directory('pcl_processing'),
         'config',
         'camera_params.yaml'
-        )
-    
-    pcl_filter_node = Node(
-        package='pcl_processing',
-        executable='pcl_filter',
-        output='screen'
     )
     
     add_obstacle_node = Node(        
         package='om_aiv_navigation',
         executable='add_obstacle',
-        output='screen'
-    )
-    
-    point_add_server_node = Node(
-        package='om_aiv_navigation',
-        executable='point_add_server',
-        output='screen'
-    )
-    
-    check_box_node = Node(
-        package='pcl_processing',
-        executable='check_box',
         output='screen'
     )
     
@@ -59,10 +41,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        # pcl_filter_node,
-        # check_box_node,
         add_obstacle_node,
         points_node,
         pcl_processing_node,
-        # point_add_server_node,
         ])

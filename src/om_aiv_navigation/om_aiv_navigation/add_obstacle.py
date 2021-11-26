@@ -7,7 +7,8 @@ from om_aiv_msg.srv import ArclApi
 from geometry_msgs.msg import Point
 from visualization_msgs.msg import Marker
 
-ADD_POINT_COMMAND = "customreadingaddabsolutelidar "
+ADD_POINT_COMMAND = "customreadingaddabsolute"
+SENSOR_NAME = "lidar"
 GOAL_POSE_TOPIC = "goal_pose"
 
 
@@ -34,7 +35,7 @@ class AddPoint(Node):
         self.send_goto_point(obstacle_position)
     
     def send_goto_point(self, coords):
-        command = ADD_POINT_COMMAND + coords
+        command = ADD_POINT_COMMAND + SENSOR_NAME + " " + coords
         self.client.wait_for_service()
         goal = ArclApi.Request()
         goal.command = command
@@ -61,8 +62,6 @@ class AddPoint(Node):
         marker.scale.z = 0.05
         marker.pose.orientation.w = 1.0
         marker.pose.position = msg
-        marker.pose.position.x = marker.pose.position.x
-        marker.pose.position.y = marker.pose.position.y
         marker.id = self.id
         self.id += 1
         if self.id > 1000:
@@ -72,8 +71,8 @@ class AddPoint(Node):
     
 def main(args=None):
     rclpy.init(args=args)
-    action_client = AddPoint()
-    rclpy.spin(action_client)
+    add_points_client = AddPoint()
+    rclpy.spin(add_points_client)
     
 if __name__ == '__main__':
     main()

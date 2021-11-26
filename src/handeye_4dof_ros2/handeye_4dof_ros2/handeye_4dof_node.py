@@ -16,12 +16,21 @@ class Handeye4Dof(Node):
 
     def __init__(self):
         super().__init__('handeye_4dof_node')
-        # TODO: create config file for these parameters
-        base_to_hand_topic = "base_to_robot" # temp before replacing with config input
-        robot_to_marker_topic = "robot_to_marker" # temp before replacing with config input
-        self.calculate_nonlinear = True
-        self.antiparallel_screw_axes = False
-        calibrated_pose_topic = "calibrated_pose"
+        self.declare_parameters(
+            namespace='',
+            parameters=[
+                ('base_to_hand_topic', 'base_to_robot'),
+                ('robot_to_marker_topic', 'robot_to_marker'),
+                ('calculate_nonlinear', False),
+                ('antiparallel_screw_axes', True),
+                ('calibrated_pose_topic', 'calibrated_pose')
+            ]
+        )
+        base_to_hand_topic = self.get_parameter('base_to_hand_topic').value
+        robot_to_marker_topic = self.get_parameter('robot_to_marker_topic').value
+        self.calculate_nonlinear = self.get_parameter('calculate_nonlinear').value
+        self.antiparallel_screw_axes = self.get_parameter('antiparallel_screw_axes').value
+        calibrated_pose_topic = self.get_parameter('calibrated_pose_topic').value
         self.base_to_hand = self.create_subscription(
             PoseArray,
             base_to_hand_topic,
@@ -46,17 +55,16 @@ class Handeye4Dof(Node):
         if len(self.base_to_hand_list) > 0 and len(self.camera_to_marker_list) > 0:
             self.calculate_handeye_calibration()
             self.calibrated_pose.publish(self.calibration_pose)
+        else:
+            self.get_logger().info("Lists are empty!")
         return res
     
-    
-    # TODO: convert this to a service call
     # Takes in a pose array and converts it to a list of numpy arrays
     def base_to_hand_callback(self, msg):
         self.base_to_hand_list = []
         for i in range(0, len(msg.poses)):
             self.base_to_hand_list.append(self.convert_pose_to_transform_matrix(msg.poses[i]))
 
-    # TODO: convert this to a service call
     # Takes in a pose array and converts it to a list of numpy arrays        
     def camera_to_marker_callback(self, msg):
         self.camera_to_marker_list = []
