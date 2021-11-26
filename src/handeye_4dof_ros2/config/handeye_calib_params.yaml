@@ -1,0 +1,4 @@
+handeye_4dof_node:
+  ros__parameters:
+    antiparallel_screw_axes: False
+    calculate_nonlinear: True
