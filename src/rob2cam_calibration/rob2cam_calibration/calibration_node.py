@@ -13,16 +13,18 @@ from std_srvs.srv import Empty
 DEGREE_TO_RAD_CONST = 57.2958
 INDENTATION = '    '
 CAMERA_PARAM_LOCATION = '/config/camera_params.yaml'
-CALIB_PARAM_LIST = ['camera_x_offset', 'camera_y_offset', 'camera_roll_x_offset', 'camera_pitch_y_offset', 'camera_yaw_z_offset']
 
 class CameraCalibration(Node):
     
     
     def __init__(self):
         super().__init__('camera_calibration')
-        self.robot_odometry_subscriber = self.create_subscription(Status, 'ldarcl_status', self.status_callback, 10)
-        self.aruco_subscriber = self.create_subscription(PoseArray, 'aruco_poses', self.aruco_callback, 10)
-        self.calib_result_sub = self.create_subscription(Pose, 'calibrated_pose', self.calib_pose_callback, 10)
+        self.robot_odometry_subscriber = self.create_subscription(
+            Status, 'ldarcl_status', self.status_callback, 10)
+        self.aruco_subscriber = self.create_subscription(
+            PoseArray, 'aruco_poses', self.aruco_callback, 10)
+        self.calib_result_sub = self.create_subscription(
+            Pose, 'calibrated_pose', self.calib_pose_callback, 10)
         
         self.store_poses_srv = self.create_service(Empty, 'store_poses', self.store_poses)
         
@@ -78,6 +80,9 @@ class CameraCalibration(Node):
     def calib_pose_callback(self,msg):
         self.get_logger().info("Calibration result: " + str(msg))
         rpy = self.euler_from_quat(msg.orientation)
+        CALIB_PARAM_LIST = [
+            'camera_x_offset', 'camera_y_offset', 
+            'camera_roll_x_offset', 'camera_pitch_y_offset', 'camera_yaw_z_offset']
         # params are formatted in same order as CALIB_PARAM_LIST
         params = [str(msg.x), str(msg.y), str(rpy[0]), str(rpy[1]), str(rpy[2])]
         with open(PCL_PROCESSING_SHARE + CAMERA_PARAM_LOCATION, 'r+') as file:
@@ -98,9 +103,6 @@ class CameraCalibration(Node):
         
     # Get only the first pose data from aruco node
     def aruco_callback(self, msg):
-        print("yes")
-        print(msg.header.stamp)
-        print(self.get_clock().now().to_msg())
         self.poselist = msg
         
     # Store and publish the current position of robot and the pose of the fiducial marker
@@ -110,6 +112,7 @@ class CameraCalibration(Node):
         if current_time.sec - last_aruco_time.sec > 1:
             self.get_logger().info("ArUco marker is outdated. Aborting Operation.")
             return res
+        
         self.odom_pose_list.poses.append(self.pos)
         self.marker_pose_list.poses.append(self.poselist.poses[0])
         

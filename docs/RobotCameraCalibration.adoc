@@ -21,7 +21,7 @@ endif::[]
 :url-repo: https://github.com/OmronAPAC/Omron_AMR_ROS2
 :url-ug: https://github.com/OmronAPAC/Omron_AMR_ROS2/blob/master/docs/RobotCameraCalibration.adoc
 
-Last updated: `23 November 2021` By: `Zeon`
+Last updated: `26 November 2021` By: `Zeon`
 
 == Authors
 
@@ -30,6 +30,24 @@ Last updated: `23 November 2021` By: `Zeon`
 == Getting Started
 === Description
 This package streamlines the collection of odometry data from the robot and Pose from the  ArUco marker before publishing it to the handeye_4dof_ros2 package and then writes the incoming calibrated input into a .yaml config file found in the pcl_processing package.
+
+=== Hand-eye Calibration
+image::handeye_diagram.png[Hand-eye Calibration]
+
+Hand-eye calibration is an algorithm to calculate the transform between a robot arm and a camera mounted to the robot arm. This is represented as X in the diagram above. Using a fixed fiducial marker as denoted by M1, M2 and robot positional coordinates denoted by R1, R2, the transforms A and B can be obtained through vector resolution. 
+
+Combining these gives us the equation AX=XB, which is the hand-eye calibration equation.
+
+=== Rob2Cam Calibration
+image::rob2cam_diagram.png[]
+
+The Rob2Cam calibration calculates the Pose between the AMR's center point and the camera. This is done using an algorithm called hand-eye calibration, which as its name implies, calculates the distance between a robot's hand and its camera. Since we are not using a robot arm, the term hand-eye has been changed to Rob2Cam to remove any confusion.
+
+Based on the diagram above, we are calculating AMR H Camera, given that we can provide multiple (>=3) unique Origin H AMR and Camera H Marker.
+
+The AMR has only 3 degrees of freedom(DoF), which are x, y and theta(rotation around the Z-axis). An articulated robot arm has 6. Conventional hand-eye calibration algorithms are made under the assumption that the robot is of 6 DoF. This means that conventional hand-eye calibration algorithms are not able to calculate the Rob2Cam calibration that we require here.
+
+As such, we use Ulrich's algorithm which is made to calculate hand-eye calibration for SCARA robots, which are 4DoF. Due to the lack of dimensions in movement, the algorithm is unable to calculate the Z-axis of the camera relative to the robot. The current solution is to directly measure it with a tool like a measuring tape.
 
 [[prerequisites]]
 === Prerequisites
@@ -71,8 +89,6 @@ As the AMR only provides information in x, y, theta, a conversion is done to con
 
 On a ZED2 stereo camera, it is necessary to rotate the camera to marker orientation by -1.57, 0, -1.57 as the camera faces X forward, as opposed to Z forward. The pose should be transformed in the marker callback before it is appended into the list.
 
-TODO: add recency check for the poses.
-
 ==== calibrated_pose Subscriber Callback
 
 Upon receiving a valid calculation from the handeye_4dof_ros2 node, the calibration result is saved into the .yaml file in pcl_processing.
@@ -83,6 +99,8 @@ The file is read and split into its individual lines with
 Within each line, the specific identifier i.e. `camera_roll_x_offset` is searched for and the value is then replaced by the calibrated value.
 
 The modified lines are then written back into the file.
+
+handeye_4dof algorithm does not calculate Z-axis offset. This is excluded from the file writing process.
 
 == Instructions on Usage
 [[instructions]]
