@@ -2,7 +2,9 @@
 ![omron ld robot](https://assets.omron.com/m/438d82ed579472a4/Portrait_M-Mobile_Robot_Product-News-jpg.jpg "omron ld robot")
 
 This repository contains various ROS packages that allows you to interface with your Omron AMR Mobile Robot via the ROS environment.
+
 For Point Cloud-based Obstacle Avoidance, check the branch obs_avoidance_devel. To find the developer's guide, click [Here](https://github.com/OmronAPAC/Omron_AMR_ROS2/blob/obs_avoidance_devel/docs/ObstacleAvoidance.adoc).
+
 On information pertaining to robot to camera calibration, see [Here](https://github.com/OmronAPAC/Omron_AMR_ROS2/blob/obs_avoidance_devel/docs/RobotCameraCalibration.adoc).
 
 ## Supported Features
