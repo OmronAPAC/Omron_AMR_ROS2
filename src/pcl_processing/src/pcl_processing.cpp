@@ -81,6 +81,7 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   pcl::PointCloud<pcl::PointXYZ>::Ptr rotated_cloud(new pcl::PointCloud<pcl::PointXYZ>);
   pcl::fromPCLPointCloud2(pc,*temp_cloud);
 
+  // a radius filter is in searching for outlier points
   std::vector<int> indices;
   pcl::removeNaNFromPointCloud(*temp_cloud, *temp_cloud, indices);
   pcl::RadiusOutlierRemoval<pcl::PointXYZ> radiusoutlier;  //Create filter
@@ -89,6 +90,8 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   radiusoutlier.setMinNeighborsInRadius(15); 
   radiusoutlier.filter(*rotated_cloud);
 
+  // The point cloud is rotated to a standardized format using 
+  // rpy values from config file
   Eigen::Affine3f transform = Eigen::Affine3f::Identity();
   transform.rotate(Eigen::AngleAxisf(camera_roll_offset, Eigen::Vector3f(1,0,0)));
   transform.rotate(Eigen::AngleAxisf(camera_pitch_offset, Eigen::Vector3f(0,1,0)));
@@ -119,17 +122,20 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
     {
       continue;
     }
+
     // Convert points to robot centre reference
     geometry_msgs::msg::Point current_point;
     current_point.x = *iter_x;
     current_point.y = *iter_y;
     current_point = calibrator.TranslateRobotOrigin(current_point, camera_offset_x, camera_offset_y);
 
+    // check if points are within bounding box
     if (outside_bounds(*iter_x, *iter_y, *iter_z))
     {
       continue;
     }
 
+    // get partition of current point
     float slice = check_slice(current_point);
 
     // Check proximity of current point to robot origin
@@ -143,11 +149,15 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
     }
   }
 
-  // Convert to world coordinates and check proximity to other obstacles
+  // Takes the closest points within each slice and
+  // convert to world coordinates and check proximity to other obstacles
   for (int i=0; i < points_count; i++)
   {
     RCLCPP_INFO(this->get_logger(), "coord of min points is x %f y %f", obstruction[i].x, obstruction[i].y);
     auto world_obstacle = convert_world_coord(obstruction[i]);
+
+    // These conditionals check if the world obstacle is near to other previously added points,
+    // near to input laser scans, or are of an invalid number 
     if (nearby_added(world_obstacle) || near_laserscans(world_obstacle) || smallest_distance[i] == INT_MAX
       || std::isnan(world_obstacle.x) || std::isnan(world_obstacle.y)
       || (world_obstacle.x == odom_pos_x && world_obstacle.y == odom_pos_y))
@@ -160,7 +170,7 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
 
   // Publishes the filtered cloud for visualization and testing purposes
   // Comment out to improve performance
-  // cloud_publisher->publish(pub_msg);
+  cloud_publisher->publish(pub_msg);
 }
 
 bool PclProcessing::near_laserscans(geometry_msgs::msg::Point current_point)
@@ -318,9 +328,9 @@ geometry_msgs::msg::Point PclProcessing::get_world_base_coord(double theta, doub
   return rel_pos;
 }
 
-// check which slice points lie in
 float PclProcessing::check_slice(geometry_msgs::msg::Point current_point)
 {
+  // check which slice points lie in
   float angle = std::atan2(current_point.y, current_point.x);
   angle += ((cam_horizontal_fov / 2) - camera_yaw_offset);
   float slice = angle / (cam_horizontal_fov / points_count);

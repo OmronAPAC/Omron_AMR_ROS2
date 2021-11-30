@@ -28,7 +28,7 @@ class CameraCalibration(Node):
         
         self.store_poses_srv = self.create_service(Empty, 'store_poses', self.store_poses)
         
-        self.marker_pose_pub = self.create_publisher(PoseArray, 'robot_to_marker', 10)
+        self.marker_pose_pub = self.create_publisher(PoseArray, 'camera_to_marker', 10)
         self.robot_pose_pub = self.create_publisher(PoseArray, 'base_to_robot', 10)
         self.odom_pose_list = PoseArray()
         self.marker_pose_list = PoseArray()
@@ -92,7 +92,7 @@ class CameraCalibration(Node):
                     if CALIB_PARAM_LIST[j] not in lines[i]:
                         continue
                     strings = lines[i].lstrip(' ').split(' ')
-                    # number parameter in config yaml file
+                    # strings[1] is the parameter value after splitting
                     strings[1] = params[j]
                     if len(strings)<=2:
                         strings[1] = strings[1] + '\n'
@@ -120,7 +120,7 @@ class CameraCalibration(Node):
         self.marker_pose_pub.publish(self.marker_pose_list)
         self.get_logger().info("Stored current robot position and fiducial marker position")
         
-        # # empty return to signal to rqt that the service call is done if not rqt will crash
+        # empty return to signal to rqt that the service call is done if not rqt will crash
         return res
 
 
