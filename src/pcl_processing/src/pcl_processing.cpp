@@ -23,6 +23,7 @@ PclProcessing::PclProcessing()
   rclcpp::Parameter camera_offset_pitch_param = this->get_parameter("camera_pitch_y_offset");
   rclcpp::Parameter camera_offset_yaw_param = this->get_parameter("camera_yaw_z_offset");
   rclcpp::Parameter camera_topic_param = this->get_parameter("camera_topic");
+  rclcpp::Parameter point_topic_param = this->get_parameter("point_topic");
   rclcpp::Parameter decay_time_param = this->get_parameter("decay_time");
   rclcpp::Parameter distance_threshold_param = this->get_parameter("distance_threshold");
 
@@ -42,10 +43,13 @@ PclProcessing::PclProcessing()
   distance_threshold = distance_threshold_param.as_double();
   cam_horizontal_fov = camera_horizontal_fov.as_double();
   std::string camera_topic = camera_topic_param.as_string();
+  std::string point_topic = point_topic_param.as_string();
 
   // Initialize publisher and subscriber
   pointcloud_subscriber = this->create_subscription<sensor_msgs::msg::PointCloud2>(camera_topic, 10, 
     std::bind(&PclProcessing::topic_callback, this, std::placeholders::_1));
+  point_subscriber = this->create_subscription<geometry_msgs::msg::Point>(point_topic, 10,
+    std::bind(&PclProcessing::point_callback, this, std::placeholders::_1));
   status_subscriber = this->create_subscription<om_aiv_msg::msg::Status>("ldarcl_status", 10, 
     std::bind(&PclProcessing::status_callback, this, std::placeholders::_1));
   obstacle_publisher = this->create_publisher<geometry_msgs::msg::Point>("obstacle_point", 10);
@@ -69,6 +73,13 @@ void PclProcessing::status_callback(om_aiv_msg::msg::Status::SharedPtr msg)
   odom_pos_x = msg->location.x / 1000;
   odom_pos_y = msg->location.y / 1000;
   theta = msg->location.theta / RADIAN_CONST;
+}
+
+void PclProcessing::point_callback(geometry_msgs::msg::Point::SharedPtr msg)
+{
+  auto world_obstacle = convert_world_coord(*msg);
+  add_point_to_history(world_obstacle);
+  obstacle_publisher->publish(world_obstacle);
 }
 
 void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)

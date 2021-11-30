@@ -33,13 +33,16 @@ public:
   
 
 private:
-  /** \brief topic callback for pointcloud data*/
+  /** \brief topic callback for pointcloud data */
   void topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg);
 
-  /** \brief topic callback for AMR status data*/
+  /** \brief topic callback for points */
+  void point_callback(geometry_msgs::msg::Point::SharedPtr msg);
+
+  /** \brief topic callback for AMR status data */
   void status_callback(om_aiv_msg::msg::Status::SharedPtr msg);
 
-  /** \brief topic callback for laser scans data*/
+  /** \brief topic callback for laser scans data */
   void laser_callback(visualization_msgs::msg::Marker::SharedPtr msg);
 
   /** \brief checks which partition of the horizontal */
@@ -74,6 +77,7 @@ private:
 
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pointcloud_subscriber;
+  rclcpp::Subscription<geometry_msgs::msg::Point>::SharedPtr point_subscriber;
   rclcpp::Subscription<om_aiv_msg::msg::Status>::SharedPtr status_subscriber;
   rclcpp::Subscription<visualization_msgs::msg::Marker>::SharedPtr laser_subscriber;
 

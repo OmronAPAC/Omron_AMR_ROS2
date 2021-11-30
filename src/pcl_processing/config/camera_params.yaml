@@ -2,6 +2,7 @@ pcl_processing:
   ros__parameters:
     # Topic name for the camera point cloud
     camera_topic: "/zed2/zed_node/point_cloud/cloud_registered"
+    point_topic: "temp"
     # camera_topic: "zed_pointcloud"
     # Values here are all in metres
     # These values are the offset from center of robot to camera (phrase better)
