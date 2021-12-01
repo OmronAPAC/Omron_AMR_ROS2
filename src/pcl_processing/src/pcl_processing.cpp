@@ -52,6 +52,8 @@ PclProcessing::PclProcessing()
     std::bind(&PclProcessing::point_callback, this, std::placeholders::_1));
   status_subscriber = this->create_subscription<om_aiv_msg::msg::Status>("ldarcl_status", 10, 
     std::bind(&PclProcessing::status_callback, this, std::placeholders::_1));
+  laser_subscriber = this->create_subscription<visualization_msgs::msg::Marker>("visualization_marker", 10, 
+    std::bind(&PclProcessing::laser_callback, this, std::placeholders::_1));
   obstacle_publisher = this->create_publisher<geometry_msgs::msg::Point>("obstacle_point", 10);
   cloud_publisher = this->create_publisher<sensor_msgs::msg::PointCloud2>("cloud_in", 10);
 

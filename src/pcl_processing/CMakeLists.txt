@@ -73,6 +73,7 @@ ament_target_dependencies(pcl_processing
   perception_pcl
   geometry_msgs
   om_aiv_msg
+  visualization_msgs
 )
 
 target_link_libraries(pcl_processing

@@ -20,14 +20,14 @@ class Handeye4Dof(Node):
             namespace='',
             parameters=[
                 ('base_to_hand_topic', 'base_to_robot'),
-                ('robot_to_marker_topic', 'robot_to_marker'),
+                ('camera_to_marker_topic', 'camera_to_marker'),
                 ('calculate_nonlinear', False),
                 ('antiparallel_screw_axes', True),
                 ('calibrated_pose_topic', 'calibrated_pose')
             ]
         )
         base_to_hand_topic = self.get_parameter('base_to_hand_topic').value
-        robot_to_marker_topic = self.get_parameter('robot_to_marker_topic').value
+        camera_to_marker_topic = self.get_parameter('camera_to_marker_topic').value
         self.calculate_nonlinear = self.get_parameter('calculate_nonlinear').value
         self.antiparallel_screw_axes = self.get_parameter('antiparallel_screw_axes').value
         calibrated_pose_topic = self.get_parameter('calibrated_pose_topic').value
@@ -36,9 +36,9 @@ class Handeye4Dof(Node):
             base_to_hand_topic,
             self.base_to_hand_callback,
             10)
-        self.robot_to_marker = self.create_subscription(
+        self.camera_to_marker = self.create_subscription(
             PoseArray,
-            robot_to_marker_topic,
+            camera_to_marker_topic,
             self.camera_to_marker_callback,
             10)
         self.calibrated_pose = self.create_publisher(
