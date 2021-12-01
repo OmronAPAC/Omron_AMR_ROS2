@@ -321,11 +321,13 @@ float PclProcessing::calc_combined_angle(geometry_msgs::msg::Point current_point
 
 float PclProcessing::normalize_angle(float angle)
 {
-  if (angle < -PI)
+  // trigonometric functions return invalid results when angular range is not normalized
+  // to between -PI and +PI
+  while (angle < -PI)
   {
     angle += 2 * PI;
   }
-  else if (angle > PI)
+  while (angle > PI)
   {
     angle -= 2 * PI;
   }

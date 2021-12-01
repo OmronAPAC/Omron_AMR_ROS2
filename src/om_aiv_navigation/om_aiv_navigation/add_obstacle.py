@@ -8,7 +8,6 @@ from geometry_msgs.msg import Point
 from visualization_msgs.msg import Marker
 
 ADD_POINT_COMMAND = "customreadingaddabsolute"
-SENSOR_NAME = "lidar"
 GOAL_POSE_TOPIC = "goal_pose"
 
 
@@ -17,6 +16,9 @@ class AddPoint(Node):
     # initializes class as action client to ARCL action server
     def __init__(self):
         super().__init__("add_point_client")
+        self.declare_parameter('sensor_name', 'lidar')
+        self.sensor_name = self.get_parameter('sensor_name').value
+        self.get_logger().info(self.sensor_name)
         self.client = self.create_client(ArclApi, 'arcl_api_service')
         self.subscription = self.create_subscription(Point, 'obstacle_point', self.subscription_callback, 10)
         self.publisher = self.create_publisher(Marker, 'obs_points', 10)
@@ -35,7 +37,7 @@ class AddPoint(Node):
         self.send_goto_point(obstacle_position)
     
     def send_goto_point(self, coords):
-        command = ADD_POINT_COMMAND + SENSOR_NAME + " " + coords
+        command = ADD_POINT_COMMAND + self.sensor_name + " " + coords
         self.client.wait_for_service()
         goal = ArclApi.Request()
         goal.command = command

@@ -22,6 +22,7 @@ def generate_launch_description():
     add_obstacle_node = Node(        
         package='om_aiv_navigation',
         executable='add_obstacle',
+        parameters = [config],
         output='screen'
     )
     
