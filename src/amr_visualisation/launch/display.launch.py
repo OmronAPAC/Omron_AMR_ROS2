@@ -25,7 +25,6 @@ def generate_launch_description():
     # robot_description_config = load_file('amr_visualisation', 'urdf/HD1500.urdf')
     robot_description = {'robot_description' : robot_description_config}
 
-    vis_config = get_package_share_directory('amr_visualisation') + "/param/vis_param.yaml"
 
     # RViz
     rviz_config_file = "src/amr_visualisation/config/amr_rviz.rviz"
@@ -51,14 +50,6 @@ def generate_launch_description():
         package='amr_visualisation',
         executable='joints_publisher',
         output='screen',
-    )
-
-    # Data Points Marker
-    data_points_node = Node(
-        package='amr_visualisation',
-        executable='data_points_marker',
-        output='screen',
-        parameters=[vis_config],
     )
         
     # Goals Marker
@@ -100,7 +91,6 @@ def generate_launch_description():
         robot_state_publisher, 
         rviz_node, 
         joints_publisher_node,
-        data_points_node,
         goals_node,
         goto_point_node,
         localize_at_point_node,

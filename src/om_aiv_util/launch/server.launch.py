@@ -7,6 +7,8 @@ import os
 
 def generate_launch_description():
 
+    vis_config = get_package_share_directory('amr_visualisation') + "/param/vis_param.yaml"
+    
     arcl_api = Node(
         package='om_aiv_util',
         executable='arcl_api_server',
@@ -18,7 +20,15 @@ def generate_launch_description():
             'def_arcl_passwd': "omron"
         }]
     )
-
+    
+    # Data Points Marker
+    data_points_node = Node(
+        package='amr_visualisation',
+        executable='data_points_marker',
+        output='screen',
+        parameters=[vis_config],
+    )
+    
     ld_states = Node(
         package='om_aiv_util',
         executable='ld_states_publisher',
@@ -46,6 +56,7 @@ def generate_launch_description():
     return LaunchDescription([
         arcl_api, 
         ld_states,
-        action_serve
+        action_serve,
+        data_points_node
         ])
 
