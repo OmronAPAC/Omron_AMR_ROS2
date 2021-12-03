@@ -21,7 +21,7 @@ endif::[]
 :url-repo: https://github.com/zach-goh/OmronRepos/tree/master
 :url-ug: https://github.com/zach-goh/OmronRepos/blob/master/docs/UserGuide.adoc
 
-Last updated: `22 July 2021` By: `Zeon`
+Last updated: `03 December 2021` By: `Zeon`
 
 == Authors
 
@@ -63,6 +63,12 @@ You will need to complete at least the `Beginner Level` tutorials.
 __Omron_AMR_ROS2__ uses Python low-level socket to communicate with the AMR. __selector2__ is used to assist in managing the reading/writing process through these sockets.
 +
 See link:https://pypi.org/project/selectors2/[selectors2].
+
+. **'ROS2 Foxy Control Msgs'**
++
+Some messages that do not come with the standard installation of ROS2 is required for this pacakge. You can install __control msgs__ with
++
+sudo apt install ros-foxy-control-msgs
 
 . **Telnet**
 +
