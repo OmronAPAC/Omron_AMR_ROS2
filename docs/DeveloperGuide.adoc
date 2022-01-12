@@ -28,6 +28,7 @@ Last updated: `03 December 2021` By: `Zeon`
 * Xavier, Lee Kok Teng (link:https://github.com/lekoook[lekoook])
 * Tan Guan Yew (link:https://github.com/guanyewtan[guanyewtan])
 * Zeon Chua Feiyi (link:https://github.com/CFZeon[CFZeon])
+* Nguyen Son Linh (link:https://github.com/linhns[linhns])
 
 == Getting Started
 [[prerequisites]]
@@ -207,7 +208,7 @@ Since we have set the `OutgoingHostname` to `192.168.1.50`, you need to set the 
 ==== ROS2 Across Multiple Machines
 In order to run ROS2 on mulitple machines, you need to configure your host machine as well as your user remote machine(s) to communicate with each other.
 
-Ensure that both the remote machine and host machine are on the same subnet and are discoverable to each other.
+Ensure that both the remote machine and host machine are on the same subnet and are discoverable to each other. Please follow the guide https://roboticsbackend.com/ros2-multiple-machines-including-raspberry-pi[here] using the host and remote machine. Turn off Wi-Fi on your remote machine and turn it back on after 30 seconds if you have trouble completing the guide.
 
 Also ensure that the ROS_DOMAIN_ID of both devices are the same.
 
@@ -284,10 +285,10 @@ Depending on your machine, this can take a while to build.
 ....
 source install/setup.bash
 ....
-. Try running the `ld_visualisation` package with: 
+. Try running the `amr_visualisation` package with: 
 +
 ....
-ros2 launch ld_visualisation display.launch.py
+ros2 launch amr_visualisation display.launch.py
 ....
 . If you have set up the host and remote machines correctly, you should see RViz opening with the map and laser scans of your AMR.
 
@@ -402,7 +403,7 @@ Using these information, it publishes marker points on RVIZ to visualise every s
 
 Additionally, it also reads a `.map` created by the `MobilePlanner` software. This `.map` file contains all static map laser scan data points as well as forbidden areas. These information are all read by this node to be visualised on RVIZ. The points are then converted into an nav_msgs::msg::OccupancyGrid type to be represented as a map
 
-**This map file should exist on the remote machine running `AMR Visualisation`.**
+**This map file should exist on both the host machine and the remote machine running `AMR Visualisation`.**
 
 See <<map-loading-reading>> to understand how to load a map onto the remote machine.
 
@@ -540,6 +541,8 @@ This example is the same as the one above but serves to show how new commands ca
 [NOTE]
 The commands given should be valid ARCL commands. Refer to the ARCL documentation on what constitutes a valid ARCL command.
 
+Ensure your map has a docking station named `dock` before proceeding with this example.
+
 . First, ensure your host machine, ROS master is up and running.
 . Run `amr_visualisation` package to see the movement of your AMR. To do this:
 +
@@ -552,7 +555,7 @@ ros2 launch amr_visualisation display.launch.py
 ....
 ros2 run om_aiv_navigation dock
 ....
-This will move your AMR to `Dock` on the map. Once in position, the docking sequence should proceed as per usual.
+This will move your AMR to `dock` on the map. Once in position, the docking sequence should proceed as per usual.
 
 ==== Command Parsing
 To create your own standalone commands, a few extra steps are required for the ARCL messages to be parsed correctly.
