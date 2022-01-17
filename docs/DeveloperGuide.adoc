@@ -21,7 +21,7 @@ endif::[]
 :url-repo: https://github.com/zach-goh/OmronRepos/tree/master
 :url-ug: https://github.com/zach-goh/OmronRepos/blob/master/docs/UserGuide.adoc
 
-Last updated: `17 January 2021` By: `Son Linh`
+Last updated: `17 January 2022` By: `Son Linh`
 
 == Authors
 
