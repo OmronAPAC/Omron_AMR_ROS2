@@ -21,7 +21,7 @@ endif::[]
 :url-repo: https://github.com/zach-goh/OmronRepos/tree/master
 :url-ug: https://github.com/zach-goh/OmronRepos/blob/master/docs/UserGuide.adoc
 
-Last updated: `03 December 2021` By: `Zeon`
+Last updated: `17 January 2021` By: `Son Linh`
 
 == Authors
 
@@ -474,6 +474,9 @@ Cairn: ForbiddenArea 0 0 90.000000 "" ICON "FA1" 0 4 -2 6
 ....
 
 You may wish to experiment by drawing some simple forbidden areas on `MobilePlanner` and then drawing the coordinates on a 2D grid to understand what is going on here.
+
+=== Visualization of Forbidden Areas
+Navigate to line 367 of `src/amr_visualisation/src/data_points_marker.cpp` and set a lower occupancy value, which will result in a lighter display in RViZ. More detailed instructions can be found there.
 
 == Examples
 === ROS Action: goto Goal
