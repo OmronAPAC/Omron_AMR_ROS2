@@ -75,7 +75,6 @@ private:
   /** \brief calculates compounded angle used for world coord conversion */
   float calc_combined_angle(geometry_msgs::msg::Point current_point, float robot_heading, float angle);
 
-
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr pointcloud_subscriber;
   rclcpp::Subscription<geometry_msgs::msg::Point>::SharedPtr point_subscriber;
   rclcpp::Subscription<om_aiv_msg::msg::Status>::SharedPtr status_subscriber;
@@ -99,6 +98,8 @@ private:
   std::vector<geometry_msgs::msg::Point> laser_scan_data;
   int history_iter;
   int points_count;
+
+  float passthrough_min_x, passthrough_max_x;
 
   // Theta is robot heading based off the x axis, CCW gives positive value
   float odom_pos_x, odom_pos_y;

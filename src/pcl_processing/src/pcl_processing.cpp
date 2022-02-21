@@ -27,6 +27,10 @@ PclProcessing::PclProcessing()
   rclcpp::Parameter decay_time_param = this->get_parameter("decay_time");
   rclcpp::Parameter distance_threshold_param = this->get_parameter("distance_threshold");
 
+  rclcpp::Parameter passthrough_min_x_param = this->get_parameter("passthrough_min_x");
+  rclcpp::Parameter passthrough_max_x_param = this->get_parameter("passthrough_max_x");
+
+
   min_bound_x = min_bound_x_param.as_double();
   max_bound_x = max_bound_x_param.as_double();
   min_bound_y = min_bound_y_param.as_double();
@@ -44,6 +48,9 @@ PclProcessing::PclProcessing()
   cam_horizontal_fov = camera_horizontal_fov.as_double();
   std::string camera_topic = camera_topic_param.as_string();
   std::string point_topic = point_topic_param.as_string();
+
+  passthrough_min_x = passthrough_min_x_param.as_double();
+  passthrough_max_x = passthrough_max_x_param.as_double();
 
   // Initialize publisher and subscriber
   pointcloud_subscriber = this->create_subscription<sensor_msgs::msg::PointCloud2>(camera_topic, 10, 
@@ -92,9 +99,24 @@ void PclProcessing::topic_callback(sensor_msgs::msg::PointCloud2::SharedPtr msg)
   pcl_conversions::toPCL(*msg, pc);
   pcl::PointCloud<pcl::PointXYZ>::Ptr temp_cloud(new pcl::PointCloud<pcl::PointXYZ>);
   pcl::PointCloud<pcl::PointXYZ>::Ptr rotated_cloud(new pcl::PointCloud<pcl::PointXYZ>);
+  pcl::PointCloud<pcl::PointXYZ>::Ptr filtered_cloud(new pcl::PointCloud<pcl::PointXYZ>);
   pcl::fromPCLPointCloud2(pc,*temp_cloud);
 
-  // a radius filter is in searching for outlier points
+  // Uncomment these lines if using the Ouster LiDAR
+  // pcl::PassThrough<pcl::PointXYZ> passthrough;
+  // passthrough.setInputCloud(temp_cloud);
+  // passthrough.setFilterFieldName("x");
+  // passthrough.setFilterLimits(passthrough_min_x, passthrough_max_x);
+  // passthrough.filter(*filtered_cloud);
+  // std::vector<int> indices;
+  // pcl::removeNaNFromPointCloud(*filtered_cloud, *filtered_cloud, indices);
+  // pcl::RadiusOutlierRemoval<pcl::PointXYZ> radiusoutlier;  //Create filter
+  // radiusoutlier.setInputCloud(filtered_cloud);    //Set input point cloud
+  // radiusoutlier.setRadiusSearch(0.15);     
+  // radiusoutlier.setMinNeighborsInRadius(15); 
+  // radiusoutlier.filter(*rotated_cloud);
+
+  // Uncomment these lines if using the ZED2 camera
   std::vector<int> indices;
   pcl::removeNaNFromPointCloud(*temp_cloud, *temp_cloud, indices);
   pcl::RadiusOutlierRemoval<pcl::PointXYZ> radiusoutlier;  //Create filter
