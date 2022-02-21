@@ -256,6 +256,8 @@ You may notice a mismatch of map and laser scans. In this case, you need to make
 === Intel NUC8i5BEH Host Machine
 Please see https://github.com/zach-goh/Omron_AMR_ROS2/blob/master/launch_ros_on_startup.docx[here] for a guide on how we configured our NUC to run the ROS nodes upon startup.
 
+Running the ROS nodes upon startup is not recommended as the NUC may experience problems during boot. Instead, use `ssh` to interactively issue commands from your remote machine to the NUC. This also allows for easier discovery and debugging of any problems that might occur. A guide on how to ssh into a machine can be found online.
+
 === Running on Remote Machine
 The instructions here assumes you have basic knowledge of using Git, Ubuntu, Bash terminal and ROS environment.
 
