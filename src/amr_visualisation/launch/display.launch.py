@@ -21,7 +21,8 @@ def load_file(package_name, file_path):
 def generate_launch_description():
     # robot_description_config = load_file('amr_visualisation', 'urdf/AMR_Platform.urdf')
     # robot_description_config = load_file('amr_visualisation', 'urdf/LD90.urdf')
-    robot_description_config = load_file('amr_visualisation', 'urdf/LD90_Ouster.urdf')
+    #robot_description_config = load_file('amr_visualisation', 'urdf/LD90_Ouster.urdf')
+    robot_description_config = load_file('amr_visualisation', 'urdf/LD90_ZED2.urdf')
     # robot_description_config = load_file('amr_visualisation', 'urdf/LD250.urdf')
     # robot_description_config = load_file('amr_visualisation', 'urdf/HD1500.urdf')
     robot_description = {'robot_description' : robot_description_config}

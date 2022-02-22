@@ -1,3 +1,4 @@
+
 add_point_client:
   ros__parameters:
     # sensor name is dicated by 
@@ -6,21 +7,21 @@ add_point_client:
 pcl_processing:
   ros__parameters:
     # Topic name for the camera point cloud
-    camera_topic: "/points"
+    camera_topic: "/zed2/zed_node/point_cloud/cloud_registered"
     point_topic: "temp"
 
     # Values here are in Radians
-    camera_horizontal_fov: 6.28  # camera point cloud horizontal FoV in radians
-    camera_roll_x_offset: 0.0
-    camera_pitch_y_offset: 0.0
-    camera_yaw_z_offset: 0.0
+    camera_horizontal_fov: 2.15  # camera point cloud horizontal FoV in radians
+    camera_roll_x_offset: 0.02461
+    camera_pitch_y_offset: 0.01
+    camera_yaw_z_offset: 0.06
 
     # Values here are all in metres
     # These values are the offset from center of robot to camera (phrase better)
     robot_height: 0.9              # Height of robot
     camera_height: 0.5             # Height of camera off the ground 
     camera_x_offset: 0.35          # Offset of camera parallel to robot
-    camera_y_offset: 0.0          # Offset of camera perpendicular to robot
+    camera_y_offset: 0.06          # Offset of camera perpendicular to robot
     
     points_to_add: 3               # How many partitions to split the point cloud into
     decay_time: 8.0                # Time in seconds for the ARCL added points to decay
@@ -28,7 +29,7 @@ pcl_processing:
 
     # Size of bounding box
     # Looking Forward would be increasing distance in the x-axis
-    min_bound_x: 0.25             # A negative value would look behind the robot
+    min_bound_x: -0.55             # A negative value would look behind the robot
     max_bound_x: 2.0               
     min_bound_y: -0.75
     max_bound_y: 0.75
@@ -36,5 +37,6 @@ pcl_processing:
     max_bound_z: 1.0
 
     # Parameters for passthrough filter
+    # Not needed for ZED2, included to allow node to run
     passthrough_min_x: 0.15
     passthrough_max_x: 2.0
