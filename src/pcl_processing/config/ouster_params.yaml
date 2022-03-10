@@ -24,7 +24,7 @@ pcl_processing:
     camera_y_offset: 0.0          # Offset of camera perpendicular to robot
     
     points_to_add: 3               # How many partitions to split the point cloud into
-    decay_time: 8.0                # Time in seconds for the ARCL added points to decay
+    decay_time: 4.0                # Time in seconds for the ARCL added points to decay
     distance_threshold: 0.03       # Distance in meters to add a new point
 
     # Size of bounding box
