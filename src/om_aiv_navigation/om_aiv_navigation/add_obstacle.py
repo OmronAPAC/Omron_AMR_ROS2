@@ -23,6 +23,8 @@ class AddPoint(Node):
         self.subscription = self.create_subscription(Point, 'obstacle_point', self.subscription_callback, 10)
         self.publisher = self.create_publisher(Marker, 'obs_points', 10)
         self.id = 0
+        self.declare_parameter('decay_time', 4.0)
+        self.decay_time = self.get_parameter('decay_time').value
         
     # callback for subscription from pc
     def subscription_callback(self, msg):
@@ -68,7 +70,7 @@ class AddPoint(Node):
         self.id += 1
         if self.id > 1000:
             self.id = 0
-        marker.lifetime.sec = 8
+        marker.lifetime.sec = int(self.decay_time)
         return marker
     
 def main(args=None):
