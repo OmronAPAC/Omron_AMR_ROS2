@@ -2,6 +2,7 @@ add_point_client:
   ros__parameters:
     # sensor name is dicated by 
     sensor_name: "LiDAR"
+    decay_time: 4.0             # Set the time for obstacle markers to decay in RViz
 
 pcl_processing:
   ros__parameters:
@@ -23,18 +24,18 @@ pcl_processing:
     camera_y_offset: 0.0          # Offset of camera perpendicular to robot
     
     points_to_add: 3               # How many partitions to split the point cloud into
-    decay_time: 8.0                # Time in seconds for the ARCL added points to decay
+    decay_time: 4.0                # Time in seconds for the ARCL added points to decay
     distance_threshold: 0.03       # Distance in meters to add a new point
 
     # Size of bounding box
     # Looking Forward would be increasing distance in the x-axis
     min_bound_x: 0.25             # A negative value would look behind the robot
-    max_bound_x: 2.0               
+    max_bound_x: 5.0               
     min_bound_y: -0.75
     max_bound_y: 0.75
     min_bound_z: -0.35
     max_bound_z: 1.0
 
     # Parameters for passthrough filter
-    passthrough_min_x: 0.15
-    passthrough_max_x: 2.0
+    passthrough_min_x: 0.25
+    passthrough_max_x: 10.0
