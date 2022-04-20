@@ -18,6 +18,8 @@ class Parser:
             return (PASS, "Localization complete.")
         elif "Completed doing task" in input:
             return (PASS, "Reached point")
+        elif "Completed macro" in input:
+            return (PASS, "Macro execution complete")
         elif "Stopped" in input:
             return (FAIL, "Command was interrupted.")
         elif "Failed going to goal" in input:
@@ -33,6 +35,8 @@ class Parser:
         elif " Docking " in input:
             return (CONTINUE, "Docking.")
         elif "Will do task" in input:
+            return (CONTINUE, input)
+        elif "Executing macro" in input:
             return (CONTINUE, input)
         else:
             return (CONTINUE, input)
