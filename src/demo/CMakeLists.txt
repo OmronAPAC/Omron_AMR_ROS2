@@ -55,7 +55,7 @@ target_compile_definitions(action_client
   "rclcpp"
   "rclcpp_action"
   "rclcpp_components")
-rclcpp_components_register_node(action_client PLUGIN "demo::ActionClient" EXECUTABLE execute_macro_action_client)
+rclcpp_components_register_node(action_client PLUGIN "demo::ActionClient" EXECUTABLE execute_macro)
 
 install(TARGETS
   action_client
