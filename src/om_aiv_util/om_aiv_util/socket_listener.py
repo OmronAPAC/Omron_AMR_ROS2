@@ -14,7 +14,7 @@ A driver class to handle all input and output communication with ARCL server.
 
 """
 class SocketListener(object):
-    def __init__(self, node, addr, port):
+    def __init__(self, addr, port, node=None):
         self.selector = None
         self.sock = None
         self.addr = str(addr)
@@ -166,7 +166,8 @@ class SocketListener(object):
 
     """
     def begin(self):
-        self.node.get_logger().info("Attempt to listen for incoming on " + str(self.addr) + " at port " + str(self.port))
+        if self.node is not None:
+            self.node.get_logger().info("Attempt to listen for incoming on " + str(self.addr) + " at port " + str(self.port))
 
         while True:
             try:
@@ -175,8 +176,9 @@ class SocketListener(object):
                 incoming = (self.addr, self.port)
                 sock.bind(incoming)
             except socket.error as e:
-                self.node.get_logger().info("Socket listener connection failed" + str(e))
-                self.node.get_logger().info("Retrying")
+                if self.node is not None:
+                    self.node.get_logger().info("Socket listener connection failed" + str(e))
+                    self.node.get_logger().info("Retrying")
             else:
                 break
             finally:
@@ -186,7 +188,8 @@ class SocketListener(object):
         (connection, address) = sock.accept()
         sock.shutdown(socket.SHUT_RDWR)
         sock.close() # Close the initial socket.
-        self.node.get_logger().info("Listening to new socket on " + str(address[0]) + " at port " + str(address[1]))
+        if self.node is not None:
+            self.node.get_logger().info("Listening to new socket on " + str(address[0]) + " at port " + str(address[1]))
         self.sock = connection
         self.sock.setblocking(False)
         events = selectors.EVENT_READ

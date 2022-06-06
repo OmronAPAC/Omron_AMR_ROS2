@@ -13,7 +13,7 @@ def generate_launch_description():
         #name='arcl_api_server',
         output='log',
         parameters=[{
-            'ip_address': "192.168.1.1",
+            'ip_address': "192.168.1.191",
             'port': 7171,
             'def_arcl_passwd': "omron"
         }]
@@ -25,7 +25,7 @@ def generate_launch_description():
         #name='ld_states_publi',
         output='screen',
         parameters=[{
-            'local_ip': "192.168.1.50",
+            'local_ip': "192.168.1.132",
             'local_port': 7179
         }]
     )
@@ -36,7 +36,7 @@ def generate_launch_description():
         #name = 'action_server',
         output='screen',
         parameters=[{
-            'ip_address': "192.168.1.1",
+            'ip_address': "192.168.1.191",
             'port': 7171,
             'def_arcl_passwd': "omron"
         }]

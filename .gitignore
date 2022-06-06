@@ -7,3 +7,4 @@ install/
 .catkin_tools/
 *.pyc
 *.vscode/
+*.log

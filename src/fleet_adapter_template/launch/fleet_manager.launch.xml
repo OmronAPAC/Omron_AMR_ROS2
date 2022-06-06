@@ -1,0 +1,19 @@
+<?xml version='1.0' ?>
+
+<launch>
+  <arg name="output" default="screen"/>
+
+  <node pkg="fleet_adapter_template"
+        exec="fleet_manager"
+        args="--config_file $(find-pkg-share fleet_adapter_template)/config.yaml --nav_graph $(find-pkg-share rmf_demos_maps)/maps/office/nav_graphs/0.yaml"
+        output="both">
+  </node>
+
+  <node pkg="fleet_adapter_template"
+        exec="fleet_adapter"
+        args="--config_file $(find-pkg-share fleet_adapter_template)/config.yaml --nav_graph $(find-pkg-share rmf_demos_maps)/maps/office/nav_graphs/0.yaml"
+        output="both">
+  </node>
+    
+
+</launch>

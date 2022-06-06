@@ -152,7 +152,7 @@ def main():
     port = node.declare_parameter("local_port").value
     #node.get_logger().info('IP ADDRESS IS.... ' + str(ip_address))
     #node.get_logger().info('LOCAL PORT IS.... ' + str(port))
-    listener = SocketListener(node, ip_address, port)
+    listener = SocketListener(ip_address, port, node)
     listener.begin()
 
     ld_states_pub = LdStatePublisher(listener)
