@@ -5,15 +5,14 @@
 
   <node pkg="fleet_adapter_template"
         exec="fleet_manager"
-        args="--config_file $(find-pkg-share fleet_adapter_template)/config.yaml --nav_graph $(find-pkg-share rmf_demos_maps)/maps/office/nav_graphs/0.yaml"
+        args="--config_file $(var config_file) --nav_graph $(var nav_graph_file)"
         output="both">
   </node>
 
   <node pkg="fleet_adapter_template"
         exec="fleet_adapter"
-        args="--config_file $(find-pkg-share fleet_adapter_template)/config.yaml --nav_graph $(find-pkg-share rmf_demos_maps)/maps/office/nav_graphs/0.yaml"
+        args="--config_file $(var config_file) --nav_graph $(var nav_graph_file)"
         output="both">
-  </node>
-    
+  </node>       
 
 </launch>

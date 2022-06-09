@@ -196,13 +196,6 @@ class RobotCommandHandle(adpt.RobotCommandHandle):
                     # IMPLEMENT YOUR CODE HERE #
                     # Ensure x, y, theta are in units that api.navigate() #
                     # ------------------------ #
-                    x *= 1000
-                    y *= 1000
-                    theta = math.degrees(theta)
-                    if theta > 180.0:
-                        theta = 360.0 - theta
-                    if theta < -180.0:
-                        theta = 360.0 + theta
                         
                     print(f"Requesting robot to navigate to "
                         f"[{self.path_index}][{x:.0f},{y:.0f}, {theta:.0f}] grid coordinates and "
@@ -282,7 +275,6 @@ class RobotCommandHandle(adpt.RobotCommandHandle):
                         # remaining travel duration, replace the API call
                         # below with an estimation
                         
-                        # TODO: Replace with estimation
                         # ------------------------ #
                         # print("Estimating remaining duration...")
                         duration = self.api.navigation_remaining_duration(self.name)
@@ -361,7 +353,7 @@ class RobotCommandHandle(adpt.RobotCommandHandle):
         if position is not None:
             x, y = self.transforms['robot_to_rmf'].transform(
                 [position[0], position[1]])
-            theta = math.radians(position[2]) - \
+            theta = position[2] - \
                 self.transforms['orientation_offset']
             # ------------------------ #
             # IMPLEMENT YOUR CODE HERE #

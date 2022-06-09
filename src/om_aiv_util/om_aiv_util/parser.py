@@ -20,7 +20,7 @@ class Parser:
             return (PASS, "Reached point")
         elif "Completed macro" in input:
             return (PASS, "Macro execution complete")
-        elif "Interrupted" in input:
+        elif "Stopped" in input:
             return (PASS, "Command was interrupted.")
         elif "Failed going to goal" in input:
             return (FAIL, "Failed going to goal.")

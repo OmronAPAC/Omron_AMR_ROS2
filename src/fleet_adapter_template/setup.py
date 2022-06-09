@@ -12,9 +12,8 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name,['config.yaml']),
-        ('share/' + package_name,['nav_graph.yaml']),
-        (os.path.join('share', package_name), glob('launch/*'))
+        (os.path.join('share', package_name), glob('launch/*')),
+        (os.path.join('share', package_name), glob('*.yaml'))
     ],
     install_requires=['setuptools'],
     zip_safe=True,

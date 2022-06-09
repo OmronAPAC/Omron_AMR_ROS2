@@ -2,7 +2,7 @@
 # RMF Fleet parameters
 
 rmf_fleet:
-  name: "tinyRobot"
+  name: "omron"
   fleet_manager:
     # prefix: "http://127.0.0.1:8000"
     ip: "127.0.0.1"
@@ -11,7 +11,7 @@ rmf_fleet:
     password: "some_password"
   limits:
     linear: [0.4, 0.2] # velocity, acceleration
-    angular: [0.3, 0.35] # velocity, acceleration
+    angular: [1.0, 1.0] # velocity, acceleration
   profile: # Robot profile is modelled as a circle
     footprint: 0.5 # radius in m
     vicinity: 0.6 # radius in m
@@ -48,15 +48,13 @@ robots:
     robot_config:
       max_delay: 10.0 # allowed seconds of delay of the current itinerary before it gets interrupted and replanned
     rmf_config:
-      robot_state_update_frequency: 0.5
+      robot_state_update_frequency: 1.0
       start:
-        map_name: "L1"
-        # waypoint: "charger_deliverybot1" # Optional
-        # orientation: 0.0 # Optional, radians
-        waypoint: "tinyRobot1_charger"
-        orientation: null
+        map_name: "level"
+        waypoint: "two"
+        orientation: 0.0
       charger:
-        waypoint: "tinyRobot1_charger"
+        waypoint: "charger"
   # Configuration for the second robot in this fleet if there is a second robot
   # Uncomment if more than one robot exists.
   # deliverybot2:
@@ -77,11 +75,11 @@ robots:
 # For computing transforms between Robot and RMF coordinate systems
 
 reference_coordinates:
-  rmf: [[20.33, -3.156],
-        [8.908, -2.57],
-        [13.02, -3.601],
-        [21.93, -4.124]]
-  robot: [[59, 399],
-        [57, 172],
-        [68, 251],
-        [75, 429]]
+  rmf: [[0.0, 0.0],
+        [1.0, 1.0],
+        [2.0, 2.0],
+        [3.0, 3.0]]
+  robot: [[0.0, 0.0],
+        [1.0, 1.0],
+        [2.0, 2.0],
+        [3.0, 3.0]]

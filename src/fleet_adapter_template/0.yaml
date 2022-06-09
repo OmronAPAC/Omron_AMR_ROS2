@@ -1,0 +1,41 @@
+building_name: omron_map_test
+levels:
+  level:
+    lanes:
+    - - 0
+      - 1
+      - {speed_limit: 0}
+    - - 1
+      - 0
+      - {speed_limit: 0}
+    - - 1
+      - 2
+      - {speed_limit: 0}
+    - - 2
+      - 1
+      - {speed_limit: 0}
+    - - 2
+      - 3
+      - {speed_limit: 0}
+    - - 3
+      - 2
+      - {speed_limit: 0}
+    - - 3
+      - 0
+      - {speed_limit: 0}
+    - - 0
+      - 3
+      - {speed_limit: 0}
+    vertices:
+    - - 5.132975796182334
+      - -2.809703018633162
+      - {is_charger: true, name: charger}
+    - - 5.091053354244022
+      - -5.460860258636688
+      - {name: one}
+    - - 1.444400511455048
+      - -5.618056924116939
+      - {name: two}
+    - - 2.848577464196936
+      - -3.082173907655349
+      - {name: three}

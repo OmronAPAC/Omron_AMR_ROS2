@@ -1,0 +1,15 @@
+- operation: Add
+  participant_description:
+    name: amr1
+    group: omron
+    responsiveness: Responsive
+    profile:
+      footprint:
+        type: Circle
+        index: "\x00"
+      vicinity:
+        type: Circle
+        index: "\x01"
+      shape_context:
+        - 0.5
+        - 0.6

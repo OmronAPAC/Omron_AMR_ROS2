@@ -6,6 +6,8 @@ import sys
 import argparse
 import yaml
 import threading
+import math
+import time
 
 from typing import List, Optional, Dict
 from pydantic import BaseModel
@@ -14,6 +16,8 @@ from fastapi import FastAPI
 import uvicorn
 
 import rmf_adapter as adpt
+import rmf_adapter.vehicletraits as traits
+import rmf_adapter.geometry as geometry
 
 from om_aiv_msg.msg import Status, Location
 from om_aiv_msg.action import Action
@@ -24,7 +28,7 @@ app = FastAPI()
 
 class RobotState:
     def __init__(self, extended_status:str, status: str, battery: float, 
-                 location: List[int], localization: float, temperature: float):
+                 location: List[float], localization: float, temperature: float):
         self.extended_status = extended_status
         self.status = status
         self.battery = battery
@@ -34,7 +38,7 @@ class RobotState:
 
 class NavigateRequest(BaseModel):
     map_name: str
-    pose: Optional[Dict]
+    pose: Optional[Dict] # [x, y, theta] in metres and radians
 
 
 class FleetManager(Node):
@@ -43,6 +47,16 @@ class FleetManager(Node):
         self.fleet_name = self.config["rmf_fleet"]["name"]
         
         super().__init__(f'{self.fleet_name}_fleet_manager')
+        
+        profile = traits.Profile(geometry.make_final_convex_circle(
+            self.config['rmf_fleet']['profile']['footprint']),
+            geometry.make_final_convex_circle(config['rmf_fleet']['profile']['vicinity']))
+        
+        self.vehicle_traits = traits.VehicleTraits(
+            linear=traits.Limits(*self.config['rmf_fleet']['limits']['linear']),
+            angular=traits.Limits(*self.config['rmf_fleet']['limits']['angular']),
+            profile=profile)
+        self.vehicle_traits.differential.reversible = self.config['rmf_fleet']['reversible']
         
         # Map: robot name -> robot_state
         self.robots = {}
@@ -58,8 +72,15 @@ class FleetManager(Node):
         # Action client to navigate the robot
         self._action_client = ActionClient(self, Action, 'action_server')
         
-        self.previous_navigation_request_result = None 
+        self.previous_navigation_request_result = None
         
+        self.requested_destination = None 
+        
+        """_summary_
+
+        Returns:
+            data: Robot pose in metres and radians, along with success status of the request
+        """
         @app.get('/position')
         async def position(robot_name: Optional[str] = None):
             data = {'position': {},
@@ -67,41 +88,80 @@ class FleetManager(Node):
             if not robot_name:
                 return data
             data['position'] = self.get_robot_state(self.robots.get(robot_name), robot_name).get('position')
+            data['position']['x'] /= 1000.0
+            data['position']['y'] /= 1000.0
+            data['position']['theta'] = math.radians(data['position']['theta'])
             data['success'] = True
             return data
         
         @app.post('/navigate')
         async def navigate(robot_name: str, destination: NavigateRequest):
-            data = {'navigation_request_received': True}
+            data = {'navigation_request_received': False}
             pose = destination.pose
+            self.requested_destination = pose
             if not pose:
                 return data
-            self.send_goal(f"gotoPoint {pose['x']} {pose['y']} {pose['theta']}", ["Arrived at point ", "Failed going to goal "])
+            
+            x = int(pose['x'] * 1000)
+            y = int(pose['y'] * 1000)
+            theta = int(math.degrees(pose['theta']))
+            
+            self.send_goal(f"gotoPoint {x} {y} {theta}", ["Arrived at point ", "Failed going to goal "])
             # if not self.previous_navigation_request_result:
             #     return data
             # if "Arrived at point " in self.previous_navigation_request_result:
-            #     data['success'] = True
+            data['navigation_request_received'] = True
+            return data
+        
+        @app.get('/navigation_remaining_duration')
+        async def navigation_remaining_duration(robot_name: str):
+            data = {'navigation_remaining_duration': 0.0, 'success': False}
+            if not self.requested_destination:
+                return data
+            
+            target_x = self.requested_destination['x']
+            target_y = self.requested_destination['y']
+            target_theta = self.requested_destination['theta']
+            
+            position = self.get_robot_state(self.robots.get(robot_name), robot_name).get('position')
+            curr_x = position['x'] / 1000.0
+            curr_y = position['y'] / 1000.0
+            curr_theta = math.radians(position['theta'])
+            
+            dist_to_target = self.dist([target_x, target_y], [curr_x, curr_y])
+            angular_diff = abs(abs(curr_theta) - abs(target_theta))
+            
+            if angular_diff > math.pi:
+                angular_diff -= 2 * math.pi
+            if angular_diff < -math.pi:
+                angular_diff += 2 * math.pi
+                
+            duration = int(dist_to_target / self.vehicle_traits.linear.nominal_velocity) + \
+                int(angular_diff / self.vehicle_traits.rotational.nominal_velocity)
+            
+            data['navigation_remaining_duration'] = duration
+            data['success'] = True
             return data
         
         
-        '''
-        This function can only be called if the robot is not idle
-        '''
         @app.get('/stop')
         async def stop(robot_name: str):
-            data = {'success': True}
+            data = {'success': False}
+            
+            if self.check_idle(robot_name):
+                data['success'] = True
+                return data            
             
             req = ArclApi.Request()
             req.command = "stop"
             req.line_identifier = "Stopped"
             
             res = self.client.call(req)
-            self.get_logger().info(res.response)
             
             # if not self.previous_navigation_request_result:
             #     return data
             # if "Arrived at point " in self.previous_navigation_request_result:
-            #     data['success'] = True
+            data['success'] = True
             return data
             
         @app.get('/navigation_completed')
@@ -115,15 +175,14 @@ class FleetManager(Node):
             return data
         
         """
-        Returns the robot batter
+        Returns the robot battery as a number between 0.0 and 1.0
         """
         @app.get('/battery')
-        async def battery(robot_name: Optional[str] = None):
+        async def battery(robot_name: str):
             data = {'battery': 0.0,
                     'success': False}
-            if not robot_name:
-                return data
             data['battery'] = self.get_robot_state(self.robots.get(robot_name), robot_name).get('battery')
+            data['battery'] /= 100.0
             data['success'] = True
             return data
         
@@ -132,9 +191,9 @@ class FleetManager(Node):
         x = location.x
         y = location.y
         theta = location.theta
-        location = [x, y, theta]
+        loc = [x, y, theta]
         
-        robot_state = RobotState(msg.extended_status, msg.status, msg.state_of_charge, location, 
+        robot_state = RobotState(msg.extended_status, msg.status, msg.state_of_charge, loc, 
                                  msg.localization_score, msg.temperature)
         
         self.robots["amr1"] = robot_state
@@ -148,6 +207,13 @@ class FleetManager(Node):
         data['localization'] = state.localization
         
         return data
+    
+    def check_idle(self, robot_name: str):
+        p1 = self.get_robot_state(self.robots.get(robot_name), robot_name).get('position')
+        time.sleep(0.1)
+        p2 = self.get_robot_state(self.robots.get(robot_name), robot_name).get('position')
+        
+        return abs(p1['x'] - p2['x']) < 1e-3 and abs(p1['y'] - p2['y']) < 1e-3 and abs(p1['theta'] - p2['theta']) < 1e-3
     
     def send_goal(self, command, identifier):
         self.goal = Action.Goal()
@@ -180,7 +246,11 @@ class FleetManager(Node):
         feedback = feedback_msg.feedback.feed_msg
         self.get_logger().info(feedback)   
     
-    
+    def dist(self, A, B):
+        ''' Euclidian distance between A(x,y) and B(x,y)'''
+        assert(len(A) > 1)
+        assert(len(B) > 1)
+        return math.sqrt((A[0] - B[0])**2 + (A[1] - B[1])**2)
         
 def main(argv=sys.argv):
     rclpy.init(args=argv)
