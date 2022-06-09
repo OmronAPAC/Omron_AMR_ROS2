@@ -13,7 +13,9 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name), glob('launch/*')),
-        (os.path.join('share', package_name), glob('*.yaml'))
+        (os.path.join('share', package_name), glob('*.yaml')),
+        (os.path.join('share', package_name), glob('*.json'))
+        
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -25,7 +27,6 @@ setup(
     entry_points={
         'console_scripts': [
             'fleet_adapter=fleet_adapter_template.fleet_adapter:main',
-            'main=fleet_adapter_template.main:main',
             'fleet_manager=fleet_adapter_template.fleet_manager:main'
         ],
     },
