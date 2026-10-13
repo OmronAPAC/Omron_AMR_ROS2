@@ -11,7 +11,7 @@
   </material>
   <link name="base_link">
   </link>
-  <link name="main_body">
+  <link name="amr_base">
     <visual>
       <origin rpy="0 0 3.141582654" xyz="0 0 0"/>
       <geometry>
@@ -30,9 +30,9 @@
       <inertia ixx="0.426" ixy="0.0" ixz="0.0" iyy="0.496" iyz="0.0" izz="0.91"/>
     </inertial>
   </link>
-  <joint name="main_body_to_base" type="fixed">
+  <joint name="amr_base_to_base_link" type="fixed">
     <parent link="base_link"/>
-    <child link="main_body"/>
+    <child link="amr_base"/>
     <origin xyz="0 0 0"/>
   </joint>
   <link name="laser_frame">
@@ -40,13 +40,13 @@
   <joint name="base_link_to_laser_frame" type="fixed">
     <parent link="base_link"/>
     <child link="laser_frame"/>
-    <origin xyz="0.45 0 0.195"/>
+    <origin xyz="0.40 0 0.190"/>
+  </joint>
+  <link name="laser_frame_low">
+  </link>
+  <joint name="base_link_to_laser_frame_low" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser_frame_low"/>
+    <origin xyz="0.40 0 0.060"/>
   </joint>
 </robot>
-
-<!-- length of robot 950mm -->
-<!-- width of robot 696mm -->
-<!-- offset from the front of the robot to the front of laser glass 20mm -->
-<!-- offset from the front of the robot to the back of laser glass 120mm -->
-<!-- height to the bottom of laser glass from ground 180mm -->
-<!-- height to the top of laser glass from ground 210mm -->

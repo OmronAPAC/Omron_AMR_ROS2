@@ -29,6 +29,8 @@ The hardware interface is configured from `amr_ros/config/parameters.yaml`.
 - `laser.low_laser.*`: low front laser configuration for `/scan_low`
 - Each laser block exposes `topic`, `frame_id`, `request`, `request_period_ms`, `angle_min`, `angle_max`, `angle_increment`, `range_min`, and `range_max`
 
+The LD250 description ([ld250.urdf.xacro](../amr_description/xacro/ld250.urdf.xacro) and the static [LD250.urdf](../amr_description/urdf/LD250.urdf)) publishes both `laser_frame` and `laser_frame_low`. When a parent launch overrides `robot_description` with a model that renames these links, set `laser.*.frame_id` to match, otherwise the scans cannot be transformed into `driver.base_frame`.
+
 The published `angle_increment` is derived from the configured angular span and the number of points received in each packet. The configured `angle_increment` acts as a fallback when the packet does not contain enough points to infer a step size.
 
 ### Driver interface
