@@ -128,7 +128,7 @@ public:
 
     base_frame_ = getOrDeclareParameter<std::string>("driver.base_frame", "base_link");
     tf_buffer_ = std::make_unique<tf2_ros::Buffer>(node_->get_clock());
-    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_, node_, false);
+    tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*tf_buffer_, node_, true);
 
     if (enable_low_laser_)
     {
