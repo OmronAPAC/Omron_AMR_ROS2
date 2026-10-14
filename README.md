@@ -14,6 +14,7 @@ This package is a restructuring of [OmronAPAC/Omron_AMR_ROS2](https://github.com
 
 - [Core startup](./docs/core_startup.md)
 - [Core parameters](./docs/core_parameters.md)
+- [Digital twin overrides](./docs/digital_twin.md)
 - [Laser interface](./docs/laser_interface.md)
 - [Nav2 usage](./docs/nav2_usage.md)
 

@@ -68,10 +68,13 @@ public:
     odom_topic_ = getOrDeclareParameter<std::string>("driver.odom_topic", "amr/odom");
     cmd_vel_topic_ = getOrDeclareParameter<std::string>("driver.cmd_vel_topic", "amr/cmd_vel");
     stop_topic_ = getOrDeclareParameter<std::string>("driver.stop_topic", "amr/stop");
+    publish_odom_ = getOrDeclareParameter<bool>("driver.publish_odom", true);
+    publish_robot_tf_ = getOrDeclareParameter<bool>("driver.publish_robot_tf", true);
 
     odom_frame_ = getOrDeclareParameter<std::string>("driver.odom_frame", "amr/odom");
     base_frame_ = getOrDeclareParameter<std::string>("driver.base_frame", "amr/base_link");
 
+    expected_cmd_vel_freq_ = getOrDeclareParameter<double>("driver.expected_cmd_vel_freq", 20.0);
     min_ang_speed_ = getOrDeclareParameter<double>("driver.min_angular_speed", -60.0);  // deg/s
     max_ang_speed_ = getOrDeclareParameter<double>("driver.max_angular_speed", 60.0);   // deg/s
     min_lin_speed_ = getOrDeclareParameter<double>("driver.min_linear_speed", -200.0);  // mm/s
@@ -81,7 +84,10 @@ public:
     cmd_vel_timeout_sec_ = getOrDeclareParameter<double>("driver.cmd_vel_timeout_sec", 0.2);
 
     // Publishers
-    odom_pub_ = node_->create_publisher<nav_msgs::msg::Odometry>(odom_topic_, 10);
+    if (publish_odom_)
+    {
+      odom_pub_ = node_->create_publisher<nav_msgs::msg::Odometry>(odom_topic_, 10);
+    }
 
     // Subscribers
     stop_sub_ = node_->create_subscription<std_msgs::msg::Empty>(
@@ -259,19 +265,25 @@ private:
     odom_msg.twist.twist.linear.y = relative_y_vel_mps;
     odom_msg.twist.twist.angular.z = theta_vel_rad_s;
 
-    odom_pub_->publish(odom_msg);
+    if (publish_odom_ && odom_pub_)
+    {
+      odom_pub_->publish(odom_msg);
+    }
 
-    geometry_msgs::msg::TransformStamped tf_msg;
-    tf_msg.header = odom_msg.header;
-    tf_msg.child_frame_id = base_frame_;
+    if (publish_robot_tf_)
+    {
+      geometry_msgs::msg::TransformStamped tf_msg;
+      tf_msg.header = odom_msg.header;
+      tf_msg.child_frame_id = base_frame_;
 
-    tf_msg.transform.translation.x = relative_x;
-    tf_msg.transform.translation.y = relative_y;
-    tf_msg.transform.translation.z = 0.0;
+      tf_msg.transform.translation.x = relative_x;
+      tf_msg.transform.translation.y = relative_y;
+      tf_msg.transform.translation.z = 0.0;
 
-    tf_msg.transform.rotation = odom_msg.pose.pose.orientation;
+      tf_msg.transform.rotation = odom_msg.pose.pose.orientation;
 
-    tf_broadcaster_->sendTransform(tf_msg);
+      tf_broadcaster_->sendTransform(tf_msg);
+    }
   }
 
   /**
@@ -383,6 +395,8 @@ private:
   std::string odom_topic_{ "amr/odom" };
   std::string cmd_vel_topic_{ "amr/cmd_vel" };
   std::string stop_topic_{ "amr/stop" };
+  bool publish_odom_{ true };
+  bool publish_robot_tf_{ true };
 
   std::string odom_frame_{ "odom" };
   std::string base_frame_{ "base_link" };

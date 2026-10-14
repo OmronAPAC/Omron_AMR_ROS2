@@ -8,12 +8,14 @@ amr_core:
       protocol: "6MTX"
 
     status:
+      publish: true
       topic: "amr/status"
       battery_topic: "amr/battery_state"
       publish_period_ms: 200
 
     laser:
       main_laser:
+        enabled: true
         topic: "scan"
         frame_id: "laser_frame"
         request: "Laser_1Current"
@@ -39,8 +41,11 @@ amr_core:
       odom_topic: "/odom"
       cmd_vel_topic: "/cmd_vel"
       stop_topic: "/stop"
+      publish_odom: true
+      publish_robot_tf: true
       odom_frame: "odom"
       base_frame: "base_link"
+      expected_cmd_vel_freq: 20.0
       min_linear_speed: -200.0
       max_linear_speed: 1200.0
       min_angular_speed: -60.0

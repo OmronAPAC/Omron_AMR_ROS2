@@ -3,12 +3,38 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
+<<<<<<< HEAD
 from launch.conditions import UnlessCondition
 from ament_index_python.packages import get_package_share_directory
 
 def load_file(package_name, file_path):
     package_path = get_package_share_directory(package_name)
     absolute_file_path = os.path.join(package_path, file_path)
+=======
+from ament_index_python.packages import get_package_share_directory
+
+
+def _create_nodes(context):
+
+    params_file = LaunchConfiguration('params_file').perform(context)
+    extra_params_file = LaunchConfiguration('extra_params_file').perform(context)
+
+    parameter_files = [params_file]
+    if extra_params_file:
+        parameter_files.append(extra_params_file)
+
+    core = Node(
+        package='amr_core',
+        executable='amr_core',
+        name='amr_core',
+        output='screen',
+        parameters=parameter_files,
+    )
+
+    return [core]
+
+def generate_launch_description():
+>>>>>>> ea31833d74bd5d92a3ff69762d9302fb839ee61b
 
     try:
         with open(absolute_file_path, 'r') as file:
@@ -33,6 +59,7 @@ def _create_nodes(context):
         condition=UnlessCondition(robot_description_override)
     )
 
+<<<<<<< HEAD
     parameter_files = [params_file]
     if extra_params_file:
         parameter_files.append(extra_params_file)
@@ -67,11 +94,20 @@ def generate_launch_description():
         'extra_params_file',
         default_value='',
         description='Optional extra ROS parameter file layered on top of the default amr_ros parameters'
+=======
+    declare_extra_params_file = DeclareLaunchArgument(
+        'extra_params_file',
+        default_value='',
+        description='Optional extra parameter file layered on top of params_file.',
+>>>>>>> ea31833d74bd5d92a3ff69762d9302fb839ee61b
     )
 
     return LaunchDescription([
         declare_params_file,
+<<<<<<< HEAD
         declare_robot_description_override,
+=======
+>>>>>>> ea31833d74bd5d92a3ff69762d9302fb839ee61b
         declare_extra_params_file,
         OpaqueFunction(function=_create_nodes),
     ])

@@ -25,29 +25,46 @@ public:
     user_ = getOrDeclareParameter<std::string>("robot.user", "admin");
     password_ = getOrDeclareParameter<std::string>("robot.password", "");
     protocol_ = getOrDeclareParameter<std::string>("robot.protocol", "6MTX");
+    publish_status_ = getOrDeclareParameter<bool>("status.publish", true);
+    publish_main_laser_ = getOrDeclareParameter<bool>("laser.main_laser.enabled", true);
+    publish_low_laser_ = getOrDeclareParameter<bool>("laser.low_laser.enabled", false);
 
-    try
+    if (publish_status_)
     {
-      status_interface_ = std::make_shared<StatusInterface>(this->shared_from_this());
-      status_interface_->initialize(host_, port_, user_, password_, protocol_);
-      RCLCPP_INFO(this->get_logger(), "Publishing status information enabled");
+      try
+      {
+        status_interface_ = std::make_shared<StatusInterface>(this->shared_from_this());
+        status_interface_->initialize(host_, port_, user_, password_, protocol_);
+        RCLCPP_INFO(this->get_logger(), "Publishing status information enabled");
+      }
+      catch (const std::exception& ex)
+      {
+        status_interface_.reset();
+        RCLCPP_ERROR(this->get_logger(), "StatusInterface initialization failed: %s", ex.what());
+      }
     }
-    catch (const std::exception& ex)
+    else
     {
-      status_interface_.reset();
-      RCLCPP_ERROR(this->get_logger(), "StatusInterface initialization failed: %s", ex.what());
+      RCLCPP_INFO(this->get_logger(), "Publishing status information disabled");
     }
 
-    try
+    if (publish_main_laser_ || publish_low_laser_)
     {
-      laser_scans_ = std::make_shared<LaserInterface>(this->shared_from_this());
-      laser_scans_->initialize(host_, port_, user_, password_, protocol_);
-      RCLCPP_INFO(this->get_logger(), "Publishing laser scans enabled");
+      try
+      {
+        laser_scans_ = std::make_shared<LaserInterface>(this->shared_from_this());
+        laser_scans_->initialize(host_, port_, user_, password_, protocol_);
+        RCLCPP_INFO(this->get_logger(), "Publishing laser scans enabled");
+      }
+      catch (const std::exception& ex)
+      {
+        laser_scans_.reset();
+        RCLCPP_ERROR(this->get_logger(), "LaserInterface initialization failed: %s", ex.what());
+      }
     }
-    catch (const std::exception& ex)
+    else
     {
-      laser_scans_.reset();
-      RCLCPP_ERROR(this->get_logger(), "LaserInterface initialization failed: %s", ex.what());
+      RCLCPP_INFO(this->get_logger(), "Publishing laser scans disabled");
     }
 
     // DriverInterface
@@ -102,4 +119,7 @@ private:
   std::string user_;
   std::string password_;
   std::string protocol_;
+  bool publish_status_{ true };
+  bool publish_main_laser_{ true };
+  bool publish_low_laser_{ false };
 };
