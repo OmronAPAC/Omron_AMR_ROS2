@@ -46,17 +46,10 @@ amr_core:
       odom_frame: "odom"
       base_frame: "base_link"
       expected_cmd_vel_freq: 20.0
-<<<<<<< HEAD
       min_linear_speed: -200.0
       max_linear_speed: 1200.0
       min_angular_speed: -60.0
       max_angular_speed: 60.0
-=======
-      min_linear_speed: -200.0    # mm/s
-      max_linear_speed: 1200.0    # mm/s
-      min_angular_speed: -60.0    # deg/s
-      max_angular_speed: 60.0     # deg/s
->>>>>>> ea31833d74bd5d92a3ff69762d9302fb839ee61b
       drive_throttle_pct: 100.0
       unsafe_drive: true
       cmd_vel_timeout_sec: 0.2
