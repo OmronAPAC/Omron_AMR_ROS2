@@ -7,7 +7,7 @@ from launch.actions import (DeclareLaunchArgument, GroupAction,
                             IncludeLaunchDescription, SetEnvironmentVariable)
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
 from launch_ros.actions import PushRosNamespace
 from launch_ros.descriptions import ParameterFile
@@ -29,10 +29,7 @@ def generate_launch_description():
     use_namespace   = LaunchConfiguration('use_namespace')
     use_respawn     = LaunchConfiguration('use_respawn')
     log_level       = LaunchConfiguration('log_level')
-    use_slam        = LaunchConfiguration('use_slam')
-    use_localization = LaunchConfiguration('use_localization')
-    map_file_name   = LaunchConfiguration('map')
-    map_yaml_file   = PathJoinSubstitution([package_dir, 'maps', map_file_name])
+    slam            = LaunchConfiguration('slam')
 
     remappings = [('/tf', 'tf'),
                   ('/tf_static', 'tf_static')]
@@ -97,20 +94,10 @@ def generate_launch_description():
         default_value='False',
         description='Whether to apply a namespace to the navigation stack')
 
-    declare_use_slam_cmd = DeclareLaunchArgument(
-        'use_slam',
-        default_value='False',
-        description='Whether to run SLAM Toolbox')
-
-    declare_use_localization_cmd = DeclareLaunchArgument(
-        'use_localization',
-        default_value='False',
-        description='Whether to run AMCL localization against a map')
-
-    declare_map_cmd = DeclareLaunchArgument(
-        'map',
-        default_value='',
-        description='Map yaml filename inside the amr_nav2/maps directory when localization is enabled')
+    declare_slam_cmd = DeclareLaunchArgument(
+        'slam',
+        default_value='True',
+        description='Whether run a SLAM')
 
     # Specify the actions
     bringup_cmd_group = GroupAction([
@@ -130,24 +117,12 @@ def generate_launch_description():
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(package_dir, 'launch', 'slam.launch.py')),
-            condition=IfCondition(use_slam),
+            condition=IfCondition(slam),
             launch_arguments={'namespace': namespace,
                               'use_sim_time': use_sim_time,
                               'autostart': autostart,
                               'use_respawn': use_respawn,
                               'params_file': params_file}.items()),
-
-        IncludeLaunchDescription(
-            PythonLaunchDescriptionSource(os.path.join(package_dir, 'launch', 'localization.launch.py')),
-            condition=IfCondition(use_localization),
-            launch_arguments={'namespace': namespace,
-                              'map': map_yaml_file,
-                              'use_sim_time': use_sim_time,
-                              'autostart': autostart,
-                              'params_file': params_file,
-                              'use_composition': use_composition,
-                              'use_respawn': use_respawn,
-                              'container_name': 'nav2_container'}.items()),
 
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(os.path.join(package_dir, 'launch', 'nav2.launch.py')),
@@ -169,9 +144,7 @@ def generate_launch_description():
     # Declare the launch options
     ld.add_action(declare_namespace_cmd)
     ld.add_action(declare_use_namespace_cmd)
-    ld.add_action(declare_use_slam_cmd)
-    ld.add_action(declare_use_localization_cmd)
-    ld.add_action(declare_map_cmd)
+    ld.add_action(declare_slam_cmd)
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_params_file_cmd)
     ld.add_action(declare_autostart_cmd)

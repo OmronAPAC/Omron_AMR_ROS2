@@ -5,10 +5,10 @@
     Updated to match LD250.urdf:
     - Adds laser_frame link
     - Adds base_link_to_laser_frame fixed joint at xyz="0.45 0 0.195"
-    - Keeps amr_base mesh, inertial, and fixed joints
+    - Keeps main_body mesh, inertial, and fixed joints
   -->
 
-  <xacro:macro name="ld250" params="prefix:='' laser_frame_name:='laser_frame' parent:='' xyz:='0 0 0' rpy:='0 0 0' mesh_pkg:='amr_description'">
+  <xacro:macro name="ld250" params="prefix:='' parent:='' xyz:='0 0 0' rpy:='0 0 0' mesh_pkg:='amr_description'">
     <!-- Materials (prefixed to avoid name collisions when instantiating multiple robots) -->
     <material name="${prefix}blue"><color rgba="0 0 0.8 1"/></material>
     <material name="${prefix}black"><color rgba="0 0 0 1"/></material>
@@ -19,15 +19,13 @@
     </link>
 
     <!-- Main body with mesh -->
-    <link name="${prefix}amr_base">
+    <link name="${prefix}main_body">
       <visual>
         <origin rpy="0 0 3.141582654" xyz="0 0 0"/>
         <geometry>
           <mesh filename="package://${mesh_pkg}/meshes/LD250.obj"/>
         </geometry>
-        <material name="grey">
-          <color rgba="0.5 0.5 0.5 1.0"/>
-        </material>
+        <material name="${prefix}white"/>
       </visual>
       <collision>
         <origin rpy="0 0 3.141592654" xyz="0 0 0"/>
@@ -41,10 +39,10 @@
       </inertial>
     </link>
 
-    <!-- Base link to main body fixed joint -->
-    <joint name="${prefix}amr_base_to_base_link" type="fixed">
+    <!-- Base to main body fixed joint -->
+    <joint name="${prefix}main_body_to_base" type="fixed">
       <parent link="${prefix}base_link"/>
-      <child link="${prefix}amr_base"/>
+      <child link="${prefix}main_body"/>
       <origin xyz="0 0 0"/>
     </joint>
 
@@ -55,19 +53,8 @@
     <!-- Base to laser frame fixed joint (matches LD250.urdf) -->
     <joint name="${prefix}base_link_to_laser_frame" type="fixed">
       <parent link="${prefix}base_link"/>
-      <child link="${prefix}${laser_frame_name}"/>
-      <origin xyz="0.40 0 0.190"/>
-    </joint>
-
-    <!-- Laser frame -->
-    <link name="${prefix}laser_frame_low">
-    </link>
-
-    <!-- Base to laser frame fixed joint (matches LD250.urdf) -->
-    <joint name="${prefix}base_link_to_laser_frame_low" type="fixed">
-      <parent link="${prefix}base_link"/>
-      <child link="${prefix}${laser_frame_name}_low"/>
-      <origin xyz="0.40 0 0.060"/>
+      <child link="${prefix}laser_frame"/>
+      <origin xyz="0.45 0 0.195"/>
     </joint>
 
     <!-- Optional mounting to an external parent -->
@@ -80,20 +67,13 @@
     </xacro:if>
 
     <!--
-      Dimensions (from https://files.omron.eu/downloads/latest/datasheet/en/i828_ld-series_mobile_robot_datasheet_en.pdf?v=2):
-      - length: 970 mm
-      - width: 720 mm
-      - base height: 380 mm
-      - laser glass center height: 190 mm
-
-      Dimensions roughly measured
-      - laser glass offset front: 35 mm
-      - laser glass offset back: 135 mm
-      - lower laser glass center height: 60 mm
-
-      Calaculated from the above dimensions:
-      - laser center from the middle of the robot: (970/2 - 135 + (135-35)/2) mm = 400 mm
-
+      Dimensions (from LD250.urdf comments):
+      - length: 950 mm
+      - width: 696 mm
+      - laser glass offset front: 20 mm
+      - laser glass offset back: 120 mm
+      - laser glass bottom height: 180 mm
+      - laser glass top height: 210 mm
     -->
   </xacro:macro>
 </robot>

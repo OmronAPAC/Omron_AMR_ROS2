@@ -29,32 +29,10 @@
   </inertial>
 </link>
 
-<joint name="${prefix}main_body_to_base_link" type="fixed">
+<joint name="${prefix}main_body_to_base" type="fixed">
   <parent link="${prefix}base_link"/>
   <child link="${prefix}main_body"/>
   <origin xyz="0 0 0"/>
-</joint>
-
-<!-- Laser frame -->
-<link name="${prefix}laser_frame">
-</link>
-
-<!-- Base to laser frame fixed joint (matches LD250.urdf) -->
-<joint name="${prefix}base_link_to_laser_frame" type="fixed">
-  <parent link="${prefix}base_link"/>
-  <child link="${prefix}laser_frame"/>
-  <origin xyz="0.265 0 0.195"/>
-</joint>
-
-<!-- Laser frame -->
-<link name="${prefix}laser_frame_low">
-</link>
-
-<!-- Base to laser frame fixed joint (matches LD250.urdf) -->
-<joint name="${prefix}base_link_to_laser_frame_low" type="fixed">
-  <parent link="${prefix}base_link"/>
-  <child link="${prefix}laser_frame_low"/>
-  <origin xyz="0.265 0 0.195"/>
 </joint>
 
 <xacro:if value="${parent != ''}">
@@ -65,21 +43,6 @@
   </joint>
 </xacro:if>
 
-<!--
-  Dimensions (from https://files.omron.eu/downloads/latest/datasheet/en/i828_ld-series_mobile_robot_datasheet_en.pdf?v=2):
-  - length: 700 mm
-  - width: 500 mm
-  - base height: 380 mm
-  - laser glass center height: 190 mm
-
-  Dimensions roughly measured
-  - laser glass offset front: 35 mm
-  - laser glass offset back: 135 mm
-  - lower laser glass center height: 60 mm
-
-  Calaculated from the above dimensions:
-  - laser center from the middle of the robot: (700/2 - 135 + (135-35)/2) mm = 265 mm
--->
 </xacro:macro>
 
 </robot> 

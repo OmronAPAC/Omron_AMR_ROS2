@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="ld90">
-  <xacro:include filename="$(find amr_description)/xacro/ld90.urdf.xacro"/>
-  <xacro:ld90/>
-</robot>

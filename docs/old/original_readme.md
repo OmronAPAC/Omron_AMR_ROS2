@@ -26,7 +26,7 @@ On information pertaining to robot to camera calibration, see [Here](https://git
     * Go to a specified point on RViz map
     * Localize to a specified point on RViz map
 
-**For details on the packages' inner workings, see the [Developer's Guide](https://github.com/CollaborativeRoboticsLab/omron_amr/blob/master/docs/DeveloperGuide.adoc).**
+**For details on the packages' inner workings, see the [Developer's Guide](https://github.com/CollaborativeRoboticsLab/omron_base/blob/master/docs/DeveloperGuide.adoc).**
 
 ## Limitations
 ROS is not able to have access to robot hardware, therefore this package does not have full access to all AMR's capabilities. This package uses ARCL to communicate and control the AMR and thus the limitations of this package is defined by ARCL's limitations.

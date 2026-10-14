@@ -90,6 +90,8 @@ public:
     user_ = user;
     password_ = password;
     protocol_ = protocol;
+    enable_primary_laser_ = getOrDeclareParameter<bool>("laser.main_laser.enabled", true);
+    enable_low_laser_ = getOrDeclareParameter<bool>("laser.low_laser.enabled", false);
 
     primary_laser_ = loadLaserDeviceConfig("laser.main_laser", LaserDeviceConfig{
                                                                    "laser_frame",
@@ -105,9 +107,11 @@ public:
                                                                });
 
     validateLaserDeviceConfig(primary_laser_, "laser.main_laser");
-    primary_laser_.publisher = node_->create_publisher<sensor_msgs::msg::LaserScan>(primary_laser_.topic_name, 10);
+    if (enable_primary_laser_)
+    {
+      primary_laser_.publisher = node_->create_publisher<sensor_msgs::msg::LaserScan>(primary_laser_.topic_name, 10);
+    }
 
-    enable_low_laser_ = getOrDeclareParameter<bool>("laser.low_laser.enabled", false);
     low_laser_ = loadLaserDeviceConfig("laser.low_laser", LaserDeviceConfig{
                                                               "laser_frame_low",
                                                               "scan_low",
@@ -278,7 +282,10 @@ private:
       client_.request("updateNumbers", 50);
     }
 
-    configureLaserHandler(primary_laser_, primary_laser_callback_);
+    if (enable_primary_laser_)
+    {
+      configureLaserHandler(primary_laser_, primary_laser_callback_);
+    }
     if (enable_low_laser_)
     {
       configureLaserHandler(low_laser_, low_laser_callback_);
@@ -495,5 +502,6 @@ private:
 
   LaserDeviceConfig primary_laser_;
   LaserDeviceConfig low_laser_;
+  bool enable_primary_laser_{ true };
   bool enable_low_laser_{ false };
 };
